@@ -1,0 +1,32 @@
+!!! Strict
+%html{:xmlns => "http://www.w3.org/1999/xhtml", "xml:lang" => "en", :lang => "en"}
+  %head
+    %title
+      = website_title
+      = "- #{@page_title}" if @page_title
+    %meta{"http-equiv" => "Content-Type", :content => "text/html;charset=utf-8" }/
+    %meta{ :name => "keywords", :content => "#{meta_keywords}" }/
+    %meta{ :name => "description", :content => "#{meta_description}" }/
+    %link{:href => "/stylesheets/admin.css", :type => "text/css", :charset => "utf-8", :rel => "stylesheet"}/
+    %link{:href => "/stylesheets/custom.css", :type => "text/css", :charset => "utf-8", :rel => "stylesheet"}/
+    
+    %script{:src => "/javascripts/jquery-1.2.6.min.js", :type => "text/javascript", :charset => "utf-8"}
+    %script{:src => "/javascripts/jquery.dimensions.min.js", :type => "text/javascript", :charset => "utf-8"}
+    %script{:src => "/javascripts/jquery-ui-1.6.custom.min.js", :type => "text/javascript", :charset => "utf-8"}
+    %script{:src => "/javascripts/jquery.dragTree.js", :type => "text/javascript", :charset => "utf-8"}    
+    %script{:src => "/javascripts/tiny_mce/tiny_mce.js", :type => "text/javascript", :charset => "utf-8"}
+    %script{:src => "/javascripts/html_content.js", :type => "text/javascript", :charset => "utf-8"}
+    %script{:src => "/javascripts/application.js", :type => "text/javascript", :charset => "utf-8"}
+    
+    /[if IE 6]
+      %link{:href => "/stylesheets/admin-ie6.css", :type => "text/css", :charset => "utf-8", :rel => "stylesheet"}/
+      
+    /[if IE 7]
+      %link{:href => "/stylesheets/admin-ie7.css", :type => "text/css", :charset => "utf-8", :rel => "stylesheet"}/
+    
+  %body{:id => params[:controller].match(%r{\w+$}), :class => params[:action]}
+    %div#sidebar
+      %h1= website_title
+      %h2#navTitle Navigation
+    %div#wrapper
+      %h2#pageTitle= @page_title || "No title set"

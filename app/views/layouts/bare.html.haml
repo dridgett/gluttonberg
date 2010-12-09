@@ -1,0 +1,14 @@
+!!! Strict
+%html{:xmlns => "http://www.w3.org/1999/xhtml", "xml:lang" => "en", :lang => "en"}
+  %head
+    %title 
+      = website_title
+      = "- #{@page_title}" if @page_title
+      
+    %meta{"http-equiv" => "Content-Type", :content => "text/html;charset=utf-8" }/
+    %meta{ :name => "keywords", :content => "#{meta_keywords}" }/
+    %meta{ :name => "description", :content => "#{meta_description}" }/
+    
+    %link{:href => gluttonberg_public_path_for(:stylesheet, 'admin.css'), :type => "text/css", :charset => "utf-8", :rel => "stylesheet"}/
+  %body{:id => @page_id}
+    = catch_content(:for_layout)
