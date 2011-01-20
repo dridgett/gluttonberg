@@ -2,7 +2,7 @@ module Gluttonberg
   # This mixin is used to integrate arbitrary controllers into Gluttonberg’s 
   # backend. It sets the layout, mixes in a bunch of helpers for forms and 
   # navigation widgets and adds the authentication hooks.
-  module AdminMixin
+  module AdminControllerMixin
     # Use the included hook to set up the layout and install the authentication
     #def self.included(klass)
       #klass.class_eval do

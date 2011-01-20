@@ -1,12 +1,8 @@
 !!! Strict
 %html{:xmlns => "http://www.w3.org/1999/xhtml", "xml:lang" => "en", :lang => "en"}
   %head
-    %title
-      = website_title
-      = "- #{@page_title}" if @page_title
+    %title= "- #{@page_title}" if @page_title
     %meta{"http-equiv" => "Content-Type", :content => "text/html;charset=utf-8" }/
-    %meta{ :name => "keywords", :content => "#{meta_keywords}" }/
-    %meta{ :name => "description", :content => "#{meta_description}" }/
     %link{:href => "/stylesheets/admin.css", :type => "text/css", :charset => "utf-8", :rel => "stylesheet"}/
     %link{:href => "/stylesheets/custom.css", :type => "text/css", :charset => "utf-8", :rel => "stylesheet"}/
     
@@ -26,7 +22,7 @@
     
   %body{:id => params[:controller].match(%r{\w+$}), :class => params[:action]}
     %div#sidebar
-      %h1= website_title
+      %h1 App Name
       %h2#navTitle Navigation
     %div#wrapper
       %h2#pageTitle= @page_title || "No title set"
