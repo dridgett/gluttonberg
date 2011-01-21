@@ -3,22 +3,23 @@
   %head
     %title= "- #{@page_title}" if @page_title
     %meta{"http-equiv" => "Content-Type", :content => "text/html;charset=utf-8" }/
-    %link{:href => "/stylesheets/admin.css", :type => "text/css", :charset => "utf-8", :rel => "stylesheet"}/
-    %link{:href => "/stylesheets/custom.css", :type => "text/css", :charset => "utf-8", :rel => "stylesheet"}/
+
+    = stylesheet_link_tag "admin"
+    = stylesheet_link_tag "custom"
     
-    %script{:src => "/javascripts/jquery-1.2.6.min.js", :type => "text/javascript", :charset => "utf-8"}
-    %script{:src => "/javascripts/jquery.dimensions.min.js", :type => "text/javascript", :charset => "utf-8"}
-    %script{:src => "/javascripts/jquery-ui-1.6.custom.min.js", :type => "text/javascript", :charset => "utf-8"}
-    %script{:src => "/javascripts/jquery.dragTree.js", :type => "text/javascript", :charset => "utf-8"}    
-    %script{:src => "/javascripts/tiny_mce/tiny_mce.js", :type => "text/javascript", :charset => "utf-8"}
-    %script{:src => "/javascripts/html_content.js", :type => "text/javascript", :charset => "utf-8"}
-    %script{:src => "/javascripts/application.js", :type => "text/javascript", :charset => "utf-8"}
+    = javascript_include_tag "jquery-1.2.6.min"
+    = javascript_include_tag "jquery.dimensions.min"
+    = javascript_include_tag "jquery-ui-1.6.custom.min"
+    = javascript_include_tag "jquery.dragTree"
+    = javascript_include_tag "tiny_mce/tiny_mce"
+    = javascript_include_tag "tiny_mce/html_content"
+    = javascript_include_tag "tiny_mce/tiny_mce.jsapplication"
     
     /[if IE 6]
-      %link{:href => "/stylesheets/admin-ie6.css", :type => "text/css", :charset => "utf-8", :rel => "stylesheet"}/
-      
+      = stylesheet_link_tag "admin-ie6"
+
     /[if IE 7]
-      %link{:href => "/stylesheets/admin-ie7.css", :type => "text/css", :charset => "utf-8", :rel => "stylesheet"}/
+      = stylesheet_link_tag "admin-ie7"
     
   %body{:id => params[:controller].match(%r{\w+$}), :class => params[:action]}
     %div#sidebar
