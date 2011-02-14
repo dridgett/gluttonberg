@@ -6,6 +6,7 @@ module Gluttonberg
     # Config defaults
     config.widget_factory_name = "default factory name"
     config.mount_at = '/'
+    config.admin_path = '/admin'
     
     # Load rake tasks
     rake_tasks do
@@ -17,6 +18,10 @@ module Gluttonberg
 
       # make sure mount_at ends with trailing slash
       config.mount_at += '/'  unless config.mount_at.last == '/'
+    end
+
+    initializer "middleware", do |app|
+      app.middleware.use Gluttonberg::Middleware::Rewriter
     end
     
     initializer "static assets" do |app|

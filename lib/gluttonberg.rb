@@ -15,4 +15,5 @@ module Gluttonberg
   require 'gluttonberg/redcloth_extensions'
   require 'gluttonberg/redcloth_helper'
   require 'gluttonberg/templates'
+  require 'gluttonberg/middleware'
 end
