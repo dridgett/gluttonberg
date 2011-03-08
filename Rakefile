@@ -1,7 +1,21 @@
-# Add your own tasks in files placed in lib/tasks ending in .rake,
-# for example lib/tasks/capistrano.rake, and they will automatically be available to Rake.
+require 'rake/testtask'
 
-require File.expand_path('../config/application', __FILE__)
-require 'rake'
+Rake::TestTask.new do |test|
+  test.pattern = 'test/**/*_test.rb'
+  test.libs << 'test'
+end
 
-Gluttonberg::Application.load_tasks
+
+begin
+  require "jeweler"
+  Jeweler::Tasks.new do |gem|
+    gem.name = "cheese"
+    gem.summary = "Description of your gem"
+    gem.email = "you@email.com"
+    gem.authors = ["Your Name"]
+    gem.files = Dir["{lib}/**/*", "{app}/**/*", "{public}/**/*", "{config}/**/*"]
+  end
+  Jeweler::GemcutterTasks.new
+rescue
+  puts "Jeweler or dependency not available."
+end
