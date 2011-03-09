@@ -52,7 +52,7 @@ module Gluttonberg
     #
     # The specified file should contain the various page descriptions.
     def self.setup
-      path = Merb.dir_for(:config) / "page_descriptions.rb"
+      path = "/Users/abdul/Projects/gluttonberg-test/config/page_descriptions.rb" #Engine.root.join("config", "page_descriptions.rb")
       require path if File.exists?(path)
     end
     
@@ -78,7 +78,7 @@ module Gluttonberg
     #   PageDescription[:home] # => <#PageDescription…>
     #
     def self.[](name)
-      @@_descriptions[name]
+      @@_descriptions[name.to_s.downcase.to_sym]
     end
     
     # Returns the full list of page descriptions as a hash, keyed to each

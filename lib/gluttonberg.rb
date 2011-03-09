@@ -16,4 +16,12 @@ module Gluttonberg
   require 'gluttonberg/redcloth_helper'
   require 'gluttonberg/templates'
   require 'gluttonberg/middleware'
+  
+  
+  PageDescription.setup
+  #Content.setup
+  #Library.setup
+  #Templates.setup
+  Helpers.setup
+  
 end

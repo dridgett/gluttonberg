@@ -7,16 +7,16 @@ module Gluttonberg
       # content records associated with a page. These are partials that live in
       # "<ROOT>/templates/editors/pages/"
       def page_editors?
-        glob = dir = Gluttonberg::Templates.path_for("editors") / "pages" / "*"
+        glob = dir = Gluttonberg::Templates.path_for("editors") + "/" + "pages" + "/" + "*"
         !Dir[glob].empty?
       end
       
       # Returns a collection of paths paths to the content editors to be used
       # by a page.
       def page_editors
-        dir = Gluttonberg::Templates.path_for("editors") / "pages"
+        dir = Gluttonberg::Templates.path_for("editors") + "/" + "pages"
         Dir[dir / "*"].inject("") do |output, editor|
-          output << partial(dir / editor.match(/\/_(\w+)\.\S+/)[1])
+          output << partial(dir + "/" + editor.match(/\/_(\w+)\.\S+/)[1])
         end
       end
       
@@ -196,44 +196,44 @@ JAVASCRIPT_CODE
         (opts[:class] ||= "") << " fieldset"
         opts[:class].strip!
         if label
-          fieldset({:legend => label}) do
-            tag(:div, opts, &blk)
+          field_set_tag(label) do
+            content_tag(:div, opts, &blk)
           end
         else
-          tag(:div, opts, &blk)
+          content_tag(:div, opts, &blk)
         end
       end
 
       # Controls for standard forms. Writes out a save button and a cancel link
       def form_controls(return_url)
-        content = "#{submit("Save")} or #{link_to("<strong>Cancel</strong>", return_url)}"
-        tag(:p, content, :class => "controls")
+        content = "#{submit_tag("Save").html_safe} or #{link_to("<strong>Cancel</strong>".html_safe, return_url)}"
+        content_tag(:p, content.html_safe, :class => "controls")
       end
       
       # Controls for publishable forms. Writes out a draft ,  publish/unpublish button and a cancel link
       def publishable_form_controls(return_url , object_name , is_published )
         content = hidden_field(:published , :value => false) 
-        content += "#{submit("draft")}"        
-        content += " or #{submit("publish" , :onclick => "publish('#{object_name}_published')" )} "
+        content += "#{submit_tag("draft")}"        
+        content += " or #{submit_tag("publish" , :onclick => "publish('#{object_name}_published')" )} "
         #content += " or #{submit("unpublish" )} " if is_published
         content += " or #{link_to("<strong>Cancel</strong>", return_url)}"
-        tag(:p, content, :class => "controls")
+        content_tag(:p, content, :class => "controls")
       end
 
       # Writes out a nicely styled subnav with an entry for each of the 
       # specified links.
       def sub_nav(&blk)
-        tag(:ul, :id => "subnav", &blk)
+        content_tag(:ul, :id => "subnav", &blk)
       end
 
       # Writes out a link styled like a button. To be used in the sub nav only
       def nav_link(*args)             
-        tag(:li, link_to(args[0] , args[1] , :title => args[0]), :class => "button")
+        content_tag(:li, link_to(args[0] , args[1] , :title => args[0]), :class => "button")
       end
 
       # Writes out the back control for the sub nav.
       def back_link(name, url)        
-        tag(:li, link_to(name, url , :title => name), :id => "backLink")
+        content_tag(:li, link_to(name, url , :title => name), :id => "backLink")
       end
 
       # Takes text and url and checks to see if the path specified matches the 
@@ -244,7 +244,7 @@ JAVASCRIPT_CODE
           if( ( request.env["REQUEST_PATH"] && (request.env["REQUEST_PATH"].match(%r{/#{mod}}) || request.env["REQUEST_PATH"] == url) )  || (request.env["REQUEST_PATH"] && request.env["REQUEST_PATH"].include?("content") && request.env["REQUEST_PATH"] == url ) )
             li_opts[:class] = "current"
           end
-          tag("li", link_to(text, url, opts), li_opts)
+          content_tag("li", link_to(text, url, opts), li_opts)
         end
       end
       
@@ -256,7 +256,15 @@ JAVASCRIPT_CODE
          end 
       end
      
-
+      def gb_error_messages_for(model_object)
+        if model_object.errors.any?
+            lis = ""
+            model_object.errors.full_messages.each do |msg|
+              lis << "<li> #{msg} </li>"
+            end          
+          content_tag(:ul , lis)
+        end
+      end
       
       def website_title
         title = Merb::Slices::config[:gluttonberg][:title]
@@ -275,6 +283,87 @@ JAVASCRIPT_CODE
         "http://#{request.host}/asset/#{asset.asset_hash[0..3]}/#{asset.id}"
       end  
       
+      #-------------------------------------
+      #Returns a link for sorting assets in the library
+      def sorter_link(name, param, route_opts = {})
+        opts = {}
+        if param == params[:order] || (!params[:order] && param == 'date-added')
+          opts[:class] = "current"
+        end
+
+        route_opts = route_opts.merge(:order => param, :page => params[:page] || 1)
+        link_to(name, slice_url(route_opts.delete(:route), route_opts), opts)
+      end
+
+      # Writes out a row for each page and then for each page's children, 
+      # iterating down through the heirarchy.
+      def page_table_rows(pages, output = "", inset = 0 , row = 0)
+        pages.each do |page|
+          row += 1 
+          output << render( :partial => "gluttonberg/admin/pages/row", :locals => { :page => page, :inset => inset , :row => row })#.html_safe
+          page_table_rows(page.children, output, inset + 1 , row)
+        end
+        output.html_safe
+      end
+
+      # @param *segments<Array[#to_s]> Path segments to append.
+      #
+      # @return <String> 
+      #  A path relative to the public directory, with added segments.
+      def image_path(*segments)
+        public_path_for(:image, *segments)
+      end
+
+      # @param *segments<Array[#to_s]> Path segments to append.
+      #
+      # @return <String> 
+      #  A path relative to the public directory, with added segments.
+      def javascript_path(*segments)
+        public_path_for(:javascript, *segments)
+      end
+
+      # @param *segments<Array[#to_s]> Path segments to append.
+      #
+      # @return <String> 
+      #  A path relative to the public directory, with added segments.
+      def stylesheet_path(*segments)
+        public_path_for(:stylesheet, *segments)
+      end
+
+      # Construct a path relative to the public directory
+      # 
+      # @param <Symbol> The type of component.
+      # @param *segments<Array[#to_s]> Path segments to append.
+      #
+      # @return <String> 
+      #  A path relative to the public directory, with added segments.
+      def public_path_for(type, *segments)
+        ::Gluttonberg.public_path_for(type, *segments)
+      end
+
+      # Construct an app-level path.
+      # 
+      # @param <Symbol> The type of component.
+      # @param *segments<Array[#to_s]> Path segments to append.
+      #
+      # @return <String> 
+      #  A path within the host application, with added segments.
+      def app_path_for(type, *segments)
+        ::Gluttonberg.app_path_for(type, *segments)
+      end
+
+      # Construct a slice-level path.
+      # 
+      # @param <Symbol> The type of component.
+      # @param *segments<Array[#to_s]> Path segments to append.
+      #
+      # @return <String> 
+      #  A path within the slice source (Gem), with added segments.
+      def slice_path_for(type, *segments)
+        ::Gluttonberg.slice_path_for(type, *segments)
+      end
+      
+      #---------------
       
       
     end # Admin

@@ -6,6 +6,7 @@ Rails.application.routes.draw do |map|
 
   scope :module => 'Gluttonberg' do
     namespace :admin do
+      resources :pages
       #resouces :assets
     end
   end

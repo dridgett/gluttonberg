@@ -1,0 +1,40 @@
+= javascript_include_tag 'slug_management'
+
+
+/%script{:src => gluttonberg_public_path_for(:javascript, "slug_management.js"), :type => "text/javascript", :charset => "utf-8"}
+
+= sub_nav do
+  = back_link("Pages", admin_pages_path)
+
+= form_for(@page, :url => url) do  |f|
+  = gb_error_messages_for(@page)
+  
+  = block("General") do
+    = f.label :name
+    = f.text_field(:name, :id => "page_title")
+    %br
+    = f.label :navigation_label
+    = f.text_field(:navigation_label)
+    %br
+    = f.label :slug
+    = f.text_field(:slug, :id => 'page_slug')
+    %br
+    - unless @pages.empty?
+      = f.label :parent_id , "Parent page"
+      = f.select(:parent_id, @pages.collect{|p| [p.name , p.id] }, :include_blank => true)
+      
+    %br
+    = f.check_box(:home)
+    = f.label :home  , "Set as homepage" , :class => "checkbox"
+  
+  - if page_editors?
+    = page_editors
+  
+  = block("Page Description") do
+    %p.help
+      Page descriptions are used to define how this page behaves. For example,
+      all of it’s contents may be editable, or it may be generated dynamically.
+    = f.label :description_name  , "Page Description"
+    = f.select(:description_name, @descriptions , :include_blank => true)  
+       
+  = form_controls(admin_pages_path)

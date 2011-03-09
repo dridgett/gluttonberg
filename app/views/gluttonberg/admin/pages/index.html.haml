@@ -1,0 +1,16 @@
+- @page_title = "Pages"
+= sub_nav do
+  /= back_link("Content", slice_url(:content))
+  = nav_link('New', new_admin_page_path)
+    
+- if @pages.empty?
+  %p.empty No Pages
+- else
+  %table{:id => 'pages_table', :class => "", :cellpadding => 0, :cellspacing => 0, :rel => "" , :summary => "Pages"}
+    %thead
+      %tr
+        %th Page
+        %th.published Published        
+        %th.controls Controls
+    %tbody
+      = page_table_rows(@pages)

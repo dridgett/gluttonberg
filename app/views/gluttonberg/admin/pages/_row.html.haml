@@ -1,0 +1,16 @@
+/%tr{:id => drag_tree_row_id(page), :class => drag_tree_row_class(page) + "#{row % 2 == 0? " even" : ""}"}
+%tr{ :class => "#{row % 2 == 0? " even" : ""}"}
+  %td
+    %span{:class => "#{page.home ? "home" : "page"}"}
+      = page.home ? "#{page.name} (Home page)" : page.name
+  %td.published= "Yes"
+  %td.controls
+    %ul
+      /- if Gluttonberg.localized?
+      /  %li= link_to 'Details', slice_url(:page, page)
+      /- else        
+      /  - default_localization = Gluttonberg::PageLocalization.first( :page_id => page.id , :dialect_id => Gluttonberg::Dialect.first_default.id , :locale_id => Gluttonberg::Locale.first_default.id)
+              
+      / %li= link_to 'Edit Content', slice_url(:edit_page_localization, :page_id => page, :id => default_localization.id)
+      %li= link_to 'Settings', edit_admin_page_path(page) 
+      %li= link_to 'Destroy', admin_page_path(page),  :confirm => 'Are you sure?', :method => :delete

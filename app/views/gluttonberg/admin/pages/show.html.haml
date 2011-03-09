@@ -1,0 +1,45 @@
+- @page_title = "Page: #{@page.name}"
+= sub_nav do
+  = back_link("Pages", admin_pages_path)
+  = nav_link('Delete', admin_page_path(@page) , :method => :delete )
+  = nav_link('Edit settings', edit_admin_page_path(@page))
+  /= nav_link('Edit content', slice_url(:edit_page_localization, :page_id => @page, :id => @default_localization.id))
+  
+%div.pageBlock
+  %h2 Settings
+  %dl
+    %dt Slug
+    %dd= @page.slug
+    %dt Name
+    %dd= @page.name
+    %dt View
+    %dd= @page.view || "None set"
+    %dt Layout
+    %dd= @page.layout || "None set"
+    %dt Description
+    %dd= @page.description ? @page.description[:label] : "None set"
+
+%div.pageBlock
+  %h2 Localizations
+  - if @page.localizations.empty?
+    %p.empty No localizations set
+  - else
+    %table{:cellpadding => 0, :cellspacing => 0, :summary => "Available Localizations"}
+      %thead
+        %tr
+          %th Locale
+          %th Path
+          %th.controls Controls
+      %tbody
+        - for localization in @page.localizations
+          - pair = "#{localization.locale.slug}/#{localization.dialect.code}"
+          %tr
+            %td= "<strong>#{localization.locale.name}/#{localization.dialect.name}</strong> <span>(#{pair})</span>"
+            %td= pair / localization.path
+            %td.controls= link_to("Edit", slice_url(:edit_page_localization, :page_id => @page, :id => localization))
+
+%dl.meta
+  %dt Created at
+  %dd= @page.created_at.to_s(:long)
+  %dt Updated at
+  %dd= @page.updated_at.to_s(:long)

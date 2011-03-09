@@ -12,6 +12,8 @@ module Gluttonberg
       #end
     #end
     
+        
+    
     # This is to be used in a before filter.
     def set_locale
       Thread.current[:locale] = localization_ids

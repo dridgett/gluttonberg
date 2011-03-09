@@ -14,7 +14,8 @@ module Gluttonberg
     # Returns the path to the template root. Each template type then has a 
     # directory under it.
     def self.root
-      Gluttonberg.config[:template_dir]
+      #Gluttonberg.config[:template_dir]
+      ""
     end
     
     # Return the path for a specific template directory.
@@ -22,7 +23,7 @@ module Gluttonberg
     #   Templates.path_for(:pages) # => "/var/www/app/templates/pages"
     #
     def self.path_for(type)
-      self.root / type
+      "#{self.root}/#{type}"
     end
     
     # Returns a specific template, or alternately returns a default.
@@ -49,7 +50,7 @@ module Gluttonberg
       end
       # Loop through them and return the first match
       for candidate in candidates 
-        path = path_for(template_type) / candidate + ".*"
+        path = path_for(template_type) + "/" + candidate + ".*"
         matches = Dir.glob(path)
         return candidate unless matches.empty?
       end

@@ -20,7 +20,7 @@ module Gluttonberg
       config.mount_at += '/'  unless config.mount_at.last == '/'
     end
 
-    initializer "middleware", do |app|
+    initializer "middleware" do |app|
       app.middleware.use Gluttonberg::Middleware::Rewriter
     end
     
