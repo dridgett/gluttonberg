@@ -19,12 +19,13 @@ module Gluttonberg
   require 'gluttonberg/middleware'
   
   
-  PageDescription.setup
-  #Content.setup
-  #Library.setup
-  #Templates.setup
-  Helpers.setup
   
+    PageDescription.setup
+    #Content.setup
+    #Library.setup
+    #Templates.setup
+    Helpers.setup
+
   
   # Checks to see if Gluttonberg has been configured to have a locale/location
   # and a translation.
@@ -46,3 +47,4 @@ module Gluttonberg
   
   
 end
+

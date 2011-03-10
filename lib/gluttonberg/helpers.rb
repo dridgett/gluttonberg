@@ -12,8 +12,6 @@ module Gluttonberg
     # hey it works.
     def self.setup
       [Assets, Admin, Public, Content].each do |helper|
-        #Merb::GlobalHelpers.send(:include, helper)
-        puts "------------ trying to include gb helpers"
         ActionView::Helpers.send(:include, helper)
       end
     end
