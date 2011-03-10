@@ -8,7 +8,7 @@ module Gluttonberg
     config.mount_at = '/'
     config.admin_path = '/admin'
     config.app_name = 'Gluttonberg 2.0'
-    
+    config.localize = true
     config.active_record.observers = ['gluttonberg/page_observer']
     
     # Load rake tasks

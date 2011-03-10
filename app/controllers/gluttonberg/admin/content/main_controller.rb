@@ -1,9 +1,8 @@
 module Gluttonberg
   module Admin
     module Content
-      class MainController < ApplicationController
-        include Gluttonberg::AdminControllerMixin
-        layout 'gluttonberg'
+      class MainController < Gluttonberg::Admin::ApplicationController
+        
 
         def index
         end

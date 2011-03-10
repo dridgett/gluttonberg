@@ -1,23 +1,23 @@
-= sub_nav do
-  = back_link("Settings", slice_url(:settings))
-  = back_link("Users", slice_url(:users))
 
-= form_for(@user, :action => action) do
-  = error_messages_for(@user)
-  
+
+= sub_nav do
+  = back_link("Settings", admin_settings_path)
+  = back_link("Users", admin_users_path)
+
+= form_for(@user, :url => url) do  |f|
+  = gb_error_messages_for(@user)
+
   = block("Details") do
-    = text_field(:name, :class => "large", :label => "Name")
-    %br
-    = text_field(:email, :class => "large", :label => "E-mail")
-    
-    
-    = admin_rights_form(@user.new_record? ? session.user : @user)
-    
-    
+    = f.label :email , "E-mail"
+    = f.text_field(:email, :class => "large")
+
+    /= admin_rights_form(@user.new_record? ? session.user : @user)
+
   = block("Password") do
-    = password_field(:password, :class => "medium", :label => "Password")
+    = f.label :password , "Password"
+    = f.password_field(:password, :class => "medium", :label => "Password")
     %br
-    = password_field(:password_confirmation, :class => "medium", :label => "Confirm Password")
-    
-  = form_controls(slice_url(:users))
-    
+    = f.label :password_confirmation , "Confirm Password"
+    = f.password_field(:password_confirmation, :class => "medium", :label => "Confirm Password")
+
+  = form_controls(admin_users_path)

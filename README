@@ -47,3 +47,10 @@ require_user is called on every admin page via the AdminControllerMixin.
 To skip require_user use
   
   skip_before_filter :require_user, :only => [:method]
+  
+=======================================================================================
+
+SETTINGS
+
+  Gluttonberg::Setting.generate_common_settings
+  

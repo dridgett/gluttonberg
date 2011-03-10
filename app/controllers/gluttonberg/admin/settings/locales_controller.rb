@@ -1,9 +1,8 @@
 module Gluttonberg
   module  Admin
     module Settings
-      class LocalesController < ApplicationController
-        include Gluttonberg::AdminControllerMixin
-        layout 'gluttonberg'
+      class LocalesController < Gluttonberg::Admin::ApplicationController
+    
 
 
         before_filter :find_locale, :only => [:delete, :edit, :update, :destroy]

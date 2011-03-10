@@ -1,7 +1,7 @@
 module Gluttonberg
   module Admin
-    class UserSessionsController < ApplicationController
-      include Gluttonberg::AdminControllerMixin
+    class UserSessionsController < Gluttonberg::Admin::ApplicationController
+      
       layout 'login'
       
       skip_before_filter :require_user, :only => [:new, :create]

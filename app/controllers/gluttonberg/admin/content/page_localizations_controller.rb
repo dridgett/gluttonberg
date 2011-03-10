@@ -1,10 +1,8 @@
 module Gluttonberg
   module Admin
     module Content
-      class PageLocalizationsController < ApplicationController
-        include Gluttonberg::AdminControllerMixin
-        layout 'gluttonberg'
-      
+      class PageLocalizationsController < Gluttonberg::Admin::ApplicationController
+     
       
         before_filter :find_localization, :exclude => [:index, :new, :create]
 

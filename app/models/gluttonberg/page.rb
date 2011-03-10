@@ -3,7 +3,7 @@ module Gluttonberg
     
     has_many :localizations, :class_name => "Gluttonberg::PageLocalization"    
     has_many :children, :class_name => "Gluttonberg::Page", :foreign_key => :parent_id, :order => 'position asc'
-    set_table_name "gluttonberg_pages"
+    set_table_name "gb_pages"
     
     before_validation :slug_management
     after_save   :check_for_home_update

@@ -1,9 +1,8 @@
 module Gluttonberg
   module  Admin
     module Settings
-      class GenericSettingsController < ApplicationController
-        include Gluttonberg::AdminControllerMixin
-        layout 'gluttonberg'
+      class GenericSettingsController < Gluttonberg::Admin::ApplicationController
+ 
     
         def index
           @settings = Setting.find(:all , :order => "row asc")

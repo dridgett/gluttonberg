@@ -3,7 +3,7 @@ module Gluttonberg
     belongs_to :page, :class_name => "Gluttonberg::Page"
     belongs_to :dialect
     belongs_to :locale
-    set_table_name "gluttonberg_page_localizations"
+    set_table_name "gb_page_localizations"
     
     #acts_as_versioned
     

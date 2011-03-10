@@ -1,7 +1,7 @@
 module Gluttonberg
   class Dialect  < ActiveRecord::Base
     #include Gluttonberg::Authorizable
-    set_table_name "gluttonberg_dialects"
+    set_table_name "gb_dialects"
     
     has_many :page_localizations, :class_name => "Gluttonberg::PageLocalization"
     has_and_belongs_to_many :locales, :class_name => "Gluttonberg::Locale"

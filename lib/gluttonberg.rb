@@ -26,6 +26,22 @@ module Gluttonberg
   Helpers.setup
   
   
+  # Checks to see if Gluttonberg has been configured to have a locale/location
+  # and a translation.
+  def self.localized_and_translated?
+    config[:localize] && config[:translate]
+  end
+ 
+  # Check to see if Gluttonberg is configured to be localized.
+  def self.localized?
+    config[:localize]
+  end
+  
+  # Check to see if Gluttonberg has been configured to translate contents.
+  def self.translated?
+    config[:translate]
+  end
+  
   
   
   

@@ -1,10 +1,8 @@
 module Gluttonberg
   module Admin
     module Content    
-      class PagesController < ApplicationController
-            include Gluttonberg::AdminControllerMixin
-            layout 'gluttonberg'
-      
+      class PagesController < Gluttonberg::Admin::ApplicationController
+            
       
 
         #drag_tree Page, :route_name => :page_move, :auto_gen_route => false

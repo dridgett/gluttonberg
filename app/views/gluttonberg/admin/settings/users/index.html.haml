@@ -1,8 +1,8 @@
 - @page_title = "Users"
 = sub_nav do
-  = back_link("Settings", slice_url(:settings))
-  - if session.user.is_super_admin
-    = nav_link("New", slice_url(:new_user)) 
+  = back_link("Settings", admin_settings_path)
+  /- if session.user.is_super_admin
+  = nav_link("New", new_admin_user_path) 
   
 - if @users.empty?
   %p.empty No Users
@@ -11,19 +11,20 @@
     %thead
       %tr
         %th Name
-        - if session.user.is_super_admin
-          %th Type
+        /- if session.user.is_super_admin
+        /  %th Type
         %th.controls Controls
     %tbody
       - i = 0
       - for user in @users
         - i += 1
         %tr{ :class => "#{i % 2 == 0? "even" : ""}"}
-          %td= user.name
-          - if session.user.is_super_admin
-            %td= user.is_super_admin ? "Admin" : "Company User"            
+          %td= user.email
+          /- if session.user.is_super_admin
+          /  %td= user.is_super_admin ? "Admin" : "Company User"            
           %td.controls
             %ul
-              %li= link_to("Edit", slice_url(:edit_user, user))
-              - if session.user.is_super_admin        
-                %li= link_to("Delete", slice_url(:delete_user, user)) 
+              %li= link_to("Edit", edit_admin_user_path(user))
+              /- if session.user.is_super_admin        
+              /%li= link_to("Delete", slice_url(:delete_user, user)) 
+              %li= link_to "Delete", admin_user_path(user),  :confirm => 'Are you sure?', :method => :delete

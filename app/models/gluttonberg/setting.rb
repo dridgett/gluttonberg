@@ -1,7 +1,7 @@
 module Gluttonberg
  class Setting  < ActiveRecord::Base
    #include Gluttonberg::Authorizable
-   set_table_name "gluttonberg_settings" 
+   set_table_name "gb_settings" 
     
     def self.generate_settings(settings={})      
       settings.each do |key , val |

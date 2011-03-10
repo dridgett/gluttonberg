@@ -1,2 +1,3 @@
 - @page_title = "Edit user"
-= partial(:form, :action => slice_url(:user, @user))
+
+= render :partial => "form" , :locals => { :url => admin_user_path( @user) } 
