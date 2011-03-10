@@ -1,5 +1,5 @@
 /- require_js 'slug_management'
-%script{:src => gluttonberg_public_path_for(:javascript, "slug_management.js"), :type => "text/javascript", :charset => "utf-8"}
+/%script{:src => gluttonberg_public_path_for(:javascript, "slug_management.js"), :type => "text/javascript", :charset => "utf-8"}
 
 - @page = @page_localization.page
 %div.pageBlock
@@ -19,18 +19,21 @@
             %td= pair / localization.path
             %td.controls= link_to("Edit", slice_url(:edit_page_localization, :page_id => @page, :id => localization))
             
-= form_for(@page_localization, :action => action) do
-  = error_messages_for(@page_localization)
+= form_for(@page_localization, :url => url) do  |f|
+  = gb_error_messages_for(@page_localization)
   = block("Localization") do
-    = text_field(:name, :label => "Name", :id => "page_title")    
+    = f.label :name
+    = f.text_field(:name, :id => "page_title")    
     %br
-    = text_field(:navigation_label, :label => "Navigation Label" )
+    = f.label :navigation_label
+    = f.text_field(:navigation_label )
     %br
-    = text_field(:slug, :label => "Slug", :id => 'page_slug')
+    = f.label :slug
+    = f.text_field(:slug, :id => 'page_slug')
     
   = block("Content") do
-    - for content in @page_localization.contents
-      = content_editor(content)
-      %br
+    /- for content in @page_localization.contents
+    /  = content_editor(content)
+    /  %br
   
-  = form_controls(slice_url(:page, params[:page_id]))
+  = form_controls(admin_page_path(params[:page_id]))

@@ -9,6 +9,8 @@ module Gluttonberg
     config.admin_path = '/admin'
     config.app_name = 'Gluttonberg 2.0'
     
+    config.active_record.observers = ['gluttonberg/page_observer']
+    
     # Load rake tasks
     rake_tasks do
       load File.join(File.dirname(__FILE__), 'rails/railties/tasks.rake')

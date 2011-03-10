@@ -10,7 +10,9 @@ Rails.application.routes.draw do # |map|
       
       scope :module => 'Content' do
         match 'content' => "main#index",      :as => :content
-        resources :pages
+        resources :pages do
+          resources :page_localizations
+        end
       end
       #resouces :assets
       

@@ -1,7 +1,7 @@
 !!! Strict
 %html{:xmlns => "http://www.w3.org/1999/xhtml", "xml:lang" => "en", :lang => "en"}
   %head
-    %title= "- #{@page_title}" if @page_title
+    %title= "#{website_title} #{@page_title.blank? ? '' : ' : ' + @page_title}"  
     %meta{"http-equiv" => "Content-Type", :content => "text/html;charset=utf-8" }/
 
     = stylesheet_link_tag "admin"
@@ -25,9 +25,9 @@
         = main_nav_entry("Dashboard", "dashboard", admin_root_path , {:title => "Dashboard"})
         = main_nav_entry("Content", "content", admin_content_path , {:title => "Content"})
         /= main_nav_entry("Library", "library", admin_library_path, {:title => "Library"})  
-        - for entry in Gluttonberg::Components.left_nav_entries
-          - if !entry[2] || entry[2] && session.user.is_super_admin
-            = main_nav_entry(entry[0], entry[0], entry[1], {:title => entry[0] , :id => Extlib::Inflection.underscore(entry[0].to_s).gsub(/\s/, '_') + "Nav"})
+        /- for entry in Gluttonberg::Components.left_nav_entries
+        /  - if !entry[2] || entry[2] && session.user.is_super_admin
+        /    = main_nav_entry(entry[0], entry[0], entry[1], {:title => entry[0] , :id => Extlib::Inflection.underscore(entry[0].to_s).gsub(/\s/, '_') + "Nav"})
         = main_nav_entry("Settings", "settings", admin_settings_path , {:title => "Settings"})
       /- if session.user
       /  %p

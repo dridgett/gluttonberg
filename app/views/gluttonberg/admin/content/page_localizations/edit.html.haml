@@ -1,4 +1,5 @@
 - @page_title = "Edit localization"
 = sub_nav do
-  = back_link("Pages", slice_url(:pages))
-= partial(:form, :action => slice_url(:page_localization, :page_id => params[:page_id], :id => @page_localization))
+  = back_link("Pages", admin_pages_path)
+  
+= render :partial => "form" , :locals => { :url => admin_page_page_localization_path( :page_id => params[:page_id], :id => @page_localization) } 

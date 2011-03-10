@@ -1,12 +1,9 @@
 module Gluttonberg
-  class HtmlContent
-    include DataMapper::Resource
+  class HtmlContent < ActiveRecord::Base
     include Gluttonberg::Content::Block
 
-    property :id, Serial
-            
-    is_localized do
-      property :text,           Text      
-    end
+    #     is_localized do
+    #       property :text,           Text      
+    #     end
   end
 end
