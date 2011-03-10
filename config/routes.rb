@@ -6,7 +6,10 @@ Rails.application.routes.draw do |map|
 
   scope :module => 'Gluttonberg' do
     namespace :admin do
-      #resouces :assets
+      root :to => "main#index"
+      get "login" => "user_sessions#new"
+      post "login" => "user_sessions#create"
+      match "logout" => "user_sessions#destroy"
     end
   end
 end

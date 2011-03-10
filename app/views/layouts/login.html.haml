@@ -21,18 +21,6 @@
     /[if IE 7]
       = stylesheet_link_tag "admin-ie7"
     
-  %body{:id => params[:controller].match(%r{\w+$}), :class => params[:action]}
-    %div#sidebar
-      %h1 App Name
-      %h2#navTitle Navigation
-      - if current_user
-        %p
-          Logged in as
-          %br
-          %strong
-            = current_user.email
-          = link_to "Log Out", admin_logout_url
-    %div#wrapper
-      %h2#pageTitle= @page_title || "No title set"
+  %body{:id => "#{@page_id}"}
       
     = yield
