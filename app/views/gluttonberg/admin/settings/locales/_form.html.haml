@@ -1,0 +1,27 @@
+= sub_nav do
+  = back_link("Settings", admin_settings_path)
+  = back_link("Locales", admin_locales_path)
+
+= form_for(@locale, :url => url) do  |f|
+
+  = gb_error_messages_for(@locale)
+  = block("Locale") do
+    = f.label :name
+    = f.text_field(:name)
+    %br
+    = f.label :slug
+    = f.text_field(:slug)
+    %br
+    - unless @locales.empty?
+      = f.label :locale_id , "Fallback Locale"
+      = f.select(:locale_id, @locales.collect{|l| [l.name , l.id] } , :include_blank => true )
+    = f.check_box(:default, :boolean => true)
+    %label{:for => "gluttonberg_locale_default", :class => "checkbox"} Default
+  
+  = field_set_tag("Dialects" , :id => "dialects") do
+    %div.fieldset
+      - for dialect in @dialects
+        = f.check_box("dialect_ids", :value => dialect.id, :boolean => false, :checked => @locale.dialects.include?(dialect))
+        %label{:for => "dialect_#{dialect.code}", :class => "checkbox"}= dialect.name_and_code
+
+  = form_controls(admin_locales_path)

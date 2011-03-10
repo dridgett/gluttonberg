@@ -24,4 +24,8 @@ module Gluttonberg
   #Templates.setup
   Helpers.setup
   
+  
+  
+  
+  
 end

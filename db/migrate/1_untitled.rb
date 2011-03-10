@@ -18,7 +18,8 @@ class Untitled < ActiveRecord::Migration
       t.column :rich_text_content_id, :integer
     end
 
-    create_table :gluttonberg_dialects_gluttonberg_locales, :id => false do |t|
+    #gluttonberg_dialects_gluttonberg_locales
+    create_table :dialects_locales , :id => false do |t|
       t.column :locale_id, :integer, :null => false
       t.column :dialect_id, :integer, :null => false
     end

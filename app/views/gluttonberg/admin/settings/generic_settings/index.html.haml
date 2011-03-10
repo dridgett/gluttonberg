@@ -1,0 +1,27 @@
+- @page_title = "Metadata"
+= sub_nav do
+  = back_link("Settings", admin_settings_path)
+  = nav_link('New', new_admin_generic_setting_path)
+  
+- if @settings.empty?
+  %p.empty No settings
+- else
+  %table{:cellspacing => 0, :cellpadding => 0, :summary => "List of Settings"}
+    %thead
+      %tr
+        %th Name
+        %th Value
+        %th.controls Controls
+    %tbody
+      - i = 0
+      - for setting in @settings
+        - i += 1
+        %tr{ :class => "#{i % 2 == 0? "even" : ""}"}
+          %td= setting.name
+          %td= setting.value
+          %td.controls
+            %ul
+              %li= link_to('Edit', edit_admin_generic_setting_path(setting))
+              - if setting.delete_able
+                %li= link_to 'Delete', admin_generic_setting_path(setting) ,  :confirm => 'Are you sure?', :method => :delete
+                

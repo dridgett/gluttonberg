@@ -1,0 +1,26 @@
+- @page_title = "Locales"
+= sub_nav do
+  = back_link("Settings", admin_settings_path)
+  = nav_link('New', new_admin_locale_path)
+  
+- if @locales.empty?
+  %p.empty No locales
+- else
+  %table{:cellspacing => 0, :cellpadding => 0, :summary => "List of Locales"}
+    %thead
+      %tr
+        %th Locale
+        %th Dialects
+        %th.controls Controls
+    %tbody
+      - i = 0
+      - for locale in @locales
+        - i += 1
+        %tr{ :class => "#{i % 2 == 0? "even" : ""}"}
+          %td= locale.name
+          %td= locale.dialects.collect {|d| d.name_and_code}.join(", ")
+          %td.controls
+            %ul
+              %li= link_to('Edit', edit_admin_locale_path(locale))
+              %li= link_to "Delete", admin_locale_path(locale),  :confirm => 'Are you sure?', :method => :delete
+

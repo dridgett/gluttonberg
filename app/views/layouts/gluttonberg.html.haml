@@ -7,7 +7,7 @@
     = stylesheet_link_tag "admin"
     /= stylesheet_link_tag "custom"
     
-    = javascript_include_tag "jquery-1.4.2.min" , "rails"
+    = javascript_include_tag "jquery-1.4.2.min.js" , "rails"
     
     = csrf_meta_tag 
     
@@ -19,8 +19,22 @@
     
   %body{:id => params[:controller].match(%r{\w+$}), :class => params[:action]}
     %div#sidebar
-      %h1 App Name
+      %h1= website_title
       %h2#navTitle Navigation
+      %ul#navigation
+        = main_nav_entry("Dashboard", "dashboard", admin_root_path , {:title => "Dashboard"})
+        = main_nav_entry("Content", "content", admin_content_path , {:title => "Content"})
+        /= main_nav_entry("Library", "library", admin_library_path, {:title => "Library"})  
+        - for entry in Gluttonberg::Components.left_nav_entries
+          - if !entry[2] || entry[2] && session.user.is_super_admin
+            = main_nav_entry(entry[0], entry[0], entry[1], {:title => entry[0] , :id => Extlib::Inflection.underscore(entry[0].to_s).gsub(/\s/, '_') + "Nav"})
+        = main_nav_entry("Settings", "settings", admin_settings_path , {:title => "Settings"})
+      /- if session.user
+      /  %p
+      /    Logged in as
+      /    %br/
+      /    %strong= session.user.name
+      /    %a{:href => url(:gluttonberg_logout) , :title => "Logout"} logout
     %div#wrapper
       %h2#pageTitle= @page_title || "No title set"
       = yield

@@ -7,6 +7,7 @@ module Gluttonberg
     config.widget_factory_name = "default factory name"
     config.mount_at = '/'
     config.admin_path = '/admin'
+    config.app_name = 'Gluttonberg 2.0'
     
     # Load rake tasks
     rake_tasks do

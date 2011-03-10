@@ -267,7 +267,7 @@ JAVASCRIPT_CODE
       end
       
       def website_title
-        title = Merb::Slices::config[:gluttonberg][:title]
+        title = Engine.config.app_name #Merb::Slices::config[:gluttonberg][:title]
         (title.blank?)? "Gluttonberg" : title
       end  
       
@@ -300,7 +300,7 @@ JAVASCRIPT_CODE
       def page_table_rows(pages, output = "", inset = 0 , row = 0)
         pages.each do |page|
           row += 1 
-          output << render( :partial => "gluttonberg/admin/pages/row", :locals => { :page => page, :inset => inset , :row => row })#.html_safe
+          output << render( :partial => "gluttonberg/admin/content/pages/row", :locals => { :page => page, :inset => inset , :row => row })#.html_safe
           page_table_rows(page.children, output, inset + 1 , row)
         end
         output.html_safe

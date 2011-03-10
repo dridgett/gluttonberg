@@ -1,0 +1,36 @@
+/- require_js 'slug_management'
+%script{:src => gluttonberg_public_path_for(:javascript, "slug_management.js"), :type => "text/javascript", :charset => "utf-8"}
+
+- @page = @page_localization.page
+%div.pageBlock
+  %h2 Localizations
+  - unless @page.localizations.empty? || @page.localizations.length < 2  
+    %table{:cellpadding => 0, :cellspacing => 0, :summary => "Available Localizations"}
+      %thead
+        %tr
+          %th Locale
+          %th Path
+          %th.controls Controls
+      %tbody
+        - for localization in @page.localizations
+          - pair = "#{localization.locale.slug}/#{localization.dialect.code}"
+          %tr
+            %td= "<strong>#{localization.locale.name}/#{localization.dialect.name}</strong> <span>(#{pair})</span>"
+            %td= pair / localization.path
+            %td.controls= link_to("Edit", slice_url(:edit_page_localization, :page_id => @page, :id => localization))
+            
+= form_for(@page_localization, :action => action) do
+  = error_messages_for(@page_localization)
+  = block("Localization") do
+    = text_field(:name, :label => "Name", :id => "page_title")    
+    %br
+    = text_field(:navigation_label, :label => "Navigation Label" )
+    %br
+    = text_field(:slug, :label => "Slug", :id => 'page_slug')
+    
+  = block("Content") do
+    - for content in @page_localization.contents
+      = content_editor(content)
+      %br
+  
+  = form_controls(slice_url(:page, params[:page_id]))

@@ -1,0 +1,17 @@
+- @page_title = "Content"
+%ul#iconNav
+  
+  %li= link_to("Pages", admin_pages_path, :id => "pagesNav" , :title => "Pages")
+  - for entry in Gluttonberg::Components.nav_entries
+    -if entry[3].blank? || entry[3]==false || (entry[3]==true && session.user.is_super_admin)
+      %li= link_to(entry[0], url(entry[1]), :id => Extlib::Inflection.underscore(entry[0].to_s).gsub(/\s/, '_') + "Nav" , :title => entry[0])    
+      
+
+
+/ - @page_title = "Content"
+/ %ul#iconNav
+/   - if session.user.is_super_admin
+/     %li= link_to("Pages", slice_url(:pages), :id => "pagesNav" , :title => "Pages")
+/   - for entry in Gluttonberg::Components.nav_entries
+/     -if entry[3].blank? || entry[3]==false || (entry[3]==true && session.user.is_super_admin)
+/       %li= link_to(entry[0], url(entry[1]), :id => Extlib::Inflection.underscore(entry[0].to_s).gsub(/\s/, '_') + "Nav" , :title => entry[0])      

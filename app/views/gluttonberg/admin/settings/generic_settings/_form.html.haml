@@ -1,0 +1,29 @@
+= sub_nav do
+  = back_link("Settings", admin_settings_path)
+  = back_link("Metadata", admin_generic_settings_path )
+  
+= form_for(@setting, :url => url) do  |f|
+  = gb_error_messages_for(@setting)  
+  
+  = block("Setting") do
+    - if @setting.delete_able
+      = f.label :name ,  "Setting Name"
+      = f.text_field(:name)      
+      %br        
+      = f.label :value ,  "Setting Value"
+      = f.text_area(:value , :class => "large tall")
+      %br        
+      = f.label :help
+      = f.text_area(:help , :class => "large tall")    
+    - else      
+      = f.label :value , @setting.name.capitalize
+      = f.text_area(:value,  :class => "large tall")      
+    %br   
+    %small= @setting.help
+    = f.check_box(:enabled)
+    = label( :enabled , "Enabled" , :class => "checkbox"  )
+    %br
+      
+  = form_controls(admin_generic_settings_path)
+
+
