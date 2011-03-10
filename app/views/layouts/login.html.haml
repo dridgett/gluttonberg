@@ -1,0 +1,26 @@
+!!! Strict
+%html{:xmlns => "http://www.w3.org/1999/xhtml", "xml:lang" => "en", :lang => "en"}
+  %head
+    %title= "- #{@page_title}" if @page_title
+    %meta{"http-equiv" => "Content-Type", :content => "text/html;charset=utf-8" }/
+
+    = stylesheet_link_tag "admin"
+    = stylesheet_link_tag "custom"
+    
+    = javascript_include_tag "jquery-1.2.6.min"
+    = javascript_include_tag "jquery.dimensions.min"
+    = javascript_include_tag "jquery-ui-1.6.custom.min"
+    = javascript_include_tag "jquery.dragTree"
+    = javascript_include_tag "tiny_mce/tiny_mce"
+    = javascript_include_tag "tiny_mce/html_content"
+    = javascript_include_tag "tiny_mce/tiny_mce.jsapplication"
+    
+    /[if IE 6]
+      = stylesheet_link_tag "admin-ie6"
+
+    /[if IE 7]
+      = stylesheet_link_tag "admin-ie7"
+    
+  %body{:id => "#{@page_id}"}
+      
+    = yield

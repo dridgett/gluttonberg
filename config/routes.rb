@@ -25,6 +25,9 @@ Rails.application.routes.draw do # |map|
         resources :generic_settings        
       end  
       
+      get "login" => "user_sessions#new"
+      post "login" => "user_sessions#create"
+      match "logout" => "user_sessions#destroy"
     end
   end
 end

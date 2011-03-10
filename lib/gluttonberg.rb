@@ -1,6 +1,7 @@
 module Gluttonberg
   require 'engine' if defined?(Rails) && Rails::VERSION::MAJOR == 3
-  require 'haml-rails'
+  require 'haml'
+  require 'authlogic'
   require 'gluttonberg/admin_controller_mixin'
   require 'gluttonberg/public_controller_mixin'
   require 'gluttonberg/authorizable'

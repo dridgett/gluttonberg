@@ -28,3 +28,22 @@ Then boot your Rails app.
   $ rails server
 
 Simple as that!
+
+=======================================================================================
+
+AUTHENTICATION
+
+At this stage there is no signup form.
+You will need to fire up a console and run the following commands (Change email and password accordingly)
+
+  user = User.new(:email => "admin@freerangefuture.com", :password => "3range", :password_confirmation => "3range")
+  user.save
+  
+You will now be able to log in.
+
+** require_user **
+require_user is called on every admin page via the AdminControllerMixin.
+
+To skip require_user use
+  
+  skip_before_filter :require_user, :only => [:method]

@@ -21,6 +21,7 @@
     %div#sidebar
       %h1= website_title
       %h2#navTitle Navigation
+
       %ul#navigation
         = main_nav_entry("Dashboard", "dashboard", admin_root_path , {:title => "Dashboard"})
         = main_nav_entry("Content", "content", admin_content_path , {:title => "Content"})
@@ -29,13 +30,17 @@
         /  - if !entry[2] || entry[2] && session.user.is_super_admin
         /    = main_nav_entry(entry[0], entry[0], entry[1], {:title => entry[0] , :id => Extlib::Inflection.underscore(entry[0].to_s).gsub(/\s/, '_') + "Nav"})
         = main_nav_entry("Settings", "settings", admin_settings_path , {:title => "Settings"})
-      /- if session.user
-      /  %p
-      /    Logged in as
-      /    %br/
-      /    %strong= session.user.name
-      /    %a{:href => url(:gluttonberg_logout) , :title => "Logout"} logout
+      - if current_user
+        %p
+          Logged in as
+          %br
+          %strong
+            = current_user.email
+          = link_to "Log Out", admin_logout_url
     %div#wrapper
       %h2#pageTitle= @page_title || "No title set"
       = yield
       
+
+      
+

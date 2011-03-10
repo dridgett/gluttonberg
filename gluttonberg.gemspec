@@ -26,7 +26,8 @@ Gem::Specification.new do |s|
      "test/unit/widget_test.rb"
   ]
 
-  s.add_dependency 'haml-rails'
+  s.add_dependency 'haml'
+  s.add_dependency "authlogic"
 
   if s.respond_to? :specification_version then
     current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION

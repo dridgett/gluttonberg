@@ -43,7 +43,7 @@ module Gluttonberg
         # 
         def create
           @page = Page.new(params["gluttonberg_page"])
-          #@page.user_id = session.user.id
+          @page.user_id = current_user.id
           if @page.save
             redirect_to admin_page_url(@page)
           else
