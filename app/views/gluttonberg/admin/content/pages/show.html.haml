@@ -1,5 +1,6 @@
 - @page_title = "Page: #{@page.name}"
 = sub_nav do
+  = back_link("Content", admin_content_path)
   = back_link("Pages", admin_pages_path)
   = nav_link('Delete', admin_page_path(@page) , :method => :delete )
   = nav_link('Edit settings', edit_admin_page_path(@page))

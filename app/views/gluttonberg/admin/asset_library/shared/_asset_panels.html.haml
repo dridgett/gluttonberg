@@ -6,16 +6,14 @@
       %li
         %a{:href => admin_asset_url(asset), :class => "assetLink"}
           %h2= asset.name
-          /%p= h(asset.asset_type.name)
           %p= "Added #{asset.created_at}"
           %div
             %img{:src => asset.thumb_small_url}/
     
-
    
   - if @assets.total_pages > 1
     %ul#paginator
-      %li#count= "Page #{assets.current_page} of #{assets.total_pages}"
+      %li#count= "Page #{@assets.current_page} of #{@assets.total_pages}"
       - if @assets.previous_page
         - url = ( type == "category" ?  admin_asset_category_url(:category => name_or_id , :page => @assets.previous_page ) : admin_asset_collection_url(:id => name_or_id , :page => @assets.previous_page )  ) 
         

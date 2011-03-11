@@ -1,8 +1,7 @@
 - @page_title = "Assets&#8212;#{params[:category].capitalize}"
-%div.secondary-navigation
-  - sub_nav do
-    = back_link("Library", admin_assets_url)
-    = render :partial => "add_buttons"
+= sub_nav do
+  = back_link("Library", admin_assets_url)
+  = render :partial => "add_buttons"
   
 
 .category-area

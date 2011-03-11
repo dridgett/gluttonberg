@@ -1,5 +1,5 @@
 - @page_title = "Edit asset"
-- sub_nav do
+= sub_nav do
   = back_link("Library", admin_assets_url)
 
 = render :partial => "form" , :locals => { :url_opts =>{ :action => :update , :id => @asset.id }  , :method_name => "put"}

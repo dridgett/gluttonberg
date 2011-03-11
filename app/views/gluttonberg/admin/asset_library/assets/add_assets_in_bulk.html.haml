@@ -1,8 +1,8 @@
 - @page_title = "Add assets in bulk"
-- sub_nav do
+= sub_nav do
   = back_link("Library", admin_assets_url)
 
-- form_for( :asset , @asset , :url => { :action => :create_assets_in_bulk } ,  :html => { :multipart=>true  , :method => "post"} ) do |asset_form|
+= form_for( :asset , @asset , :url => { :action => :create_assets_in_bulk } ,  :html => { :multipart=>true  , :method => "post"} ) do |asset_form|
   = gb_error_messages_for(@asset)
 
   = render :partial => "collection_select_form" , :locals => {:asset_form => asset_form }

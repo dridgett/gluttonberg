@@ -1,6 +1,6 @@
 - @page_title = "Pages"
 = sub_nav do
-  /= back_link("Content", slice_url(:content))
+  = back_link("Content", admin_content_path)
   = nav_link('New', new_admin_page_path)
     
 - if @pages.empty?

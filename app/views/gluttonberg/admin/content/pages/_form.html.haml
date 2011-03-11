@@ -4,6 +4,7 @@
 /%script{:src => gluttonberg_public_path_for(:javascript, "slug_management.js"), :type => "text/javascript", :charset => "utf-8"}
 
 = sub_nav do
+  = back_link("Content", admin_content_path)
   = back_link("Pages", admin_pages_path)
 
 = form_for(@page, :url => url) do  |f|

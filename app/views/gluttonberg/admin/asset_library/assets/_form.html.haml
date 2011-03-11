@@ -1,4 +1,4 @@
-- form_for( :asset , @asset , :url => url_opts ,  :html => { :multipart=>true  , :method => method_name} ) do |asset_form|
+= form_for( :asset , @asset , :url => url_opts ,  :html => { :multipart=>true  , :method => method_name} ) do |asset_form|
   = gb_error_messages_for(@asset)
 
   = block("Asset") do
