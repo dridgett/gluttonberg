@@ -1,6 +1,6 @@
 module Gluttonberg
   class Asset < ActiveRecord::Base
-  
+      set_table_name "gb_assets"
       has_many :set_elements, :as => :element
   
       after_save  :update_file

@@ -2,7 +2,7 @@ module Gluttonberg
     #require 'action_controller/mime_types'
   require 'mime/types'  
   class AssetType < ActiveRecord::Base
-    
+      set_table_name "gb_asset_types"
       has_many    :assets , :class_name => "Asset"
       has_many    :asset_mime_types , :class_name => "AssetMimeType"
       belongs_to  :asset_category, :class_name => "AssetCategory"

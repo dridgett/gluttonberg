@@ -1,6 +1,6 @@
 module Gluttonberg
   class AssetCategory < ActiveRecord::Base
-    
+      set_table_name "gb_asset_categories"
       has_many :asset_types , :class_name => "AssetType"
       has_many :assets, :through => :asset_types
     
