@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/bigstories2/!svn/ver/34/trunk/app/views/admin/asset_types
+END
+show.html.haml
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/bigstories2/!svn/ver/34/trunk/app/views/admin/asset_types/show.html.haml
+END
+edit.html.haml
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/bigstories2/!svn/ver/34/trunk/app/views/admin/asset_types/edit.html.haml
+END
+index.html.haml
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/bigstories2/!svn/ver/34/trunk/app/views/admin/asset_types/index.html.haml
+END
+new.html.haml
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/bigstories2/!svn/ver/34/trunk/app/views/admin/asset_types/new.html.haml
+END

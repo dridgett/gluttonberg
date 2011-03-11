@@ -2,6 +2,8 @@ module Gluttonberg
   require 'engine' if defined?(Rails) && Rails::VERSION::MAJOR == 3
   require 'haml'
   require 'authlogic'
+  require 'will_paginate'
+  require 'zip/zip'
   require 'gluttonberg/admin_controller_mixin'
   require 'gluttonberg/public_controller_mixin'
   require 'gluttonberg/authorizable'
@@ -25,6 +27,9 @@ module Gluttonberg
     #Library.setup
     #Templates.setup
     Helpers.setup
+    
+    
+    
 
   
   # Checks to see if Gluttonberg has been configured to have a locale/location

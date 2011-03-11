@@ -1,0 +1,12 @@
+- @page_title = "Assets&#8212;#{params[:category].capitalize}"
+%div.secondary-navigation
+  - sub_nav do
+    = back_link("Library", admin_assets_url)
+    = render :partial => "add_buttons"
+  
+
+.category-area
+  = render :partial => "/gluttonberg/admin/asset_library/shared/sorter", :locals => {  :url =>  admin_asset_category_url(:category => params[:category] , :page => params[:page]  ) } 
+  .clear
+= render :partial => "/gluttonberg/admin/asset_library/shared/asset_panels" , :locals => { :type => "category" , :name_or_id =>  params[:category] }
+.clear

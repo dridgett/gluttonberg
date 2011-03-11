@@ -1,0 +1,53 @@
+- @page_title = "Asset Library"
+%div.secondary-navigation
+  - sub_nav do
+    = render :partial => "add_buttons"
+
+%div#tabs
+  %ul
+    %li
+      %a{ :href => "#tabs-browse"} Browse
+    %li
+      %a{ :href => "#tabs-collection"} Collections
+    %li
+      %a{ :href => "#tabs-recent"} Recent
+  .clear
+.clear
+%div#tabs-browse
+  /%h2.assetList Browse
+  %ul.assetList
+    %li
+      %a{:href => admin_asset_category_url(:category => 'all' , :page => 1 ), :class => "browseAll"}
+        %h3 All
+        /%p nil items
+    - @categories.each do |category|
+      %li
+        - text = ( category.name == "uncategorised" ?  "Uncategorised" : category.name.pluralize.capitalize )
+        %a{:href => admin_asset_category_url(:category => category.name , :page => 1), :class => "browse#{text}"}
+          %h3= text
+          /%p nil items
+  .clear
+%div#tabs-collection
+  - unless @collections.empty?
+    /%h2.assetList Collections
+    %ul.assetList
+      - for collection in @collections
+        %li
+          %a{:href => admin_asset_collection_url(:id => collection , :page => 1), :class => "collection"}
+            %h3= collection.name
+            /%p nil items
+    .clear
+%div#tabs-recent
+  - unless @assets.blank?
+    /%h2.assetList Latest  
+    %ul.assetList#assetPanels
+      - for asset in @assets
+        %li
+          %a{:href => admin_asset_url(asset), :class => "assetLink"}
+            %div
+              %img{:src => asset.thumb_small_url}/
+            %h2= asset.name
+            //%p= "Added #{asset.created_at}"
+    .clear
+            
+.clear

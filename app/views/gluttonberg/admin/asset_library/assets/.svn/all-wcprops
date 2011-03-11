@@ -1,0 +1,95 @@
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/bigstories2/!svn/ver/172/trunk/app/views/admin/assets
+END
+_form.html.haml
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/bigstories2/!svn/ver/151/trunk/app/views/admin/assets/_form.html.haml
+END
+_add_buttons.html.haml
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/bigstories2/!svn/ver/57/trunk/app/views/admin/assets/_add_buttons.html.haml
+END
+index.html.haml
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/bigstories2/!svn/ver/129/trunk/app/views/admin/assets/index.html.haml
+END
+_collection_select_form.html.haml
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/bigstories2/!svn/ver/104/trunk/app/views/admin/assets/_collection_select_form.html.haml
+END
+category.html.haml
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/bigstories2/!svn/ver/57/trunk/app/views/admin/assets/category.html.haml
+END
+add_assets_in_bulk.html.haml
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/bigstories2/!svn/ver/104/trunk/app/views/admin/assets/add_assets_in_bulk.html.haml
+END
+show.html.haml
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/bigstories2/!svn/ver/130/trunk/app/views/admin/assets/show.html.haml
+END
+category.json.haml
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/bigstories2/!svn/ver/103/trunk/app/views/admin/assets/category.json.haml
+END
+browser.html.haml
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/bigstories2/!svn/ver/113/trunk/app/views/admin/assets/browser.html.haml
+END
+_browser_root.html.haml
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/bigstories2/!svn/ver/148/trunk/app/views/admin/assets/_browser_root.html.haml
+END
+edit.html.haml
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/bigstories2/!svn/ver/34/trunk/app/views/admin/assets/edit.html.haml
+END
+create_assets_in_bulk.html.haml
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/bigstories2/!svn/ver/59/trunk/app/views/admin/assets/create_assets_in_bulk.html.haml
+END
+_content_panel.html.haml
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/bigstories2/!svn/ver/129/trunk/app/views/admin/assets/_content_panel.html.haml
+END
+new.html.haml
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/bigstories2/!svn/ver/34/trunk/app/views/admin/assets/new.html.haml
+END
+_extra_form_fields.html.haml
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/bigstories2/!svn/ver/172/trunk/app/views/admin/assets/_extra_form_fields.html.haml
+END

@@ -1,0 +1,3 @@
+- @page_title = "Edit Collection"
+
+= render :partial => "form" , :locals => { :url_opts =>{ :action => :update , :id => @collection.id }  , :method_name => "put"}

@@ -28,6 +28,8 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'haml'
   s.add_dependency "authlogic"
+  s.add_dependency "will_paginate" , '~> 3.0.pre2'
+  s.add_dependency "rubyzip"
 
   if s.respond_to? :specification_version then
     current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION

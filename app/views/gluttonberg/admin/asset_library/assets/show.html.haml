@@ -1,0 +1,82 @@
+- @page_title = "Asset&#8212;#{@asset.name}"
+= sub_nav do
+  = back_link("Library", admin_assets_url)
+  = nav_link("Delete", admin_asset_url(@asset) , {:method => :delete , :confirm => 'Are you sure?'})
+  = nav_link("Edit", edit_admin_asset_url(@asset))
+  
+%h2= @asset.name
+%p{:id => "categoryAndType", :class => @asset.category}
+  = h(@asset.asset_type.name)
+  
+%p{:id => "assetID"}
+  %strong= @asset.id
+  Asset ID
+
+- unless @asset.description.blank?
+  %p#description= @asset.description
+
+%div#preview
+  %img{:src => @asset.thumb_large_url}
+    
+%h3 Metadata
+%dl
+  %dt Category
+  %dd= h(@asset.category.capitalize)
+  %dt Type
+  %dd= h(@asset.asset_type.name)
+  %dt Filesize
+  %dd= h(@asset.formatted_file_size)
+  %dt Filename
+  %dd= h(@asset.file_name)
+  %dt Mime type
+  %dd= h(@asset.mime_type)
+  
+  - unless @asset.audio_asset_attribute.blank?
+    - unless @asset.audio_asset_attribute.length.blank?
+      %dt Length
+      %dd= ( (@asset.audio_asset_attribute.length / 60.0).round(2) ).to_s + " Minutes"
+    
+    - unless @asset.audio_asset_attribute.genre.blank?
+      %dt Genre
+      %dd= h(@asset.audio_asset_attribute.genre)
+    
+    - unless @asset.audio_asset_attribute.title.blank?
+      %dt Title
+      %dd= h(@asset.audio_asset_attribute.title)
+      
+    - unless @asset.audio_asset_attribute.artist.blank?
+      %dt Artist
+      %dd= h(@asset.audio_asset_attribute.artist)
+    
+    - unless @asset.audio_asset_attribute.album.blank?
+      %dt Album
+      %dd= h(@asset.audio_asset_attribute.album)
+  
+    - unless @asset.audio_asset_attribute.tracknum.blank?
+      %dt Tracknum
+      %dd= h(@asset.audio_asset_attribute.tracknum)      
+
+  
+  
+- unless @asset.asset_collections.blank?
+  %h3 Collections
+  %ul.collections
+    - for collection in @asset.asset_collections
+      %li= h(collection.name)
+
+%h3 Updates
+%dl
+  %dt Created
+  %dd= @asset.created_at
+  %dt Updated
+  %dd= @asset.updated_at
+  
+%h3 Public path
+%dl  
+  %dd= text_field(nil ,nil ,:value => asset_url(@asset) , :id => "public-path")  
+  
+  
+%p#public-path-note 
+  This address can be used to link to this asset.
+  %br/
+  For example it could be pasted into an email.

@@ -1,0 +1,9 @@
+- unless @assets.empty?
+  %p#sorterLabel Order by
+  %ul#sorter
+    %li#sortAdded
+      =    sorter_link("Date added",   "date-added",   url)
+    %li#sortUpdated
+      =  sorter_link("Date updated", "date-updated", url)
+    %li#sortName
+      =     sorter_link("Name",         "name",         url)

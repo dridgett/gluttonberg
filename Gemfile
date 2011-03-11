@@ -2,6 +2,7 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.0.1'
 
+gem 'will_paginate', :git => 'git://github.com/mislav/will_paginate.git', :branch => 'rails3'
 
 gem 'sqlite3-ruby', :require => 'sqlite3'
 
@@ -9,7 +10,6 @@ gem 'sqlite3-ruby', :require => 'sqlite3'
 gem 'acts_as_versioned', :git => "git://github.com/xspond/acts_as_versioned.git", :branch => "rails3"
 
 gem 'transitions' , :git => "git://github.com/qoobaa/transitions.git" , :require => ["transitions", "active_record/transitions"]
-
 
 
 

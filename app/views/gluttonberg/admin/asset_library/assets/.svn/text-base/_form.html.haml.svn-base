@@ -1,0 +1,60 @@
+/= enable_tinymce
+
+%h2.title
+  - if method_name == "put"
+    = "Edit asset"
+  -else
+    Add new asset
+.form
+  - form_for( :asset , @asset , :url => url_opts ,  :html => { :multipart=>true  , :method => method_name} ) do |asset_form|
+    = error_messages_for("asset")
+
+    #edit-form      
+      %div{:class => "#{ method_name == "put" ? 'left-new' : 'center-new' }"}
+        %h4 File to upload
+        .fieldset
+          = asset_form.file_field(:file)
+      
+          - unless @asset.thumb_large_url.blank?  
+            %div#preview        
+              %img{:src => @asset.thumb_large_url}
+        %h4
+          Name
+        .fieldset
+          = asset_form.text_field(:name, :class => "large")
+          %br        
+        
+        = render :partial => "collection_select_form" , :locals => {:asset_form => asset_form }
+        
+        - if method_name == "put" && @asset.category.downcase == "image"
+          .fieldset
+            %h4
+              Synopsis
+            = asset_form.text_field(:synopsis, :class => "large")
+            %br
+
+          .fieldset    
+            %h4
+              Copyrights
+            = asset_form.text_field(:copyrights, :class => "large")
+            %br
+
+          .fieldset    
+            %h4
+              Year of production
+            = asset_form.text_field(:year_of_production, :class => "large")
+            %br
+
+          .fieldset    
+            %h4
+              Description
+            = asset_form.text_area(:description,  :class => "large short mceEditor")
+            %br
+        
+      .right-new  
+        - if method_name == "put" && @asset.category.downcase == "image"
+          = render :partial => "extra_form_fields" , :locals => { :asset_form => asset_form}
+
+      .clear
+      .controls{:class => "#{ method_name == "put" ? '' : 'center-new' }"}
+        = form_controls(admin_assets_url)

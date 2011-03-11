@@ -1,0 +1,15 @@
+%h1
+  AssetTypes controller, edit action
+%p
+  Edit this file in
+  %tt
+    app/views/asset_types/edit.html.erb
+= error_messages_for @asset_type
+
+= form_for(@asset_type, :action => url(:asset_type, @asset_type)) do
+  %p
+    = submit "Update"
+
+= link_to 'Show', url(:asset_type, @asset_type)
+|
+= link_to 'Back', url(:asset_types)

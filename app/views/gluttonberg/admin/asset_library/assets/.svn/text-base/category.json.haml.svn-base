@@ -1,0 +1,1 @@
+= { :name => params[:category].pluralize.capitalize , :backURL  => admin_asset_browser_url+"?no_frame=false", :markup   => asset_panel(@assets , params[:category] , "category" ) }.to_json 

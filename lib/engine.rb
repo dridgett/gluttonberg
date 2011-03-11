@@ -11,6 +11,13 @@ module Gluttonberg
     config.localize = true
     config.active_record.observers = ['gluttonberg/page_observer']
     
+    config.thumbnails = {  
+         :grid_thumb => {:label => "Grid Thumbnails", :filename => "grid_thumb", :geometry => "426x306" },
+         :grid_thumb_large => {:label => "Grid thumb hover", :filename => "grid_thumb_large", :geometry => "660x568"} ,
+         :medium_size => {:label => "background images for smaller screen or low quality", :filename => "medium_size", :geometry => "1200x900"}
+
+    }
+    config.max_image_size = "1600x1200>"
     
     
     # Load rake tasks

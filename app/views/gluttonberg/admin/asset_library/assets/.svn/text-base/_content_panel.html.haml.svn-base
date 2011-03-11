@@ -1,0 +1,9 @@
+- unless contents.empty?
+  %ul.assetList#assetLink
+    - for content in contents
+      %li
+        %a{:href => "#{content.id}" , :rel => "#{content.type}" , :class => "assetLink"}
+          %div
+            = asset_tag(content.thumbnail , :small_thumb)    
+          %h2= content.title
+          //%p= "Added #{content.created_at}"

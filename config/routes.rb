@@ -25,10 +25,27 @@ Rails.application.routes.draw do # |map|
         resources :generic_settings        
       end  
       
+      scope :module => 'AssetLibrary' do
+        # asset library related routes
+          resources :assets
+          match "library" => "assets#index" , :as => :library
+          match "add_assets_in_bulk"  => "assets#add_assets_in_bulk" , :as => :add_assets_in_bulk
+          match "create_assets_in_bulk"  => "assets#create_assets_in_bulk" , :as => :create_assets_in_bulk
+          match "browser"  => "assets#browser" , :as => :asset_browser
+          match "browse/:category/page/:page"  => "assets#category" , :as => :asset_category
+          match "collections/:id/page/:page"  => "collections#show" , :as => :asset_collection
+          resources :collections        
+      end
+      
+      
+      
       get "login" => "user_sessions#new"
       post "login" => "user_sessions#create"
       match "logout" => "user_sessions#destroy"
     end
+    
+    match "/asset/:hash/:id" => "public_assets#show" , :as => :public_asset
+    
   end
 end
 

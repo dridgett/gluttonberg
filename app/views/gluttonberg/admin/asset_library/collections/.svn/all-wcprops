@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/bigstories2/!svn/ver/120/trunk/app/views/admin/collections
+END
+show.html.haml
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/bigstories2/!svn/ver/118/trunk/app/views/admin/collections/show.html.haml
+END
+_form.html.haml
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/bigstories2/!svn/ver/120/trunk/app/views/admin/collections/_form.html.haml
+END
+show.json.haml
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/bigstories2/!svn/ver/34/trunk/app/views/admin/collections/show.json.haml
+END
+edit.html.haml
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/bigstories2/!svn/ver/91/trunk/app/views/admin/collections/edit.html.haml
+END
+index.html.haml
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/bigstories2/!svn/ver/34/trunk/app/views/admin/collections/index.html.haml
+END
+new.html.haml
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/bigstories2/!svn/ver/34/trunk/app/views/admin/collections/new.html.haml
+END

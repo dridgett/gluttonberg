@@ -1,0 +1,25 @@
+
+:javascript
+  jQuery(document).ready(function($) {               
+       $("#tabs").tabs();                                
+  });
+
+
+%div#assetsDialog  
+  %h1 
+    - if @show_bigstories_contents.to_s == "true"
+      Choose Content
+    - else
+      Choose Asset
+  
+  %ul#assetsNavigation
+    %li#back= link_to("Back", "#back")
+    
+    %li
+      %button#cancel.button
+        %img{ :alt => 'Cancel', :src => '/images/icons/cross.png' }
+        Cancel
+  %div#assetsDisplay.display
+    = render :partial => "browser_root" , :locals => { :show_content => @show_bigstories_contents }
+    
+  

@@ -283,16 +283,18 @@ JAVASCRIPT_CODE
         "http://#{request.host}/asset/#{asset.asset_hash[0..3]}/#{asset.id}"
       end  
       
+
       #-------------------------------------
       #Returns a link for sorting assets in the library
-      def sorter_link(name, param, route_opts = {})
+      def sorter_link(name, param, url)
         opts = {}
-        if param == params[:order] || (!params[:order] && param == 'date-added')
-          opts[:class] = "current"
-        end
+         if param == params[:order] || (!params[:order] && param == 'date-added')
+           opts[:class] = "current"
+         end
 
-        route_opts = route_opts.merge(:order => param, :page => params[:page] || 1)
-        link_to(name, slice_url(route_opts.delete(:route), route_opts), opts)
+         route_opts = { :order => param  }
+
+         link_to(name, url + "?" + route_opts.to_param , opts)
       end
 
       # Writes out a row for each page and then for each page's children, 

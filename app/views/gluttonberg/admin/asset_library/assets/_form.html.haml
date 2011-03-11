@@ -1,0 +1,28 @@
+- form_for( :asset , @asset , :url => url_opts ,  :html => { :multipart=>true  , :method => method_name} ) do |asset_form|
+  = gb_error_messages_for(@asset)
+
+  = block("Asset") do
+    = asset_form.label :file , "File to upload"
+    = asset_form.file_field(:file)
+    
+    %br
+
+    - unless @asset.thumb_large_url.blank?  
+      %div#preview        
+        %img{:src => @asset.thumb_large_url}
+
+    %br
+        
+    = asset_form.label :name , "Name"
+    = asset_form.text_field(:name, :class => "large")
+    
+    
+    %br        
+    
+    
+  = render :partial => "collection_select_form" , :locals => {:asset_form => asset_form }
+      
+
+  .clear
+  .controls{:class => "#{ method_name == "put" ? '' : 'center-new' }"}
+    = form_controls(admin_assets_url)

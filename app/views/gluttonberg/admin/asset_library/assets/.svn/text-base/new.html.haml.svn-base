@@ -1,0 +1,9 @@
+- @page_title = "Add asset"
+.secondary-navigation
+  - sub_nav do
+    = back_link("Library", admin_assets_url)
+
+.block
+  .content
+    .padded
+      = render :partial => "form" , :locals => { :url_opts =>{ :action => :create } , :method_name => "post" }

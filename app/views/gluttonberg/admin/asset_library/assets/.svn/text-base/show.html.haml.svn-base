@@ -1,0 +1,142 @@
+- @page_title = "Asset&#8212;#{@asset.name}"
+
+.secondary-navigation
+  - sub_nav do
+    = back_link("Library", admin_assets_url)
+    = nav_link("Delete", admin_asset_url(@asset) , {:method => :delete , :confirm => 'Are you sure?'})
+    = nav_link("Edit", edit_admin_asset_url(@asset))
+.block
+  .content
+    .inner
+      %h2= @asset.name
+      - unless @asset.thumb_large_url.blank? 
+        %div#preview
+          %img{:src => @asset.thumb_large_url}
+      - if @asset.type == "Video"
+        #video
+          - if @asset.processed?
+            %video{:class => "video_player", :height => "400", :preload => "", :controls => ""}
+              %source{:src => "#{@asset.url_for_processed_video}", :type => 'video/mp4'}/
+          - else
+            .video_processing
+              This video is still being processed.
+        
+      .left-new
+        - unless @asset.synopsis.blank?
+          %h3 Synopsis
+          %p#synopsis= @asset.synopsis
+          
+        - unless @asset.description.blank?
+          %h3 Description
+          %p#description= @asset.description
+        
+        - unless @asset.copyrights.blank?
+          %h3 Copyrights
+          %p#copyrights= @asset.copyrights  
+        
+        - unless @asset.year_of_production.blank?
+          %h3 Year of production
+          %p#year_of_production= @asset.year_of_production  
+        
+        / :locations , :characters , :themes  
+        - unless @asset.location_list.blank?
+          %h3 Locations(s)
+          %p#location= @asset.location_list  
+
+        - unless @asset.character_list.blank?
+          %h3 Character(s)
+          %p#character= @asset.character_list  
+
+        - unless @asset.location_list.blank?
+          %h3 Theme(s)
+          %p#theme= @asset.theme_list  
+       
+        - if @asset.type == "Photo"             
+          - unless @asset.photographer_list.blank?
+            %h3 Photographer
+            %p#photographer= @asset.photographer_list  
+        - elsif @asset.type == "Video"             
+          - unless @asset.genre_list.blank?
+            %h3 Genre(s)
+            %p#genre= @asset.genre_list    
+
+          - unless @asset.director_list.blank?
+            %h3 Director(s)
+            %p#director= @asset.director_list
+
+
+          - unless @asset.producer_list.blank?
+            %h3 Producer(s)
+            %p#producer= @asset.producer_list          
+
+        
+
+        .clear
+      .right-new
+        - unless @asset.asset_collections.blank?
+          %h3 Collections
+          %ul.collections
+            - for collection in @asset.asset_collections
+              %li= h(collection.name)
+
+        
+        %h3 Metadata
+        %dl.meta
+          %dt Category
+          %dd= h(@asset.category.capitalize)
+          %dt ID
+          %dd= @asset.id
+          %dt Type
+          %dd= h(@asset.asset_type.name)
+          %dt Filesize
+          %dd= h(@asset.formatted_file_size)
+          %dt Filename
+          %dd= h(@asset.file_name)
+          %dt Mime type
+          %dd= h(@asset.mime_type)
+
+          - unless @asset.audio_asset_attribute.blank?
+            - unless @asset.audio_asset_attribute.length.blank?
+              %dt Length
+              %dd= ( (@asset.audio_asset_attribute.length / 60.0).round(2) ).to_s + " Minutes"
+
+            - unless @asset.audio_asset_attribute.genre.blank?
+              %dt Genre
+              %dd= h(@asset.audio_asset_attribute.genre)
+
+            - unless @asset.audio_asset_attribute.title.blank?
+              %dt Title
+              %dd= h(@asset.audio_asset_attribute.title)
+
+            - unless @asset.audio_asset_attribute.artist.blank?
+              %dt Artist
+              %dd= h(@asset.audio_asset_attribute.artist)
+
+            - unless @asset.audio_asset_attribute.album.blank?
+              %dt Album
+              %dd= h(@asset.audio_asset_attribute.album)
+
+            - unless @asset.audio_asset_attribute.tracknum.blank?
+              %dt Tracknum
+              %dd= h(@asset.audio_asset_attribute.tracknum)
+        
+        %h3 Updates
+        %dl.meta
+          %dt Created
+          %dd= @asset.created_at
+          %dt Updated
+          %dd= @asset.updated_at
+
+        = render_tracking_details(@asset)  
+
+        %h3 Public path
+        %dl  
+          %dd= text_field(nil ,nil ,:value => asset_url(@asset) , :readonly => "readonly", :id => "public-path")  
+
+
+        %p#public-path-note 
+          This address can be used to link to this asset.
+          %br/
+          For example it could be pasted into an email.
+
+      .clear

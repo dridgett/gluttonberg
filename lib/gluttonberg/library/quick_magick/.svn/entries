@@ -1,0 +1,42 @@
+8
+
+dir
+38
+http://freerangefuture.net/svn/asset_library/trunk/vendor/plugins/asset_library/lib/asset_library/quick_magick
+http://freerangefuture.net/svn/asset_library
+
+
+
+2010-05-31T01:32:54.583029Z
+38
+abdul
+
+
+svn:special svn:externals svn:needs-lock
+
+image_list.rb
+file
+
+
+
+
+2010-05-26T07:23:18.000000Z
+c014c495a252d013582b090be8c5dfca
+2010-05-31T01:32:54.583029Z
+38
+abdul
+has-props
+
+image.rb
+file
+
+
+
+
+2010-05-26T07:22:41.000000Z
+25295498316e8e855b894fcab921674b
+2010-05-31T01:32:54.583029Z
+38
+abdul
+has-props
+
