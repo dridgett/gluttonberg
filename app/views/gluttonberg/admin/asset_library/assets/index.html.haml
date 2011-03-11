@@ -1,7 +1,6 @@
 - @page_title = "Asset Library"
-%div.secondary-navigation
-  - sub_nav do
-    = render :partial => "add_buttons"
+- sub_nav do
+  = render :partial => "add_buttons"
 
 %div#tabs
   %ul
@@ -14,7 +13,6 @@
   .clear
 .clear
 %div#tabs-browse
-  /%h2.assetList Browse
   %ul.assetList
     %li
       %a{:href => admin_asset_category_path(:category => 'all' , :page => 1 ), :class => "browseAll"}
@@ -29,17 +27,14 @@
   .clear
 %div#tabs-collection
   - unless @collections.empty?
-    /%h2.assetList Collections
     %ul.assetList
       - for collection in @collections
         %li
           %a{:href => admin_asset_collection_url(:id => collection , :page => 1), :class => "collection"}
             %h3= collection.name
-            /%p nil items
     .clear
 %div#tabs-recent
   - unless @assets.blank?
-    /%h2.assetList Latest  
     %ul.assetList#assetPanels
       - for asset in @assets
         %li
@@ -47,7 +42,6 @@
             %div
               %img{:src => asset.thumb_small_url}/
             %h2= asset.name
-            //%p= "Added #{asset.created_at}"
     .clear
             
 .clear

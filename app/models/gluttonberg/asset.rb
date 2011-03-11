@@ -5,13 +5,11 @@ module Gluttonberg
   
       after_save  :update_file
       before_validation  :set_category_and_type
-    
-        
+            
       include Library::AttachmentMixin
         
-      has_and_belongs_to_many :asset_collections #, :class_name => "AssetCollection"
-    
-      belongs_to  :asset_type  #, :class_name => "AssetType"
+      has_and_belongs_to_many :asset_collections     
+      belongs_to  :asset_type  
       has_one :audio_asset_attribute , :dependent => :destroy
  
  
@@ -79,10 +77,6 @@ module Gluttonberg
         end
       end
     
-    
-    
-
-    
       # find out and set type and category of file
       def set_category_and_type      
         unless file.nil?
@@ -109,13 +103,10 @@ module Gluttonberg
             asset_name_with_extention = entry.split(".").first
         
             asset_params = {:name => asset_name_with_extention  , :file => file  }
-            @asset = Asset.create(asset_params.merge({:asset_collection_ids => collection.id.to_s}))    
-          
-            #@asset.asset_collections.create({:asset_collection_id => collection.id})
+            @asset = Asset.create(asset_params.merge({:asset_collection_ids => collection.id.to_s}))              
           end  
         end  
       end
-    
       
     
       private

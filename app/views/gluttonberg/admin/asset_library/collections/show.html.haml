@@ -1,10 +1,10 @@
 - @page_title = "Assets - #{@collection.name}"
-.secondary-navigation
-  - sub_nav do
-    = back_link("Library", admin_assets_url)
-    = nav_link("Delete", admin_collection_url(@collection) , {:method => :delete , :confirm => 'Are you sure?'})
-    = nav_link("Edit", edit_admin_collection_url(@collection))
-    = nav_link("Add asset", new_admin_asset_url )
+- sub_nav do
+  = back_link("Library", admin_assets_url)
+  = nav_link("Delete", admin_collection_url(@collection) , {:method => :delete , :confirm => 'Are you sure?'})
+  = nav_link("Edit", edit_admin_collection_url(@collection))
+  = nav_link("Add asset", new_admin_asset_url )
+
 .category-area
   = render  :partial => "/gluttonberg/admin/asset_library/shared/sorter",  :locals => { :url =>  admin_collection_url(@collection) }
 .clear

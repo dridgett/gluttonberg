@@ -23,6 +23,5 @@
   = render :partial => "collection_select_form" , :locals => {:asset_form => asset_form }
       
 
-  .clear
   .controls{:class => "#{ method_name == "put" ? '' : 'center-new' }"}
     = form_controls(admin_assets_url)
