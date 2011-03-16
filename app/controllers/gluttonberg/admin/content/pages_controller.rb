@@ -82,7 +82,7 @@ module Gluttonberg
           #@locales    = Locale.all
           @descriptions = []
           Gluttonberg::PageDescription.all.each do |name, desc|
-              @descriptions << [ name ,desc[:label] ]
+              @descriptions << [desc[:label], name]
           end
         
         end

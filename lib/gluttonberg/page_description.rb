@@ -52,7 +52,7 @@ module Gluttonberg
     #
     # The specified file should contain the various page descriptions.
     def self.setup
-      path = "/Users/abdul/Projects/gluttonberg-test/config/page_descriptions.rb" #Engine.root.join("config", "page_descriptions.rb")
+      path = File.join(Rails.root, "config", "page_descriptions.rb")
       require path if File.exists?(path)
     end
     
