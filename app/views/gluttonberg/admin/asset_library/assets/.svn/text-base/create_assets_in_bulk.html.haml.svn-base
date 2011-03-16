@@ -1,9 +1,0 @@
-%ul.assetList#assetPanels
-  - for asset in @new_assets
-    %li
-      %a{:href => admin_asset_url(asset), :class => "assetLink"}
-        %div
-          %img{:src => asset.thumb_small_url}/
-        %h2= asset.name
-        %p= "Added #{asset.created_at}"
-.clear
