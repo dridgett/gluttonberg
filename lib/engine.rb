@@ -10,7 +10,7 @@ module Gluttonberg
     config.app_name = 'Gluttonberg 2.0'
     config.localize = true
     config.active_record.observers = ['gluttonberg/page_observer']
-    
+        
     config.thumbnails = {  
          :grid_thumb => {:label => "Grid Thumbnails", :filename => "grid_thumb", :geometry => "426x306" },
          :grid_thumb_large => {:label => "Grid thumb hover", :filename => "grid_thumb_large", :geometry => "660x568"} ,

@@ -11,8 +11,9 @@ Rails.application.routes.draw do # |map|
       scope :module => 'Content' do
         match 'content' => "main#index",      :as => :content
         resources :pages do
-          resources :page_localizations
+          resources :page_localizations           
         end
+        match "/pages/move(.:format)" => "pages#move_node" , :as=> :page_move
       end
       #resouces :assets
       

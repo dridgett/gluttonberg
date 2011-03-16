@@ -2,7 +2,9 @@ module Gluttonberg
   class Page < ActiveRecord::Base
     
     has_many :localizations, :class_name => "Gluttonberg::PageLocalization"    
-    has_many :children, :class_name => "Gluttonberg::Page", :foreign_key => :parent_id, :order => 'position asc'
+    #has_many :children, :class_name => "Gluttonberg::Page", :foreign_key => :parent_id, :order => 'position asc'
+    
+    
     set_table_name "gb_pages"
     
     has_many :html_contents , :class_name => "Gluttonberg::HtmlContent"
@@ -13,7 +15,8 @@ module Gluttonberg
     before_validation :slug_management
     after_save   :check_for_home_update
 
-    #is_drag_tree :scope => [:parent_id], :flat => false
+    is_drag_tree :scope => [:parent_id], :flat => false , :order => "position"
+    
     #belongs_to  :passthrough_target,  :class_name => "Gluttonberg::Page"
 
     attr_accessor :current_localization, :dialect_id, :locale_id, :paths_need_recaching , :depths_need_recaching

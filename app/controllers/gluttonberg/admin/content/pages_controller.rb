@@ -5,7 +5,7 @@ module Gluttonberg
             
       
 
-        #drag_tree Page, :route_name => :page_move, :auto_gen_route => false
+        drag_tree Page, :route_name => :admin_page_move , :auto_gen_route => false
 
         before_filter :find_page, :only => [:show, :edit, :delete, :update, :destroy]
 
@@ -51,7 +51,7 @@ module Gluttonberg
         end
 
         def update
-          if @page.update_attributes(params["gluttonberg_page"]) || !@page.dirty?
+          if @page.update_attributes(params["gluttonberg_page"]) # || !@page.dirty?
             redirect_to admin_page_url(@page)
           else
             raise BadRequest

@@ -3,5 +3,8 @@
 
 $(document).ready(function() {  
 	$("#tabs").tabs();   
+	
+	dragTreeManager.init();
+	
 	//initClickEventsForAssetLinks($("body"));
 });

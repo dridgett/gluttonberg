@@ -4,6 +4,8 @@ module Gluttonberg
   require 'authlogic'
   require 'will_paginate'
   require 'zip/zip'
+  require 'acts_as_tree'
+  require 'acts_as_list'
   require 'gluttonberg/admin_controller_mixin'
   require 'gluttonberg/public_controller_mixin'
   require 'gluttonberg/authorizable'
@@ -35,17 +37,17 @@ module Gluttonberg
   # Checks to see if Gluttonberg has been configured to have a locale/location
   # and a translation.
   def self.localized_and_translated?
-    config[:localize] && config[:translate]
+    self.localized? && self.translated?
   end
  
   # Check to see if Gluttonberg is configured to be localized.
   def self.localized?
-    config[:localize]
+    Engine.config.localize
   end
   
   # Check to see if Gluttonberg has been configured to translate contents.
   def self.translated?
-    config[:translate]
+    Engine.config.translate
   end
   
   
