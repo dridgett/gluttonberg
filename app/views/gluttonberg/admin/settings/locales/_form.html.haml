@@ -18,10 +18,10 @@
     = f.check_box(:default, :boolean => true)
     %label{:for => "gluttonberg_locale_default", :class => "checkbox"} Default
   
-  = field_set_tag("Dialects" , :id => "dialects") do
-    %div.fieldset
-      - for dialect in @dialects
-        = f.check_box("dialect_ids", :value => dialect.id, :boolean => false, :checked => @locale.dialects.include?(dialect))
-        %label{:for => "dialect_#{dialect.code}", :class => "checkbox"}= dialect.name_and_code
-
+  
+  = block("Dialects") do
+    - for dialect in @dialects
+      = f.check_box("dialect_ids", :value => dialect.id, :boolean => false, :checked => @locale.dialects.include?(dialect))
+      %label{:for => "dialect_#{dialect.code}", :class => "checkbox"}= dialect.name_and_code
+      %br
   = form_controls(admin_locales_path)

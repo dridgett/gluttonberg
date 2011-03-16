@@ -267,8 +267,8 @@ JAVASCRIPT_CODE
       end
       
       def website_title
-        title = Engine.config.app_name #Merb::Slices::config[:gluttonberg][:title]
-        (title.blank?)? "Gluttonberg" : title
+        title = Engine.config.app_name 
+        (title.blank?)? "Gluttonberg" : title.html_safe
       end  
       
       def meta_keywords
@@ -280,7 +280,11 @@ JAVASCRIPT_CODE
       end
       
       def asset_url(asset)
-        "http://#{request.host}/asset/#{asset.asset_hash[0..3]}/#{asset.id}"
+        if Rails.env == "development"
+          "http://#{request.host}:#{request.port}/asset/#{asset.asset_hash[0..3]}/#{asset.id}"
+        else  
+          "http://#{request.host}/asset/#{asset.asset_hash[0..3]}/#{asset.id}"
+        end  
       end  
       
 

@@ -22,14 +22,14 @@ module Gluttonberg
         puts("Generating stubbed content for new page")
         page.description.sections.each do |name, section|
           # Create the content
-              # association = page.send(section[:type].to_s.pluralize)
-              #           content = association.create(:section_name => name)
-              #           # Create each localization
-              #           if content.model.localized?
-              #             page.localizations.all.each do |localization|
-              #               content.localizations.create(:parent => content, :page_localization => localization)
-              #             end
-              #           end
+              association = page.send(section[:type].to_s.pluralize)
+              content = association.create(:section_name => name)
+              # Create each localization
+              # if content.class.localized?
+              #                 page.localizations.all.each do |localization|
+              #                   content.localizations.create(:parent => content, :page_localization => localization)
+              #                 end
+              #               end
         end
       end
     end

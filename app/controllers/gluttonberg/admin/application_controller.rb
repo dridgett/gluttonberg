@@ -3,7 +3,7 @@ class Gluttonberg::Admin::ApplicationController < ApplicationController
    include Gluttonberg::AdminControllerMixin
    layout 'gluttonberg'
 
-  #unloadable
+  unloadable
   
   
   protected 
@@ -11,7 +11,7 @@ class Gluttonberg::Admin::ApplicationController < ApplicationController
     def get_order
       case params[:order]
       when 'name'
-        "assets.name"
+        "gb_assets.name"
       when 'date-updated'
         "updated_at desc"
       else

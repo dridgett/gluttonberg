@@ -1,10 +1,8 @@
 module Gluttonberg
-  class ImageContent
-    include DataMapper::Resource
-    include Gluttonberg::Content::Block
-
-    property :id, Serial
+  class ImageContent  < ActiveRecord::Base
     
+    set_table_name "gb_image_contents"
+        
     belongs_to :asset
   end
 end
