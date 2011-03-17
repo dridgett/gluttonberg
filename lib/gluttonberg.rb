@@ -16,9 +16,6 @@ module Gluttonberg
   require 'gluttonberg/helpers'
   require 'gluttonberg/library'
   require 'gluttonberg/page_description'
-  require 'gluttonberg/red_cloth_partials'
-  require 'gluttonberg/redcloth_extensions'
-  require 'gluttonberg/redcloth_helper'
   require 'gluttonberg/templates'
   require 'gluttonberg/middleware'
   
