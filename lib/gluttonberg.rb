@@ -23,8 +23,9 @@ module Gluttonberg
   require 'gluttonberg/middleware'
   
   
-  
-    PageDescription.setup
+    # These should likely move into one of the initializers inside of the
+    # engine config. This will ensure they only run after Rails and the app
+    # has been loaded.
     #Content.setup
     #Library.setup
     #Templates.setup

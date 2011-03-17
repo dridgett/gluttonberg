@@ -39,6 +39,9 @@ module Gluttonberg
     initializer "static assets" do |app|
       app.middleware.use ::ActionDispatch::Static, "#{root}/public"
     end
-    
+
+    initializer "setup gluttonberg components" do |app| 
+      Gluttonberg::PageDescription.setup
+    end
   end
 end
