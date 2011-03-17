@@ -314,15 +314,9 @@ var dragTreeManager = {
       var dragTree = $(this);
 
       var dragFlat = $(this).hasClass('drag-flat');
-      
-      try{
-        dragTree.treeTable({expandable: false});
-      }catch(e){
-        console.log("---- exception --- ");
-        console.log(e);
-      }  
-      
-      
+
+      dragTree.treeTable({expandable: false});
+
       var remote_move_node = function(source, destination, mode){
         $.ajax({
           type: "POST",
@@ -337,7 +331,6 @@ var dragTreeManager = {
       }
     
     // Configure draggable rows
-    try{
       dragTree.find(".drag-node").draggable({
         helper: "clone",
         opacity: .75,
@@ -348,8 +341,6 @@ var dragTreeManager = {
           if (dragManager.dropSite) {
             var top = dragManager.dropSite.offset({padding: true, border: true, margin: true}).top;
             var height = dragManager.dropSite.outerHeight({padding: false, border: false, margin: true});
-                        
-            
             var mouseTop = e.pageY;
             var topOffset = 10;
             var bottomOffset = 4;
@@ -374,23 +365,12 @@ var dragTreeManager = {
           }
         }
       });
-      
-    }catch(e){
-      console.log("---- exception2 --- ");
-      console.log(e);
-    }  
 
-    
-    try{
       // Configure droppable rows
       dragTree.find(".drag-node").each(function() {
         $(this).parents("tr").droppable({
           accept: ".drag-node:not(selected)",
           drop: function(e, ui) {
-            
-            console.log("drop ----");
-            console.log(ui);
-            
             var sourceNode = $(ui.draggable).parents("tr")
             var targetNode = this;
 
@@ -423,15 +403,8 @@ var dragTreeManager = {
           },
           hoverClass: "accept",
           over: function(e, ui) {
-            console.log("over ----");
-            console.log(ui);
-            console.log(ui.draggable.html());
-            //console.log(ui.element.parents("tr"));
-            
-            element = ui.draggable.parent();
-            
-            if (element.parents("tr") != dragManager.dropSite) {
-              dragManager.dropSite = element;
+            if (ui.draggable.parents("tr") != dragManager.dropSite) {
+              dragManager.dropSite = ui.element;
             }
             // Make the droppable branch expand when a draggable node is moved over it.
             if(this.id != ui.draggable.parents("tr")[0].id && !$(this).is(".expanded")) {
@@ -439,28 +412,19 @@ var dragTreeManager = {
             }
           },
           out: function(e, ui){
-            console.log("out ----");
-            //console.log(ui.element);
-            console.log("out --- stage 2-");
-            element = ui.draggable.parent();
-            element.removeClass("insert_child insert_before insert_after");
-            if (dragManager.dropSite == element) {
+            ui.element.removeClass("insert_child insert_before insert_after");
+            if (dragManager.dropSite == ui.element) {
               dragManager.dropSite = null;
               dragManager.dragMode = DM_NONE;
             }
           }
         });
       });
-    
-    }catch(e){
-      console.log("---- exception 3--- ");
-      console.log(e);
-    }  
 
       // Make visible that a row is clicked
       dragTree.find("tbody tr").mousedown(function() {
-          $("tr.selected").removeClass("selected"); // Deselect currently selected rows
-          $(this).addClass("selected");           
+        $("tr.selected").removeClass("selected"); // Deselect currently selected rows
+        $(this).addClass("selected");
       });
 
       // Make sure row is selected when span is clicked

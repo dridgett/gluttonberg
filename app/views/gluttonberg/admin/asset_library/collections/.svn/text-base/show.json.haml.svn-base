@@ -1,1 +1,0 @@
-= { :name     => @collection.name, :backURL  => admin_asset_browser_url+"?no_frame=false", :markup   => asset_panel(@assets, @collection.id , "collection") }.to_json 
