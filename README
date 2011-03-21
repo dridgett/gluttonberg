@@ -21,10 +21,15 @@ The require should look like this - assuming you use the same dirs as me:
 
   gem 'gluttonberg', :path => '../gluttonberg'
 
+If this is the first time you are bootstrapping gluttonberg, you will need to copy the migrations to the host app.
+There is a simple generator that will do this for you.
+
+ $ rails generate gluttonberg:installer
 
 Then boot your Rails app.
 
   $ cd gluttonberg-test
+  $ rails generate gluttonberg:installer
   $ rails server
 
 Simple as that!
