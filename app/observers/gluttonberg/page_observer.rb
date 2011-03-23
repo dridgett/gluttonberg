@@ -25,11 +25,11 @@ module Gluttonberg
               association = page.send(section[:type].to_s.pluralize)
               content = association.create(:section_name => name)
               # Create each localization
-              # if content.class.localized?
-              #                 page.localizations.all.each do |localization|
-              #                   content.localizations.create(:parent => content, :page_localization => localization)
-              #                 end
-              #               end
+               if content.class.localized?
+                   page.localizations.all.each do |localization|
+                     content.localizations.create(:parent => content, :page_localization => localization)
+                   end
+              end
         end
       end
     end

@@ -7,9 +7,9 @@ module Gluttonberg
     
     set_table_name "gb_pages"
     
-    has_many :html_contents , :class_name => "Gluttonberg::HtmlContent"
-    has_many :image_contents , :class_name => "Gluttonberg::ImageContent"
-    has_many :plain_text_contents , :class_name => "Gluttonberg::PlainTextContent"
+    #has_many :html_contents , :class_name => "Gluttonberg::HtmlContent"
+    #has_many :image_contents , :class_name => "Gluttonberg::ImageContent"
+    #has_many :plain_text_contents , :class_name => "Gluttonberg::PlainTextContent"
     #has_many :plain_text_contents , :class_name => "Gluttonberg::PlainTextContent"
     
     before_validation :slug_management

@@ -25,16 +25,16 @@ module Gluttonberg
     # extra associations or do house-keeping once everything is required and
     # running
     def self.setup
-      Merb.logger.info("Setting up content classes and assocations")
+      Rails.logger("Setting up content classes and assocations")
       Page.class_eval do
         Gluttonberg::Content.content_classes.each do |klass| 
-          has n, klass.association_name, :class_name => klass.name 
+          has_many klass.association_name, :class_name => klass.name 
         end
       end
       # Create associations between content localizations and PageLocalization
       PageLocalization.class_eval do
         Gluttonberg::Content.localizations.each do |assoc, klass|
-          has n, assoc, :class_name => klass
+          has_many  assoc, :class_name => klass
         end
       end
       # Store the names of the associations in their own array for convenience
