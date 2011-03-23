@@ -11,14 +11,11 @@ module Gluttonberg
   require 'gluttonberg/authorizable'
   require 'gluttonberg/components'
   require 'gluttonberg/content'
-  require 'gluttonberg/drag_tree_helper'
+  require 'gluttonberg/drag_tree' 
   require 'gluttonberg/extensions'
   require 'gluttonberg/helpers'
   require 'gluttonberg/library'
   require 'gluttonberg/page_description'
-  require 'gluttonberg/red_cloth_partials'
-  require 'gluttonberg/redcloth_extensions'
-  require 'gluttonberg/redcloth_helper'
   require 'gluttonberg/templates'
   require 'gluttonberg/middleware'
   
@@ -27,9 +24,9 @@ module Gluttonberg
     # engine config. This will ensure they only run after Rails and the app
     # has been loaded.
     #Content.setup
-    #Library.setup
     #Templates.setup
     Helpers.setup
+    DragTree.setup
     
     
     
