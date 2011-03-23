@@ -18,7 +18,7 @@ class GluttonbergMigration < ActiveRecord::Migration
     end
 
     #gb_dialects_gb_locales
-    create_table :dialects_locales , :id => false do |t|
+    create_table :gb_dialects_locales , :id => false do |t|
       t.column :locale_id, :integer, :null => false
       t.column :dialect_id, :integer, :null => false
     end
@@ -56,13 +56,7 @@ class GluttonbergMigration < ActiveRecord::Migration
       t.column :page_id, :integer
     end
 
-    create_table :gb_users do |t|
-      t.column :crypted_password, :string, :limit => 50
-      t.column :salt, :string, :limit => 50
-      t.column :name, :string, :limit => 100
-      t.column :email, :string, :limit => 100
-      t.column :is_super_admin, :boolean, :default => true
-    end
+   
 
     create_table :gb_locales do |t|
       t.column :name, :string, :limit => 70, :null => false
@@ -177,12 +171,12 @@ class GluttonbergMigration < ActiveRecord::Migration
       t.timestamps
     end
     
-    create_table :asset_collections_assets , :id => false do |t|
+    create_table :gb_asset_collections_assets , :id => false do |t|
       t.column :asset_collection_id, :integer, :null => false
       t.column :asset_id, :integer, :null => false
     end
     
-    create_table :users do |t|
+    create_table :gb_users do |t|
       t.string :email, :null => false
       t.string :crypted_password, :null => false
       t.string :password_salt, :null => false
@@ -192,13 +186,13 @@ class GluttonbergMigration < ActiveRecord::Migration
       t.integer :login_count, :null => false, :default => 0
       t.timestamps
     end
-
+         
   end
 
   def self.down
     drop_table :gb_dialects
     drop_table :gb_rich_text_content_localizations
-    drop_table :gb_dialects_gb_locales
+    drop_table :gb_dialects_locales
     drop_table :gb_plain_text_content_localizations
     drop_table :gb_html_contents
     drop_table :gb_html_content_localizations
@@ -215,8 +209,7 @@ class GluttonbergMigration < ActiveRecord::Migration
     drop_table :gb_asset_mime_types
     drop_table :gb_asset_collections
     drop_table :gb_assets
-    drop_table :asset_collections_assets
+    drop_table :gb_asset_collections_assets
     drop_table :gb_audio_asset_attributes
-    drop_table :users
   end
 end

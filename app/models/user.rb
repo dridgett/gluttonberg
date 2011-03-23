@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base
   
+  set_table_name "gb_users"
+  
   acts_as_authentic do |c|
     c.login_field = "email"
   end

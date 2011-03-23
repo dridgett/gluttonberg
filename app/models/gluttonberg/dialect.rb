@@ -4,7 +4,7 @@ module Gluttonberg
     set_table_name "gb_dialects"
     
     has_many :page_localizations, :class_name => "Gluttonberg::PageLocalization"
-    has_and_belongs_to_many :locales, :class_name => "Gluttonberg::Locale"
+    has_and_belongs_to_many :locales, :class_name => "Gluttonberg::Locale" , :join_table => "gb_dialects_locales"
     
     # Returns a formatted string with both the name and the ISO code for this
     # localization
