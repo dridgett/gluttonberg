@@ -9,7 +9,7 @@ module Gluttonberg
     config.admin_path = '/admin'
     config.app_name = 'Gluttonberg 2.0'
     config.localize = true
-    config.active_record.observers = ['gluttonberg/page_observer']
+    config.active_record.observers = ['gluttonberg/page_observer' , 'gluttonberg/page_localization_observer' ]
         
     config.thumbnails = {   }
     config.max_image_size = "1600x1200>"

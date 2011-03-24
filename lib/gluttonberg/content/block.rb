@@ -16,7 +16,8 @@ module Gluttonberg
           
           #include Textilized
           
-          class << self; attr_accessor :localized, :label, :content_type, :association_name end
+          cattr_accessor :localized, :label, :content_type, :association_name
+          #class << self; attr_accessor :localized, :label, :content_type, :association_name end
           @localized = false
           
           attr_reader :current_localization
@@ -79,12 +80,15 @@ module Gluttonberg
           #self.after_class_method(:auto_upgrade!) { localized_model.auto_upgrade! }
           
           # Tell the content module that we are localized
-          #localized_model.association_name = :"#{self.content_type}_localizations"
+          localized_model.association_name = "#{self.content_type}_localizations"
           Gluttonberg::Content.register_localization( "#{self.content_type}_localizations".to_sym , localized_model)
         
           # Set up the associations
           has_many :localizations, :class_name => Gluttonberg.const_get(class_name).to_s  , :foreign_key => "html_content_id"
           localized_model.belongs_to(:parent, :class_name => self.name , :foreign_key => "html_content_id")
+          
+          
+          
           
           puts "----#{"#{self.content_type}_localizations".to_sym}-----------#{self.name}-------- end of is_localized method #{Gluttonberg.const_get(class_name)}"
         end

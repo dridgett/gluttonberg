@@ -14,7 +14,7 @@ module Gluttonberg
     # Write an explicit setter for the slug so we can check it’s not a blank 
     # value. This stops it being overwritten with an empty string.
     def slug=(new_slug)
-      attribute_set(:slug, new_slug) unless new_slug.blank?
+      write_attribute(:slug, new_slug) unless new_slug.blank?
     end
 
     # Returns an array of content localizations
@@ -34,7 +34,9 @@ module Gluttonberg
     # Updates each localized content record and checks their validity
     def contents=(params)
       self.content_needs_saving = true
+      puts "-------contestns"
       contents.each do |content|
+        puts "--------------------#{content}"
         update = params[content.association_name][content.id.to_s]
         content.attributes = update if update
       end
@@ -55,16 +57,18 @@ module Gluttonberg
     # to it's page's default.
     def regenerate_path
       if page.parent_id
-        localization = page.parent.localizations.first(
-          :fields           => [:path],
-          :locale_id        => locale_id, 
-          :dialect_id       => dialect_id
+        localization = page.parent.localizations.find(:first,
+          :conditions => {
+            :locale_id        => locale_id, 
+            :dialect_id       => dialect_id
+          }  
         )
-        path = "#{localization.path}/#{slug || page.slug}"
+        
+        new_path = "#{localization.path}/#{slug || page.slug}"
       else
-        path = "#{slug || page.slug}"
+        new_path = "#{slug || page.slug}"
       end
-      attribute_set(:path, path)
+      write_attribute(:path, new_path)
     end
     
     # Regenerates and saves the path to this localization.

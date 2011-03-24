@@ -61,7 +61,7 @@ module Gluttonberg
       def content_editor(content_class)
         locals  = {:content => content_class}
         puts "-------------------#{content_class}     #{content_class.methods.sort}  "
-        type    = "html_content" #content_class.content_type
+        type    = content_class.content_type #"html_content"
         #glob    = File.join(::Gluttonberg::Templates.path_for("editors") , "_#{type}.#{content_type}.*")
         #unless Dir[glob].empty?
         #  render :partial => File.join(::Gluttonberg::Templates.path_for("editors") , type )  , :locals =>  locals

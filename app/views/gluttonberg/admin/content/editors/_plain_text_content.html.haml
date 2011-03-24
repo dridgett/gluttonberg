@@ -1,2 +1,3 @@
 %label= content.section_label
-= text_field(:value => content.text, :name => "gluttonberg::page_localization[contents][#{content.association_name}][#{content.id}][text]", :class => "large")
+- id_of_text_field = "gluttonberg_page_localization[contents][#{content.association_name}][#{content.id}][text]"
+= text_field_tag(id_of_text_field , content.text, :class => "large")

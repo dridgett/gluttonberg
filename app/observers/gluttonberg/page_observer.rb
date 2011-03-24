@@ -79,9 +79,11 @@ module Gluttonberg
       unless page_localization_ids.blank?
         Gluttonberg::Content.content_classes.each do |klass|
           if klass.localized?
-            klass.localizations.model.all(:page_localization_id => page_localization_ids).destroy!
+            Gluttonberg.const_get( "#{klass.name.demodulize}Localization" ).delete_all(:page_localization_id => page_localization_ids)
+            #klass.localizations.model.all(:page_localization_id => page_localization_ids).destroy!
           end
-          klass.all(:page_id => page.id).destroy!
+          klass.delete_all(:page_id => page.id)
+          #klass.find(:all , :conditions => { :page_id => page.id } ).destroy!
         end
         page_localizations.each do |page_localization|
           PageLocalization.destroy(page_localization.id)

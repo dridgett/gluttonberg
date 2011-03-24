@@ -1,17 +1,17 @@
 module Gluttonberg
-  class PageLocalizationObserver
-    include DataMapper::Observer
-
+  class PageLocalizationObserver < ActiveRecord::Observer
     observe PageLocalization
 
     # Every time the localization is updated, we need to check to see if the 
     # slug has been updated. If it has, we need to update itâ€™s cached path
     # and also the paths for all itâ€™s decendants.
-    before :valid? do
-      if attribute_dirty?(:slug) || new_record?
+    def before_validation(page_localization)
+      
+      if page_localization.slug_changed? || page_localization.new_record?
+      #if attribute_dirty?(:slug) || new_record?
         @paths_need_recaching = true
-        regenerate_path 
-      elsif attribute_dirty?(:path)
+        page_localization.regenerate_path 
+      elsif page_localization.path_changed? #attribute_dirty?(:path)
         @paths_need_recaching = true
       end
     end
@@ -20,16 +20,27 @@ module Gluttonberg
     # through all the decendent localizations and tell each of those to recache.
     # Each of those will then also be observed and have their children updated
     # as well.
-    after :save do
-      if paths_need_recaching? and !page.children.empty?
-        decendants = page.children.localizations.all({:locale_id => locale_id, :dialect_id => dialect_id})
+    def after_save(page_localization)
+      if page_localization.paths_need_recaching? and !page_localization.page.children.blank?
+        decendants = page_localization.page.children.localizations.find( :all , :conditions => {:locale_id => locale_id, :dialect_id => dialect_id})
         unless decendants.empty?
           decendants.each do |l| 
             l.paths_need_recaching = true
-            l.update_attributes(:path => "#{path}/#{l.slug || l.page.slug}") 
+            l.update_attributes(:path => "#{page_localization.path}/#{l.slug || l.page.slug}") 
           end 
         end
       end
     end
   end
 end
+
+
+# if paths_need_recaching? and !page.children.empty?
+#   decendants = page.children.localizations.all({:locale_id => locale_id, :dialect_id => dialect_id})
+#   unless decendants.empty?
+#     decendants.each do |l| 
+#       l.paths_need_recaching = true
+#       l.update_attributes(:path => "#{path}/#{l.slug || l.page.slug}") 
+#     end 
+#   end
+# end

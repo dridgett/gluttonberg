@@ -31,9 +31,11 @@ module Gluttonberg
         end
 
         def update
-          if @page_localization.update_attributes(params["gluttonberg_page_localization"]) || !@page_localization.dirty?
+          if @page_localization.update_attributes(params["gluttonberg_page_localization"]) # || !@page_localization.dirty?
+            puts "---------------------saved"
             redirect_to admin_page_path(params[:page_id])
           else
+            puts "---------------------update failed"
             render :edit
           end
         end

@@ -123,37 +123,37 @@ module Gluttonberg
       #   asset_browser(:thumbnail_id, :label => "Thumbnail")
       #
       def asset_browser(*args)
-        bound = bound?(*args)
-        if bound
-          opts = args.length > 1 ? args.last : {}
-          # do something clever to get the current obj, hence the fieldname
-          rel = "#{current_form_context.instance_variable_get(:@name)}_#{args.first}"
-          asset_id = current_form_context.send(:control_value, args.first)
-        else
-          opts = args.first
-          rel = opts[:id]
-          asset_id = opts[:value]
-        end
-        # Find the asset so we can get the name
-        asset_name, indicator = unless asset_id.nil?
-          asset = Gluttonberg::Asset.get(asset_id, :fields => [:name, :category])
-          if asset
-            [asset.name, asset.category]
-          else
-            ["Asset missing!", "missing"]
-          end
-        else
-          ["Nothing selected", "default"]
-        end
-        # Output it all
-        link_contents = "<strong class=\"#{indicator}\">#{asset_name}</strong>"
-        link_contents << link_to("Browse", url(:gluttonberg_asset_browser), :class => "buttonGrey", :rel => rel)
-        link_contents << link_to("Remove", "#{}", :class => "buttonGrey clear-asset", :rel => "clear-asset")
-        link_contents << (bound ? hidden_field(args.first, opts) : hidden_field(opts))
-        output = ""
-        output << tag(:label, opts[:label]) if opts[:label]
-        output << tag(:p, link_contents, :class => "assetBrowserLink")
-        
+        # bound = bound?(*args)
+        #         if bound
+        #           opts = args.length > 1 ? args.last : {}
+        #           # do something clever to get the current obj, hence the fieldname
+        #           rel = "#{current_form_context.instance_variable_get(:@name)}_#{args.first}"
+        #           asset_id = current_form_context.send(:control_value, args.first)
+        #         else
+        #           opts = args.first
+        #           rel = opts[:id]
+        #           asset_id = opts[:value]
+        #         end
+        #         # Find the asset so we can get the name
+        #         asset_name, indicator = unless asset_id.nil?
+        #           asset = Gluttonberg::Asset.get(asset_id, :fields => [:name, :category])
+        #           if asset
+        #             [asset.name, asset.category]
+        #           else
+        #             ["Asset missing!", "missing"]
+        #           end
+        #         else
+        #           ["Nothing selected", "default"]
+        #         end
+        #         # Output it all
+        #         link_contents = "<strong class=\"#{indicator}\">#{asset_name}</strong>"
+        #         link_contents << link_to("Browse", url(:gluttonberg_asset_browser), :class => "buttonGrey", :rel => rel)
+        #         link_contents << link_to("Remove", "#{}", :class => "buttonGrey clear-asset", :rel => "clear-asset")
+        #         link_contents << (bound ? hidden_field(args.first, opts) : hidden_field(opts))
+        #         output = ""
+        #         output << tag(:label, opts[:label]) if opts[:label]
+        #         output << tag(:p, link_contents, :class => "assetBrowserLink")
+        #         
         
       end
 
