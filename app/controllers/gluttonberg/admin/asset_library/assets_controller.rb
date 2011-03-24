@@ -24,15 +24,9 @@ module Gluttonberg
             @categories = AssetCategory.find(:all , :conditions => { :name => @category_filter })
           end
       
-          @photoseries = PhotoSequence.all
-          @sets = SetSequence.all
-          @html_contents = HtmlContent.all
-          @show_bigstories_contents = ( params[:show_content].blank? ? false : params[:show_content] )
-          @films = Film.all
-      
-      
+          
           if params["no_frame"]
-            render :partial => "browser_root" , :locals => {:show_content => @show_bigstories_contents}
+            render :partial => "browser_root" 
           else
             render :layout => false
           end
@@ -42,7 +36,7 @@ module Gluttonberg
         def category
           conditions = {:order => get_order, :per_page => 20 , :page => params[:page]}
           if params[:category] == "all" then
-            @assets = Asset.paginate( conditions ) # if ignore asset category if user selects 'all' from category
+            @assets = Asset.paginate( conditions ) # ignore asset category if user selects 'all' from category
           else
             req_category = AssetCategory.first(:conditions => "name = '#{params[:category]}'" )
             # if category is not found then raise exception

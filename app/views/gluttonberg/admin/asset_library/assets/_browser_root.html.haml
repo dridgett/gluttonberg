@@ -1,5 +1,3 @@
-- show_content = (defined?(show_content) ? show_content : false)
-
 #tabs
   %ul
     %li
@@ -7,18 +5,7 @@
     %li
       %a{ :href => "#tabs-collection"} Collections
     
-    - if show_content
-      %li
-        %a{ :href => "#tabs-films"} Films
-      %li
-        %a{ :href => "#tabs-photoseries"} PhotoSeries
-      
-      %li
-        %a{ :href => "#tabs-sets"} Sets
-        
-      %li
-        %a{ :href => "#tabs-html"} Html contents  
-      
+
   .clear
 
 #tabs-browse
@@ -41,19 +28,6 @@
           %a{:href => admin_collection_url(collection), :class => "collection"}
             %h3= collection.name
 
-- if show_content
-
-  #tabs-films
-    = render :partial =>  "content_panel" , :locals => { :contents => @films }
-  #tabs-photoseries
-    = render :partial =>  "content_panel" , :locals => { :contents => @photoseries }
-    
-              
-  #tabs-sets
-    = render :partial =>  "content_panel" , :locals => { :contents => @sets }
-  
-  #tabs-html
-    = render :partial =>  "content_panel" , :locals => { :contents => @html_contents }
     
 
 .clear              

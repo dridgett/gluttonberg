@@ -1,6 +1,6 @@
 helpers = File.join(Pathname(__FILE__).dirname.expand_path, "helpers")
 require File.join(helpers, "content")
-require File.join(helpers, "assets")
+require File.join(helpers, "asset_library")
 require File.join(helpers, "public")
 require File.join(helpers, "admin")
 
@@ -11,7 +11,7 @@ module Gluttonberg
     # Mixes all the helpers into the GlobalHelpers module. Slighly messy, but
     # hey it works.
     def self.setup
-      [Assets, Admin, Public, Content].each do |helper|
+      [AssetLibrary, Admin, Public, Content].each do |helper|
         ActionView::Helpers.send(:include, helper)
       end
     end

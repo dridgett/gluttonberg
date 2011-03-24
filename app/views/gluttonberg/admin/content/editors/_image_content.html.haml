@@ -2,4 +2,6 @@
 
 - name_of_tag = "gluttonberg_page_localization[contents][#{content.association_name}][#{content.id}][asset_id]"
 
-= asset_browser(:value => content.asset_id, :id => "page_image_#{content.id}", :name => name_of_tag)
+/= asset_browser(:value => content.asset_id, :id => "page_image_#{content.id}", :name => name_of_tag)
+
+= asset_browser( name_of_tag ,  opts = { :button_class => "button choose" , :button_text => "Select" ,  :filter => "" } )  
