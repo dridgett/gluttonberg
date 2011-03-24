@@ -32,8 +32,8 @@
     = f.text_field(:slug, :id => 'page_slug')
     
   = block("Content") do
-    /- for content in @page_localization.contents
-    /  = content_editor(content)
-    /  %br
+    - for content in @page_localization.contents
+      = content_editor(content)
+      %br
   
   = form_controls(admin_page_path(params[:page_id]))

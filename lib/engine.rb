@@ -38,7 +38,12 @@ module Gluttonberg
     initializer "setup gluttonberg components" do |app| 
       Gluttonberg::PageDescription.setup
       #Helpers.setup
-      #Content.setup
+      
+      Gluttonberg::PlainTextContent
+      Gluttonberg::ImageContent
+      Gluttonberg::HtmlContent
+      
+      Gluttonberg::Content.setup
       #Templates.setup
       #Gluttonberg::Helpers.setup      
     end

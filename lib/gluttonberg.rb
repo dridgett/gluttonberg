@@ -6,7 +6,7 @@ module Gluttonberg
   require 'zip/zip'
   require 'acts_as_tree'
   require 'acts_as_list'
-  require 'gluttonberg/admin_controller_mixin'
+  #require 'gluttonberg/admin_controller_mixin'
   require 'gluttonberg/public_controller_mixin'
   require 'gluttonberg/authorizable'
   require 'gluttonberg/components'

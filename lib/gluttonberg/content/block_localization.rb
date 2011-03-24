@@ -10,9 +10,9 @@ module Gluttonberg
         klass.class_eval do
           class << self; attr_accessor :content_type, :association_name end
           
-          property :id,         ::DataMapper::Types::Serial
-          property :created_at, Time
-          property :updated_at, Time
+          #property :id,         ::DataMapper::Types::Serial
+          #property :created_at, Time
+          #property :updated_at, Time
 
           belongs_to :page_localization
         end

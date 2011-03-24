@@ -60,13 +60,14 @@ module Gluttonberg
       # it falls back to Gluttonberg's view dir — views/content/editors
       def content_editor(content_class)
         locals  = {:content => content_class}
-        type    = content_class.content_type
-        glob    = ::Gluttonberg::Templates.path_for("editors") / "_#{type}.#{content_type}.*"
-        unless Dir[glob].empty?
-          partial(::Gluttonberg::Templates.path_for("editors") / type, locals)
-        else
-          partial("content/editors/#{type}", locals)
-        end
+        puts "-------------------#{content_class}     #{content_class.methods.sort}  "
+        type    = "html_content" #content_class.content_type
+        #glob    = File.join(::Gluttonberg::Templates.path_for("editors") , "_#{type}.#{content_type}.*")
+        #unless Dir[glob].empty?
+        #  render :partial => File.join(::Gluttonberg::Templates.path_for("editors") , type )  , :locals =>  locals
+        #else
+          render :partial => "/gluttonberg/admin/content/editors/#{type}", :locals => locals
+        #end
       end
       
       # generate javascript code to enable tinymce on it. textArea need to have class = mceEditor
@@ -78,7 +79,7 @@ module Gluttonberg
       # generate javascript code to enable tinymce on it. textArea need to have class = mceEditor
       def enable_tinymce_on_class(html_class)        
         content = "enable_tinyMCE_on_class('#{html_class}'); \n"        
-        tag(:script , content , :charset=>'utf-8', :type=>'text/javascript')        
+        content_tag(:script , content , :charset=>'utf-8', :type=>'text/javascript')        
       end
       
     end # Content

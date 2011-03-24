@@ -25,12 +25,15 @@ module Gluttonberg
       module Model
         module ClassMethods
           def is_localized(&blk)
+            
+            puts "---------- is_localized in localization.rb"
+            
             # Why yes, this is localized.
             @localized = true
 
             # Create the localization model
             class_name = self.name + "Localization"
-            table_name = Extlib::Inflection.tableize(class_name)
+            table_name = "gb_#{class_name.tableize}"
             # Check to see if the localization is inside a constant
             target = Kernel
             if class_name.index("::")
@@ -40,7 +43,9 @@ module Gluttonberg
               # Get each constant in turn
               modules.each { |mod| target = target.const_get(mod) }
             end
-            @localized_model = target.const_set(class_name, DataMapper::Model.new(table_name))
+            
+            @localized_model = Class.new(ActiveRecord::Base)  #target.const_set(class_name, DataMapper::Model.new(table_name))
+            @localized_model.set_table_name(table_name)
             
             # Add the properties declared in the block, and sprinkle in our own mixins
             @localized_model.class_eval(&blk)
@@ -65,17 +70,17 @@ module Gluttonberg
             end
             
             # Set up filters on the class to make sure the localization gets migrated
-            self.after_class_method(:auto_migrate!) { @localized_model.auto_migrate! }
-            self.after_class_method(:auto_upgrade!) { @localized_model.auto_upgrade! }
+            #self.after_class_method(:auto_migrate!) { @localized_model.auto_migrate! }
+            #self.after_class_method(:auto_upgrade!) { @localized_model.auto_upgrade! }
             
             # Associate the model and it’s localization
-            has(n, :localizations, :class_name => self.name + "Localization", :parent_key => [:id], :child_key => [:parent_id])
+            has_many  :localizations, :class_name => self.name + "Localization", :parent_key => [:id], :child_key => [:parent_id]
             @localized_model.belongs_to(:parent, :class_name => self.name, :parent_key => [:parent_key], :child_key => [:id])
             
             # Set up validations for when we update in the presence of a localization
-            after   :valid?,  :validate_current_localization
-            after   :save,    :save_current_localization
-            before  :destroy, :cleanup_localizations
+            after_validation  :validate_current_localization
+            after_save    :save_current_localization
+            before_destroy :cleanup_localizations
             
             # Clear the ivars which contain the default dialect/locale
             after_class_method :new_with_localization, :clear_fallback_vars
@@ -267,9 +272,9 @@ module Gluttonberg
         # to set up associations to the dialect and locale
         def self.included(klass)
           klass.class_eval do
-            property :id,         DataMapper::Types::Serial
-            property :created_at, Time
-            property :updated_at, Time
+            # property :id,         DataMapper::Types::Serial
+            #             property :created_at, Time
+            #             property :updated_at, Time
             
             belongs_to :dialect,  :class_name => "Gluttonberg::Dialect"
             belongs_to :locale,   :class_name => "Gluttonberg::Locale"

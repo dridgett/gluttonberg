@@ -1,7 +1,7 @@
 module Gluttonberg
   module Content
-    class Public < Gluttonberg::Application
-      include Gluttonberg::PublicController
+    class Public < ActionController::Base
+      #include Gluttonberg::PublicController
       
       provides :htmlf, :html, :js, :xml, :json
       
