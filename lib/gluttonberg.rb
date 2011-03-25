@@ -29,7 +29,6 @@ module Gluttonberg
     DragTree.setup
     
     
-    
 
   
   # Checks to see if Gluttonberg has been configured to have a locale/location

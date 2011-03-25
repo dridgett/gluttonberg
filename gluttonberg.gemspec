@@ -44,3 +44,13 @@ Gem::Specification.new do |s|
   end
 end
 
+
+# TODO: Rewrite following gemfile code as gemspec. 
+#gem 'acts_as_versioned', :git => "git://github.com/xspond/acts_as_versioned.git", :branch => "rails3"
+#gem 'transitions' , :git => "git://github.com/qoobaa/transitions.git" , :require => ["transitions", "active_record/transitions"]
+ # 
+ # group :development, :test do
+ #   gem "rspec-rails", "~> 2.0.1"
+ # end
+
+
