@@ -2,7 +2,7 @@ module Gluttonberg
   module Admin
     module Settings
 
-      class UsersController < Gluttonberg::Admin::ApplicationController
+      class UsersController < Gluttonberg::Admin::BaseController
           
         def index
           @users = User.all

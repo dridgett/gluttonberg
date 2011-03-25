@@ -1,7 +1,5 @@
-class Gluttonberg::Admin::ApplicationController < ActionController::Base
+class Gluttonberg::Admin::BaseController < ActionController::Base
    #include Gluttonberg::AdminControllerMixin
-   # base.helper_method :current_user_session, :current_user
-   #    base.before_filter :require_user
    helper_method :current_user_session, :current_user
    before_filter :require_user
    

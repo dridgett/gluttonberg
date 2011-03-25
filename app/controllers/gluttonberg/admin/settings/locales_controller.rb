@@ -1,7 +1,7 @@
 module Gluttonberg
   module  Admin
     module Settings
-      class LocalesController < Gluttonberg::Admin::ApplicationController
+      class LocalesController < Gluttonberg::Admin::BaseController
     
 
 

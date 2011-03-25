@@ -1,7 +1,7 @@
 module Gluttonberg
   module Admin
     module Content
-      class PageLocalizationsController < Gluttonberg::Admin::ApplicationController
+      class PageLocalizationsController < Gluttonberg::Admin::BaseController
      
       
         before_filter :find_localization, :exclude => [:index, :new, :create]

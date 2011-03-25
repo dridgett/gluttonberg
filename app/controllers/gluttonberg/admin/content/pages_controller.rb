@@ -1,7 +1,7 @@
 module Gluttonberg
   module Admin
     module Content    
-      class PagesController < Gluttonberg::Admin::ApplicationController
+      class PagesController < Gluttonberg::Admin::BaseController
             
       
 

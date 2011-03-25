@@ -1,7 +1,7 @@
 module Gluttonberg
   module Admin
     module Content
-      class MainController < Gluttonberg::Admin::ApplicationController
+      class MainController < Gluttonberg::Admin::BaseController
         
 
         def index
