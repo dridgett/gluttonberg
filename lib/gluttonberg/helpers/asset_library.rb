@@ -155,7 +155,7 @@ module Gluttonberg
               for asset in @assets
                 html << '<li>'
                   #html << "<a href='#{admin_asset_url(asset)}' class='assetLink' rel='#{asset.type}' >"
-                  html << "<a href='#{admin_asset_url(asset)}' class='assetLink' rel='#{asset.category.name}' >"
+                  html << "<a href='#{admin_asset_url(asset)}' class='assetLink' rel='#{asset.category}' >"
                     html << "<h2> #{asset.name} </h2>"
                     html << "<p>Added #{asset.created_at}</p>"
                     html << "<div> <img src='#{asset.thumb_small_url}' /> </div>"
