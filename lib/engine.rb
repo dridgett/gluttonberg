@@ -3,6 +3,7 @@ require 'rails'
 
 module Gluttonberg
   class Engine < Rails::Engine
+    
     # Config defaults
     config.widget_factory_name = "default factory name"
     config.mount_at = '/'
@@ -18,6 +19,9 @@ module Gluttonberg
     # Load rake tasks
     rake_tasks do
       load File.join(File.dirname(__FILE__), 'rails/railties/tasks.rake')
+      load File.join(File.dirname(__FILE__), 'gluttonberg/tasks/asset.rake')
+      load File.join(File.dirname(__FILE__), 'gluttonberg/tasks/drag_tree.rake')
+      load File.join(File.dirname(__FILE__), 'gluttonberg/tasks/page.rake')
     end
     
     # Check the gem config

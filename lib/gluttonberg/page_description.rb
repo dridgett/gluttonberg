@@ -4,9 +4,9 @@ module Gluttonberg
   # 
   # * Name & description
   # * Sections
-  #   - Rich Text
-  #   - Plain text 
-  #   - etc
+  #   - Html
+  #   - Plain text
+  #   - Image  
   # * Redirections
   # * Rewrites to controllers
   #
@@ -56,13 +56,6 @@ module Gluttonberg
       require path if File.exists?(path)
     end
     
-    # A bit of sugar for defining multiple descriptions at a time.
-    # 
-    #   PageDescription.add do
-    #     page(:home) {…}
-    #     page(:work) {…}
-    #   end
-    #
     def self.add(&blk)
       class_eval(&blk)
     end
@@ -74,9 +67,6 @@ module Gluttonberg
     end
     
     # Returns the definition for a specific page description.
-    #
-    #   PageDescription[:home] # => <#PageDescription…>
-    #
     def self.[](name)
       @@_descriptions[name.to_s.downcase.to_sym]
     end
@@ -195,13 +185,14 @@ module Gluttonberg
     # another page has been specified. It finds and examines the specified page 
     # to figure out what it’s path is.
     def path_to_page(page, params)
-      localization = PageLocalization.first(
-        :fields   => [:path],
-        :page_id  => page.redirect_target_id,
-        :locale   => params[:locale],
-        :dialect  => params[:dialect]
+      localization = PageLocalization.find(:first,
+        :conditions => {
+          :page_id  => page.redirect_target_id,
+          :locale   => params[:locale],
+          :dialect  => params[:dialect]
+        }  
       )
-      raise DataMapper::ObjectNotFoundError unless localization
+      raise ActiveRecord::RecordNotFound if localization.blank?
       localization.path
     end
     

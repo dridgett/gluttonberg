@@ -8,16 +8,7 @@ class GluttonbergMigration < ActiveRecord::Migration
       t.column :user_id, :integer
     end
 
-    create_table :gb_rich_text_content_localizations do |t|
-      t.column :created_at, :timestamp
-      t.column :updated_at, :timestamp
-      t.column :page_localization_id, :integer
-      t.column :text, :text
-      t.column :formatted_text, :text
-      t.column :rich_text_content_id, :integer
-    end
 
-    #gb_dialects_gb_locales
     create_table :gb_dialects_locales , :id => false do |t|
       t.column :locale_id, :integer, :null => false
       t.column :dialect_id, :integer, :null => false
@@ -62,7 +53,6 @@ class GluttonbergMigration < ActiveRecord::Migration
       t.column :name, :string, :limit => 70, :null => false
       t.column :slug, :string, :limit => 70, :null => false
       t.column :default, :boolean, :default => false
-      t.column :locale_id, :integer
       t.column :user_id, :integer
     end
 
@@ -88,14 +78,7 @@ class GluttonbergMigration < ActiveRecord::Migration
       t.column :page_id, :integer
     end
 
-    create_table :gb_rich_text_contents do |t|
-      t.column :orphaned, :boolean, :default => false
-      t.column :section_name, :string, :limit => 50
-      t.column :created_at, :timestamp
-      t.column :updated_at, :timestamp
-      t.column :page_id, :integer
-    end
-
+    
     create_table :gb_pages do |t|
       t.column :parent_id, :integer
       t.column :name, :string, :limit => 100
@@ -191,7 +174,6 @@ class GluttonbergMigration < ActiveRecord::Migration
 
   def self.down
     drop_table :gb_dialects
-    drop_table :gb_rich_text_content_localizations
     drop_table :gb_dialects_locales
     drop_table :gb_plain_text_content_localizations
     drop_table :gb_html_contents
@@ -201,7 +183,6 @@ class GluttonbergMigration < ActiveRecord::Migration
     drop_table :gb_locales
     drop_table :gb_settings
     drop_table :gb_page_localizations
-    drop_table :gb_rich_text_contents
     drop_table :gb_pages
     drop_table :gb_plain_text_contents
     drop_table :gb_asset_categories

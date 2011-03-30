@@ -5,12 +5,12 @@
 
 Gem::Specification.new do |s|
   s.name = %q{gluttonberg}
-  s.version = "0.3.0"
+  s.version = "0.9.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.authors = ["Your Name"]
-  s.date = %q{2010-09-13}
-  s.email = %q{you@email.com}
+  s.authors = ["Freerange Future - Nick Crowther, Abdul Rauf, Luke Sutton, Yuri Tomanek"]
+  s.date = %q{2011-03-30}
+  s.email = %q{office@freerangefuture.com}
   s.extra_rdoc_files = [
     "README.rdoc"
   ]
@@ -31,7 +31,8 @@ Gem::Specification.new do |s|
   s.add_dependency "will_paginate" , '~> 3.0.pre2'
   s.add_dependency "rubyzip"
   s.add_dependency "acts_as_tree"
-  s.add_dependency "acts_as_list"
+  s.add_dependency "acts_as_list" 
+  
 
   if s.respond_to? :specification_version then
     current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
