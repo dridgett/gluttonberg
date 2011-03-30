@@ -99,7 +99,7 @@ module Gluttonberg
 
     def slug=(new_slug)
       #if you're changing this regex, make sure to change the one in /javascripts/slug_management.js too
-      new_slug = new_slug.downcase.gsub(/\s/, '_').gsub(/[\!\*'"″′‟‛„‚”“”˝\(\)\;\:\@\&\=\+\$\,\/?\%\#\[\]]/, '')
+      new_slug = new_slug.downcase#.gsub(/\s/, '_').gsub(/[\!\*'"″′‟‛„‚”“”˝\(\)\;\:\@\&\=\+\$\,\/?\%\#\[\]]/, '')
       write_attribute(:slug, new_slug)
     end
 

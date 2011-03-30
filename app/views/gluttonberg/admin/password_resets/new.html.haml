@@ -2,7 +2,8 @@
 - @page_title = "Log In"
 
 = form_for(User.new, :url => admin_password_resets_path, :html => {:id => "wrapper"}) do |f|
-  %h1#loginTitle Forgot Password
+  %h1#loginTitle
+    Forgot Password
 
   %fieldset
     = f.label :email

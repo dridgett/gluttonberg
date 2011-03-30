@@ -22,6 +22,10 @@ module Gluttonberg
         end
       end
       
+      def edit
+        
+      end
+      
       def update
         @user.password = params[:user][:password]
         @user.password_confirmation = params[:user][:password_confirmation]
