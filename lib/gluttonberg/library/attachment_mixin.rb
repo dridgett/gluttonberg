@@ -135,29 +135,7 @@ module Gluttonberg
           "/assets/#{asset_hash}/processed_#{self.filename_without_extension}.mp4"
         end
         
-        def large_webm_url 
-          "/assets/#{asset_hash}/#{self.filename_without_extension}_hd720.webm"
-        end
         
-        def small_webm_url 
-          "/assets/#{asset_hash}/#{self.filename_without_extension}_hd480.webm"
-        end
-
-        def large_mp4_url 
-          "/assets/#{asset_hash}/#{self.filename_without_extension}_hd720.mp4"
-        end
-        
-        def small_mp4_url 
-          "/assets/#{asset_hash}/#{self.filename_without_extension}_hd480.mp4"
-        end
-
-        def large_ogg_url 
-          "/assets/#{asset_hash}/#{self.filename_without_extension}_hd720.ogv"
-        end
-        
-        def small_ogg_url 
-          "/assets/#{asset_hash}/#{self.filename_without_extension}_hd480.ogv"
-        end
                         
                 
         # Returns the full path to the file’s location on disk.

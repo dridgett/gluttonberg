@@ -66,7 +66,7 @@ module Gluttonberg
       # Set off some code which causes a recursion through all the child pages
       # and updates their depth
       if page.depths_need_recaching
-        children.each { |c| c.set_depth!(page.depth + 1) }
+        page.children.each { |c| c.set_depth!(page.depth + 1) }
       end
     end
     

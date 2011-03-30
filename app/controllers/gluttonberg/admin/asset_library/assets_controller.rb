@@ -1,7 +1,7 @@
 module Gluttonberg
   module Admin
     module AssetLibrary
-      class AssetsController < Gluttonberg::Admin::ApplicationController
+      class AssetsController < Gluttonberg::Admin::BaseController
 
         before_filter :prepare_to_edit  , :except => [:category , :show , :delete , :create , :update  ]
         #before_filter :merge_operator_with_content , :only => [:create , :update , :create_assets_in_bulk ]

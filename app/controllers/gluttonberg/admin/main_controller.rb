@@ -1,6 +1,6 @@
 module Gluttonberg
   module Admin
-    class MainController < Gluttonberg::Admin::ApplicationController
+    class MainController < Gluttonberg::Admin::BaseController
       
       unloadable
       

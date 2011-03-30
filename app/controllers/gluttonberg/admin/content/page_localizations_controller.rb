@@ -1,7 +1,7 @@
 module Gluttonberg
   module Admin
     module Content
-      class PageLocalizationsController < Gluttonberg::Admin::ApplicationController
+      class PageLocalizationsController < Gluttonberg::Admin::BaseController
      
       
         before_filter :find_localization, :exclude => [:index, :new, :create]
@@ -12,7 +12,7 @@ module Gluttonberg
 
         def new
           @page_localization = PageLocalization.new
-          @page = Page.get#_for_user(session.user , params[:page_id])
+          @page = Page.find(params[:page_id])
         end
 
         def edit
@@ -31,7 +31,7 @@ module Gluttonberg
         end
 
         def update
-          if @page_localization.update_attributes(params["gluttonberg_page_localization"]) # || !@page_localization.dirty?
+          if @page_localization.update_attributes(params["gluttonberg_page_localization"]) || !@page_localization.changed?
             puts "---------------------saved"
             redirect_to admin_page_path(params[:page_id])
           else

@@ -1,7 +1,7 @@
 module Gluttonberg
   module Admin
     module AssetLibrary
-      class CollectionsController < Gluttonberg::Admin::ApplicationController
+      class CollectionsController < Gluttonberg::Admin::BaseController
         
             def index
               @collections = AssetCollection.all

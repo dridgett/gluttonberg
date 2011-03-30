@@ -1,7 +1,7 @@
 module Gluttonberg
   module  Admin
     module Settings
-      class GenericSettingsController < Gluttonberg::Admin::ApplicationController
+      class GenericSettingsController < Gluttonberg::Admin::BaseController
  
     
         def index

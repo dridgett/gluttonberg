@@ -32,12 +32,7 @@ module Gluttonberg
         filter_text(content.current_localization.text)
       end
       
-      # Render rich text content. Actually just lookf for the formatted_text 
-      # property on the content model.
-      def render_rich_text_content(content, opts = nil)
-        filter_text(content.current_localization.formatted_text)
-      end
-
+      
       # Renders an image tag with the src set to the associated asset. If the
       # asset is missing it returns nil.
       def render_image_content(content, opts = {})
@@ -60,14 +55,8 @@ module Gluttonberg
       # it falls back to Gluttonberg's view dir — views/content/editors
       def content_editor(content_class)
         locals  = {:content => content_class}
-        puts "-------------------#{content_class}     #{content_class.methods.sort}  "
-        type    = content_class.content_type #"html_content"
-        #glob    = File.join(::Gluttonberg::Templates.path_for("editors") , "_#{type}.#{content_type}.*")
-        #unless Dir[glob].empty?
-        #  render :partial => File.join(::Gluttonberg::Templates.path_for("editors") , type )  , :locals =>  locals
-        #else
-          render :partial => "/gluttonberg/admin/content/editors/#{type}", :locals => locals
-        #end
+        type    = content_class.content_type 
+        render :partial => "/gluttonberg/admin/content/editors/#{type}", :locals => locals
       end
       
       # generate javascript code to enable tinymce on it. textArea need to have class = mceEditor

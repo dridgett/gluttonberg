@@ -1,6 +1,6 @@
 module Gluttonberg
   module Admin
-    class UserSessionsController < Gluttonberg::Admin::ApplicationController
+    class UserSessionsController < Gluttonberg::Admin::BaseController
       
       layout 'login'
       

@@ -1,7 +1,7 @@
 module Gluttonberg
   module Admin
     module Content    
-      class PagesController < Gluttonberg::Admin::ApplicationController
+      class PagesController < Gluttonberg::Admin::BaseController
             
       
 
@@ -11,7 +11,7 @@ module Gluttonberg
 
         def index
           #@pages = Page.all_for_user(current_user , :parent_id => nil, :order => [:position.asc])
-          @pages = Page.find(:all , :conditions => { :parent_id => nil } , :order => 'position asc' )
+          @pages = Page.find(:all , :conditions => { :parent_id => nil } , :order => 'position' )
        
         end
 

@@ -1,7 +1,7 @@
 module Gluttonberg
   module  Admin
     module Settings
-      class DialectsController < Gluttonberg::Admin::ApplicationController
+      class DialectsController < Gluttonberg::Admin::BaseController
         
 
         before_filter :find_dialect, :only => [:delete, :edit, :update, :destroy]

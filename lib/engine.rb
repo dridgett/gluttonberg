@@ -3,11 +3,12 @@ require 'rails'
 
 module Gluttonberg
   class Engine < Rails::Engine
+    
     # Config defaults
     config.widget_factory_name = "default factory name"
     config.mount_at = '/'
     config.admin_path = '/admin'
-    config.app_name = 'Gluttonberg 2.0'
+    config.app_name = 'Gluttonberg 1.0'
     config.localize = true
     config.active_record.observers = ['gluttonberg/page_observer' , 'gluttonberg/page_localization_observer' ]
         
@@ -18,6 +19,9 @@ module Gluttonberg
     # Load rake tasks
     rake_tasks do
       load File.join(File.dirname(__FILE__), 'rails/railties/tasks.rake')
+      load File.join(File.dirname(__FILE__), 'gluttonberg/tasks/asset.rake')
+      load File.join(File.dirname(__FILE__), 'gluttonberg/tasks/drag_tree.rake')
+      load File.join(File.dirname(__FILE__), 'gluttonberg/tasks/page.rake')
     end
     
     # Check the gem config

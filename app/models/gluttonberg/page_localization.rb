@@ -34,7 +34,7 @@ module Gluttonberg
     # Updates each localized content record and checks their validity
     def contents=(params)
       self.content_needs_saving = true
-      puts "-------contestns"
+      puts "-------contents"
       contents.each do |content|
         puts "--------------------#{content}"
         update = params[content.association_name][content.id.to_s]

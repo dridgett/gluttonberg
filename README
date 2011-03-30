@@ -47,7 +47,7 @@ You will need to fire up a console and run the following commands (Change email 
 You will now be able to log in.
 
 ** require_user **
-require_user is called on every admin page via the AdminControllerMixin.
+require_user is called on every admin page via the Gluttonberg::Admin::BaseController.
 
 To skip require_user use
   

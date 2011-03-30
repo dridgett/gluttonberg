@@ -13,6 +13,7 @@ module Gluttonberg
           self.send(:include, Gluttonberg::DragTree::ActiveRecord::ModelHelpersClassMethods)
           acts_as_list options
           unless options[:flat]
+            puts "-----------acts as tree"
             acts_as_tree options
           else
             self.make_flat_drag_tree

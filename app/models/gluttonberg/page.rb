@@ -100,8 +100,7 @@ module Gluttonberg
     def slug=(new_slug)
       #if you're changing this regex, make sure to change the one in /javascripts/slug_management.js too
       new_slug = new_slug.downcase.gsub(/\s/, '_').gsub(/[\!\*'"″′‟‛„‚”“”˝\(\)\;\:\@\&\=\+\$\,\/?\%\#\[\]]/, '')
-      #attribute_set(:slug, new_slug)
-      @slug = new_slug      
+      write_attribute(:slug, new_slug)
     end
 
     def paths_need_recaching?
@@ -168,7 +167,7 @@ module Gluttonberg
     # Sets the depth explicitly
     def set_depth(new_depth)
       @depths_need_recaching = true
-      attribute_set(:depth, new_depth)
+      write_attribute(:depth, new_depth)
     end
     
     # Does the same as set_depth, but saves the record immediately after.

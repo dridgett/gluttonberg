@@ -45,7 +45,9 @@ Rails.application.routes.draw do # |map|
       match "logout" => "user_sessions#destroy"
     end
     
-    match "/asset/:hash/:id" => "public_assets#show" , :as => :public_asset
+    scope :module => 'Public' do
+        match "/asset/:hash/:id" => "public_assets#show" , :as => :public_asset
+    end
     
   end
 end

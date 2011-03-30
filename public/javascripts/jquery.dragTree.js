@@ -346,7 +346,8 @@ var dragTreeManager = {
         scroll: true,
         drag: function(e, ui){
           if (dragManager.dropSite) {
-            var top = dragManager.dropSite.offset({padding: true, border: true, margin: true}).top;
+            //var top = dragManager.dropSite.offset({padding: true, border: true, margin: true}).top;
+            var top = dragManager.dropSite.offset().top ;
             var height = dragManager.dropSite.outerHeight({padding: false, border: false, margin: true});
                         
             
@@ -358,15 +359,22 @@ var dragTreeManager = {
               topOffset = height / 2;
               bottomOffset = height / 2;
             }
+            
+            console.log("-----mouseTop " + mouseTop + " top " + top + " topOffset" + topOffset );
+            console.log("-----height " + height);
 
             if (mouseTop < (top + topOffset)){
+              console.log("-----insert before " );
               dragManager.dropSite.addClass("insert_before").removeClass("insert_child insert_after");
               dragManager.dragMode = DM_INSERT_BEFORE;
             } else if (mouseTop > (top + height - bottomOffset)) {
+              console.log("-----insert after " );
               dragManager.dropSite.addClass("insert_after").removeClass("insert_before insert_child");
               dragManager.dragMode = DM_INSERT_AFTER;
             } else {
+              console.log("-----insert child " );
               if (!dragFlat){
+                console.log("-----insert child 2" );
                 dragManager.dropSite.addClass("insert_child").removeClass("insert_after insert_before");
                 dragManager.dragMode = DM_INSERT_CHILD;
               }
@@ -424,11 +432,15 @@ var dragTreeManager = {
           hoverClass: "accept",
           over: function(e, ui) {
             console.log("over ----");
-            console.log(ui);
+            
             console.log(ui.draggable.html());
             //console.log(ui.element.parents("tr"));
             
-            element = ui.draggable.parent();
+            element = $(this); //ui.draggable.parent();
+            
+            
+            console.log(dragManager.dropSite)
+            console.log(ui)
             
             if (element.parents("tr") != dragManager.dropSite) {
               dragManager.dropSite = element;
@@ -442,7 +454,7 @@ var dragTreeManager = {
             console.log("out ----");
             //console.log(ui.element);
             console.log("out --- stage 2-");
-            element = ui.draggable.parent();
+            element = $(this);//ui.draggable.parent();
             element.removeClass("insert_child insert_before insert_after");
             if (dragManager.dropSite == element) {
               dragManager.dropSite = null;
