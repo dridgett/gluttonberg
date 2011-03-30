@@ -1,0 +1,12 @@
+- @page_id = "login"
+- @page_title = "Log In"
+
+= form_for(User.new, :url => admin_password_resets_path, :html => {:id => "wrapper"}) do |f|
+  %h1#loginTitle Forgot Password
+
+  %fieldset
+    = f.label :email
+    %br
+    = f.text_field :email, :class => "text_field"
+  %fieldset.last
+    = f.submit "Reset my password", :class => "button", :disable_with => "Resetting your password..."

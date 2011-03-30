@@ -12,4 +12,10 @@ class User < ActiveRecord::Base
     self.first_name + " " + self.last_name
   end
   
+  def deliver_password_reset_instructions!  
+    reset_perishable_token!
+    puts "#{self.perishable_token}"
+    #Notifier.deliver_password_reset_instructions(self)  
+  end
+  
 end

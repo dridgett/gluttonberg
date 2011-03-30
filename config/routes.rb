@@ -38,7 +38,7 @@ Rails.application.routes.draw do # |map|
           resources :collections        
       end
       
-      
+      resources :password_resets
       
       get "login" => "user_sessions#new"
       post "login" => "user_sessions#create"
