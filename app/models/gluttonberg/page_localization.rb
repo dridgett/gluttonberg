@@ -34,9 +34,7 @@ module Gluttonberg
     # Updates each localized content record and checks their validity
     def contents=(params)
       self.content_needs_saving = true
-      puts "-------contents"
       contents.each do |content|
-        puts "--------------------#{content}"
         update = params[content.association_name][content.id.to_s]
         content.attributes = update if update
       end
@@ -56,6 +54,7 @@ module Gluttonberg
     # prefix from. Otherwise it will just use the slug, with a fall-back
     # to it's page's default.
     def regenerate_path
+      page.reload #forcing that do not take cached page object
       if page.parent_id
         localization = page.parent.localizations.find(:first,
           :conditions => {

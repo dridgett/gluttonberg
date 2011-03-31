@@ -3,15 +3,15 @@ module Gluttonberg
     observe PageLocalization
 
     # Every time the localization is updated, we need to check to see if the 
-    # slug has been updated. If it has, we need to update itâ€™s cached path
-    # and also the paths for all itâ€™s decendants.
+    # slug has been updated. If it has, we need to update it's cached path
+    # and also the paths for all it's decendants.
     def before_validation(page_localization)
       
       if page_localization.slug_changed? || page_localization.new_record?
-        @paths_need_recaching = true
+        page_localization.paths_need_recaching = true
         page_localization.regenerate_path 
       elsif page_localization.path_changed? 
-        @paths_need_recaching = true
+        page_localization.paths_need_recaching = true
       end
     end
 

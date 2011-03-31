@@ -27,7 +27,7 @@ module Gluttonberg
     
     # Returns the path to the directory where assets are stored.
     def self.root
-      if RAILS_ENV == "test"
+      if ::Rails.env == "test"
         @@test_assets_root
       else  
         @@assets_root

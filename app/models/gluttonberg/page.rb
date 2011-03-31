@@ -1,12 +1,12 @@
 module Gluttonberg
   class Page < ActiveRecord::Base
     
-    has_many :localizations, :class_name => "Gluttonberg::PageLocalization"    
-    #has_many :children, :class_name => "Gluttonberg::Page", :foreign_key => :parent_id, :order => 'position asc'
-    
+    has_many :localizations, :class_name => "Gluttonberg::PageLocalization"   , :dependent => :destroy 
+  
     
     set_table_name "gb_pages"
-    
+   
+    # we do need these anymore as lib/gluttonberg/content is doing this job dynamically
     #has_many :html_contents , :class_name => "Gluttonberg::HtmlContent"
     #has_many :image_contents , :class_name => "Gluttonberg::ImageContent"
     #has_many :plain_text_contents , :class_name => "Gluttonberg::PlainTextContent"
@@ -17,8 +17,6 @@ module Gluttonberg
 
     is_drag_tree :scope => [:parent_id], :flat => false , :order => "position"
     
-    #belongs_to  :passthrough_target,  :class_name => "Gluttonberg::Page"
-
     attr_accessor :current_localization, :dialect_id, :locale_id, :paths_need_recaching , :depths_need_recaching
     
     
@@ -159,8 +157,7 @@ module Gluttonberg
     end
 
     def home=(state)
-      @home = state
-      #attribute_set(:home, state)
+      write_attribute(:home, state)
       @home_updated = state
     end
     
@@ -232,14 +229,14 @@ module Gluttonberg
     private
 
     def slug_management
-      @slug = name if @slug.blank?
+      self.slug= name if self.slug.blank?
     end
 
     # Checks to see if this page has been set as the homepage. If it has, we 
     # then go and 
     def check_for_home_update
       if @home_updated && @home_updated == true
-        previous_home = Page.first(:home => true, :id.not => id)
+        previous_home = Page.find( :first ,  :conditions => [ "home = ? AND id <> ? " , true ,id ] )
         previous_home.update_attributes(:home => false) if previous_home
       end
     end

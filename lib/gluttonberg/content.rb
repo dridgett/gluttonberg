@@ -27,13 +27,13 @@ module Gluttonberg
         puts "--- content class before"
         Content.content_classes.each do |klass| 
           puts "--- #{klass}"
-          has_many klass.association_name, :class_name => klass.name 
+          has_many klass.association_name, :class_name => klass.name , :dependent => :destroy 
         end
       end
       # Create associations between content localizations and PageLocalization
       PageLocalization.class_eval do
         Content.localizations.each do |assoc, klass|
-          has_many  assoc, :class_name => klass.to_s
+          has_many  assoc, :class_name => klass.to_s 
         end
       end
       # Store the names of the associations in their own array for convenience

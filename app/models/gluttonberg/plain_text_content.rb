@@ -8,9 +8,6 @@ module Gluttonberg
           #property :text, String, :length => 255
     end
     
-    # include DataMapper::Resource
-    #    
-    # 
     #    property :id, Serial
     #            
     #    is_localized do
