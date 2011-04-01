@@ -21,7 +21,9 @@
   
   = block("Dialects") do
     - for dialect in @dialects
-      = f.check_box("dialect_ids", :value => dialect.id, :boolean => false, :checked => @locale.dialects.include?(dialect))
+      - checked = @locale.dialects.include? dialect
+      = check_box_tag "gluttonberg_locale[dialect_ids][]", "#{dialect.id}", checked
+      
       %label{:for => "dialect_#{dialect.code}", :class => "checkbox"}= dialect.name_and_code
       %br
   = form_controls(admin_locales_path)

@@ -8,7 +8,7 @@ module Gluttonberg
       # ivars we need.
       def self.included(klass)
         
-        puts "-------------------- just before register #{klass} "
+        Rails.logger.info "-------------------- just before register #{klass} "
         
         klass.class_eval do
           extend Block::ClassMethods
@@ -41,7 +41,7 @@ module Gluttonberg
         
         # This registers this class so that the page can later query which 
         # classes it needs to be aware of.
-        puts "-------------------- just before register #{klass} "
+        Rails.logger.info "-------------------- just before register #{klass} "
         Gluttonberg::Content.register_as_content(klass)
       end
     
@@ -62,7 +62,7 @@ module Gluttonberg
           storage_name = "gb_#{class_name.tableize}"
           localized_model = Class.new(ActiveRecord::Base) #DataMapper::Model.new(storage_name)
           foreign_key = self.name.foreign_key
-          puts "---------table name for localization is  #{storage_name}"
+          Rails.logger.info "---------table name for localization is  #{storage_name}"
           localized_model.set_table_name(storage_name)
           Gluttonberg.const_set(class_name, localized_model)
         
@@ -90,7 +90,7 @@ module Gluttonberg
           
           
           
-          puts "----#{"#{self.content_type}_localizations".to_sym}-----------#{self.name}-------- end of is_localized method #{Gluttonberg.const_get(class_name)}"
+          Rails.logger.info "----#{"#{self.content_type}_localizations".to_sym}-----------#{self.name}-------- end of is_localized method #{Gluttonberg.const_get(class_name)}"
         end
         
         # Does this class have an associated localization class.

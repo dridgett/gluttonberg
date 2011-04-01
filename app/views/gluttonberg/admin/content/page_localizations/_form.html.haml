@@ -15,9 +15,9 @@
         - for localization in @page.localizations
           - pair = "#{localization.locale.slug}/#{localization.dialect.code}"
           %tr
-            %td= "<strong>#{localization.locale.name}/#{localization.dialect.name}</strong> <span>(#{pair})</span>"
-            %td= pair / localization.path
-            %td.controls= link_to("Edit", slice_url(:edit_page_localization, :page_id => @page, :id => localization))
+            %td= "<strong>#{localization.locale.name}/#{localization.dialect.name}</strong> <span>(#{pair})</span>".html_safe
+            %td= "#{pair}/#{localization.path}"
+            %td.controls= link_to("Edit", edit_admin_page_page_localization_path( :page_id => @page.id, :id => localization.id))
             
 = form_for(@page_localization, :url => url) do  |f|
   = gb_error_messages_for(@page_localization)

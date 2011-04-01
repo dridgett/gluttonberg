@@ -19,15 +19,20 @@ module Gluttonberg
     # through all the decendent localizations and tell each of those to recache.
     # Each of those will then also be observed and have their children updated
     # as well.
+    # TODO write some serious test cases for it. it was failing when we have muliple dialects for single locale. it is fixed now.
     def after_save(page_localization)
       if page_localization.paths_need_recaching? and !page_localization.page.children.blank?
-        decendants = page_localization.page.children.localizations.find( :all , :conditions => {:locale_id => locale_id, :dialect_id => dialect_id})
-        unless decendants.empty?
-          decendants.each do |l| 
-            l.paths_need_recaching = true
-            l.update_attributes(:path => "#{page_localization.path}/#{l.slug || l.page.slug}") 
-          end 
-        end
+        decendant_pages = page_localization.page.children
+        
+        decendant_pages.each do |d_p|
+          decendants = d_p.localizations.find( :all , :conditions => {:locale_id => page_localization.locale_id, :dialect_id => page_localization.dialect_id})          
+          unless decendants.blank?
+            decendants.each do |l| 
+              l.paths_need_recaching = true
+              l.update_attributes(:path => "#{page_localization.path}/#{l.slug || l.page.slug}") 
+            end 
+          end
+        end#loop  
       end
     end
   end

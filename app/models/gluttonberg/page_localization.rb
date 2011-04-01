@@ -8,7 +8,6 @@ module Gluttonberg
     #acts_as_versioned
     
     after_save :update_content_localizations
-
     attr_accessor :paths_need_recaching, :content_needs_saving
 
     # Write an explicit setter for the slug so we can check it’s not a blank 

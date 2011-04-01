@@ -307,7 +307,6 @@ JAVASCRIPT_CODE
         ::Gluttonberg.slice_path_for(type, *segments)
       end
       
-      #---------------
       
       
     end # Admin

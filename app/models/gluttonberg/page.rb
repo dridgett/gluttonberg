@@ -186,7 +186,7 @@ module Gluttonberg
     end
     
     def generate_all_page_localizations
-        Merb.logger.info("Generating page localizations")
+        Rails.logger.info("Generating page localizations")
               
               Locale.all.each do |locale|
                 locale.dialects.all.each do |dialect|
@@ -203,7 +203,7 @@ module Gluttonberg
               
                             
               if !description.blank? && !description.sections.empty?
-                Merb.logger.info("Generating stubbed content for new page")
+                Rails.logger.info("Generating stubbed content for new page")
                 description.sections.each do |name, section|
                   # Create the content
                   

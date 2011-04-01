@@ -26,7 +26,7 @@ module Gluttonberg
         module ClassMethods
           def is_localized(&blk)
             
-            puts "---------- is_localized in localization.rb"
+            Rails.logger.info "---------- is_localized in localization.rb"
             
             # Why yes, this is localized.
             @localized = true

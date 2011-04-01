@@ -22,11 +22,11 @@ module Gluttonberg
     # extra associations or do house-keeping once everything is required and
     # running
     def self.setup
-      puts("Setting up content classes and assocations")
+      Rails.logger.info("Setting up content classes and assocations")
       Page.class_eval do
-        puts "--- content class before"
+        Rails.logger.info "--- content class before"
         Content.content_classes.each do |klass| 
-          puts "--- #{klass}"
+          Rails.logger.info "--- #{klass}"
           has_many klass.association_name, :class_name => klass.name , :dependent => :destroy 
         end
       end
