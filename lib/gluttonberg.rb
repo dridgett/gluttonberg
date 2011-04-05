@@ -6,8 +6,6 @@ module Gluttonberg
   require 'zip/zip'
   require 'acts_as_tree'
   require 'acts_as_list'
-  #require 'gluttonberg/admin_controller_mixin'
-  #require 'gluttonberg/public_controller_mixin'
   require 'gluttonberg/authorizable'
   require 'gluttonberg/components'
   require 'gluttonberg/content'
@@ -19,19 +17,13 @@ module Gluttonberg
   require 'gluttonberg/templates'
   require 'gluttonberg/middleware'
   
-  # require 'acts_as_tree/init'
-  #   require 'acts_as_list/init'
-  
     # These should likely move into one of the initializers inside of the
     # engine config. This will ensure they only run after Rails and the app
     # has been loaded.
-    #Content.setup
     #Templates.setup
     Helpers.setup
     DragTree.setup
     
-    
-
   
   # Checks to see if Gluttonberg has been configured to have a locale/location
   # and a translation.

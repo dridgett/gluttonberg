@@ -246,7 +246,7 @@ module Gluttonberg
       # it have a locale prefix? Then it declares a route, which defers to our
       # PUBLIC_DEFER_PROC.
       def gluttonberg_public_routes(opts = {})
-        Merb.logger.info("Adding Gluttonberg's public routes")
+        Rails.logger.info("Adding Gluttonberg's public routes")
 
         # Only generate DragTree routes if we are NOT running as a standalone slice
         # users of DragTree within the slice need to explicitly set the route!

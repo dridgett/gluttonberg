@@ -1,3 +1,6 @@
+# encoding: utf-8
+# Do not remove above encoding line utf-8, its required for ruby 1.9.2. We are using some special chars in this file.
+
 module Gluttonberg
   class Page < ActiveRecord::Base
     
@@ -6,16 +9,14 @@ module Gluttonberg
     
     set_table_name "gb_pages"
    
-    # we do need these anymore as lib/gluttonberg/content is doing this job dynamically
-    #has_many :html_contents , :class_name => "Gluttonberg::HtmlContent"
-    #has_many :image_contents , :class_name => "Gluttonberg::ImageContent"
-    #has_many :plain_text_contents , :class_name => "Gluttonberg::PlainTextContent"
-    #has_many :plain_text_contents , :class_name => "Gluttonberg::PlainTextContent"
+    has_many :html_contents , :class_name => "Gluttonberg::HtmlContent" , :dependent => :destroy 
+    has_many :image_contents , :class_name => "Gluttonberg::ImageContent" , :dependent => :destroy 
+    has_many :plain_text_contents , :class_name => "Gluttonberg::PlainTextContent" , :dependent => :destroy 
     
     before_validation :slug_management
     after_save   :check_for_home_update
 
-    is_drag_tree :scope => [:parent_id], :flat => false , :order => "position"
+    is_drag_tree :scope => :parent_id, :flat => false , :order => "position"
     
     attr_accessor :current_localization, :dialect_id, :locale_id, :paths_need_recaching , :depths_need_recaching
     
@@ -97,7 +98,8 @@ module Gluttonberg
 
     def slug=(new_slug)
       #if you're changing this regex, make sure to change the one in /javascripts/slug_management.js too
-      new_slug = new_slug.downcase#.gsub(/\s/, '_').gsub(/[\!\*'"″′‟‛„‚”“”˝\(\)\;\:\@\&\=\+\$\,\/?\%\#\[\]]/, '')
+      # utf-8 special chars are fixed for new ruby 1.9.2
+      new_slug = new_slug.downcase.gsub(/\s/, '_').gsub(/[\!\*'"″′‟‛„‚”“”˝\(\)\;\:\@\&\=\+\$\,\/?\%\#\[\]]/, '')
       write_attribute(:slug, new_slug)
     end
 
@@ -160,72 +162,7 @@ module Gluttonberg
       write_attribute(:home, state)
       @home_updated = state
     end
-    
-    # Sets the depth explicitly
-    def set_depth(new_depth)
-      @depths_need_recaching = true
-      write_attribute(:depth, new_depth)
-    end
-    
-    # Does the same as set_depth, but saves the record immediately after.
-    def set_depth!(new_depth)
-      set_depth(new_depth)
-      save
-    end
-
-    #
-    
-    def self.generate_localizations_for_all_pages
-          Page.all.each do |page|
-            page.generate_all_page_localizations
-          end
-    end
-    
-    def self.generate_localizations_for(id)          
-          page.generate_all_page_localizations
-    end
-    
-    def generate_all_page_localizations
-        Rails.logger.info("Generating page localizations")
-              
-              Locale.all.each do |locale|
-                locale.dialects.all.each do |dialect|
-                  loc1 = localizations.all( :locale_id => locale.id , :dialect_id => dialect.id )
-                  if loc1.blank?
-                    loc = localizations.create(
-                      :name     => name,
-                      :dialect_id  => dialect.id,
-                      :locale_id   => locale.id
-                    )
-                  end
-                end
-              end
-              
-                            
-              if !description.blank? && !description.sections.empty?
-                Rails.logger.info("Generating stubbed content for new page")
-                description.sections.each do |name, section|
-                  # Create the content
-                  
-                  association = send(section[:type].to_s.pluralize)
-                  content1 = association.all(:section_name => name)
-                  if content1.blank?
-                      content = association.create(:section_name => name) 
-                  else
-                      content = content1.first
-                  end    
-                  # Create each localization
-                  if content.model.localized?
-                    localizations.all.each do |localization|                      
-                      loc2 = content.localizations.all(:page_localization_id => localization.id)
-                      if loc2.blank?
-                        content.localizations.create(:parent => content, :page_localization => localization)                      
-                      end
-                    end
-                  end
-                end
-              end
-    end
+        
     private
 
     def slug_management

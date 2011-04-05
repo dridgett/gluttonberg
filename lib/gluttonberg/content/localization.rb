@@ -26,8 +26,6 @@ module Gluttonberg
         module ClassMethods
           def is_localized(&blk)
             
-            Rails.logger.info "---------- is_localized in localization.rb"
-            
             # Why yes, this is localized.
             @localized = true
 
@@ -70,8 +68,6 @@ module Gluttonberg
             end
             
             # Set up filters on the class to make sure the localization gets migrated
-            #self.after_class_method(:auto_migrate!) { @localized_model.auto_migrate! }
-            #self.after_class_method(:auto_upgrade!) { @localized_model.auto_upgrade! }
             
             # Associate the model and it’s localization
             has_many  :localizations, :class_name => self.name + "Localization", :parent_key => [:id], :child_key => [:parent_id]
@@ -272,10 +268,6 @@ module Gluttonberg
         # to set up associations to the dialect and locale
         def self.included(klass)
           klass.class_eval do
-            # property :id,         DataMapper::Types::Serial
-            #             property :created_at, Time
-            #             property :updated_at, Time
-            
             belongs_to :dialect,  :class_name => "Gluttonberg::Dialect"
             belongs_to :locale,   :class_name => "Gluttonberg::Locale"
           end

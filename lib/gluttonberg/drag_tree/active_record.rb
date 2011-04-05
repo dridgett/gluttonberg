@@ -11,7 +11,11 @@ module Gluttonberg
         def is_drag_tree(options = {})
           options[:flat] = true unless options.has_key?(:flat)
           self.send(:include, Gluttonberg::DragTree::ActiveRecord::ModelHelpersClassMethods)
-          acts_as_list options
+          if options.has_key?(:scope)
+            acts_as_list :scope => options[:scope]
+          else
+            acts_as_list
+          end
           unless options[:flat]
             acts_as_tree options
           else

@@ -7,6 +7,15 @@ module Gluttonberg
     
     #acts_as_versioned
     
+    #associations with dynamic contentLocalization classes. To make sure these classes are
+    # created and loaded I am calling those classes before that.
+    # this helps me in development mode where classes reloads on each page request
+    Gluttonberg::PlainTextContent
+    Gluttonberg::HtmlContent
+    has_many :html_content_localizations , :class_name => "Gluttonberg::HtmlContentLocalization" , :dependent => :destroy 
+    has_many :plain_text_content_localizations , :class_name => "Gluttonberg::PlainTextContentLocalization" , :dependent => :destroy 
+    
+    
     after_save :update_content_localizations
     attr_accessor :paths_need_recaching, :content_needs_saving
 
@@ -20,14 +29,22 @@ module Gluttonberg
     def contents
       @contents ||= begin
         # First collect the localized content
-        contents = Gluttonberg::Content.localization_associations.inject([]) do |memo, assoc|
+        contents_data = Gluttonberg::Content.localization_associations.inject([]) do |memo, assoc|
           memo += send(assoc).all
-        end
+        end        
         # Then grab the content that belongs directly to the page
-        Gluttonberg::Content.non_localized_associations.inject(contents) do |memo, assoc|
-          contents += page.send(assoc).all
+        Gluttonberg::Content.non_localized_associations.inject(contents_data) do |memo, assoc|
+          contents_data += page.send(assoc).all
         end
+        contents_data
+      end      
+      
+      @contents.each do |c|
+        puts "------------#{c.id} "
       end
+      # this is kind of hack. For some reasons in development mode image contents are duplicated multiple times
+      @contents.uniq! 
+      @contents 
     end
     
     # Updates each localized content record and checks their validity

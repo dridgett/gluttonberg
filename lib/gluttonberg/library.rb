@@ -14,6 +14,10 @@ module Gluttonberg
     @@assets_root = nil
     @@test_assets_root = nil
     
+    def self.bootstrap
+      build_default_asset_types
+    end
+    
     # Is run when the slice is loaded. It makes sure that all the required 
     # directories for storing assets are in the public dir, creating them if
     # they are missing. It also stores the various paths so they can be 

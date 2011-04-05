@@ -8,13 +8,10 @@ module Gluttonberg
       # ivars we need.
       def self.included(klass)
         
-        Rails.logger.info "-------------------- just before register #{klass} "
-        
         klass.class_eval do
           extend Block::ClassMethods
           include Block::InstanceMethods
           
-          #include Textilized
           
           cattr_accessor :localized, :label, :content_type, :association_name
           #class << self; attr_accessor :localized, :label, :content_type, :association_name end
@@ -41,7 +38,6 @@ module Gluttonberg
         
         # This registers this class so that the page can later query which 
         # classes it needs to be aware of.
-        Rails.logger.info "-------------------- just before register #{klass} "
         Gluttonberg::Content.register_as_content(klass)
       end
     
@@ -55,29 +51,20 @@ module Gluttonberg
           self.localized = true
         
           # Generate the localization model
-          # class_name = "#{Extlib::Inflection.demodulize(self.name)}Localization"
-          #           storage_name = Extlib::Inflection.tableize(class_name)
-          #           localized_model = DataMapper::Model.new(storage_name)
           class_name = "#{self.name.demodulize}Localization"
           storage_name = "gb_#{class_name.tableize}"
-          localized_model = Class.new(ActiveRecord::Base) #DataMapper::Model.new(storage_name)
+          localized_model = Class.new(ActiveRecord::Base) 
           foreign_key = self.name.foreign_key
-          Rails.logger.info "---------table name for localization is  #{storage_name}"
           localized_model.set_table_name(storage_name)
           Gluttonberg.const_set(class_name, localized_model)
         
           # Mix in our base set of properties and methods
           localized_model.send(:include, Gluttonberg::Content::BlockLocalization)
-          #localized_model.send(:include, Gluttonberg::Content::Textilized)
           # Generate additional properties from the block passed in
           localized_model.class_eval(&blk)
           # Store the name so we can easily access it without having to look 
           # at this parent class
           localized_model.content_type = self.content_type
-        
-          # Set up filters on the class to make sure the localization gets migrated
-          #self.after_class_method(:auto_migrate!) { localized_model.auto_migrate! }
-          #self.after_class_method(:auto_upgrade!) { localized_model.auto_upgrade! }
           
           # Tell the content module that we are localized
           localized_model.association_name = "#{self.content_type}_localizations"
@@ -87,10 +74,6 @@ module Gluttonberg
           has_many :localizations, :class_name => Gluttonberg.const_get(class_name).to_s  , :foreign_key => "#{self.content_type}_id" , :dependent => :destroy 
           localized_model.belongs_to(:parent, :class_name => self.name , :foreign_key => "#{self.content_type}_id")
           
-          
-          
-          
-          Rails.logger.info "----#{"#{self.content_type}_localizations".to_sym}-----------#{self.name}-------- end of is_localized method #{Gluttonberg.const_get(class_name)}"
         end
         
         # Does this class have an associated localization class.

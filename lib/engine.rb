@@ -10,7 +10,7 @@ module Gluttonberg
     config.admin_path = '/admin'
     config.app_name = 'Gluttonberg 1.0'
     config.localize = true
-    config.active_record.observers = ['gluttonberg/page_observer' , 'gluttonberg/page_localization_observer' ]
+    config.active_record.observers = ['gluttonberg/page_observer' , 'gluttonberg/page_localization_observer' , 'gluttonberg/locale_observer' ]
         
     config.thumbnails = {   }
     config.max_image_size = "1600x1200>"
@@ -41,20 +41,14 @@ module Gluttonberg
 
     initializer "setup gluttonberg components" do |app| 
       Gluttonberg::PageDescription.setup
-      #Helpers.setup
-      
-      Gluttonberg::PlainTextContent
-      Gluttonberg::ImageContent
-      Gluttonberg::HtmlContent
-      
+         
       Gluttonberg::Content.setup
-      #Templates.setup
+      #Gluttonberg::Templates.setup
       #Gluttonberg::Helpers.setup      
     end
     
     initializer "setup gluttonberg asset library" do |app| 
-      Gluttonberg::Library.setup
-      Gluttonberg::Library.build_default_asset_types
+      Gluttonberg::Library.setup      
     end
     
   end

@@ -42,34 +42,16 @@ module Gluttonberg
         page.paths_need_recaching = true
       end
     end
-    
-    def before_save(page)    
-      # We also need to check if the depths need to be recalculated for this
-      # page and for it's children
-      if page.parent_id_changed? || page.new_record?
-        if page.parent_id
-          page.set_depth(page.parent.depth + 1)
-        else
-          page.set_depth(0)
-        end
-      end
-    end
 
-    def after_update(page)    
+    def after_update(page)
       # This has the page localizations regenerate their path if the slug or 
       # parent for this page has changed.
       if page.paths_need_recaching?
         page.localizations.each { |l| l.regenerate_path! }
-      end
-      
-      # Set off some code which causes a recursion through all the child pages
-      # and updates their depth
-      if page.depths_need_recaching
-        page.children.each { |c| c.set_depth!(page.depth + 1) }
-      end
+      end      
     end
     
-    # If parent page is removed then make its children either orphaned or child of their grandfather
+    # If parent page is removed then make sure its children either orphaned or child of their grandfather
     def after_destroy(page)    
         # TODO
         # page.children.each
