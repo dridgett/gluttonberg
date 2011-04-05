@@ -5,7 +5,8 @@ module Gluttonberg
   class Page < ActiveRecord::Base
     
     has_many :localizations, :class_name => "Gluttonberg::PageLocalization"   , :dependent => :destroy 
-  
+    
+    validates_presence_of :name , :description_name
     
     set_table_name "gb_pages"
    

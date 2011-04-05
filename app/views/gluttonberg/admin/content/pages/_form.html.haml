@@ -1,7 +1,4 @@
-= javascript_include_tag 'slug_management'
-
-
-/%script{:src => gluttonberg_public_path_for(:javascript, "slug_management.js"), :type => "text/javascript", :charset => "utf-8"}
+= javascript_include_tag 'slug_management' ,  :charset => "utf-8"
 
 = sub_nav do
   = back_link("Content", admin_content_path)

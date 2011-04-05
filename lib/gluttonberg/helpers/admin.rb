@@ -198,9 +198,10 @@ JAVASCRIPT_CODE
         if model_object.errors.any?
             lis = ""
             model_object.errors.full_messages.each do |msg|
-              lis << "<li> #{msg} </li>"
-            end          
-          content_tag(:ul , lis)
+              lis << content_tag(:li , msg)
+            end 
+          ul = content_tag(:ul , lis.html_safe).html_safe
+          content_tag(:div , ul , :class => "error")
         end
       end
       
