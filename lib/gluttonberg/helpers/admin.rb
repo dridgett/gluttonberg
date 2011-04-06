@@ -86,11 +86,11 @@ module Gluttonberg
       # controller.
       def contextual_help             
         if Help.help_available?(:controller => params[:controller], :page => params[:action])
-          tag(
+          content_tag(
             :p, 
-            link_to("Help", url(:gluttonberg_help, :module_and_controller => params[:controller], :page => params[:action])),
+            link_to("Help", admin_help_path(:module_and_controller => params[:controller], :page => params[:action])),
             :id => "contextualHelp"
-          )
+          )          
         end
       end
       
@@ -110,21 +110,21 @@ JAVASCRIPT_CODE
 
       # Writes out a link styled like a button. To be used in the sub nav only
       def asset_browser_nav_link(*args)
-        tag(:li, link_to_asset_browser(*args), :class => "button")
+        content_tag(:li, link_to_asset_browser(*args), :class => "button")
       end
 
       # Generates a styled tab bar
       def tab_bar(&blk)
-        tag(:ul, {:id => "tabBar"}, &blk)
+        content_tag(:ul, {:id => "tabBar"}, &blk)
       end
 
       # For adding a tab to the tab bar. It will automatically mark the current
       # tab by examining the request path.
       def tab(label, url)
         if request.env["REQUEST_PATH"] && request.env["REQUEST_PATH"].match(%r{^#{url}})
-          tag(:li, link_to(label, url), :class => "current")
+          content_tag(:li, link_to(label, url), :class => "current")
         else
-          tag(:li, link_to(label, url))
+          content_tag(:li, link_to(label, url))
         end
       end
 
@@ -153,7 +153,6 @@ JAVASCRIPT_CODE
         content = hidden_field(:published , :value => false) 
         content += "#{submit_tag("draft")}"        
         content += " or #{submit_tag("publish" , :onclick => "publish('#{object_name}_published')" )} "
-        #content += " or #{submit("unpublish" )} " if is_published
         content += " or #{link_to("<strong>Cancel</strong>", return_url)}"
         content_tag(:p, content, :class => "controls")
       end
@@ -184,14 +183,6 @@ JAVASCRIPT_CODE
           end
           content_tag("li", link_to(text, url, opts), li_opts)
         end
-      end
-      
-      def admin_rights_form(user)        
-         if user.is_super_admin                     
-          hidden_field(:is_super_admin , :value=>true)
-         else
-           hidden_field(:is_super_admin , :value=>false)
-         end 
       end
      
       def gb_error_messages_for(model_object)
@@ -227,7 +218,6 @@ JAVASCRIPT_CODE
       end  
       
 
-      #-------------------------------------
       #Returns a link for sorting assets in the library
       def sorter_link(name, param, url)
         opts = {}
@@ -249,63 +239,6 @@ JAVASCRIPT_CODE
           page_table_rows(page.children, output, inset + 1 , row)
         end
         output.html_safe
-      end
-
-      # @param *segments<Array[#to_s]> Path segments to append.
-      #
-      # @return <String> 
-      #  A path relative to the public directory, with added segments.
-      def image_path(*segments)
-        public_path_for(:image, *segments)
-      end
-
-      # @param *segments<Array[#to_s]> Path segments to append.
-      #
-      # @return <String> 
-      #  A path relative to the public directory, with added segments.
-      def javascript_path(*segments)
-        public_path_for(:javascript, *segments)
-      end
-
-      # @param *segments<Array[#to_s]> Path segments to append.
-      #
-      # @return <String> 
-      #  A path relative to the public directory, with added segments.
-      def stylesheet_path(*segments)
-        public_path_for(:stylesheet, *segments)
-      end
-
-      # Construct a path relative to the public directory
-      # 
-      # @param <Symbol> The type of component.
-      # @param *segments<Array[#to_s]> Path segments to append.
-      #
-      # @return <String> 
-      #  A path relative to the public directory, with added segments.
-      def public_path_for(type, *segments)
-        ::Gluttonberg.public_path_for(type, *segments)
-      end
-
-      # Construct an app-level path.
-      # 
-      # @param <Symbol> The type of component.
-      # @param *segments<Array[#to_s]> Path segments to append.
-      #
-      # @return <String> 
-      #  A path within the host application, with added segments.
-      def app_path_for(type, *segments)
-        ::Gluttonberg.app_path_for(type, *segments)
-      end
-
-      # Construct a slice-level path.
-      # 
-      # @param <Symbol> The type of component.
-      # @param *segments<Array[#to_s]> Path segments to append.
-      #
-      # @return <String> 
-      #  A path within the slice source (Gem), with added segments.
-      def slice_path_for(type, *segments)
-        ::Gluttonberg.slice_path_for(type, *segments)
       end
       
       

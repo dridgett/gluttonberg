@@ -8,6 +8,9 @@ Rails.application.routes.draw do # |map|
     namespace :admin do
       root :to => "main#index"
       
+      # Help
+      match("/help/:module_and_controller/:page" => "help#show", :module_and_controller => %r{\S+} , :as => :help)
+      
       scope :module => 'Content' do
         match 'content' => "main#index",      :as => :content
         resources :pages do
