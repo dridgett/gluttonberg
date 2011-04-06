@@ -39,7 +39,6 @@ module Gluttonberg
         end
 
         def update
-       
           if @locale.update_attributes(params["gluttonberg_locale"]) || !@locale.dirty?
             redirect_to admin_locales_path
           else

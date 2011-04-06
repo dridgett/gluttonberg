@@ -1,9 +1,11 @@
+# encoding: utf-8
+
 module Gluttonberg
   module Admin
     module AssetLibrary
       class CollectionsController < Gluttonberg::Admin::BaseController
-        
-            def index
+            before_filter :find_collection  , :only => [:delete , :edit  ]  
+             def index
               @collections = AssetCollection.all
             end
   
@@ -11,9 +13,7 @@ module Gluttonberg
               @collection = AssetCollection.new
             end
   
-            def edit
-              # if asset collection not found stop the execution of the action and render not found error
-              return unless find_collection
+            def edit              
             end
 
   
@@ -55,6 +55,14 @@ module Gluttonberg
                 render :new
               end
             end
+            
+             def delete
+                display_delete_confirmation(
+                  :title      => "Delete “#{@collection.name}” asset collection?",
+                  :url        => admin_collection_path(@collection),
+                  :return_url => admin_collections_path 
+                )  
+              end
   
             def destroy
               # if asset collection not found stop the execution of the action and render not found error
@@ -71,7 +79,7 @@ module Gluttonberg
               @collection = AssetCollection.find( :first , :conditions => [" id = ? " , params[:id] ] )
         
               if @collection.blank?
-                render :template => '/layouts/not_found', :status => 404 , :locals => { :message => "The asset collection you are looking for is not exist."}
+                render :template => '/gluttonberg/admin/shared/not_found', :status => 404 , :locals => { :message => "The asset collection you are looking for is not exist."}
                 return false
               end         
               true

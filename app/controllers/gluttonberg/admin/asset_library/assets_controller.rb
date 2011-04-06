@@ -1,10 +1,11 @@
+# encoding: utf-8
+
 module Gluttonberg
   module Admin
     module AssetLibrary
       class AssetsController < Gluttonberg::Admin::BaseController
-
+        before_filter :find_asset , :only => [:delete , :edit , :show ]  
         before_filter :prepare_to_edit  , :except => [:category , :show , :delete , :create , :update  ]
-        #before_filter :merge_operator_with_content , :only => [:create , :update , :create_assets_in_bulk ]
     
         
         # home page of asset library
@@ -23,7 +24,6 @@ module Gluttonberg
           else
             @categories = AssetCategory.find(:all , :conditions => { :name => @category_filter })
           end
-      
           
           if params["no_frame"]
             render :partial => "browser_root" 
@@ -49,16 +49,12 @@ module Gluttonberg
         end
     
     
-        def show
-          # if asset not found stop the execution of the action and render not found error
-          return unless find_asset
-          #render :layout => "admin/application"
+        def show          
         end
     
         # add assets from zip folder    
         def add_assets_in_bulk
           @asset = Asset.new
-          #render :layout => "admin/application"
         end
     
         # create assets from zip
@@ -90,25 +86,22 @@ module Gluttonberg
         # new asset
         def new
           @asset = Asset.new
-          #render :layout => "admin/application"
         end
             
-        # edit asset        
-        def edit
-          # if asset not found stop the execution of the action and render not found error
-          return unless find_asset
-          #render :layout => "admin/application"
+        def edit          
         end
     
         # delete asset
         def delete
-          # if asset not found stop the execution of the action and render not found error
-          return unless find_asset      
+          display_delete_confirmation(
+            :title      => "Delete “#{@asset.name}” asset?",
+            :url        => admin_asset_path(@asset),
+            :return_url => admin_assets_path 
+          )  
         end
     
         # create individual asset
         def create      
-
           # process new asset_collection and merge into existing collections
           process_new_collection_and_merge(params)
 
@@ -124,7 +117,6 @@ module Gluttonberg
     
         # update asset
         def update
-      
           # if asset not found stop the execution of the action and render not found error
           return unless find_asset
       
@@ -153,14 +145,12 @@ module Gluttonberg
           redirect_to :action => :index
         end
     
-    
-    
         private
     
             def find_asset
               @asset = Asset.find(:first , :conditions => { :id => params[:id] } )   
               if @asset.blank?
-                render :template => '/layouts/not_found', :status => 404 , :locals => { :message => "The asset you are looking for is not exist."}
+                render :template => '/gluttonberg/admin/shared/not_found', :status => 404 , :locals => { :message => "The asset you are looking for is not exist."}
                 return false
               end         
               true
@@ -227,8 +217,7 @@ module Gluttonberg
                   end                
                   zip.tempfile.close
                 rescue => e
-                  puts "------------------------------------"
-                  puts e
+                  Rails.logger.info e
                 end                
                 FileUtils.rm_r(dir)
                 FileUtils.remove_file(zip.tempfile.path)    
@@ -251,17 +240,10 @@ module Gluttonberg
                     FileUtils.remove_file(filename)            
                   end
                 rescue => e
-                    puts "---------------make_asset_for_entry---------------------"
-                    puts e
+                    Rails.logger.info e
                 end  
             end
         
-        
-            # def merge_operator_with_content
-            #              params[:asset].merge!( :operator => current_user )
-            #            end
-            
-            
 
       end # controller
     end  

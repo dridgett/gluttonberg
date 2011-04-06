@@ -38,14 +38,18 @@ Rails.application.routes.draw do # |map|
       
       scope :module => 'AssetLibrary' do
         # asset library related routes
-          resources :assets
+          resources :assets do 
+            get 'delete', :on => :member
+          end
           match "library" => "assets#index" , :as => :library
           match "add_assets_in_bulk"  => "assets#add_assets_in_bulk" , :as => :add_assets_in_bulk
           match "create_assets_in_bulk"  => "assets#create_assets_in_bulk" , :as => :create_assets_in_bulk
           match "browser"  => "assets#browser" , :as => :asset_browser
           match "browse/:category/page/:page"  => "assets#category" , :as => :asset_category
           match "collections/:id/page/:page"  => "collections#show" , :as => :asset_collection
-          resources :collections        
+          resources :collections  do 
+            get 'delete', :on => :member
+          end       
       end
       
       resources :password_resets
