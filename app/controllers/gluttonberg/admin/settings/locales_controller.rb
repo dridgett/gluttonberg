@@ -61,11 +61,11 @@ module Gluttonberg
         # Grabs the various model collections we need when editing or updating a record
         def prepare_to_edit
           unless @locale.new_record?
-            @locales  = Locale.find(:all  , :conditions => ["id != ?" , id ] ,  :order => "name desc" )#_for_user(session.user, locale_opts)
+            @locales  = Locale.find(:all  , :conditions => ["id != ?" , params[:id] ] ,  :order => "name desc" )#_for_user(session.user, locale_opts)
           else
             @locales  = Locale.find(:all  ,  :order => "name desc" )
-          end
-          @dialects = Dialect.all   
+          end 
+          @dialects = Dialect.all             
         end
       
        def find_locale

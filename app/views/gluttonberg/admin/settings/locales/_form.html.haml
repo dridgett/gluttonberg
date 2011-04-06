@@ -12,9 +12,10 @@
     = f.label :slug
     = f.text_field(:slug)
     %br
-    - unless @locales.empty?
+    - unless @locales.blank?
       = f.label :locale_id , "Fallback Locale"
       = f.select(:locale_id, @locales.collect{|l| [l.name , l.id] } , :include_blank => true )
+        
     = f.check_box(:default, :boolean => true)
     %label{:for => "gluttonberg_locale_default", :class => "checkbox"} Default
   
@@ -24,6 +25,14 @@
       - checked = @locale.dialects.include? dialect
       = check_box_tag "gluttonberg_locale[dialect_ids][]", "#{dialect.id}", checked
       
-      %label{:for => "dialect_#{dialect.code}", :class => "checkbox"}= dialect.name_and_code
+      %label{:for => "dialect_#{dialect.code}", :class => "checkbox"}
+        = dialect.name_and_code
+      .clear
       %br
+      
+    %p.warning
+      %strong Remember: 
+      Selecting new dialect(s) will create new empty localization for all existing pages.
+      Deselecting dialect(s) will delete existing localization(s) for all pages.
+      
   = form_controls(admin_locales_path)
