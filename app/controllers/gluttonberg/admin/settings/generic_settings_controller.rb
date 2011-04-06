@@ -1,9 +1,11 @@
+# encoding: utf-8
+
 module Gluttonberg
   module  Admin
     module Settings
       class GenericSettingsController < Gluttonberg::Admin::BaseController
- 
-    
+        before_filter :find_setting, :only => [:delete, :edit, :update, :destroy]
+        
         def index
           @settings = Setting.find(:all , :order => "row asc")
         end
@@ -13,8 +15,6 @@ module Gluttonberg
         end
     
         def edit
-          @setting = Setting.find(params[:id])
-          raise NotFound unless @setting
         end
     
         def create
@@ -30,23 +30,34 @@ module Gluttonberg
         end
     
         def update
-          @setting = Setting.find(params[:id])
-          raise NotFound unless @setting
           if @setting.update_attributes(params["gluttonberg_setting"])
             redirect_to admin_generic_settings_path
           else
             render :edit
           end
         end
+        
+        def delete
+          display_delete_confirmation(
+            :title      => "Delete “#{@setting.name}” setting?",
+            :url        => admin_generic_setting_path(@setting),
+            :return_url => admin_generic_settings_path 
+          )
+        end
 
         def destroy
-          @setting = Setting.find(params[:id])
-          raise NotFound unless @setting
           if @setting.destroy
             redirect_to admin_generic_settings_path
           else
             raise InternalServerError
           end
+        end
+    
+        private
+
+        def find_setting
+          @setting = Setting.find(params[:id]) 
+          raise NotFound unless @setting
         end
     
       end # GenericSettings

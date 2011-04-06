@@ -1,0 +1,19 @@
+!!! Strict
+%html{:xmlns => "http://www.w3.org/1999/xhtml", "xml:lang" => "en", :lang => "en"}
+  %head
+    %title Gluttonberg
+    %meta{"http-equiv" => "Content-Type", :content => "text/html;charset=utf-8" }/
+    = stylesheet_link_tag "admin"
+  %body{:id => "delete"}
+    = form_tag(@options[:url], :method => "delete") do
+      %h1= @options[:title]
+      %p.message= @options[:message]
+      %p.warning= @options[:warning] unless @options[:warning].blank?
+
+      %p.controls
+        - unless @do_not_do
+          = submit_tag(@name.capitalize)
+          or 
+          = link_to("<strong>Cancel</strong>".html_safe, @options[:return_url])
+        - else
+          = link_to("<strong>Ok</strong>".html_safe, @options[:return_url])        

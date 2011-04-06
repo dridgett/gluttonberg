@@ -1,12 +1,14 @@
+# encoding: utf-8
+
 module Gluttonberg
   module Admin
     module Settings
-
       class UsersController < Gluttonberg::Admin::BaseController
-          
+        before_filter :find_user, :only => [:delete, :edit, :update, :destroy]
+            
         def index
           @users = User.all
-          #@users = @users.paginate(:page => params[:page] , :per_page => 20 )
+          @users = @users.paginate(:page => params[:page] , :per_page => 20 )
         end
   
         def new
@@ -16,9 +18,6 @@ module Gluttonberg
         def create
           @user = User.new(params[:user])
           if @user.save
-            # if User.count == 1
-            #               @user.has_role! 'superadmin'
-            #             end
             flash[:notice] = "Account registered!"
             redirect_to :action => :index
           else
@@ -27,20 +26,10 @@ module Gluttonberg
         end
   
   
-        def edit
-          #if current_user.admin?
-            @user = User.find(params[:id])
-          #else
-          #  @user =  current_user
-          #end  
+        def edit          
         end
   
         def update
-          #if current_user.admin?
-            @user = User.find(params[:id])
-          #else
-          #  @user =  current_user
-          #end
           if @user.update_attributes(params[:user])
             flash[:notice] = "Account updated!"
             redirect_to  :action => :index
@@ -48,16 +37,33 @@ module Gluttonberg
             render :action => :new
           end 
         end
+        
+        def delete
+          display_delete_confirmation(
+            :title      => "Delete “#{@user.email}” user?",
+            :url        => admin_user_path(@user),
+            :return_url => admin_users_path  
+          )        
+        end
+        
   
         def destroy
-          @user = User.find(params[:id])
           @user.destroy
-
           flash[:notice] = "Account deleted!"
           redirect_to :action => :index
         end
   
   
+       private
+          def find_user
+            #if current_user.admin?
+            #  @user = User.find(params[:id])
+            #else
+            #  @user =  current_user
+            #end
+            @user = User.find(params[:id])
+            raise NotFound unless @user
+          end
     
       
       end

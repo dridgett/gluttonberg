@@ -12,4 +12,4 @@
         %li= link_to("Edit", edit_admin_page_page_localization_path( :page_id => page.id, :id => default_localization.id))
       
       %li= link_to 'Settings', edit_admin_page_path(page) 
-      %li= link_to 'Destroy', admin_page_path(page),  :confirm => 'Are you sure?', :method => :delete    
+      %li= link_to 'Destroy',  delete_admin_page_path(page)

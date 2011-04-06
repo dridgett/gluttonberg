@@ -22,5 +22,4 @@
           %td.controls
             %ul
               %li= link_to('Edit', edit_admin_locale_path(locale))
-              %li= link_to "Delete", admin_locale_path(locale),  :confirm => 'Are you sure?', :method => :delete
-
+              %li= link_to "Delete", delete_admin_locale_path(locale)

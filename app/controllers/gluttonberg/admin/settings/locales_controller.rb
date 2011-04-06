@@ -1,14 +1,13 @@
+# encoding: utf-8
+
 module Gluttonberg
   module  Admin
     module Settings
       class LocalesController < Gluttonberg::Admin::BaseController
-    
-
-
         before_filter :find_locale, :only => [:delete, :edit, :update, :destroy]
       
         def index
-          @locales = Locale.all#_for_user(session.user , :order => [:name.asc])
+          @locales = Locale.all
         end
 
         def new
@@ -20,18 +19,17 @@ module Gluttonberg
           prepare_to_edit
         end
 
-        # def delete
-        #   only_provides :html
-        #   display_delete_confirmation(
-        #     :title      => "Delete the “#{@locale.name}” locale?",
-        #     :action     => slice_url(:locale, @locale),
-        #     :return_url => slice_url(:locales)
-        #   )
-        # end
+        def delete
+          display_delete_confirmation(
+            :title      => "Delete “#{@locale.name}” locale?",
+            :url        => admin_locale_path(@locale),
+            :return_url => admin_locales_path , 
+            :warning    => "Dependent page localizations of this locale will be also deleted."
+          )        
+        end
 
         def create
           @locale = Locale.new(params["gluttonberg_locale"])
-          #@locale.user_id = session.user.id
           if @locale.save
             redirect_to admin_locales_path
           else
@@ -68,11 +66,11 @@ module Gluttonberg
           else
             @locales  = Locale.find(:all  ,  :order => "name desc" )
           end
-          @dialects = Dialect.all#_for_user(session.user)        
+          @dialects = Dialect.all   
         end
       
        def find_locale
-          @locale = Locale.find(params[:id])#get_for_user(session.user , params[:id])
+          @locale = Locale.find(params[:id])
           raise NotFound unless @locale
         end
       

@@ -11,6 +11,7 @@ Rails.application.routes.draw do # |map|
       scope :module => 'Content' do
         match 'content' => "main#index",      :as => :content
         resources :pages do
+          get 'delete', :on => :member
           resources :page_localizations           
         end
         match "/pages/move(.:format)" => "pages#move_node" , :as=> :page_move
@@ -20,10 +21,19 @@ Rails.application.routes.draw do # |map|
       # Settings
       scope :module => 'Settings' do
         match 'settings' => "main#index",      :as => :settings
-        resources :locales
-        resources :dialects
-        resources :users
-        resources :generic_settings        
+        resources :locales do 
+          get 'delete', :on => :member
+        end
+        resources :dialects do
+          get 'delete', :on => :member
+        end
+        resources :users do
+          get 'delete', :on => :member
+        end
+        
+        resources :generic_settings do 
+          get 'delete', :on => :member
+        end       
       end  
       
       scope :module => 'AssetLibrary' do

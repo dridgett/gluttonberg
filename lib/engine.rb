@@ -14,7 +14,7 @@ module Gluttonberg
         
     config.thumbnails = {   }
     config.max_image_size = "1600x1200>"
-    
+    config.encoding = "utf-8"
     
     # Load rake tasks
     rake_tasks do

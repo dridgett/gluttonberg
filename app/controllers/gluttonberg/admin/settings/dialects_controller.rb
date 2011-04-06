@@ -1,13 +1,13 @@
+# encoding: utf-8
+
 module Gluttonberg
   module  Admin
     module Settings
       class DialectsController < Gluttonberg::Admin::BaseController
-        
-
         before_filter :find_dialect, :only => [:delete, :edit, :update, :destroy]
 
         def index
-          @dialects = Dialect.all #_for_user(session.user)
+          @dialects = Dialect.all
         end
 
         def new
@@ -17,17 +17,17 @@ module Gluttonberg
         def edit
         end
 
-        # def delete
-        #          display_delete_confirmation(
-        #            :title      => "Delete “#{@dialect.name}” dialect?",
-        #            :action     => slice_url(:gluttonberg, :dialect, @dialect),
-        #            :return_url => slice_url(:gluttonberg, :dialects)
-        #          )
-        #        end
+        def delete
+          display_delete_confirmation(
+            :title      => "Delete “#{@dialect.name}” dialect?",
+            :url        => admin_dialect_path(@dialect),
+            :return_url => admin_dialects_path , 
+            :warning    => "Dependent locale association of this dialect will be also deleted. Potentially it will result into deletion of page localizations."
+          )
+        end
 
         def create
           @dialect = Dialect.new(params["gluttonberg_dialect"])
-          #@dialect.user_id = session.user.id
           if @dialect.save
             redirect_to admin_dialects_path
           else
@@ -54,7 +54,7 @@ module Gluttonberg
         private
 
         def find_dialect
-          @dialect = Dialect.find(params[:id]) #Dialect.get_for_user(session.user , params[:id])
+          @dialect = Dialect.find(params[:id]) 
           raise NotFound unless @dialect
         end
 

@@ -53,7 +53,7 @@ class Gluttonberg::Admin::BaseController < ActionController::Base
         @options[:title]    = "Sorry you cannot delete this record!"
         @options[:message]  ||= "It is been used by some other records."
       end  
-      render :template => "shared/delete", :layout => false
+      render :template => "gluttonberg/admin/shared/delete", :layout => false
     end
     
     # This is to be called from within a controller — i.e. the publish/unpublish action — 

@@ -23,5 +23,4 @@
             %ul
               %li= link_to('Edit', edit_admin_generic_setting_path(setting))
               - if setting.delete_able
-                %li= link_to 'Delete', admin_generic_setting_path(setting) ,  :confirm => 'Are you sure?', :method => :delete
-                
+                %li= link_to 'Delete', delete_admin_generic_setting_path(setting)

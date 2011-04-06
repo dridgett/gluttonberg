@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 module Gluttonberg
   module Admin
     module Content    
@@ -23,14 +25,15 @@ module Gluttonberg
           prepare_to_edit
         end
        
-        #       def delete
-        #         display_delete_confirmation(
-        #           :title      => "Delete “#{@page.name}” page?",
-        #           :action     => slice_url(:page, @page),
-        #           :return_url => slice_url(:page, @page)
-        #         )
-        #       end
-        # 
+        def delete
+          display_delete_confirmation(
+            :title      => "Delete “#{@page.name}” page?",
+            :url        => admin_page_path(@page),
+            :return_url => admin_pages_path , 
+            :warning    => "Children of this page will be also deleted."
+          )
+        end
+         
         def create
           @page = Page.new(params["gluttonberg_page"])
           @page.user_id = current_user.id
