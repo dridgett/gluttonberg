@@ -13,7 +13,6 @@ module Gluttonberg
   module Content
     @@content_associations = nil
     @@non_localized_associations = nil
-    @@content_classes = []
     @@localizations = {}
     @@localization_associations = nil
     @@localization_classes = nil
@@ -22,34 +21,19 @@ module Gluttonberg
     # extra associations or do house-keeping once everything is required and
     # running
     def self.setup
-      # make sure that these modles are loaded
-      Gluttonberg::PlainTextContent
-      Gluttonberg::ImageContent
-      Gluttonberg::HtmlContent
       # Store the names of the associations in their own array for convenience
       @@localization_associations = @@localizations.keys
       @@localization_classes = @@localizations.values
-      @@content_associations = content_classes.collect { |k| k.association_name }
+      @@content_associations = Block.classes.collect { |k| k.association_name }
     end
-    
-    # This is used inside of the Content::Block mixin. When that mixin is 
-    # included in a class, the mixin registers it automatically via this method.
-    def self.register_as_content(klass)
-      @@content_classes << klass unless @@content_classes.include? klass
-    end
-    
-    # Returns an array of classes that have been declared as "content".
-    def self.content_classes
-      @@content_classes
-    end
-    
+        
     # For each content class that is registered, a corresponding association is
     # declared against the Page model. We need to keep track of these, which
     # is what this method does. It just returns an array of the association 
     # names.
     def self.non_localized_associations
       @@non_localized_associations ||= begin
-        non_localized = @@content_classes.select {|c| !c.localized? }
+        non_localized = Block.classes.select {|c| !c.localized? }
         non_localized.collect {|c| c.association_name }
       end
     end

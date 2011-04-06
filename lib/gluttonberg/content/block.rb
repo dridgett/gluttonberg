@@ -4,6 +4,9 @@ module Gluttonberg
     # block. A content block is a class that can be associated with a section
     # on in a page description.
     module Block
+      # A collection of the classes which have this module included in it.
+      @classes = []
+
       # This included hook is used to declare the various properties and class
       # ivars we need.
       def self.included(klass)
@@ -36,9 +39,13 @@ module Gluttonberg
           self.label = type.humanize
         end
         
-        # This registers this class so that the page can later query which 
-        # classes it needs to be aware of.
-        Gluttonberg::Content.register_as_content(klass)
+        @classes << klass
+      end
+
+      # An accessor which provides the collection of classes with mixin this
+      # module.
+      def self.classes
+        @classes
       end
     
       module ClassMethods

@@ -10,11 +10,12 @@ module Gluttonberg
     #associations with dynamic contentLocalization classes. To make sure these classes are
     # created and loaded I am calling those classes before that.
     # this helps me in development mode where classes reloads on each page request
-    Gluttonberg::PlainTextContent
-    Gluttonberg::HtmlContent
     has_many :html_content_localizations , :class_name => "Gluttonberg::HtmlContentLocalization" , :dependent => :destroy 
     has_many :plain_text_content_localizations , :class_name => "Gluttonberg::PlainTextContentLocalization" , :dependent => :destroy 
-    
+
+    Gluttonberg::Content.localizations.each do |assoc, klass|
+      has_many  assoc, :class_name => klass.to_s 
+    end
     
     after_save :update_content_localizations
     attr_accessor :paths_need_recaching, :content_needs_saving
