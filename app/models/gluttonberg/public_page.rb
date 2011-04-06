@@ -13,7 +13,7 @@ module Gluttonberg
     column :controller_name,  :string
     column :slug,             :string
       
-    def self.get(path, locale = nil)
+    def self.find_by_path(path, locale = nil)
 
     end
     
@@ -21,7 +21,7 @@ module Gluttonberg
     # This is determined by a flag in the record and a specification of a 
     # controller to mount.
     def mount_point?
-      
+      false
     end
 
     # Generates a URL which points to this controller. It will also add any

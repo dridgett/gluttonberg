@@ -15,6 +15,8 @@ module Gluttonberg
     config.thumbnails = {   }
     config.max_image_size = "1600x1200>"
     config.encoding = "utf-8"
+
+    config.identify_locale = :prefix
     
     # Load rake tasks
     rake_tasks do
@@ -32,6 +34,7 @@ module Gluttonberg
     end
 
     initializer "middleware" do |app|
+      app.middleware.use Gluttonberg::Middleware::Locales
       app.middleware.use Gluttonberg::Middleware::Rewriter
     end
     

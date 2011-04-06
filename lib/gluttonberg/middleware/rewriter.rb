@@ -8,12 +8,18 @@ module Gluttonberg
       def call(env)
         path = env['PATH_INFO']
 
+        puts env['gluttonberg.locale'].inspect
+
         unless path =~ /^#{Gluttonberg::Engine.config.admin_path}/
-          page = Gluttonberg::PublicPage.get(path, env['gluttonberg.locale'])
+          page = Gluttonberg::Page.find_by_path(path, env['gluttonberg.locale'])
           if page
             env['gluttonberg.page'] = page
             env['gluttonberg.path_info'] = path
-            env['PATH_INFO'] = page.mount_path(path) if page.mount_point?
+            if page.mount_point?
+              env['PATH_INFO'] = page.mount_path(path) 
+            else
+              env['PATH_INFO'] = '/_public/page'
+            end
           end
         end
 

@@ -27,6 +27,20 @@ module Gluttonberg
     
     attr_accessor :current_localization, :dialect_id, :locale_id, :paths_need_recaching , :depths_need_recaching
     
+    # A custom finder used to find a page + locale combination which most
+    # closely matches the path specified. It will also optionally limit it's
+    # search to the specified locale, otherwise it will fall back to the
+    # default.
+    def self.find_by_path(path, locale = nil)
+      path = path.match(/^\/(\S+)/)[1]
+      joins(:localizations).where("locale_id = ? AND path LIKE ?", locale.id, "#{path}%").first
+    end
+
+    # Indicates if the page is used as a mount point for a public-facing
+    # controller, e.g. a blog, message board etc.
+    def mount_point?
+      false
+    end
     
     #acts_as_versioned :if_changed => [:name , :description_name ] , :limit  => 5
     # we can lock state column. reverting to old version may change publishing status back to draft
