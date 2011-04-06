@@ -6,7 +6,6 @@ module Gluttonberg
     # slug has been updated. If it has, we need to update it's cached path
     # and also the paths for all it's decendants.
     def before_validation(page_localization)
-      
       if page_localization.slug_changed? || page_localization.new_record?
         page_localization.paths_need_recaching = true
         page_localization.regenerate_path 

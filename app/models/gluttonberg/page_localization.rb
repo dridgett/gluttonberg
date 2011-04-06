@@ -39,10 +39,7 @@ module Gluttonberg
         contents_data
       end      
       
-      @contents.each do |c|
-        puts "------------#{c.id} "
-      end
-      # this is kind of hack. For some reasons in development mode image contents are duplicated multiple times
+      # this is kind of hack. For some reasons in development mode, image contents are duplicated multiple times
       @contents.uniq! 
       @contents 
     end

@@ -52,9 +52,8 @@ module Gluttonberg
     end
     
     # If parent page is removed then make sure its children either orphaned or child of their grandfather
-    def after_destroy(page)    
-        # TODO
-        # page.children.each
+    def after_destroy(page)
+        Page.delete_all(:parent_id => page.id)  
     end
   end
 end
