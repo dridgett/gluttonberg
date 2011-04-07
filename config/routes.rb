@@ -1,8 +1,6 @@
-Rails.application.routes.draw do # |map|
+Rails.application.routes.draw do
 
   mount_at = Gluttonberg::Engine.config.mount_at
-
-  #match '/admin' => 'gluttonberg/admin/main#index'
 
   scope :module => 'Gluttonberg' do
     namespace :admin do
@@ -19,7 +17,6 @@ Rails.application.routes.draw do # |map|
         end
         match "/pages/move(.:format)" => "pages#move_node" , :as=> :page_move
       end
-      #resouces :assets
       
       # Settings
       scope :module => 'Settings' do
