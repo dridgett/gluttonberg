@@ -15,9 +15,7 @@ module Gluttonberg
           extend Block::ClassMethods
           include Block::InstanceMethods
           
-          
           cattr_accessor :localized, :label, :content_type, :association_name
-          #class << self; attr_accessor :localized, :label, :content_type, :association_name end
           @localized = false
           
           attr_reader :current_localization
@@ -35,7 +33,6 @@ module Gluttonberg
           self.association_name = type.pluralize.to_sym
           self.content_type = type.to_sym
           # Let's generate a label from the class — this might be over-ridden later
-          #self.label = Extlib::Inflection.humanize(type)
           self.label = type.humanize
         end
         
