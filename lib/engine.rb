@@ -15,7 +15,7 @@ module Gluttonberg
     config.thumbnails = {   }
     config.max_image_size = "1600x1200>"
     config.encoding = "utf-8"
-
+    config.gluttonberg = {}
     config.identify_locale = :prefix
     
     # Load rake tasks
@@ -48,6 +48,9 @@ module Gluttonberg
       Gluttonberg::Content.setup
       #Gluttonberg::Templates.setup
       #Gluttonberg::Helpers.setup      
+      
+      Gluttonberg.laod_settings_from_db
+      
     end
     
     initializer "setup gluttonberg asset library" do |app| 
