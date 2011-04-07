@@ -37,7 +37,10 @@
           %tr
             %td= "<strong>#{localization.locale.name}/#{localization.dialect.name}</strong> <span>(#{pair})</span>".html_safe
             %td= "#{pair}/#{localization.path}"
-            %td.controls= link_to("Edit", edit_admin_page_page_localization_path( :page_id => @page.id, :id => localization.id))
+            %td.controls
+              = link_to("Edit", edit_admin_page_page_localization_path( :page_id => @page.id, :id => localization.id)) 
+              
+              = link_to("Preview", "/#{pair}/#{localization.path}"  , { :target => "_blank" }) 
 
 %dl.meta
   %dt Created at
