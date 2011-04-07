@@ -135,7 +135,7 @@ module Gluttonberg
           if localized?
             localization_id = id_or_model.is_a?(Numeric) ? id_or_model : id_or_model.id
             conditions = {:page_localization_id => localization_id, :"#{self.class.content_type}_id" => id}
-            @current_localization = localizations.first(conditions)
+            @current_localization = localizations.find(:first , :conditions => conditions)
           end
         end
       end
