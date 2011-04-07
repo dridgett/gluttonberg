@@ -9,23 +9,25 @@ module Gluttonberg
         pages.each do |page|
           li_opts = {:id => page.slug + "Nav"}
           li_opts[:class] = "current" if page == @page
-          li_content = tag(:a, page.nav_label, :href => page_url(page))
-          children = page.children_with_localization(:dialect => params[:dialect], :locale => params[:locale])
-          li_content << navigation_tree(children) unless children.empty?
-          content << "\n\t#{tag(:li, li_content, li_opts)}"
+          li_content = content_tag(:a, page.nav_label, :href => page_url(page)).html_safe
+          children = page.children#_with_localization(:dialect => params[:dialect], :locale => params[:locale])
+          li_content << navigation_tree(children).html_safe unless children.blank?
+          content << content_tag(:li, li_content, li_opts).html_safe
         end
-        tag(:ul, "#{content}\n", opts)
+        content_tag(:ul, content.html_safe, opts).html_safe
       end
 
+      # TODO FIXME
       # Returns the URL with any locale/dialect prefix it needs
       def page_url(path_or_page)
         path = path_or_page.is_a?(String) ? path_or_page : path_or_page.path
-        ::Gluttonberg::Router.localized_url(path, params)
+        #::Gluttonberg::Router.localized_url(path, params)
+        "/#{path}"
       end
       
       # Returns the code for google analytics
       def google_analytics
-        code = Merb::Slices::config[:gluttonberg][:google_analytics]
+        code = Rails.configuration.gluttonberg[:google_analytics]
         output = ""
         unless code.blank?
           output += "<script type='text/javascript'>\n"
@@ -43,7 +45,7 @@ module Gluttonberg
           output += "//]]>\n"
           output += "</script>\n"
         end  
-        output
+        output.html_safe
       end  
     end # Public
   end # Helpers

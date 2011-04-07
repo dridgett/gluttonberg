@@ -22,14 +22,14 @@ module Gluttonberg
       # Returns the content record for the specified section. It will include
       # the relevant localized version based the current locale/dialect
       def content_for(section_name, opts = nil)
-        section_name = section_name.to_sym
+        section_name = section_name.to_sym         
         @page.localized_contents.pluck {|c| c.section[:name] == section_name}
       end
 
-      # Render html content. Actually just lookf for the text 
+      # Render html content. Actually just looks for the text 
       # property on the content model.
       def render_html_content(content, opts = nil)
-        filter_text(content.current_localization.text)
+        content.current_localization.text.html_safe
       end
       
       
@@ -62,7 +62,7 @@ module Gluttonberg
       # generate javascript code to enable tinymce on it. textArea need to have class = mceEditor
       def enable_tinymce        
         content = "enable_tinyMCE_on(); \n"        
-        tag(:script , content , :charset=>'utf-8', :type=>'text/javascript')        
+        content_tag(:script , content , :charset=>'utf-8', :type=>'text/javascript')        
       end
       
       # generate javascript code to enable tinymce on it. textArea need to have class = mceEditor
