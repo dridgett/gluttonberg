@@ -7,10 +7,7 @@ module Gluttonberg
 
       def call(env)
         path = env['PATH_INFO']
-
-        puts env['gluttonberg.locale'].inspect
-
-        unless path =~ /^#{Gluttonberg::Engine.config.admin_path}/
+        unless path =~ /^#{Gluttonberg::Engine.config.admin_path}/ || path.start_with?("/stylesheets")  || path.start_with?("/javascripts")   || path.start_with?("/images") 
           page = Gluttonberg::Page.find_by_path(path, env['gluttonberg.locale'])
           if page
             env['gluttonberg.page'] = page
@@ -28,4 +25,3 @@ module Gluttonberg
     end # Rewriter
   end # Middleware
 end # Gluttonberg
-
