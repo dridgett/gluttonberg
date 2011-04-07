@@ -2,6 +2,7 @@ module Gluttonberg
  class Setting  < ActiveRecord::Base
    #include Gluttonberg::Authorizable
    set_table_name "gb_settings" 
+   after_save  :update_settings_in_config
     
     def self.generate_settings(settings={})      
       settings.each do |key , val |
@@ -26,7 +27,16 @@ module Gluttonberg
         obj.value = val
         obj.save!
       end  
-    end  
+    end 
+    
+    def update_settings_in_config
+      begin
+        setting = self
+        Engine.config.gluttonberg[setting.name.to_sym] = setting.value
+      rescue => e
+        Rails.logger.info e
+      end
+    end 
 
   end
 end
