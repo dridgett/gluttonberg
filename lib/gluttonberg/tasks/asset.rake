@@ -7,7 +7,7 @@ namespace :gluttonberg do
     
     desc "Try and generate thumbnails for all assets"
     task :create_thumbnails => :environment do
-      category = AssetCategory.find( :first , :conditions =>{  :name => "image" } )
+      category = Gluttonberg::AssetCategory.find( :first , :conditions =>{  :name => "image" } )
       if category
         assets = category.assets #Asset.all
         assets.each do |asset|
@@ -21,28 +21,25 @@ namespace :gluttonberg do
 
     desc "Rebuild AssetType information and reassociate with existing Assets"
     task :rebuild_asset_types => :environment do
-      Library.rebuild
+      Gluttonberg::Library.rebuild
     end
   
     desc "Assign file_name as name of those asset whose name is null"
     task :generate_asset_names => :environment do
-      Asset.generate_name
+      Gluttonberg::Asset.generate_name
     end
   
     desc "Make assets from files in bulks folder"
     task :generate_asset_from_bulks_folder => :environment do
-      Asset.create_assets_from_ftp
+      Gluttonberg::Asset.create_assets_from_ftp
     end
   
     desc "Update assets synopsis through csv"
     task :update_assets_synopsis_from_csv => :environment do
-      Asset.update_assets_synopsis_from_csv
+      Gluttonberg::Asset.update_assets_synopsis_from_csv
     end
   
-    desc "Update sequence info through csv"
-    task :update_sequnces_csv => :environment do
-      Sequence.update_info_from_csv
-    end
+    
   
     # desc "regenerate duration of video assets"
     #   task :regenerate_video_assets => :environment do
