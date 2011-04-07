@@ -90,13 +90,11 @@ module Gluttonberg
       save
     end
     
-    
-    
     private
     
-    def update_content_localizations
-      contents.each { |c| c.save } if self.content_needs_saving
-    end
+      def update_content_localizations
+        contents.each { |c| c.save } if self.content_needs_saving
+      end
     
     
   end

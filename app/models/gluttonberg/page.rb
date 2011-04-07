@@ -25,7 +25,7 @@ module Gluttonberg
 
     is_drag_tree :scope => :parent_id, :flat => false , :order => "position"
     
-    attr_accessor :current_localization, :dialect_id, :locale_id, :paths_need_recaching , :depths_need_recaching
+    attr_accessor :current_localization, :dialect_id, :locale_id, :paths_need_recaching
     
     # A custom finder used to find a page + locale combination which most
     # closely matches the path specified. It will also optionally limit it's
@@ -33,7 +33,10 @@ module Gluttonberg
     # default.
     def self.find_by_path(path, locale = nil)
       path = path.match(/^\/(\S+)/)[1]
-      joins(:localizations).where("locale_id = ? AND path LIKE ?", locale.id, "#{path}%").first
+      page = joins(:localizations).where("locale_id = ? AND path LIKE ?", locale.id, "#{path}%").first
+      
+      page.current_localization = page.localizations.where("locale_id = ? AND dialect_id = ? AND path LIKE ?", locale.id, locale.dialect_id, "#{path}%").first
+      page
     end
 
     # Indicates if the page is used as a mount point for a public-facing
@@ -87,7 +90,7 @@ module Gluttonberg
     # Returns the localized navigation label, or falls back to the page for a
     # the default.
     def nav_label
-      if current_localization.navigation_label.blank?
+      if current_localization.blank? || current_localization.navigation_label.blank?
         if navigation_label.blank?
           name
         else
@@ -105,17 +108,13 @@ module Gluttonberg
     
     # Delegates to the current_localization
     def path
-      current_localization.path
+      unless current_localization.blank?
+        current_localization.path
+      else
+        localizations.first.path
+      end  
     end
     
-
-    # Returns a hash containing the paths to the page and layout templates.
-    def template_paths(opts = {})
-      {
-        :page => Gluttonberg::Templates.template_for(:pages, view, opts), 
-        :layout => Gluttonberg::Templates.template_for(:layout, layout, opts)
-      }
-    end
 
     def slug=(new_slug)
       #if you're changing this regex, make sure to change the one in /javascripts/slug_management.js too
@@ -137,46 +136,10 @@ module Gluttonberg
       end
     end
 
-    # This finder grabs the matching page and under the hood also grabs the 
-    # relevant localization.
-    #
-    # FIXME: The way errors are raised here is ver nasty, needs fixing up 
-    def self.first_with_localization(options)
-      if options[:path] == "" || options[:path] == "index"
-        options.delete(:path)
-        page = Page.first(:home => true)
-        return nil unless page
-        localization = page.localizations.first(options)
-        return nil unless localization
-      else
-        localization = PageLocalization.first(options)
-        return nil unless localization
-        page = localization.page
-      end
-      page.current_localization = localization
-      page
-    end
-    
-    # Returns the matching pages with their specified localizations preloaded
-    def self.all_with_localization(conditions)
-      l_conditions = extract_localization_conditions(conditions)
-      all(conditions).each {|p| p.load_localization(l_conditions)}
-    end
-
-    # Returns the immediate children of this page, which the specified
-    # localization preloaded.
-    # TODO: Have this actually check the current mode
-    def children_with_localization(conditions)
-      l_conditions = self.class.extract_localization_conditions(conditions)
-      children.all(conditions).each { |c| c.load_localization(l_conditions)}
-    end
     
     # Load the matching localization as specified in the options
-    def load_localization(conditions = {})
-      # OMGWTFBBQ: I shouldn't have explicitly set the id in the conditions
-      # like this, since I’m going through an association.
-      conditions[:page_id] = id 
-      @current_localization = PageLocalization.first(conditions) unless conditions.empty?
+    def load_localization(locale = nil)
+      @current_localization = localizations.where("locale_id = ? AND dialect_id = ? AND path LIKE ?", locale.id, locale.dialect_id, "#{path}%").first unless conditions.empty?
     end
 
     def home=(state)
@@ -186,29 +149,18 @@ module Gluttonberg
         
     private
 
-    def slug_management
-      self.slug= name if self.slug.blank?
-    end
+      def slug_management
+        self.slug= name if self.slug.blank?
+      end
 
-    # Checks to see if this page has been set as the homepage. If it has, we 
-    # then go and 
-    def check_for_home_update
-      if @home_updated && @home_updated == true
-        previous_home = Page.find( :first ,  :conditions => [ "home = ? AND id <> ? " , true ,id ] )
-        previous_home.update_attributes(:home => false) if previous_home
+      # Checks to see if this page has been set as the homepage. If it has, we 
+      # then go and 
+      def check_for_home_update
+        if @home_updated && @home_updated == true
+          previous_home = Page.find( :first ,  :conditions => [ "home = ? AND id <> ? " , true ,id ] )
+          previous_home.update_attributes(:home => false) if previous_home
+        end
       end
-    end
-    
-    private
-    
-    def self.extract_localization_conditions(opts)
-      conditions = [:dialect, :locale].inject({}) do |memo, opt|
-        memo[:"#{opt}_id"] = opts.delete(opt).id if opts[opt]
-        memo
-      end
-    end
-    
-    
     
   end
 end
