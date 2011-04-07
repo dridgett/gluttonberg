@@ -15,13 +15,15 @@ module Gluttonberg
     end  
     
     # TODO: Replace this with a scope constructed using Areal syntax
+    # error fixed by abdul ON ds.id =  dls.dialect_id = ds.id
     FIND_LOCALE_QUERY = %{
       SELECT 
         ls.*,
-        ds.code
+        ds.code,
+        ds.id as dialect_id
       FROM gb_locales ls
       JOIN gb_dialects_locales dls ON dls.locale_id = ls.id
-      JOIN gb_dialects ds ON ds.id = dls.dialect_id = ds.id
+      JOIN gb_dialects ds ON dls.dialect_id = ds.id
       WHERE ls.slug = ? AND ds.code = ?
     }.freeze
 
