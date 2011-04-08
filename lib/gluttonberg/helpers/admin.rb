@@ -242,6 +242,13 @@ JAVASCRIPT_CODE
       end
       
       
+      def publisable_dropdown(form ,object)
+        val = object.state
+        val = "ready" if val.blank? || val == "not_ready"
+        @@workflow_states = [  [ 'Draft' , 'ready' ] , ['Published' , "published" ] , [ "Archived" , 'archived' ]  ]
+        form.select( :state, options_for_select(@@workflow_states , val)   ) 
+      end
+      
       
     end # Admin
   end # Helpers

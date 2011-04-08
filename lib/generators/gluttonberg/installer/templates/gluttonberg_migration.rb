@@ -91,6 +91,7 @@ class GluttonbergMigration < ActiveRecord::Migration
       t.column :updated_at, :timestamp
       t.column :position, :integer
       t.column :user_id, :integer
+      t.column :state , :string
     end
 
     create_table :gb_plain_text_contents do |t|
