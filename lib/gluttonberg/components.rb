@@ -8,7 +8,7 @@ module Gluttonberg
     @@nav_entries = nil
     @@left_nav_entries = []
     @@registered  = nil
-    Component     = Struct.new(:name, :label , :only_for_super_admin )
+    Component     = Struct.new(:name, :label , :admin_url, :only_for_super_admin )
     
     # Registers a controller — or set of controllers — based on the URLs 
     # specified in the routes.
@@ -33,13 +33,17 @@ module Gluttonberg
     # a label won’t turn up.
     def self.nav_entries      
       @@nav_entries ||= @@components.collect do |k, v| 
+        
         url = if v[:admin_url]
           if v[:admin_url].is_a? Symbol
-            Merb::Router.url(v[:admin_url])
+            # TODO Fixme
+            #Merb::Router.url(v[:admin_url])
+            v[:admin_url]
           else
             v[:admin_url]
           end
-        end        
+        end 
+        puts "---------#{url}"       
         [v[:label], k, url , v[:only_for_super_admin]]
       end
     end
