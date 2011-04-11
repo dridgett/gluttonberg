@@ -22,7 +22,7 @@ module Gluttonberg
 
         def find_localization
           @page_localization = PageLocalization.find(params[:id])
-          raise NotFound unless @page_localization
+          raise ActiveRecord::RecordNotFound  unless @page_localization
         end
       end #class  
     end

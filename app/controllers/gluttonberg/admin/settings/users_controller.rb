@@ -62,7 +62,7 @@ module Gluttonberg
             #  @user =  current_user
             #end
             @user = User.find(params[:id])
-            raise NotFound unless @user
+            raise ActiveRecord::RecordNotFound  unless @user
           end
     
       

@@ -74,7 +74,7 @@ module Gluttonberg
 
         def find_page
           @page = Page.find( params[:id])
-          raise NotFound unless @page
+          raise ActiveRecord::RecordNotFound unless @page
         end      
       end
     end #content  

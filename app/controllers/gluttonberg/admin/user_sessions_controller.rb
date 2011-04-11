@@ -2,7 +2,7 @@ module Gluttonberg
   module Admin
     class UserSessionsController < Gluttonberg::Admin::BaseController
       
-      layout 'login'
+      layout 'bare'
       
       skip_before_filter :require_user, :only => [:new, :create]
   

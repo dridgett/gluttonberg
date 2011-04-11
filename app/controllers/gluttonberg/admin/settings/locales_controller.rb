@@ -70,7 +70,7 @@ module Gluttonberg
       
        def find_locale
           @locale = Locale.find(params[:id])
-          raise NotFound unless @locale
+          raise ActiveRecord::RecordNotFound  unless @locale
         end
       
       end

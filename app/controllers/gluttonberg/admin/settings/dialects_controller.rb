@@ -55,7 +55,7 @@ module Gluttonberg
 
         def find_dialect
           @dialect = Dialect.find(params[:id]) 
-          raise NotFound unless @dialect
+          raise ActiveRecord::RecordNotFound  unless @dialect
         end
 
       end#class

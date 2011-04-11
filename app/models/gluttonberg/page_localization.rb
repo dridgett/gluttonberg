@@ -35,10 +35,7 @@ module Gluttonberg
           contents_data += page.send(assoc).all
         end
         contents_data
-      end      
-      
-      # this is kind of hack. For some reasons in development mode, image contents are duplicated multiple times
-      @contents.uniq! 
+      end   
       @contents 
     end
     

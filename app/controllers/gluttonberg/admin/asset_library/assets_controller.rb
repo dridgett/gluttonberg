@@ -4,7 +4,7 @@ module Gluttonberg
   module Admin
     module AssetLibrary
       class AssetsController < Gluttonberg::Admin::BaseController
-        before_filter :find_asset , :only => [:delete , :edit , :show ]  
+        before_filter :find_asset , :only => [:delete , :edit , :show , :update , :destroy  ]  
         before_filter :prepare_to_edit  , :except => [:category , :show , :delete , :create , :update  ]
     
         
@@ -40,8 +40,8 @@ module Gluttonberg
           else
             req_category = AssetCategory.first(:conditions => "name = '#{params[:category]}'" )
             # if category is not found then raise exception
-            if req_category.nil?
-              render :template => '/layouts/not_found', :status => 404 , :locals => { :message => "Asset category you are looking for is not found."}
+            if req_category.blank?
+              raise ActiveRecord::RecordNotFound  
             else
               @assets = req_category.assets.paginate( conditions )                   
             end          
@@ -116,10 +116,7 @@ module Gluttonberg
         end
     
         # update asset
-        def update
-          # if asset not found stop the execution of the action and render not found error
-          return unless find_asset
-      
+        def update          
           # process new asset_collection and merge into existing collections
           process_new_collection_and_merge(params)
       
@@ -135,8 +132,6 @@ module Gluttonberg
     
         # destroy an indivdual asset
         def destroy
-          # if asset not found stop the execution of the action and render not found error
-          return unless find_asset
           if @asset.destroy
             flash[:notice] = "Asset destroyed successfully!"
           else
@@ -149,11 +144,7 @@ module Gluttonberg
     
             def find_asset
               @asset = Asset.find(:first , :conditions => { :id => params[:id] } )   
-              if @asset.blank?
-                render :template => '/gluttonberg/admin/shared/not_found', :status => 404 , :locals => { :message => "The asset you are looking for is not exist."}
-                return false
-              end         
-              true
+              raise ActiveRecord::RecordNotFound  if @asset.blank?              
             end
     
             def prepare_to_edit
