@@ -28,7 +28,6 @@ module Gluttonberg
           belongs_to :page
           
           # Generate the various names to be used in associations
-          # type = Extlib::Inflection.underscore(Extlib::Inflection.demodulize(self.name))
           type = self.name.demodulize.underscore
           self.association_name = type.pluralize.to_sym
           self.content_type = type.to_sym
@@ -36,7 +35,13 @@ module Gluttonberg
           self.label = type.humanize
         end
         
+        
+      end
+      
+      # register content classes. We can do this inside included block, but in rails lazyloading behavior it is not properly working.
+      def self.register(klass)
         @classes << klass
+        @classes.uniq!
       end
 
       # An accessor which provides the collection of classes with mixin this
@@ -60,6 +65,7 @@ module Gluttonberg
           localized_model = Class.new(ActiveRecord::Base) 
           foreign_key = self.name.foreign_key
           localized_model.set_table_name(storage_name)
+          Rails.logger.info "------------ set const #{class_name}"
           Gluttonberg.const_set(class_name, localized_model)
         
           # Mix in our base set of properties and methods
@@ -77,6 +83,8 @@ module Gluttonberg
           # Set up the associations
           has_many :localizations, :class_name => Gluttonberg.const_get(class_name).to_s  , :foreign_key => "#{self.content_type}_id" , :dependent => :destroy 
           localized_model.belongs_to(:parent, :class_name => self.name , :foreign_key => "#{self.content_type}_id")
+          
+          localized_model.acts_as_versioned
           
         end
         

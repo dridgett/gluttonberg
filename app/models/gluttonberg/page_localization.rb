@@ -5,14 +5,11 @@ module Gluttonberg
     belongs_to :locale
     set_table_name "gb_page_localizations"
     
-    #acts_as_versioned
-    
-    #associations with dynamic contentLocalization classes. To make sure these classes are
-    # created and loaded I am calling those classes before that.
-    # this helps me in development mode where classes reloads on each page request
-    has_many :html_content_localizations , :class_name => "Gluttonberg::HtmlContentLocalization" , :dependent => :destroy 
-    has_many :plain_text_content_localizations , :class_name => "Gluttonberg::PlainTextContentLocalization" , :dependent => :destroy 
-
+    # Iterate block/content classes to just load these constants before setting up association with their localization. This is kind of hack for lazyloading
+    Gluttonberg::Content::Block.classes.uniq.each do |klass|     
+      Gluttonberg.const_get klass.name.demodulize
+    end
+        
     Gluttonberg::Content.localizations.each do |assoc, klass|
       has_many  assoc, :class_name => klass.to_s 
     end

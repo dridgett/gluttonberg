@@ -3,6 +3,7 @@
 
 module Gluttonberg
   class Page < ActiveRecord::Base
+    include Content::Publishable
     
     has_many :localizations, :class_name => "Gluttonberg::PageLocalization"   , :dependent => :destroy 
 
@@ -10,15 +11,12 @@ module Gluttonberg
     Content::Block.classes.each do |klass| 
       has_many klass.association_name, :class_name => klass.name, :dependent => :destroy
     end
-    
+
     
     validates_presence_of :name , :description_name
     
     set_table_name "gb_pages"
-   
-    has_many :html_contents , :class_name => "Gluttonberg::HtmlContent" , :dependent => :destroy 
-    has_many :image_contents , :class_name => "Gluttonberg::ImageContent" , :dependent => :destroy 
-    has_many :plain_text_contents , :class_name => "Gluttonberg::PlainTextContent" , :dependent => :destroy 
+       
     
     before_validation :slug_management
     after_save   :check_for_home_update
@@ -26,6 +24,10 @@ module Gluttonberg
     is_drag_tree :scope => :parent_id, :flat => false , :order => "position"
     
     attr_accessor :current_localization, :dialect_id, :locale_id, :paths_need_recaching
+    
+    #acts_as_versioned :if_changed => [:name , :description_name ] , :limit  => 5
+    # we can lock state column. reverting to old version may change publishing status back to draft
+    
     
     # A custom finder used to find a page + locale combination which most
     # closely matches the path specified. It will also optionally limit it's
@@ -44,30 +46,7 @@ module Gluttonberg
     def mount_point?
       false
     end
-    
-    #acts_as_versioned :if_changed => [:name , :description_name ] , :limit  => 5
-    # we can lock state column. reverting to old version may change publishing status back to draft
-
-    # include Transitions
-    #     include ActiveRecord::Transitions
-    # 
-    #     state_machine do
-    #          state :draft # first one is initial state
-    #          state :reviewed
-    #          state :published
-    # 
-    #          event :published do
-    #            transitions :to => :published, :from => [:reviewed] # send email to admin
-    #          end
-    #          event :reviewed do
-    #            transitions :to => :reviewed, :from => [:draft ]
-    #          end
-    #          event :draft do
-    #            transitions :to => :draft, :from => [:reviewed] # :published can add more as array
-    #          end
-    #      end
-    
-    
+            
     # Returns the PageDescription associated with this page.
     def description
       @description = PageDescription[self.description_name.to_sym] if self.description_name

@@ -21,9 +21,7 @@ module Gluttonberg
     # extra associations or do house-keeping once everything is required and
     # running
     def self.setup
-      Gluttonberg::PlainTextContent
-      Gluttonberg::HtmlContent
-      Gluttonberg::ImageContent
+      
       # Store the names of the associations in their own array for convenience
       @@localization_associations = @@localizations.keys
       @@localization_classes = @@localizations.values

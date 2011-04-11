@@ -33,17 +33,23 @@ module Gluttonberg
       config.mount_at += '/'  unless config.mount_at.last == '/'
     end
 
-    initializer "middleware" do |app|
-      app.middleware.use Gluttonberg::Middleware::Locales
-      app.middleware.use Gluttonberg::Middleware::Rewriter
-    end
-    
     initializer "static assets" do |app|
       app.middleware.use ::ActionDispatch::Static, "#{root}/public"
     end
 
+    initializer "middleware" do |app|
+      app.middleware.use Gluttonberg::Middleware::Locales
+      app.middleware.use Gluttonberg::Middleware::Rewriter
+    end
+      
+
     initializer "setup gluttonberg components" do |app| 
       Gluttonberg::PageDescription.setup
+      
+      
+      Gluttonberg::Content::Block.register(Gluttonberg::PlainTextContent)
+      Gluttonberg::Content::Block.register(Gluttonberg::HtmlContent)
+      Gluttonberg::Content::Block.register(Gluttonberg::ImageContent)
          
       Gluttonberg::Content.setup
       #Gluttonberg::Templates.setup
