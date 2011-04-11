@@ -17,6 +17,8 @@ module Gluttonberg
             else
               env['PATH_INFO'] = '/_public/page'
             end
+          else
+              env['PATH_INFO'] = '/_public/page'
           end
         end
 
