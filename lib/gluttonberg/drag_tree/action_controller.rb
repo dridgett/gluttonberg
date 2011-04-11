@@ -84,7 +84,6 @@ module Gluttonberg
               @source = self.class.drag_class.find(params[:source_page_id])
               @dest   = self.class.drag_class.find(params[:dest_page_id])
 
-              #Merb::ControllerExceptions::BadRequest
               raise ActiveRecord::RecordNotFound.new("Drag source is nil [#{params[:source_page_id]}]") unless @source
               raise ActiveRecord::RecordNotFound.new("Drag destination is nil [#{params[:dest_page_id]}]") unless @dest
 
