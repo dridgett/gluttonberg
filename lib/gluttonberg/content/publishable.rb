@@ -11,7 +11,6 @@ module Gluttonberg
           extend ClassMethods
           include InstanceMethods
           
-          property :published,  DataMapper::Types::Boolean, :default => false
         end
       end
 
@@ -21,21 +20,21 @@ module Gluttonberg
         # with additional conditions.
         def unpublished(options = {})
           options[:published] = false
-          first(options)
+          find(:first , :conditions => options)
         end
         
         # Returns the first matching record that is published. May be called 
         # with additional conditions.
         def published(options = {})
           options[:published] = true
-          first(options)
+          find(:first , :conditions => options)
         end
       
         # Returns all matching records that are published. May be called 
         # with additional conditions.
         def all_published(options = {})
           options[:published] = true
-          all(options)
+          find(:all , :conditions => options)
         end
         
         # Returns all matching records that are published for a particular user. May be called 
@@ -43,14 +42,14 @@ module Gluttonberg
         def all_published_for_user( user , options = {})
           options[:published] = true
           options[:user_id] = user.id unless user.is_super_admin        
-          all(options)
+          find(:all , :conditions => options)
         end
         
         # Returns all matching records that are published. May be called 
         # with additional conditions.
         def all_unpublished(options = {})
           options[:published] = false
-          all(options)
+          find(:all , :conditions => options)
         end
         
         # Returns all matching records that are published for a particular user. May be called 
@@ -58,7 +57,7 @@ module Gluttonberg
         def all_unpublished_for_user( user , options = {})
           options[:published] = false
           options[:user_id] = user.id unless user.is_super_admin        
-          all(options)
+          find(:all , :conditions => options)
         end
         
       end
@@ -66,18 +65,41 @@ module Gluttonberg
       module InstanceMethods
         # Change the publish state to true and save the record.
         def publish!
-          update_attributes(:published=>true)
+          update_attributes(:state=>"published")
         end
         
         # Change the publish state to false and save the record.
         def unpublish!
-          update_attributes(:published=>false)
+          update_attributes(:state=>"draft")
+        end
+        
+        # Change the publish state to true and save the record.
+        def archive!
+          update_attributes(:state=>"archived")
         end
         
         # Check to see if this record has been published.
         def published?
-          @published
+          self.state == "published"
         end
+        
+        # Check to see if this record has been published.
+        def archived?
+          self.state == "archived"
+        end
+        
+        def draft?
+          self.state == "draft" || self.state == "ready" || self.state == "not_ready"
+        end
+        
+        def publishing_status
+          if draft?
+            "Draft"
+          else  
+            self.state.capitalize
+          end  
+        end
+        
       end
     end # Publishable
   end # Content

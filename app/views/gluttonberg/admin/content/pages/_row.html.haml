@@ -2,7 +2,7 @@
   %td
     %span{:class => "#{drag_tree_drag_point_class} #{page.home ? "home" : "page"}"}
       = page.home ? "#{page.name} (Home page)" : page.name
-  %td.published= "Yes"
+  %td.published= page.publishing_status
   %td.controls
     %ul
       - if Gluttonberg.localized?
