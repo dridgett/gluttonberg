@@ -1,5 +1,4 @@
 class Gluttonberg::Admin::BaseController < ActionController::Base
-   #include Gluttonberg::AdminControllerMixin
    helper_method :current_user_session, :current_user
    before_filter :require_user
    
@@ -22,18 +21,6 @@ class Gluttonberg::Admin::BaseController < ActionController::Base
         "created_at desc"
       end
     end
-    
-    
-    
-    # Use the included hook to set up the layout and install the authentication
-    #def self.included(klass)
-      #klass.class_eval do
-        #self._template_roots << [Gluttonberg.root / "app" / "views", :_template_location]
-        #layout("gluttonberg")
-        #before :ensure_authenticated
-      #end
-    #end
-    
         
     
     # This is to be used in a before filter.
@@ -140,10 +127,10 @@ class Gluttonberg::Admin::BaseController < ActionController::Base
 
       # handle NotAcceptable exceptions (406)
       def not_acceptable
-        render :layout => "bare"
+        render :layout => "bare" , :template => 'gluttonberg/admin/exceptions/not_acceptable'
       end
       def internal_server_error
-        render :layout => "bare"
+        render :layout => "bare" , :template => 'gluttonberg/admin/exceptions/internal_server_error'
       end
     
   
