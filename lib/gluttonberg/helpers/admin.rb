@@ -11,7 +11,7 @@ module Gluttonberg
         !Dir[glob].empty?
       end
       
-      # Returns a collection of paths paths to the content editors to be used
+      # Returns a collection of paths to the content editors to be used
       # by a page.
       def page_editors
         dir = Gluttonberg::Templates.path_for("editors") + "/" + "pages"
@@ -202,11 +202,11 @@ JAVASCRIPT_CODE
       end  
       
       def meta_keywords
-        Merb::Slices::config[:gluttonberg][:keywords]
+        Rails.configuration.gluttonberg[:keywords]
       end 
       
       def meta_description
-        Merb::Slices::config[:gluttonberg][:description]
+        Rails.configuration.gluttonberg[:description]
       end
       
       def asset_url(asset)
