@@ -56,6 +56,7 @@ To skip require_user use
 =======================================================================================
 
 SETTINGS
-
-  Gluttonberg::Setting.generate_common_settings
+  rake gluttonberg:library:bootstrap
+  rake gluttonberg:generate_default_dialect_and_locale
+  rake gluttonberg:generate_default_settings
   
