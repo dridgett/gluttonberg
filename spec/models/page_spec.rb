@@ -4,8 +4,6 @@ describe Gluttonberg::Page do
   
   before(:each) do
       p = Page.create! :name => 'first name', :description_name => 'first body'
-  
-  
   end
   
   

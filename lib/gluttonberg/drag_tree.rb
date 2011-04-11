@@ -1,5 +1,5 @@
 #
-#  DragTree is a mix of DataMapper plugin, Merb Plugin and jQuery Plugin
+#  DragTree is a mix of ActiveRecord plugin, Rails Plugin and jQuery Plugin
 #  It provides a simple way of defining a Model that is ordered (and optionally a tree)
 #  and have the ability to simply provide an Ajax table/tree to reorganise
 #  the order and parenting.
@@ -19,14 +19,10 @@
 #  Examples:
 #
 #   class Page
-#     include DataMapper::Resource
-#     # this class is tree and supports parenting
-#     property :parent_id, Integer
-#     is_drag_tree :scope => [:parent_id], :flat => false
+#     is_drag_tree :scope => :parent_id, :flat => false
 #   end
 #
 #   class Article
-#     include DataMapper::Resource
 #     # this class is a flat table
 #     is_drag_tree
 #   end

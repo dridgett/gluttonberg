@@ -4,7 +4,7 @@ module Gluttonberg
         def show               
           @asset = Asset.first( :conditions => "id=#{params[:id]} AND  asset_hash like '#{params[:hash]}%' ")
           if @asset.blank?        
-            render :template => '/layouts/not_found', :status => 404 , :locals => { :message => "The asset you are looking for is not exist."}
+            render :layout => "bare" , :template => 'gluttonberg/admin/exceptions/not_found'
             return 
           end
           redirect_to @asset.url

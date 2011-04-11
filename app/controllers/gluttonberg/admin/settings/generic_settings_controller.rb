@@ -57,7 +57,7 @@ module Gluttonberg
 
         def find_setting
           @setting = Setting.find(params[:id]) 
-          raise NotFound unless @setting
+          raise ActiveRecord::RecordNotFound  unless @setting
         end
     
       end # GenericSettings

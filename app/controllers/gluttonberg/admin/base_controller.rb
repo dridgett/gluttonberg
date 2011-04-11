@@ -3,6 +3,8 @@ class Gluttonberg::Admin::BaseController < ActionController::Base
    helper_method :current_user_session, :current_user
    before_filter :require_user
    
+   rescue_from ActiveRecord::RecordNotFound, :with => :not_found
+   
    layout 'gluttonberg'
 
    unloadable
@@ -129,6 +131,20 @@ class Gluttonberg::Admin::BaseController < ActionController::Base
       redirect_to(session[:return_to] || default)
       session[:return_to] = nil
     end
+    
+    
+    # Exception handlers
+     def not_found
+        render :layout => "bare" , :template => 'gluttonberg/admin/exceptions/not_found'
+      end
+
+      # handle NotAcceptable exceptions (406)
+      def not_acceptable
+        render :layout => "bare"
+      end
+      def internal_server_error
+        render :layout => "bare"
+      end
     
   
 end
