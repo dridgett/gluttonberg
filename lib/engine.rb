@@ -46,7 +46,7 @@ module Gluttonberg
     initializer "setup gluttonberg components" do |app| 
       Gluttonberg::PageDescription.setup
       
-      
+      # register content class here. It is required for lazyloading environments.
       Gluttonberg::Content::Block.register(Gluttonberg::PlainTextContent)
       Gluttonberg::Content::Block.register(Gluttonberg::HtmlContent)
       Gluttonberg::Content::Block.register(Gluttonberg::ImageContent)
