@@ -1,0 +1,26 @@
+- @page_title = "<%= plural_class_name %>"
+= sub_nav do
+  = back_link("Content", admin_content_path)
+  = nav_link('New', new_admin_<%= singular_name %>_path)
+
+- if @<%= plural_name %>.empty?
+  %p.empty
+    No <%= plural_class_name %>
+- else
+  %table{:cellpadding => 0, :cellspacing => 0}
+    %thead
+      %tr
+        %th Name
+        %th.controls Controls
+    %tbody
+      - @<%= plural_name %>.each do |<%= singular_name %>|
+        %tr{ :class => "#{cycle("even", "odd")}"}
+          %td= <%= singular_name %>.title_or_name?
+          %td.controls
+            %ul
+              %li
+                = link_to "Show", admin_<%= singular_name %>_path(<%= singular_name %>)
+              %li
+                = link_to "Edit", edit_admin_<%= singular_name %>_path(<%= singular_name %>)
+              %li
+                = link_to "Delete", "#"
