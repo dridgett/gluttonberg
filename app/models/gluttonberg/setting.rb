@@ -16,7 +16,8 @@ module Gluttonberg
         :title => [:meta_data , 0, "Website Title"], 
         :description => [:meta_data, 2 , "The Description will appear in search engine's result list."], 
         :keywords => [:meta_data, 1, "Please separate keywords with a comma."],
-        :google_analytics => [:google_analytics, 3, "Google Analytics ID"]
+        :google_analytics => [:google_analytics, 3, "Google Analytics ID"],
+        :number_of_revisions => [:number_of_revisions , 4 , "Number of revisions to maintain for versioned contents."]
       }
       self.generate_settings(settings)
     end  

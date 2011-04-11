@@ -16,7 +16,7 @@ module Gluttonberg
     
     def  self.first_default(opts={})
       opts[:default] = true
-      first(opts)
+      find(:first , :conditions => opts )
     end  
   end
 end
