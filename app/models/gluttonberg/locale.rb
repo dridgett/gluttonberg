@@ -13,7 +13,7 @@ module Gluttonberg
 
     def  self.first_default(opts={})
       opts[:default] = true
-      first(opts)
+      find(:first , :conditions => opts )
     end  
     
     # TODO: Replace this with a scope constructed using Areal syntax

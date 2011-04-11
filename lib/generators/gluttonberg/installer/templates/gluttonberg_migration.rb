@@ -20,6 +20,7 @@ class GluttonbergMigration < ActiveRecord::Migration
       t.column :page_localization_id, :integer
       t.column :text, :string, :limit => 255
       t.column :plain_text_content_id, :integer
+      t.column :version, :integer
     end
 
     create_table :gb_html_contents do |t|
@@ -36,6 +37,7 @@ class GluttonbergMigration < ActiveRecord::Migration
       t.column :text, :text
       t.column :html_content_id, :integer
       t.column :page_localization_id, :integer
+      t.column :version, :integer
     end
 
     create_table :gb_image_contents do |t|
@@ -45,9 +47,9 @@ class GluttonbergMigration < ActiveRecord::Migration
       t.column :updated_at, :timestamp
       t.column :asset_id, :integer
       t.column :page_id, :integer
+      t.column :version, :integer
     end
 
-   
 
     create_table :gb_locales do |t|
       t.column :name, :string, :limit => 70, :null => false
@@ -86,7 +88,6 @@ class GluttonbergMigration < ActiveRecord::Migration
       t.column :slug, :string, :limit => 100
       t.column :description_name, :string, :limit => 100
       t.column :home, :boolean, :default => false
-      t.column :depth, :integer, :default => 0
       t.column :created_at, :timestamp
       t.column :updated_at, :timestamp
       t.column :position, :integer
@@ -169,6 +170,18 @@ class GluttonbergMigration < ActiveRecord::Migration
       t.string :perishable_token, :null => false
       t.integer :login_count, :null => false, :default => 0
       t.timestamps
+    end
+    
+    
+    begin
+      Gluttonberg::PlainTextContentLocalization.create_versioned_table
+    rescue => e
+      puts e
+    end
+    begin
+      Gluttonberg::HtmlContentLocalization.create_versioned_table
+    rescue => e
+      puts e
     end
          
   end

@@ -43,7 +43,6 @@ module Gluttonberg
             v[:admin_url]
           end
         end 
-        puts "---------#{url}"       
         [v[:label], k, url , v[:only_for_super_admin]]
       end
     end

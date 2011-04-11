@@ -79,14 +79,13 @@ module Gluttonberg
               puts "-------- step-1"
 
               @pages = self.class.drag_class.all
-              raise ActionController::RoutingError.new("No #{self.class.drag_class} found]") unless @pages && !@pages.empty?
+              raise ActiveRecord::RecordNotFound if @pages.blank?
               @mode = params[:mode]
               @source = self.class.drag_class.find(params[:source_page_id])
               @dest   = self.class.drag_class.find(params[:dest_page_id])
 
-              #Merb::ControllerExceptions::BadRequest
-              raise ActionController::RoutingError.new("Drag source is nil [#{params[:source_page_id]}]") unless @source
-              raise ActionController::RoutingError.new("Drag destination is nil [#{params[:dest_page_id]}]") unless @dest
+              raise ActiveRecord::RecordNotFound.new("Drag source is nil [#{params[:source_page_id]}]") unless @source
+              raise ActiveRecord::RecordNotFound.new("Drag destination is nil [#{params[:dest_page_id]}]") unless @dest
 
               puts "-------- step-2"
 
@@ -159,7 +158,7 @@ module Gluttonberg
                     @source.save!
                     render :json => {:success => true}
                   else
-                    raise Merb::ControllerExceptions::BadRequest.new
+                    raise ActiveRecord::RecordNotFound
                   end
                 end
               end

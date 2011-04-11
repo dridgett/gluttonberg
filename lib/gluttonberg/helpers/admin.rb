@@ -11,7 +11,7 @@ module Gluttonberg
         !Dir[glob].empty?
       end
       
-      # Returns a collection of paths paths to the content editors to be used
+      # Returns a collection of paths to the content editors to be used
       # by a page.
       def page_editors
         dir = Gluttonberg::Templates.path_for("editors") + "/" + "pages"
@@ -202,11 +202,11 @@ JAVASCRIPT_CODE
       end  
       
       def meta_keywords
-        Merb::Slices::config[:gluttonberg][:keywords]
+        Rails.configuration.gluttonberg[:keywords]
       end 
       
       def meta_description
-        Merb::Slices::config[:gluttonberg][:description]
+        Rails.configuration.gluttonberg[:description]
       end
       
       def asset_url(asset)
@@ -249,6 +249,48 @@ JAVASCRIPT_CODE
         form.select( :state, options_for_select(@@workflow_states , val)   ) 
       end
       
+      # shows publish message if object's currect version is published
+      def publish_message(object , versions)
+        content = msg = ""
+
+        if versions.length > 1
+          msg = content_tag(:a,  "Click here to see other versions" , :onclick => "$('#select-version').toggle();" , :href => "javascript:;"  , :title => "Click here to see other versions").html_safe
+          msg = content_tag(:span , msg , :class => "view-versions").html_safe
+        end
+
+        content = content_tag(:div , "Updated on #{object.updated_at.to_s(:long)}    #{msg}".html_safe , :class => "unpublish_message") unless object.updated_at.blank?
+        content.html_safe
+      end
+      
+      def version_listing(versions , selected_version_num )
+        output = "<div class='historycontrols'>"
+          selected = versions.last.version
+          selected_version = versions.last
+          collection = []
+          versions.each do |version|
+            link = version.version
+            snippet = "V#{version.version} - Updated #{version.updated_at.to_s(:long)}  "  unless version.updated_at.blank?        
+            if version.version.to_i == selected_version_num.to_i
+              selected = link      
+              selected_version   = version   
+            end  
+            collection << [snippet , link]
+          end 
+
+          output << publish_message(selected_version , versions )
+
+          # Output the form for picking the version
+            output << "<form  method='get' id = 'select-version' style='display:none;'> "
+            output << select_tag(:version, options_for_select( collection , selected ) , :id => "version_drop" )
+            output << submit_tag("Preview", :class => "buttonGrey" , :id => "change_verson_btn" , :name => nil ) 
+            output << "</form>"
+
+          output += "</div>"
+          output += "<div class='clear'></div>"
+          output += "<br />"
+          output += "<br />"
+          output.html_safe
+        end
       
     end # Admin
   end # Helpers

@@ -72,7 +72,7 @@ module Gluttonberg
          link_contents =  content_tag(:span , asset_info) 
          link_contents << hidden_field_tag("filter_" + field_id.to_s , value=filter , :id => "filter_#{opts[:id]}" )
          link_contents << link_to(button_text, admin_asset_browser_url + "?filter=#{filter}" , { :class => opts[:button_class] , :rel => opts[:id] })
-         link_contents << hidden_field_tag(field_id , nil , { :id => opts[:id] , :class => "choose_asset_hidden_field" } )  
+         link_contents << hidden_field_tag(field_id , asset_id , { :id => opts[:id] , :class => "choose_asset_hidden_field" } )  
 
          content_tag(:span , link_contents , { :class => "assetBrowserLink" } )         
        end

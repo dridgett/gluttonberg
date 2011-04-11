@@ -1,6 +1,9 @@
 = javascript_include_tag 'slug_management' ,  :charset => "utf-8"
 
 - @page = @page_localization.page
+
+= version_listing(@page_localization.contents.first.versions , @version )
+
 %div.pageBlock
   %h2 Localizations
   - unless @page.localizations.empty? || @page.localizations.length < 2  
@@ -34,6 +37,8 @@
     
   = block("Content") do
     - for content in @page_localization.contents
+      - unless @version.blank? #|| content.class.name == "Gluttonberg::ImageContent"
+        - content.revert_to(@version)         
       = content_editor(content)
       %br
   

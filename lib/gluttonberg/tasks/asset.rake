@@ -20,6 +20,11 @@ namespace :gluttonberg do
     end
 
     desc "Rebuild AssetType information and reassociate with existing Assets"
+    task :bootstrap => :environment do
+      Gluttonberg::Library.bootstrap
+    end
+
+    desc "Rebuild AssetType information and reassociate with existing Assets"
     task :rebuild_asset_types => :environment do
       Gluttonberg::Library.rebuild
     end
