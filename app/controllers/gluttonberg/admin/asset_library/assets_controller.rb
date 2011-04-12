@@ -11,7 +11,7 @@ module Gluttonberg
         # home page of asset library
         def index
           # Get the latest assets, ensuring that we always grab at most 15 records      
-          @assets = Asset.find(:all, :conditions => { :updated_at => ((Time.now - 24.hours).gmtime)..(Time.now.gmtime)  }, :limit => 15 , :order => "updated_at" )
+          @assets = Asset.find(:all, :conditions => { :updated_at => ((Time.now - 24.hours).gmtime)..(Time.now.gmtime)  }, :limit => Rails.configuration.gluttonberg[:library_number_of_recent_assets] , :order => "updated_at" )
           @categories = AssetCategory.all  # all categories for categories tab
         end
     
@@ -34,7 +34,7 @@ module Gluttonberg
     
         # list assets page by page if user drill down into a category from category tab of home page
         def category
-          conditions = {:order => get_order, :per_page => 20 , :page => params[:page]}
+          conditions = {:order => get_order, :per_page => Rails.configuration.gluttonberg[:library_number_of_per_page_assets] , :page => params[:page]}
           if params[:category] == "all" then
             @assets = Asset.paginate( conditions ) # ignore asset category if user selects 'all' from category
           else

@@ -20,7 +20,7 @@ module Gluttonberg
             # if u pass filter param then it will bring filtered assets inside collection  
             def show     
               @category_filter = ( params[:filter].blank? ? "all" : params[:filter] )
-              opts = {:order => get_order , :per_page => 18 , :page => params[:page]}
+              opts = {:order => get_order , :per_page => Rails.configuration.gluttonberg[:library_number_of_per_page_assets] , :page => params[:page]}
               if @category_filter != "all"
                 category = AssetCategory.find(:first , :conditions => { :name => @category_filter })
                 opts[:conditions] = {:asset_type_id => category.asset_type_ids }   unless category.blank? || category.asset_type_ids.blank?
