@@ -30,6 +30,17 @@ module Gluttonberg
       self.generate_or_update_settings(settings)
     end  
     
+    def dropdown_required?
+      !values_list.blank?
+    end
+    
+    
+    def parsed_values_list_for_dropdown
+      unless values_list.blank?
+        values_list.split(";")
+      end
+    end
+    
     def self.update_settings(settings={})
       settings.each do |key , val |
         obj = self.first(:name=> key)

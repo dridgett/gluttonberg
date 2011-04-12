@@ -66,6 +66,7 @@ class GluttonbergMigration < ActiveRecord::Migration
       t.column :delete_able, :boolean, :default => true
       t.column :enabled, :boolean, :default => true
       t.column :help, :text
+      t.column :values_list, :text
     end
 
     create_table :gb_page_localizations do |t|

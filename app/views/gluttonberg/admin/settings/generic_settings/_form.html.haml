@@ -3,21 +3,24 @@
   = back_link("Metadata", admin_generic_settings_path )
   
 = form_for(@setting, :url => url) do  |f|
-  = gb_error_messages_for(@setting)  
+  = gb_error_messages_for(@setting)
   
   = block("Setting") do
     - if @setting.delete_able
       = f.label :name ,  "Setting Name"
-      = f.text_field(:name)      
+      = f.text_field(:name)
       %br        
       = f.label :value ,  "Setting Value"
-      = f.text_area(:value , :class => "large tall")
+      = render :partial => "value_tag" , :locals => { :f => f}
+      %br        
+      = f.label :values_list ,  "Setting Value List (; seperated) (optional)"
+      = f.text_area(:values_list , :class => "large tall")
       %br        
       = f.label :help
-      = f.text_area(:help , :class => "large tall")    
-    - else      
+      = f.text_area(:help , :class => "large tall")
+    - else
       = f.label :value , @setting.name.capitalize
-      = f.text_area(:value,  :class => "large tall")      
+      = render :partial => "value_tag" , :locals => { :f => f}
     %br   
     %small= @setting.help
     = f.check_box(:enabled)
@@ -25,5 +28,3 @@
     %br
       
   = form_controls(admin_generic_settings_path)
-
-
