@@ -49,7 +49,7 @@ module Gluttonberg
           if @setting.destroy
             redirect_to admin_generic_settings_path
           else
-            raise InternalServerError
+            raise ActiveResource::ServerError
           end
         end
     

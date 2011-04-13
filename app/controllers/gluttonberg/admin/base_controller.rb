@@ -3,7 +3,8 @@ class Gluttonberg::Admin::BaseController < ActionController::Base
    before_filter :require_user
    
    rescue_from ActiveRecord::RecordNotFound, :with => :not_found
-   
+   rescue_from ActionController::RoutingError, :with => :not_found
+   #rescue_from ActiveResource::ServerError, :with => :internal_server_error
    layout 'gluttonberg'
 
    unloadable
@@ -21,12 +22,7 @@ class Gluttonberg::Admin::BaseController < ActionController::Base
         "created_at desc"
       end
     end
-        
     
-    # This is to be used in a before filter.
-    def set_locale
-      Thread.current[:locale] = localization_ids
-    end
     
     # This is to be called from within a controller — i.e. the delete action — 
     # and it will display a dialog which allows users to either confirm 
@@ -66,6 +62,7 @@ class Gluttonberg::Admin::BaseController < ActionController::Base
     
     # A helper for finding shortcutting the steps in finding a model ensuring
     # it has a localization and raising a NotFound if it’s missing.
+    # TODO Fixme
     def with_localization(model, id)
       result = model.first_with_localization(localization_ids.merge(:id => id))
       raise NotFound unless result
@@ -75,14 +72,15 @@ class Gluttonberg::Admin::BaseController < ActionController::Base
     
     # Returns a hash with the locale and dialect ids extracted from the params
     # or where they're missing, it will grab the defaults.
+    # TODO Do we need it anymore?
     def localization_ids
       @localization_opts ||= begin
         if params[:localization]
           ids = params[:localization].split("-")
           {:locale => ids[0], :dialect => ids[1]}
         else
-          dialect = Gluttonberg::Dialect.first(:default => true)
-          locale = Gluttonberg::Locale.first(:default => true)
+          dialect = Gluttonberg::Dialect.find(:first , :conditions => { :default => true })
+          locale = Gluttonberg::Locale.find(:first , :conditions => { :default => true })
           # Inject the ids into the params so our form fields behave
           params[:localization] = "#{locale.id}-#{dialect.id}"
           {:locale => locale.id, :dialect => dialect.id}
@@ -121,17 +119,17 @@ class Gluttonberg::Admin::BaseController < ActionController::Base
     
     
     # Exception handlers
-     def not_found
+    def not_found
         render :layout => "bare" , :template => 'gluttonberg/admin/exceptions/not_found'
-      end
+    end
 
-      # handle NotAcceptable exceptions (406)
-      def not_acceptable
-        render :layout => "bare" , :template => 'gluttonberg/admin/exceptions/not_acceptable'
-      end
-      def internal_server_error
-        render :layout => "bare" , :template => 'gluttonberg/admin/exceptions/internal_server_error'
-      end
+    # handle NotAcceptable exceptions (406)
+    def not_acceptable
+      render :layout => "bare" , :template => 'gluttonberg/admin/exceptions/not_acceptable'
+    end
+    def internal_server_error
+      render :layout => "bare" , :template => 'gluttonberg/admin/exceptions/internal_server_error'
+    end
     
   
 end

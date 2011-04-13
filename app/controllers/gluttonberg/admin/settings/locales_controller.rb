@@ -52,7 +52,7 @@ module Gluttonberg
           if @locale.destroy
             redirect_to admin_locales_path
           else
-            raise BadRequest
+            raise ActiveResource::ServerError
           end
         end
 

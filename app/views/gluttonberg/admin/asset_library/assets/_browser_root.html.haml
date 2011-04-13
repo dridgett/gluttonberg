@@ -4,8 +4,6 @@
       %a{ :href => "#tabs-browse"} Browse
     %li
       %a{ :href => "#tabs-collection"} Collections
-    
-
   .clear
 
 #tabs-browse
@@ -16,7 +14,7 @@
           %h3 All
     - @categories.each do |category|
       %li
-        - text = ( category.name == "uncategorised" ?  "Uncategorised" : category.name.pluralize.capitalize )        
+        - text = ( category.name == "uncategorised" ?  "Uncategorised" : category.name.pluralize.capitalize )
         %a{:href => admin_asset_category_url(:category => category.name , :page => 1) , :class => "browse#{text}"}
           %h3= text
 
@@ -27,8 +25,5 @@
         %li
           %a{:href => admin_collection_url(collection), :class => "collection"}
             %h3= collection.name
-
-    
-
 .clear              
          

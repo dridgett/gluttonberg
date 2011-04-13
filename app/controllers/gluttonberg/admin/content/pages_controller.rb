@@ -12,7 +12,6 @@ module Gluttonberg
         end
 
         def show
-          #@default_localization = @page.localizations.first(:dialect_id => Dialect.first_default.id , :locale_id => Locale.first_default.id)
         end
             
         def new
@@ -58,7 +57,7 @@ module Gluttonberg
           if @page.destroy
             redirect_to admin_pages_path
           else            
-            raise BadRequest
+            raise ActiveResource::ServerError
           end
         end
 
