@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.version = "0.9.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.authors = ["Freerange Future - Nick Crowther, Abdul Rauf, Luke Sutton, Yuri Tomanek"]
+  s.authors = ["Nick Crowther","Abdul Rauf", "Luke Sutton", "Yuri Tomanek"]
   s.date = %q{2011-03-30}
   s.email = %q{office@freerangefuture.com}
   s.extra_rdoc_files = [
@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.7}
-  s.summary = %q{Description of your gem}
+  s.summary = %q{Gluttonberg – An Open Source Content Management System being developed by Freerange Future}
   s.test_files = [
     "test/test_helper.rb",
      "test/unit/widget_test.rb", 
@@ -32,6 +32,8 @@ Gem::Specification.new do |s|
   s.add_dependency "rubyzip"
   s.add_dependency "acts_as_tree"
   s.add_dependency "acts_as_list" 
+  #s.add_dependency "acts_as_versioned" 
+  #s.add_dependency "transitions" 
   
   s.add_development_dependency "rspec-rails", "~> 2.0.1"
   
@@ -46,14 +48,3 @@ Gem::Specification.new do |s|
   else
   end
 end
-
-
-# TODO: Rewrite following gemfile code as gemspec. 
-#gem 'acts_as_versioned', :git => "git://github.com/xspond/acts_as_versioned.git", :branch => "rails3"
-#gem 'transitions' , :git => "git://github.com/qoobaa/transitions.git" , :require => ["transitions", "active_record/transitions"]
- # 
- # group :development, :test do
- #   gem "rspec-rails", "~> 2.0.1"
- # end
-
-

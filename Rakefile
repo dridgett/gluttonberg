@@ -10,9 +10,9 @@ begin
   require "jeweler"
   Jeweler::Tasks.new do |gem|
     gem.name = "gluttonberg"
-    gem.summary = "Description of your gem"
+    gem.summary = "Gluttonberg – An Open Source Content Management System being developed by Freerange Future"
     gem.email = "office@freerangefuture.com"
-    gem.authors = ["Freerange Future - Nick Crowther, Abdul Rauf, Luke Sutton, Yuri Tomanek"]
+    gem.authors = ["Nick Crowther","Abdul Rauf", "Luke Sutton", "Yuri Tomanek"]
     gem.files = Dir["{lib}/**/*", "{app}/**/*", "{public}/**/*", "{config}/**/*"]
   end
   Jeweler::GemcutterTasks.new
