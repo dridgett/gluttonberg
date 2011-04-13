@@ -59,16 +59,12 @@ module Gluttonberg
         render :partial => "/gluttonberg/admin/content/editors/#{type}", :locals => locals
       end
       
-      # generate javascript code to enable tinymce on it. textArea need to have class = mceEditor
-      def enable_tinymce        
-        content = "enable_tinyMCE_on(); \n"        
-        content_tag(:script , content , :charset=>'utf-8', :type=>'text/javascript')        
-      end
-      
-      # generate javascript code to enable tinymce on it. textArea need to have class = mceEditor
-      def enable_tinymce_on_class(html_class)        
-        content = "enable_tinyMCE_on_class('#{html_class}'); \n"        
-        content_tag(:script , content , :charset=>'utf-8', :type=>'text/javascript')        
+      # generate javascript code to enable tinymce on it. textArea need to have class = jwysiwyg
+      def enable_jwysiwyg_on_class(html_class)        
+        if Rails.configuration.gluttonberg[:enable_WYSIWYG] == "Yes"
+          content = "enable_jwysiwyg_on('.#{html_class}'); \n"        
+          content_tag(:script , content , :charset=>'utf-8', :type=>'text/javascript')        
+        end  
       end
       
     end # Content

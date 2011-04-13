@@ -19,12 +19,12 @@
       = f.label :help
       = f.text_area(:help , :class => "large tall")
     - else
-      = f.label :value , @setting.name.capitalize
+      = f.label :value , @setting.user_friendly_name
       = render :partial => "value_tag" , :locals => { :f => f}
     %br   
     %small= @setting.help
-    = f.check_box(:enabled)
-    = label( :enabled , "Enabled" , :class => "checkbox"  )
+    /= f.check_box(:enabled)
+    /= label( :enabled , "Enabled" , :class => "checkbox"  )
     %br
       
   = form_controls(admin_generic_settings_path)

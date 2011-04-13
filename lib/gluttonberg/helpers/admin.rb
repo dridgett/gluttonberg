@@ -292,6 +292,18 @@ JAVASCRIPT_CODE
           output.html_safe
         end
       
+      def custom_stylesheet_link_tag
+        if Rails.configuration.gluttonberg[:custom_css_for_cms] == "Yes"
+          stylesheet_link_tag "custom"
+        end  
+      end
+      
+      def wysiwyg_js_css_link_tag
+        if Rails.configuration.gluttonberg[:enable_WYSIWYG] == "Yes"
+          stylesheet_link_tag("/javascripts/akzhan-jwysiwyg-2b20f74/jquery.wysiwyg.css") + javascript_include_tag("akzhan-jwysiwyg-2b20f74/jquery.wysiwyg.js")
+        end
+      end
+      
     end # Admin
   end # Helpers
 end # Gluttonberg
