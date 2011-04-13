@@ -14,6 +14,12 @@ $(document).ready(function() {
 
 
 
+function enable_jwysiwyg_on(selector){
+  $(document).ready(function(){
+   $(selector).wysiwyg();
+  }); 
+}
+
 // if container element has class "add_to_photoseries" , it returns html of new image
 function initClickEventsForAssetLinks( element ){
 	element.find(".assetBrowserLink").click(function(e) {   
