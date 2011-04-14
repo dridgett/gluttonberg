@@ -36,7 +36,7 @@ class Gluttonberg::ResourceGenerator < Rails::Generators::Base
   end
 
   def add_route
-    route("namespace :admin do resources :#{plural_name} end")
+    route("namespace :admin do\n resources :#{plural_name} do\n member do\n get 'delete'\n end\n end\n end")
   end
   
   def add_config
