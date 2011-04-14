@@ -37,7 +37,7 @@
     
   = block("Content") do
     - for content in @page_localization.contents
-      - unless @version.blank? #|| content.class.name == "Gluttonberg::ImageContent"
+      - unless @version.blank? || !content.versioned? #|| content.class.name == "Gluttonberg::ImageContent"
         - content.revert_to(@version)         
       = content_editor(content)
       %br

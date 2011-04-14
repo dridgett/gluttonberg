@@ -66,7 +66,6 @@ module Gluttonberg
           localized_model = Class.new(ActiveRecord::Base) 
           foreign_key = self.name.foreign_key
           localized_model.set_table_name(storage_name)
-          Rails.logger.info "------------ set const #{class_name}"
           Gluttonberg.const_set(class_name, localized_model)
         
           # Mix in our base set of properties and methods
@@ -85,7 +84,7 @@ module Gluttonberg
           has_many :localizations, :class_name => Gluttonberg.const_get(class_name).to_s  , :foreign_key => "#{self.content_type}_id" , :dependent => :destroy 
           localized_model.belongs_to(:parent, :class_name => self.name , :foreign_key => "#{self.content_type}_id")
           
-          localized_model.acts_as_versioned  :limit => Rails.configuration.gluttonberg[:number_of_revisions]
+          localized_model.is_versioned
           
         end
         

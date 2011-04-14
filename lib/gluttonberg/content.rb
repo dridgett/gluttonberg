@@ -5,6 +5,7 @@ require File.join(content, "content", "block_localization")
 require File.join(content, "content", "localization")
 require File.join(content, "content", "publishable")
 require File.join(content, "content", "workflow")
+require File.join(content, "content", "versioning")
 
 module Gluttonberg
   # The content module contains a whole bunch classes and mixins related to the 
@@ -21,11 +22,11 @@ module Gluttonberg
     # extra associations or do house-keeping once everything is required and
     # running
     def self.setup
-      
       # Store the names of the associations in their own array for convenience
       @@localization_associations = @@localizations.keys
       @@localization_classes = @@localizations.values
       @@content_associations = Block.classes.collect { |k| k.association_name }
+      
     end
         
     # For each content class that is registered, a corresponding association is
