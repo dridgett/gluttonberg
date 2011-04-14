@@ -60,3 +60,17 @@ SETTINGS
   rake gluttonberg:generate_default_dialect_and_locale
   rake gluttonberg:generate_or_update_default_settings
   
+
+
+VERSIONING
+======================================================================================
+
+If you want to make your make versions of your model data. 
+Put following line in your model
+
+is_versioned
+
+or 
+
+is_versioned opts_hash # for more detail about opts hash Please read acts_as_versioned documentation
+  
