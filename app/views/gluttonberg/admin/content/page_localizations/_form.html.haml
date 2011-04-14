@@ -2,7 +2,8 @@
 
 - @page = @page_localization.page
 
-= version_listing(@page_localization.contents.first.versions , @version )
+- unless @page_localization.contents.blank?
+  = version_listing(@page_localization.contents.first.versions , @version )
 
 %div.pageBlock
   %h2 Localizations
