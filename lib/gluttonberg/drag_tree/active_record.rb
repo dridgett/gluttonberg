@@ -21,7 +21,6 @@ module Gluttonberg
           else
             self.make_flat_drag_tree
           end
-          ModelTracker.register_class(self)
         end        
       end #module ClassMethods
         
