@@ -3,7 +3,7 @@ module Gluttonberg
     # A mixin which allows for any arbitrary model to have multiple versions. It will 
     # generate the versioning models and add methods for creating, managing and 
     # retrieving different versions of a record.
-    
+    # In reality this is behaving like a wrapper on acts_as_versioned
     module Versioning
       
       def self.setup
@@ -13,21 +13,19 @@ module Gluttonberg
       def self.included(klass)
         klass.class_eval do
           extend  ClassMethods
-          include InstanceMethods
-          
-          cattr_reader :versioned
-          @@versioned = false
+          include InstanceMethods          
           
         end
       end
       
       module ClassMethods
+        
         def is_versioned(options = {}, &extension)
-          acts_as_versioned( options.merge( :limit => Rails.configuration.gluttonberg[:number_of_revisions] ) , &extension )
+          acts_as_versioned( options.merge( :limit => Rails.configuration.gluttonberg[:number_of_revisions] ) , &extension )          
         end
         
         def versioned?
-          versioned
+          self.respond_to?(:versioned_class_name)
         end
         
       end
