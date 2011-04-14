@@ -1,0 +1,13 @@
+- @page_title = "Edit #{@<%= singular_name %>.title_or_name?}"
+
+= sub_nav do
+  = back_link("Content", admin_content_path)
+  = back_link("<%= plural_class_name %>", admin_<%= plural_name %>_path)
+
+= form_for(@<%= singular_name %>, :url => admin_<%= singular_name %>_path(@<%= singular_name %>)) do  |f|
+  = gb_error_messages_for(@<%= singular_name %>)
+
+  = block("General") do
+    = render :partial => "form", :locals => {:f => f}
+    
+  = form_controls(admin_<%= plural_name %>_path)

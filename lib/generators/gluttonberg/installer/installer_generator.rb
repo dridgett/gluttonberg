@@ -20,9 +20,13 @@ class Gluttonberg::InstallerGenerator < Rails::Generators::Base
     migration_template 'gluttonberg_migration.rb', 'db/migrate/gluttonberg_migration.rb'
   end
   
-  # def bootstrap_asset_library
-  #   Gluttonberg::Library.bootstrap
-  # end
+  def run_migration
+    rake("db:migrate")
+  end
+  
+  def bootstrap_asset_library
+    Gluttonberg::Library.bootstrap
+  end
     
 end
 
