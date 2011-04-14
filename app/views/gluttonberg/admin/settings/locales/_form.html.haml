@@ -11,11 +11,7 @@
     %br
     = f.label :slug
     = f.text_field(:slug)
-    %br
-    - unless @locales.blank?
-      = f.label :locale_id , "Fallback Locale"
-      = f.select(:locale_id, @locales.collect{|l| [l.name , l.id] } , :include_blank => true )
-        
+            
     = f.check_box(:default, :boolean => true)
     %label{:for => "gluttonberg_locale_default", :class => "checkbox"} Default
   

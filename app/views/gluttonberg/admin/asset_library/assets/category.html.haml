@@ -3,7 +3,6 @@
   = back_link("Library", admin_assets_url)
   = render :partial => "add_buttons"
   
-
 .category-area
   = render :partial => "/gluttonberg/admin/asset_library/shared/sorter", :locals => {  :url =>  admin_asset_category_url(:category => params[:category] , :page => params[:page]  ) } 
   .clear

@@ -11,8 +11,13 @@ module Gluttonberg
         # home page of asset library
         def index
           # Get the latest assets, ensuring that we always grab at most 15 records      
-          @assets = Asset.find(:all, :conditions => { :updated_at => ((Time.now - 24.hours).gmtime)..(Time.now.gmtime)  }, :limit => 15 , :order => "updated_at" )
-          @categories = AssetCategory.all  # all categories for categories tab
+          @assets = Asset.find(:all, 
+              :conditions => { :updated_at => ((Time.now - 24.hours).gmtime)..(Time.now.gmtime)  }, 
+              :limit => Rails.configuration.gluttonberg[:library_number_of_recent_assets] , 
+              :order => "updated_at" 
+          )
+          # all categories for categories tab
+          @categories = AssetCategory.all
         end
     
         # if filter param is provided then it will only show filtered type    
@@ -34,9 +39,10 @@ module Gluttonberg
     
         # list assets page by page if user drill down into a category from category tab of home page
         def category
-          conditions = {:order => get_order, :per_page => 20 , :page => params[:page]}
+          conditions = {:order => get_order, :per_page => Rails.configuration.gluttonberg[:library_number_of_per_page_assets] , :page => params[:page]}
           if params[:category] == "all" then
-            @assets = Asset.paginate( conditions ) # ignore asset category if user selects 'all' from category
+            # ignore asset category if user selects 'all' from category
+            @assets = Asset.paginate( conditions ) 
           else
             req_category = AssetCategory.first(:conditions => "name = '#{params[:category]}'" )
             # if category is not found then raise exception
@@ -61,20 +67,18 @@ module Gluttonberg
         def create_assets_in_bulk
           @new_assets = []
           if request.post?
-        
             # process new asset_collection and merge into existing collections
             process_new_collection_and_merge(params)
             @asset = Asset.new(params[:asset])       
-        
             if @asset.valid?
-                  open_zip_file_and_make_assets()             
-                  if @new_assets.blank?
-                    flash[:error] = "Zip folder you have provided does not have any valid file!"
-                    prepare_to_edit
-                    render :action => :add_assets_in_bulk                
-                  else
-                    flash[:notice] = "All valid assets are saved successfully!"                
-                  end
+              open_zip_file_and_make_assets()             
+              if @new_assets.blank?
+                flash[:error] = "Zip folder you have provided does not have any valid file!"
+                prepare_to_edit
+                render :action => :add_assets_in_bulk                
+              else
+                flash[:notice] = "All valid assets are saved successfully!"                
+              end
             else
               prepare_to_edit
               flash[:error] = "Asset you have provided is not valid!"
@@ -135,13 +139,12 @@ module Gluttonberg
           if @asset.destroy
             flash[:notice] = "Asset destroyed successfully!"
           else
-            flash[:error] = "Failed to destroy asset!"
+            raise ActiveResource::ServerError
           end
           redirect_to :action => :index
         end
     
         private
-    
             def find_asset
               @asset = Asset.find(:first , :conditions => { :id => params[:id] } )   
               raise ActiveRecord::RecordNotFound  if @asset.blank?              
@@ -195,44 +198,43 @@ module Gluttonberg
             # removes directory which we made inside tmp folder
             # also removes zip tmp file
             def open_zip_file_and_make_assets
+              zip = params[:asset][:file]
+              dir = File.join(RAILS_ROOT,"tmp")
+              dir = File.join(dir,Time.now.to_i.to_s)                
       
-                zip = params[:asset][:file]
-                dir = File.join(RAILS_ROOT,"tmp")
-                dir = File.join(dir,Time.now.to_i.to_s)                
-        
-                FileUtils.mkdir_p(dir)              
-        
-                begin
-                  Zip::ZipFile.open(zip.tempfile.path).each do |entry|
-                    make_asset_for_entry(entry , dir)                  
-                  end                
-                  zip.tempfile.close
-                rescue => e
-                  Rails.logger.info e
+              FileUtils.mkdir_p(dir)              
+      
+              begin
+                Zip::ZipFile.open(zip.tempfile.path).each do |entry|
+                  make_asset_for_entry(entry , dir)                  
                 end                
-                FileUtils.rm_r(dir)
-                FileUtils.remove_file(zip.tempfile.path)    
+                zip.tempfile.close
+              rescue => e
+                Rails.logger.info e
+              end                
+              FileUtils.rm_r(dir)
+              FileUtils.remove_file(zip.tempfile.path)    
             end
       
             # taskes zip_entry and dir path. makes assets if its valid then also add it to @new_assets list
             # its responsible of extracting entry and its deleting it.
             # it use file name for making asset.
             def make_asset_for_entry(entry , dir)
-                begin  
-                  filename = File.join(dir,entry.name)
-        
-                  unless entry.name.starts_with?("._") || entry.name.starts_with?("__") || entry.directory?
-                    entry.extract(filename)
-                    file = MyFile.init(filename , entry)            
-                    asset_name_with_extention = entry.name.split(".").first
-                    asset = Asset.new(params[:asset].merge( :name => asset_name_with_extention ,  :file => file ) )
-                    @new_assets << asset if asset.save
-                    file.close
-                    FileUtils.remove_file(filename)            
-                  end
-                rescue => e
-                    Rails.logger.info e
-                end  
+              begin  
+                filename = File.join(dir,entry.name)
+      
+                unless entry.name.starts_with?("._") || entry.name.starts_with?("__") || entry.directory?
+                  entry.extract(filename)
+                  file = MyFile.init(filename , entry)            
+                  asset_name_with_extention = entry.name.split(".").first
+                  asset = Asset.new(params[:asset].merge( :name => asset_name_with_extention ,  :file => file ) )
+                  @new_assets << asset if asset.save
+                  file.close
+                  FileUtils.remove_file(filename)            
+                end
+              rescue => e
+                  Rails.logger.info e
+              end  
             end
         
 

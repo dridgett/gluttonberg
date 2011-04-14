@@ -48,9 +48,12 @@ module Gluttonberg
         
   
         def destroy
-          @user.destroy
-          flash[:notice] = "Account deleted!"
-          redirect_to :action => :index
+          if @user.destroy
+            flash[:notice] = "Account deleted!"
+            redirect_to :action => :index
+          else
+            raise ActiveResource::ServerError
+          end  
         end
   
   

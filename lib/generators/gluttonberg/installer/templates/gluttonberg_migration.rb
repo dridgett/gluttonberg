@@ -66,6 +66,7 @@ class GluttonbergMigration < ActiveRecord::Migration
       t.column :delete_able, :boolean, :default => true
       t.column :enabled, :boolean, :default => true
       t.column :help, :text
+      t.column :values_list, :text
     end
 
     create_table :gb_page_localizations do |t|
@@ -79,7 +80,6 @@ class GluttonbergMigration < ActiveRecord::Migration
       t.column :locale_id, :integer
       t.column :page_id, :integer
     end
-
     
     create_table :gb_pages do |t|
       t.column :parent_id, :integer
@@ -180,6 +180,12 @@ class GluttonbergMigration < ActiveRecord::Migration
     end
     begin
       Gluttonberg::HtmlContentLocalization.create_versioned_table
+    rescue => e
+      puts e
+    end
+    
+    begin
+      Gluttonberg::ImageContent.create_versioned_table
     rescue => e
       puts e
     end

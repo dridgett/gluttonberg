@@ -47,7 +47,7 @@ module Gluttonberg
           if @dialect.destroy
             redirect_to admin_dialects_path
           else
-            raise BadRequest
+            raise ActiveResource::ServerError
           end
         end
 

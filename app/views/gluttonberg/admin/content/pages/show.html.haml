@@ -3,8 +3,7 @@
   = back_link("Content", admin_content_path)
   = back_link("Pages", admin_pages_path)
   = nav_link('Delete', delete_admin_page_path(@page) )
-  = nav_link('Edit settings', edit_admin_page_path(@page))
-  /= nav_link('Edit content', slice_url(:edit_page_localization, :page_id => @page, :id => @default_localization.id))
+  = nav_link('Edit settings', edit_admin_page_path(@page))  
   
 %div.pageBlock
   %h2 Settings

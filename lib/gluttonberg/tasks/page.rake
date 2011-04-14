@@ -9,8 +9,8 @@ namespace :gluttonberg do
     locale.save!
   end
   
-  desc "Generate default settings"
-  task :generate_default_settings => :environment do
+  desc "Generate  or update default settings"
+  task :generate_or_update_default_settings => :environment do
     Gluttonberg::Setting.generate_common_settings
   end
   

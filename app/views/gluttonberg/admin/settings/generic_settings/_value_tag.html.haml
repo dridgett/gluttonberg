@@ -1,0 +1,4 @@
+- if @setting.dropdown_required?
+  = f.select(:value , options_for_select( @setting.parsed_values_list_for_dropdown , @setting.value  ) )
+- else
+  = f.text_area(:value,  :class => "large tall")

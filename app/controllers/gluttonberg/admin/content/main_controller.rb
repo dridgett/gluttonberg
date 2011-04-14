@@ -3,7 +3,6 @@ module Gluttonberg
     module Content
       class MainController < Gluttonberg::Admin::BaseController
         
-
         def index
         end
       

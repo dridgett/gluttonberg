@@ -17,7 +17,7 @@
       - for setting in @settings
         - i += 1
         %tr{ :class => "#{i % 2 == 0? "even" : ""}"}
-          %td= setting.name
+          %td= setting.user_friendly_name
           %td= setting.value
           %td.controls
             %ul
