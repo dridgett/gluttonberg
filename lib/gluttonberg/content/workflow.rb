@@ -8,6 +8,8 @@ module Gluttonberg
     # For each state there is an instance method for setting and saving that
     # state. There are some additional class methods for retrieving the pending
     # or rejected records.
+    
+    #TODO Fixme
     module Workflow
       def self.included(klass)
         klass.class_eval do

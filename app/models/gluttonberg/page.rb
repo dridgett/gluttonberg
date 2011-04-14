@@ -25,9 +25,6 @@ module Gluttonberg
     
     attr_accessor :current_localization, :dialect_id, :locale_id, :paths_need_recaching
     
-    #acts_as_versioned :if_changed => [:name , :description_name ] , :limit  => 5
-    # we can lock state column. reverting to old version may change publishing status back to draft
-    
     
     # A custom finder used to find a page + locale combination which most
     # closely matches the path specified. It will also optionally limit it's
