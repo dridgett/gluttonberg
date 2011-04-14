@@ -36,35 +36,28 @@
 #
 #    options:
 #      :route_name (symbol) This is the name of the route used to access the
-#                  move_node() action added to the controller. If you
-#                  are not using auto generation then you must set this to
+#                  move_node() action added to the controller. You must set this to
 #                  the route you have created.
-#      :auto_gen_route (true|false) default is true. If true a route
-#                  will automatically be created to use as the callback
-#                  from the jQuery dragTree via AJAX. IF false you
-#                  will need to create the route yourself.
-#
-#    NOTE: You must set :auto_gen_route to false if your are using
-#          this in a slice (including Gluttonberg) and ensure you
-#          set :route_name to the route you create.
+#     
 #
 #    NOTE: This adds the action :move_node to your controller
 #          you may need to exclude this action from your before
 #          filters to prevent them running (and possible failing)
 #          e.g.
-#            before :find_panel, :exclude => [:index, :create, :new, :move_node]
+#            before_filter :find_panel, :exclude => [:index, :create, :new, :move_node]
 #
 #    Example
 #
-#    class Pages < Gluttonberg::Application
+#    class PagesController < Gluttonberg::Application
 #      # this requires you to manually create the route named :page_move
 #      # support for the Page class is added to the controller
-#      drag_tree Page, :route_name => :page_move, :auto_gen_route => false
+#      drag_tree Page, :route_name => :page_move
 #    end
 #
-#    class Articles < Application
+#    class ArticlesController < Application
 #      # support for the Article class is added to the controller
-#      drag_tree Article
+#      # this requires you to manually create the route named :article_move    
+#      drag_tree Article , :route_name => :article_move
 #    end
 #
 #    To now render this is a view you need to use the following view helpers:
@@ -116,36 +109,11 @@ require File.join(lib, "drag_tree", "active_record")
 
 module Gluttonberg
   module DragTree
-    
     def self.setup
       ::ActiveRecord::Base.send :include, Gluttonberg::DragTree::ActiveRecord
       ::ActionController::Base.send  :include, Gluttonberg::DragTree::ActionController
-      ::ActionView::Helpers.send :include , Gluttonberg::DragTree::ActionView::Helpers
-      ::Gluttonberg::DragTree::RouteHelpers.build_drag_tree_routes
+      ::ActionView::Helpers.send :include , Gluttonberg::DragTree::ActionView::Helpers      
     end
-    
-     
-    module RouteHelpers
-      def self.build_drag_tree_routes#(router)
-        ::ActionController::Base.drag_tree_class_list.each do |drag_controller_class|
-          #puts "============#{drag_controller_class}"
-          #drag_controller_class.add_route_for_drag_tree(router)
-        end
-      end
-    end
-
-
-    module ModelTracker
-      @@_drag_tree_class_list = []
-      def self.class_list
-        @@_drag_tree_class_list
-      end
-      def self.register_class(model_class)
-        @@_drag_tree_class_list << model_class
-      end
-    end
-    
-    
   end #DragTree  
 end #Gluttonberg
 

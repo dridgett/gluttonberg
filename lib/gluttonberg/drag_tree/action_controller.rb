@@ -8,16 +8,11 @@ module Gluttonberg
   
   
       module ClassMethods
-        @@_drag_tree_class_list = []
         def drag_tree(model_class, options = {})
-          @@_drag_tree_class_list << self
           self.send(:include, Gluttonberg::DragTree::ActionController::ControllerHelperClassMethods)
           self.set_drag_tree(model_class, options)            
         end
     
-        def drag_tree_class_list
-          @@_drag_tree_class_list
-        end      
       end # class methods
   
       module ControllerHelperClassMethods
@@ -25,7 +20,6 @@ module Gluttonberg
           klass.class_eval do
             @drag_tree_model_class = nil
             @drag_tree_route_name = nil
-            @generate_route = true
 
             def klass.drag_class
               @drag_tree_model_class
@@ -33,23 +27,9 @@ module Gluttonberg
 
             def klass.set_drag_tree(model_class, options = {})
               @drag_tree_route_name = options[:route_name] if options[:route_name]
-              @generate_route = options[:auto_gen_route] if options[:auto_gen_route]
               @drag_tree_model_class = model_class
             end
 
-            def klass.add_route_for_drag_tree #(router)
-              if @generate_route then
-                # add router for this controllers move_node action
-                url_path_to_match = "/drag_tree/#{self.controller_name}/move_node.json"
-                controller_path_to_use = self.controller_name
-            
-                #if route does not exist create it 
-            # if Rails.application.routes.routes.find{|route| route.name == self.drag_tree_route_name }.blank?
-            #                     Rails.application.routes.add_route(Rails.application.app, conditions = {}, requirements = { :controller => controller_path_to_use, :action => "move_node" }, defaults = {}, name = nil, anchor = true)
-            #                   end
-                #router.match(url_path_to_match).to(:controller => controller_path_to_use, :action => "move_node").name(self.drag_tree_route_name)
-              end
-            end
 
             def klass.drag_tree_route_name
               if @drag_tree_route_name then

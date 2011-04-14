@@ -4,7 +4,7 @@ module Gluttonberg
   module Admin
     module Content    
       class PagesController < Gluttonberg::Admin::BaseController
-        drag_tree Page, :route_name => :admin_page_move , :auto_gen_route => false
+        drag_tree Page , :route_name => :admin_page_move 
         before_filter :find_page, :only => [:show, :edit, :delete, :update, :destroy]
 
         def index
