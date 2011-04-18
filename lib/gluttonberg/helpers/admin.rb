@@ -22,14 +22,13 @@ module Gluttonberg
       
       # Returns a form for selecting the localized version of a record you want 
       # to edit.
+      # TODO DO we need that 
       def localization_picker(url)
         # Collect the locale/dialect pairs
         locales = ::Gluttonberg::Locale.all(:fields => [:id, :name])
         localizations = []
         locales.each do |locale|      
-          locale.dialects.each do |dialect|
-            localizations << ["#{locale.id}-#{dialect.id}", "#{locale.name} - #{dialect.name}"]
-          end
+            localizations << ["#{locale.id}", "#{locale.name}"]
         end
         # Output the form for picking the locale
         form(:action => url, :method => :get, :id => "select-localization") do
@@ -113,6 +112,7 @@ JAVASCRIPT_CODE
         content_tag(:li, link_to_asset_browser(*args), :class => "button")
       end
 
+      # TODO Do we need these?
       # Generates a styled tab bar
       def tab_bar(&blk)
         content_tag(:ul, {:id => "tabBar"}, &blk)

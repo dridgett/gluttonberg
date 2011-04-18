@@ -5,9 +5,9 @@
 - unless @page_localization.contents.blank?
   = version_listing(@page_localization.contents.first.versions , @version )
 
-%div.pageBlock
-  %h2 Localizations
-  - unless @page.localizations.empty? || @page.localizations.length < 2  
+- if Gluttonberg.localized? && @page.localizations &&  @page.localizations.length > 1
+  %div.pageBlock
+    %h2 Localizations
     %table{:cellpadding => 0, :cellspacing => 0, :summary => "Available Localizations"}
       %thead
         %tr
@@ -19,10 +19,11 @@
           - pair = "#{localization.locale.slug}/#{localization.dialect.code}"
           %tr
             %td
-              %strong= "#{localization.locale.name}/#{localization.dialect.name}"
-              %span= "(#{pair})"
-            %td= "#{pair}/#{localization.path}"
-            %td.controls= link_to("Edit", edit_admin_page_page_localization_path( :page_id => @page.id, :id => localization.id))
+              %strong= localization.locale.name
+              %span= localization.locale.slug
+            %td= localization.public_path
+            %td.controls= link_to("Edit", edit_admin_page_page_localization_path( :page_id => @page.id, :id => localization.id)) 
+            = link_to("Preview", localization.public_path  , { :target => "_blank" })  
             
 = form_for(@page_localization, :url => url) do  |f|
   = gb_error_messages_for(@page_localization)
@@ -38,7 +39,7 @@
     
   = block("Content") do
     - for content in @page_localization.contents
-      - unless @version.blank? || !content.versioned? #|| content.class.name == "Gluttonberg::ImageContent"
+      - unless @version.blank? || !content.versioned? 
         - content.revert_to(@version)         
       = content_editor(content)
       %br
