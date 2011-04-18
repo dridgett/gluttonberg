@@ -19,11 +19,15 @@ Gluttonberg engine.
 
 The require should look like this - assuming you use the same dirs as me:
 
+  gem 'acts_as_versioned', :git => "http://github.com/technoweenie/acts_as_versioned" , :ref => 'efc726d055ac75e3684b7272561e7f9d95735738'
   gem 'gluttonberg', :path => '../gluttonberg'
-  gem 'acts_as_versioned', :git => "http://github.com/technoweenie/acts_as_versioned" , :ref => 'efc726d055ac75e3684b7272561e7f9d95735738' 
+   
 
 If this is the first time you are bootstrapping gluttonberg, you will need to copy the migrations to the host app.
 There is a simple generator that will do this for you.
+
+  Change your config/database.yml file
+  create your database by running rake db:create
 
  $ rails generate gluttonberg:installer
 
@@ -75,7 +79,10 @@ or
 
 is_versioned opts_hash # for more detail about opts hash Please read acts_as_versioned documentation
 
-please add following line your application.rb file
+please add following lines in your application.rb file and customize according to your requirement
 
 config.filter_parameters += [:password , :password_confirmation]
+config.app_name = "Gluttonberg Test" # Human readable name of your application
+config.localize = false # or true : if you want localized pages then please set  it true
+
   

@@ -24,6 +24,13 @@ class Gluttonberg::InstallerGenerator < Rails::Generators::Base
     copy_file 'page_descriptions.rb', 'config/page_descriptions.rb'
   end
   
+  def create_default_public_layout
+    #create pages folder
+    FileUtils.mkdir(File.join(Rails.root, "app", "views" , "pages" ))
+    #copy layout into host app
+    template "public.html.haml", File.join('app/views/layouts', "public.html.haml")    
+  end
+  
   def run_migration
     rake("db:migrate")
   end

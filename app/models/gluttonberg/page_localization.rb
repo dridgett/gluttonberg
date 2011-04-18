@@ -75,8 +75,7 @@ module Gluttonberg
       if page.parent_id
         localization = page.parent.localizations.find(:first,
           :conditions => {
-            :locale_id        => locale_id, 
-            :dialect_id       => dialect_id
+            :locale_id        => locale_id 
           }  
         )
         

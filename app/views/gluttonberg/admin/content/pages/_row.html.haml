@@ -10,6 +10,7 @@
       - else        
         - default_localization = Gluttonberg::PageLocalization.find(:first , :conditions => { :page_id => page.id , :locale_id => Gluttonberg::Locale.first_default.id } )
         %li= link_to("Edit", edit_admin_page_page_localization_path( :page_id => page.id, :id => default_localization.id))
+        %li= link_to("Preview", default_localization.public_path  , { :target => "_blank" }) 
       
       %li= link_to 'Settings', edit_admin_page_path(page) 
       %li= link_to 'Destroy',  delete_admin_page_path(page)

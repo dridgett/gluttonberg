@@ -37,6 +37,7 @@ module Gluttonberg
           @page = Page.new(params["gluttonberg_page"])
           @page.user_id = current_user.id
           if @page.save
+            @page.create_default_template_file
             redirect_to admin_page_url(@page)
           else
             prepare_to_edit
