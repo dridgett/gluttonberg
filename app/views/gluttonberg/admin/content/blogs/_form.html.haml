@@ -1,0 +1,21 @@
+= javascript_include_tag 'slug_management' ,  :charset => "utf-8"
+
+= sub_nav do
+  = back_link("Content", admin_content_path)
+  = back_link("Blogs", admin_blogs_path)
+
+= form_for(@blog, :url => url) do  |f|
+  = gb_error_messages_for(@blog)
+  = f.hidden_field(:user_id, :value => current_user.id) if @blog.user_id.blank?
+  
+  = block("Blog") do
+    = f.label :name
+    = f.text_field(:name, :id => "page_title")
+    %br
+    = f.label :slug
+    = f.text_field(:slug, :id => 'page_slug')
+    %br
+    = f.label :description
+    = f.text_area(:description)
+   
+  = form_controls(admin_pages_path)

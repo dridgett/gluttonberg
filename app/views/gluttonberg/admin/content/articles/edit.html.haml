@@ -1,0 +1,2 @@
+- @page_title = "Edit #{@article.title}"
+= render :partial => "form", :locals => {:url => admin_blog_article_path(@blog, @article)}

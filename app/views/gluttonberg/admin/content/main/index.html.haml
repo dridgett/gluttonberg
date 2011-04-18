@@ -1,9 +1,13 @@
 - @page_title = "Content"
 %ul#iconNav
   
-  %li= link_to("Pages", admin_pages_path, :id => "pagesNav" , :title => "Pages")
+  %li
+    = link_to("Pages", admin_pages_path, :id => "pagesNav" , :title => "Pages")
+  %li
+    = link_to("Blogs", admin_blogs_path, :id => "blogsNav", :title => "Blogs")
   - for entry in Gluttonberg::Components.nav_entries
     -if entry[3].blank? || entry[3]==false || (entry[3]==true && session.user.is_super_admin)
-      %li= link_to(entry[0], entry[2], :html_options => {:id => (entry[0].to_s.underscore).gsub(/\s/, '_') + "Nav" , :title => entry[0] } )    
+      %li
+        = link_to(entry[0], entry[2], :html_options => {:id => (entry[0].to_s.underscore).gsub(/\s/, '_') + "Nav" , :title => entry[0] } )    
       
 

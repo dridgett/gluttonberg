@@ -1,0 +1,9 @@
+%h1
+  Index view
+  
+- @<%= plural_name %>.each do |<%= singular_name %>|
+  %p
+    <% attributes.each do |attribute| -%>
+      = @<%= singular_name %>.<%= attribute.name %>
+      %br
+    <% end %>

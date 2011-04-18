@@ -53,7 +53,7 @@ module Gluttonberg
          
       Gluttonberg::Content.setup      
       #Gluttonberg::Templates.setup
-      #Gluttonberg::Helpers.setup      
+      #Gluttonberg::Helpers.setup
       
       Gluttonberg.laod_settings_from_db
       
