@@ -66,7 +66,6 @@ module Gluttonberg
           localized_model = Class.new(ActiveRecord::Base) 
           foreign_key = self.name.foreign_key
           localized_model.set_table_name(storage_name)
-          Rails.logger.info "------------ set const #{class_name}"
           Gluttonberg.const_set(class_name, localized_model)
         
           # Mix in our base set of properties and methods

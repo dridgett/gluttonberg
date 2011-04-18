@@ -29,6 +29,7 @@ class Gluttonberg::ResourceGenerator < Rails::Generators::Base
 
   def generate_controller
     template 'admin_controller.rb', File.join('app/controllers/admin', "#{plural_name}_controller.rb")
+    template 'public_controller.rb', File.join('app/controllers', "#{plural_name}_controller.rb")
   end
 
   def generate_views
@@ -37,6 +38,7 @@ class Gluttonberg::ResourceGenerator < Rails::Generators::Base
 
   def add_route
     route("namespace :admin do\n resources :#{plural_name} do\n member do\n get 'delete'\n end\n end\n end")
+    route("resources :#{plural_name}")
   end
   
   def add_config
@@ -47,11 +49,11 @@ class Gluttonberg::ResourceGenerator < Rails::Generators::Base
 
     def build_views
       views = {
-        'view_index.html.haml' => File.join('app/views/admin', plural_name, "index.html.haml"),
-        'view_new.html.haml' => File.join('app/views/admin', plural_name, "new.html.haml"),
-        'view_edit.html.haml' => File.join('app/views/admin', plural_name, "edit.html.haml"),
-        'view_form.html.haml' => File.join('app/views/admin', plural_name, "_form.html.haml"),
-        'view_show.html.haml' => File.join('app/views/admin', plural_name, "show.html.haml")
+        'backend_view_index.html.haml' => File.join('app/views/admin', plural_name, "index.html.haml"),
+        'backend_view_new.html.haml' => File.join('app/views/admin', plural_name, "new.html.haml"),
+        'backend_view_edit.html.haml' => File.join('app/views/admin', plural_name, "edit.html.haml"),
+        'backend_view_form.html.haml' => File.join('app/views/admin', plural_name, "_form.html.haml"),
+        'backend_view_show.html.haml' => File.join('app/views/admin', plural_name, "show.html.haml")
       }
       copy_views(views)
     end

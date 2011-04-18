@@ -15,6 +15,12 @@ Rails.application.routes.draw do
           get 'delete', :on => :member
           resources :page_localizations           
         end
+        resources :blogs do
+          get 'delete', :on => :member
+          resources :articles do
+            get 'delete', :on => :member
+          end
+        end
         match "/pages/move(.:format)" => "pages#move_node" , :as=> :page_move
       end
       

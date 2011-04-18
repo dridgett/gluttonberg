@@ -50,10 +50,10 @@ module Gluttonberg
       Gluttonberg::Content::Block.register(Gluttonberg::PlainTextContent)
       Gluttonberg::Content::Block.register(Gluttonberg::HtmlContent)
       Gluttonberg::Content::Block.register(Gluttonberg::ImageContent)
-         
+      
       Gluttonberg::Content.setup
       #Gluttonberg::Templates.setup
-      #Gluttonberg::Helpers.setup      
+      #Gluttonberg::Helpers.setup
       
       Gluttonberg.laod_settings_from_db
       
