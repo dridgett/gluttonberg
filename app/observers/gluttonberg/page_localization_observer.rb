@@ -18,7 +18,6 @@ module Gluttonberg
     # through all the decendent localizations and tell each of those to recache.
     # Each of those will then also be observed and have their children updated
     # as well.
-    # TODO write some serious test cases for it. it was failing when we have muliple dialects for single locale. it is fixed now.
     def after_save(page_localization)
       if page_localization.paths_need_recaching? and !page_localization.page.children.blank?
         decendant_pages = page_localization.page.children

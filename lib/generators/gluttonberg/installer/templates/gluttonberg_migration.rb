@@ -62,7 +62,6 @@ class GluttonbergMigration < ActiveRecord::Migration
       t.column :path, :string, :limit => 255
       t.column :created_at, :timestamp
       t.column :updated_at, :timestamp
-      #t.column :dialect_id, :integer
       t.column :locale_id, :integer
       t.column :page_id, :integer
     end
@@ -179,8 +178,6 @@ class GluttonbergMigration < ActiveRecord::Migration
   end
 
   def self.down
-    #drop_table :gb_dialects
-    #drop_table :gb_dialects_locales
     drop_table :gb_plain_text_content_localizations
     drop_table :gb_html_contents
     drop_table :gb_html_content_localizations
