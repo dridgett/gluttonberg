@@ -12,11 +12,9 @@ module Gluttonberg
 
         def new
           @locale   = Locale.new
-          prepare_to_edit
         end
 
         def edit
-          prepare_to_edit
         end
 
         def delete
@@ -33,7 +31,6 @@ module Gluttonberg
           if @locale.save
             redirect_to admin_locales_path
           else
-            prepare_to_edit
             render :new
           end
         end
@@ -42,7 +39,6 @@ module Gluttonberg
           if @locale.update_attributes(params["gluttonberg_locale"]) || !@locale.dirty?
             redirect_to admin_locales_path
           else
-            prepare_to_edit
             render :edit
           end
         end
@@ -58,10 +54,6 @@ module Gluttonberg
 
         private
 
-        # Grabs the various model collections we need when editing or updating a record
-        def prepare_to_edit
-          @dialects = Dialect.all             
-        end
       
        def find_locale
           @locale = Locale.find(params[:id])

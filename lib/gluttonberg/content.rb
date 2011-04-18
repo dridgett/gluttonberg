@@ -4,7 +4,7 @@ require File.join(content, "content", "block")
 require File.join(content, "content", "block_localization")
 require File.join(content, "content", "localization")
 require File.join(content, "content", "publishable")
-require File.join(content, "content", "workflow")
+#require File.join(content, "content", "workflow")
 require File.join(content, "content", "versioning")
 
 module Gluttonberg
@@ -26,7 +26,6 @@ module Gluttonberg
       @@localization_associations = @@localizations.keys
       @@localization_classes = @@localizations.values
       @@content_associations = Block.classes.collect { |k| k.association_name }
-      
     end
         
     # For each content class that is registered, a corresponding association is

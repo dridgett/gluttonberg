@@ -9,13 +9,10 @@ module Gluttonberg
     def after_create(page)    
       puts("Generating page localizations")
       Locale.all.each do |locale|
-        locale.dialects.all.each do |dialect|
           loc = page.localizations.create(
             :name     => page.name,
-            :dialect_id  => dialect.id,
             :locale_id   => locale.id
           )
-        end
       end
         
       unless page.description.sections.empty?

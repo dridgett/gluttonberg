@@ -1,18 +1,5 @@
 class GluttonbergMigration < ActiveRecord::Migration 
   def self.up
-    
-    create_table :gb_dialects do |t|
-      t.column :code, :string, :limit => 15, :null => false
-      t.column :name, :string, :limit => 70, :null => false
-      t.column :default, :boolean, :default => false
-      t.column :user_id, :integer
-    end
-
-
-    create_table :gb_dialects_locales , :id => false do |t|
-      t.column :locale_id, :integer, :null => false
-      t.column :dialect_id, :integer, :null => false
-    end
 
     create_table :gb_plain_text_content_localizations do |t|
       t.column :created_at, :timestamp
@@ -49,13 +36,12 @@ class GluttonbergMigration < ActiveRecord::Migration
       t.column :page_id, :integer
       t.column :version, :integer
     end
-
-
+    
     create_table :gb_locales do |t|
       t.column :name, :string, :limit => 70, :null => false
       t.column :slug, :string, :limit => 70, :null => false
+      t.column :slug_type, :string, :limit => 70, :null => false # prefix , subdomain
       t.column :default, :boolean, :default => false
-      t.column :user_id, :integer
     end
 
     create_table :gb_settings do |t|
@@ -76,7 +62,7 @@ class GluttonbergMigration < ActiveRecord::Migration
       t.column :path, :string, :limit => 255
       t.column :created_at, :timestamp
       t.column :updated_at, :timestamp
-      t.column :dialect_id, :integer
+      #t.column :dialect_id, :integer
       t.column :locale_id, :integer
       t.column :page_id, :integer
     end
@@ -193,8 +179,8 @@ class GluttonbergMigration < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table :gb_dialects
-    drop_table :gb_dialects_locales
+    #drop_table :gb_dialects
+    #drop_table :gb_dialects_locales
     drop_table :gb_plain_text_content_localizations
     drop_table :gb_html_contents
     drop_table :gb_html_content_localizations

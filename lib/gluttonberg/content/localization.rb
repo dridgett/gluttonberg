@@ -174,13 +174,12 @@ module Gluttonberg
           def check_for_fallback(opts)
             if fallback = opts.delete(:fallback)
               @locale   = Locale.first(:default => true)
-              @dialect  = Dialect.first(:default => true)
             end
             fallback
           end
           
           def clear_fallback_vars
-            @locale, @dialect = nil
+            @locale = nil
           end
         end
         

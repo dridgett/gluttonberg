@@ -22,7 +22,7 @@ module Gluttonberg
       def page_url(path_or_page , opts = {})
         path = path_or_page.is_a?(String) ? path_or_page : path_or_page.path
         #::Gluttonberg::Router.localized_url(path, params)
-        "/#{opts[:slug]}/#{opts[:code]}/#{path}"
+        "/#{opts[:slug]}/#{path}"
       end
       
       # Returns the code for google analytics

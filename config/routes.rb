@@ -24,9 +24,7 @@ Rails.application.routes.draw do
         resources :locales do 
           get 'delete', :on => :member
         end
-        resources :dialects do
-          get 'delete', :on => :member
-        end
+        
         resources :users do
           get 'delete', :on => :member
         end

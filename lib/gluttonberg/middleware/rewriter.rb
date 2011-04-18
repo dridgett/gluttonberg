@@ -13,7 +13,7 @@ module Gluttonberg
             env['gluttonberg.page'] = page
             env['gluttonberg.path_info'] = path
             if page.mount_point?
-              env['PATH_INFO'] = page.mount_path(path) 
+              env['PATH_INFO'] = page.mount_path#(path) 
             else
               env['PATH_INFO'] = '/_public/page'
             end

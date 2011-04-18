@@ -34,7 +34,7 @@ module Gluttonberg
       path = path.match(/^\/(\S+)/)[1]
       page = joins(:localizations).where("locale_id = ? AND path LIKE ?", locale.id, "#{path}%").first
       unless page.blank?   
-        page.current_localization = page.localizations.where("locale_id = ? AND dialect_id = ? AND path LIKE ?", locale.id, locale.dialect_id, "#{path}%").first
+        page.current_localization = page.localizations.where("locale_id = ? AND path LIKE ?", locale.id,  "#{path}%").first
       end  
       page
     end
@@ -42,7 +42,14 @@ module Gluttonberg
     # Indicates if the page is used as a mount point for a public-facing
     # controller, e.g. a blog, message board etc.
     def mount_point?
-      false
+      #false
+      self.description.redirection_required?
+    end
+    
+    def mount_path(path=nil) 
+      if path.blank?
+        self.description.rewrite_route
+      end
     end
             
     # Returns the PageDescription associated with this page.
