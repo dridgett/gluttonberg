@@ -10,7 +10,8 @@
     %thead
       %tr
         %th Locale
-        %th Dialects
+        %th Slug
+        %th Type
         %th.controls Controls
     %tbody
       - i = 0
@@ -18,7 +19,8 @@
         - i += 1
         %tr{ :class => "#{i % 2 == 0? "even" : ""}"}
           %td= locale.name
-          %td= locale.dialects.collect {|d| d.name_and_code}.join(", ")
+          %td= locale.slug
+          %td= locale.slug_type.humanize
           %td.controls
             %ul
               %li= link_to('Edit', edit_admin_locale_path(locale))

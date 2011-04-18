@@ -25,27 +25,34 @@ module Gluttonberg
     
     attr_accessor :current_localization, :dialect_id, :locale_id, :paths_need_recaching
     
-    #acts_as_versioned :if_changed => [:name , :description_name ] , :limit  => 5
-    # we can lock state column. reverting to old version may change publishing status back to draft
-    
     
     # A custom finder used to find a page + locale combination which most
     # closely matches the path specified. It will also optionally limit it's
     # search to the specified locale, otherwise it will fall back to the
     # default.
     def self.find_by_path(path, locale = nil)
-      path = path.match(/^\/(\S+)/)[1]
-      page = joins(:localizations).where("locale_id = ? AND path LIKE ?", locale.id, "#{path}%").first
-      unless page.blank?   
-        page.current_localization = page.localizations.where("locale_id = ? AND dialect_id = ? AND path LIKE ?", locale.id, locale.dialect_id, "#{path}%").first
+      unless locale.blank?
+          path = path.match(/^\/(\S+)/)[1]
+          page = joins(:localizations).where("locale_id = ? AND path LIKE ?", locale.id, "#{path}%")
+          unless page.blank? 
+            page = page.first
+            page.current_localization = page.localizations.where("locale_id = ? AND path LIKE ?", locale.id,  "#{path}%").first
+          end  
+          page
       end  
-      page
     end
 
     # Indicates if the page is used as a mount point for a public-facing
     # controller, e.g. a blog, message board etc.
     def mount_point?
-      false
+      #false
+      self.description.redirection_required?
+    end
+    
+    def mount_path(path=nil) 
+      if path.blank?
+        self.description.rewrite_route
+      end
     end
             
     # Returns the PageDescription associated with this page.
@@ -126,6 +133,26 @@ module Gluttonberg
       write_attribute(:home, state)
       @home_updated = state
     end
+    
+    # if page type is not redirection.
+    # then create default view files for all localzations of the page. 
+    # file will be created in host appliation/app/views/pages/template_name.locale-slug.html.haml
+    def create_default_template_file
+      unless self.description.redirection_required?
+        self.localizations.each do |page_localization|
+          file_path = File.join(Rails.root, "app", "views" , "pages" , "#{self.view}.#{page_localization.locale.slug}.html.haml"  )
+          unless File.exists?(file_path)
+            file = File.new(file_path, "w")
+        
+            page_localization.contents.each do |content|
+              file.puts("= render_content_for(:#{content.section_name})")
+            end
+            file.close
+          end  
+        end  
+      end  
+    end
+    
         
     private
 

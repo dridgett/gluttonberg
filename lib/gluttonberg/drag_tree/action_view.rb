@@ -3,9 +3,6 @@ module Gluttonberg
     module ActionView
       module Helpers
         
-        def drag_tree_class_list
-          @@_drag_tree_class_list
-        end
 
         def drag_tree_url(klass = self.class)          
           controller_class = @controller.class          

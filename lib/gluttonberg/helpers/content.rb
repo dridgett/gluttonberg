@@ -29,7 +29,11 @@ module Gluttonberg
       # Render html content. Actually just looks for the text 
       # property on the content model.
       def render_html_content(content, opts = nil)
-        content.current_localization.text.html_safe
+        if content.current_localization.text
+          content.current_localization.text.html_safe
+        else
+          ""
+        end 
       end
       
       

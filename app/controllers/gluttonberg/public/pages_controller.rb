@@ -7,7 +7,7 @@ module Gluttonberg
       # TODO: should we support fallback for default localization's template??
       def show
         template = page.view
-        render :template => "pages/#{template}.#{locale.slug}.#{locale.code}"
+        render :template => "pages/#{template}.#{locale.slug}"
       end
       
     end

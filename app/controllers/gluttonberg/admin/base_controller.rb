@@ -77,13 +77,12 @@ class Gluttonberg::Admin::BaseController < ActionController::Base
       @localization_opts ||= begin
         if params[:localization]
           ids = params[:localization].split("-")
-          {:locale => ids[0], :dialect => ids[1]}
+          {:locale => ids[0]}
         else
-          dialect = Gluttonberg::Dialect.find(:first , :conditions => { :default => true })
           locale = Gluttonberg::Locale.find(:first , :conditions => { :default => true })
           # Inject the ids into the params so our form fields behave
-          params[:localization] = "#{locale.id}-#{dialect.id}"
-          {:locale => locale.id, :dialect => dialect.id}
+          params[:localization] = "#{locale.id}"
+          {:locale => locale.id}
         end
       end
     end

@@ -12,10 +12,15 @@ module Gluttonberg
             when :subdomain
               # return the sub-domain
             when :prefix
-              locale, dialect = path.split('/')[1..2]
-              result = Gluttonberg::Locale.find_by_locale(locale, dialect)
+              if Gluttonberg.localized?
+                locale = path.split('/')[1]
+                result = Gluttonberg::Locale.find_by_locale(locale)
+              else # take default locale
+                result = Gluttonberg::Locale.first_default
+                locale = result.slug               
+              end  
               if result
-                env['PATH_INFO'].gsub!("/#{locale}/#{dialect}", '')
+                env['PATH_INFO'].gsub!("/#{locale}", '')
                 env['gluttonberg.locale'] = result
               end
             when :domain

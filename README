@@ -19,10 +19,15 @@ Gluttonberg engine.
 
 The require should look like this - assuming you use the same dirs as me:
 
+  gem 'acts_as_versioned', :git => "http://github.com/technoweenie/acts_as_versioned" , :ref => 'efc726d055ac75e3684b7272561e7f9d95735738'
   gem 'gluttonberg', :path => '../gluttonberg'
+   
 
 If this is the first time you are bootstrapping gluttonberg, you will need to copy the migrations to the host app.
 There is a simple generator that will do this for you.
+
+  Change your config/database.yml file
+  create your database by running rake db:create
 
  $ rails generate gluttonberg:installer
 
@@ -57,6 +62,27 @@ To skip require_user use
 
 SETTINGS
   rake gluttonberg:library:bootstrap
-  rake gluttonberg:generate_default_dialect_and_locale
+  rake gluttonberg:generate_default_locale
   rake gluttonberg:generate_or_update_default_settings
+  
+
+
+VERSIONING
+======================================================================================
+
+If you want to make your make versions of your model data. 
+Put following line in your model
+
+is_versioned
+
+or 
+
+is_versioned opts_hash # for more detail about opts hash Please read acts_as_versioned documentation
+
+please add following lines in your application.rb file and customize according to your requirement
+
+config.filter_parameters += [:password , :password_confirmation]
+config.app_name = "Gluttonberg Test" # Human readable name of your application
+config.localize = false # or true : if you want localized pages then please set  it true
+
   

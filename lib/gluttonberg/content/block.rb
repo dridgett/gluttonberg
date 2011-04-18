@@ -84,7 +84,7 @@ module Gluttonberg
           has_many :localizations, :class_name => Gluttonberg.const_get(class_name).to_s  , :foreign_key => "#{self.content_type}_id" , :dependent => :destroy 
           localized_model.belongs_to(:parent, :class_name => self.name , :foreign_key => "#{self.content_type}_id")
           
-          localized_model.acts_as_versioned  :limit => Rails.configuration.gluttonberg[:number_of_revisions]
+          localized_model.is_versioned
           
         end
         

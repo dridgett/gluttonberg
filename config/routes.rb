@@ -3,6 +3,11 @@ Rails.application.routes.draw do
   mount_at = Gluttonberg::Engine.config.mount_at
 
   scope :module => 'Gluttonberg' do
+    
+    resources :blogs do      
+      resources :articles 
+    end
+    
     namespace :admin do
       root :to => "main#index"
       
@@ -30,9 +35,7 @@ Rails.application.routes.draw do
         resources :locales do 
           get 'delete', :on => :member
         end
-        resources :dialects do
-          get 'delete', :on => :member
-        end
+        
         resources :users do
           get 'delete', :on => :member
         end

@@ -1,0 +1,26 @@
+- @page_title = "Articles"
+= sub_nav do
+  = back_link("Blogs", admin_blogs_path)
+  = nav_link('New', new_admin_blog_article_path)
+    
+- if @articles.empty?
+  %p.empty No Articles
+- else
+  %table{:cellpadding => 0, :cellspacing => 0, :summary => "Articles"}
+    %thead
+      %tr
+        %th Article
+        %th.controls Controls
+    %tbody
+      - @articles.each do |article|
+        %tr
+          %td
+            = article.title
+          %td.controls
+            %ul
+              %li
+                = link_to "Show", admin_blog_article_path(@blog, article)
+              %li
+                = link_to "Edit", edit_admin_blog_article_path(@blog, article)
+              %li
+                = link_to "Delete", delete_admin_blog_article_path(@blog, article)

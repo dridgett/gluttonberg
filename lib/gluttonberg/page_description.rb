@@ -120,6 +120,10 @@ module Gluttonberg
       @sections[name] = new_section
     end
     
+    def redirection_required?
+      @options[:behaviour] == :rewrite
+    end
+    
     # Configures the page to act as a rewrite to named route. This doesn’t 
     # work like a rewrite in the traditional sense, since it is intended to be
     # used to redirect requests to a controller. Becuase of this it can't rewrite

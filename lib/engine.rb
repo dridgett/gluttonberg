@@ -22,7 +22,6 @@ module Gluttonberg
     rake_tasks do
       load File.join(File.dirname(__FILE__), 'rails/railties/tasks.rake')
       load File.join(File.dirname(__FILE__), 'gluttonberg/tasks/asset.rake')
-      load File.join(File.dirname(__FILE__), 'gluttonberg/tasks/drag_tree.rake')
       load File.join(File.dirname(__FILE__), 'gluttonberg/tasks/page.rake')
     end
     
@@ -44,14 +43,15 @@ module Gluttonberg
       
 
     initializer "setup gluttonberg components" do |app| 
+      Gluttonberg::Content::Versioning.setup
       Gluttonberg::PageDescription.setup
       
       # register content class here. It is required for lazyloading environments.
       Gluttonberg::Content::Block.register(Gluttonberg::PlainTextContent)
       Gluttonberg::Content::Block.register(Gluttonberg::HtmlContent)
       Gluttonberg::Content::Block.register(Gluttonberg::ImageContent)
-      
-      Gluttonberg::Content.setup
+         
+      Gluttonberg::Content.setup      
       #Gluttonberg::Templates.setup
       #Gluttonberg::Helpers.setup
       

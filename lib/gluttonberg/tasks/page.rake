@@ -1,15 +1,12 @@
 namespace :gluttonberg do 
   
-  # reviewed by abdul on 29/03/2011
-  desc "Generate default dialect (en) and locale (au)"
-  task :generate_default_dialect_and_locale => :environment do
-    dialect = Gluttonberg::Dialect.create( :code => "en" , :name => "English" , :default => true)
-    locale = Gluttonberg::Locale.new( :slug => "au" , :name => "Australia" , :default => true)      
-    locale.dialect_ids = [dialect.id]
-    locale.save!
+  # reviewed by abdul on 18/04/2011
+  desc "Generate default locale (en-au)"
+  task :generate_default_locale => :environment do
+    locale = Gluttonberg::Locale.create( :slug => "en-au" , :name => "Australia English" , :default => true , :slug_type => Gluttonberg::Locale.prefix_slug_type )      
   end
   
-  desc "Generate  or update default settings"
+  desc "Generate or update default settings"
   task :generate_or_update_default_settings => :environment do
     Gluttonberg::Setting.generate_common_settings
   end
