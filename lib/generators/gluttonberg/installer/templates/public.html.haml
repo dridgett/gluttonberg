@@ -8,5 +8,6 @@
     = meta_description
   %body
     - @pages = Gluttonberg::Page.find(:all , :conditions => { :home => true } )
-    = navigation_tree(@pages, :id => "navigation" , :slug => @locale.slug   )
+    - slug = @locale ? @locale.slug : ""
+    = navigation_tree(@pages, :id => "navigation" , :slug => slug   )
     = yield

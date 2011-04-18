@@ -12,7 +12,7 @@ class Gluttonberg::Public::BaseController < ActionController::Base
     # in this module.
     
     attr_accessor :page, :locale #, :path, :page_template, :page_layout    
-    before_filter :retrieve_page_and_locale    
+    before_filter :retrieve_locale    
     layout "public"
         
     rescue_from ActiveRecord::RecordNotFound, :with => :not_found
@@ -20,9 +20,7 @@ class Gluttonberg::Public::BaseController < ActionController::Base
     
   protected
   
-      def retrieve_page_and_locale
-        @page = env['gluttonberg.page']
-        raise ActiveRecord::RecordNotFound  if @page.blank?
+      def retrieve_locale
         @locale = env['gluttonberg.locale']
       end
 
