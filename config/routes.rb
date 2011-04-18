@@ -4,10 +4,6 @@ Rails.application.routes.draw do
 
   scope :module => 'Gluttonberg' do
     
-    resources :blogs do      
-      resources :articles 
-    end
-    
     namespace :admin do
       root :to => "main#index"
       
@@ -71,6 +67,11 @@ Rails.application.routes.draw do
     scope :module => 'Public' do
       match "/asset/:hash/:id" => "public_assets#show" , :as => :public_asset
       match "/_public/page" => "pages#show"
+      
+      resources :blogs do      
+        resources :articles 
+      end
+      
     end
     
   end

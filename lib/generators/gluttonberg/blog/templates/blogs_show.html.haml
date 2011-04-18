@@ -1,0 +1,10 @@
+%h1
+  = @blog.name
+  
+#articles
+  - @articles.each do |article|
+    .article
+      %h2
+        = link_to article.title, blog_article_path(@blog.slug, article.slug)
+      %p
+        = article.excerpt

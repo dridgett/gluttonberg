@@ -19,5 +19,26 @@ class Gluttonberg::BlogGenerator < Rails::Generators::Base
   def create_migration_file
     migration_template 'blog_migration.rb', 'db/migrate/blog_migration.rb'
   end
+  
+  def generate_views
+    build_views
+  end
+    
+  protected
+
+    def build_views
+      views = {
+        'blogs_show.html.haml' => File.join('app/views/gluttonberg/public/blogs', "show.html.haml"),
+        'articles_index.html.haml' => File.join('app/views/gluttonberg/public/articles', "index.html.haml"),
+        'articles_show.html.haml' => File.join('app/views/gluttonberg/public/articles', "show.html.haml")
+      }
+      copy_views(views)
+    end
+
+    def copy_views(views)
+      views.each do |template_name, output_path|
+        template template_name, output_path
+      end
+    end
     
 end
