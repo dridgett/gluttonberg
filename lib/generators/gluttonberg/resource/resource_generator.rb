@@ -53,7 +53,9 @@ class Gluttonberg::ResourceGenerator < Rails::Generators::Base
         'backend_view_new.html.haml' => File.join('app/views/admin', plural_name, "new.html.haml"),
         'backend_view_edit.html.haml' => File.join('app/views/admin', plural_name, "edit.html.haml"),
         'backend_view_form.html.haml' => File.join('app/views/admin', plural_name, "_form.html.haml"),
-        'backend_view_show.html.haml' => File.join('app/views/admin', plural_name, "show.html.haml")
+        'backend_view_show.html.haml' => File.join('app/views/admin', plural_name, "show.html.haml"),
+        'public_view_index.html.haml' => File.join('app/views', plural_name, "index.html.haml"),
+        'public_view_show.html.haml' => File.join('app/views', plural_name, "show.html.haml")
       }
       copy_views(views)
     end

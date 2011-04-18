@@ -1,7 +1,7 @@
 %h1
   Show view
   
-  <% attributes.each do |attribute| -%>
-  %p
-    = @<%= plural_name %>.<%= attribute.name %>
-  <% end %>
+<% attributes.each do |attribute| -%>
+%p
+  = @<%= singular_name %>.<%= attribute.name %>
+<% end %>

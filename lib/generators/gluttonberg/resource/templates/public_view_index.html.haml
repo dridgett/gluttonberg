@@ -1,9 +1,13 @@
 %h1
   Index view
   
-- @<%= plural_name %>.each do |<%= singular_name %>|
+- if @<%= plural_name %>.blank?
   %p
-    <% attributes.each do |attribute| -%>
-      = @<%= singular_name %>.<%= attribute.name %>
-      %br
-    <% end %>
+    No <%= plural_class_name %>
+- else
+  - @<%= plural_name %>.each do |<%= singular_name %>|
+    %p
+      <% attributes.each do |attribute| -%>
+        = link_to <%= singular_name %>.<%= attribute.name %>, <%= singular_name %>_path(<%= singular_name %>) 
+        %br
+      <% end %>
