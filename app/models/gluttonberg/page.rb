@@ -32,27 +32,25 @@ module Gluttonberg
     # default.
     def self.find_by_path(path, locale = nil)
       unless locale.blank?
-          path = path.match(/^\/(\S+)/)[1]
-          page = joins(:localizations).where("locale_id = ? AND path LIKE ?", locale.id, "#{path}%")
-          unless page.blank? 
-            page = page.first
-            page.current_localization = page.localizations.where("locale_id = ? AND path LIKE ?", locale.id,  "#{path}%").first
-          end  
-          page
+        path = path.match(/^\/(\S+)/)[1]
+        page = joins(:localizations).where("locale_id = ? AND ? LIKE path || '%'", locale.id, "#{path}%").first
+        unless page.blank? 
+          page.current_localization = page.localizations.where("locale_id = ? AND ? LIKE path || '%'", locale.id,  "#{path}%").first
+        end  
+        page
       end  
     end
 
     # Indicates if the page is used as a mount point for a public-facing
     # controller, e.g. a blog, message board etc.
-    def mount_point?
-      #false
-      self.description.redirection_required?
+    def rewrite_required?
+      self.description.rewrite_required?
     end
     
-    def mount_path(path=nil) 
-      if path.blank?
-        self.description.rewrite_route
-      end
+    # Takes a path and rewrites it to point at an alternate route. The idea
+    # being that this path points to a controller.
+    def generate_rewrite_path(path) 
+      path.gsub(current_localization.path, self.description.rewrite_route)
     end
             
     # Returns the PageDescription associated with this page.

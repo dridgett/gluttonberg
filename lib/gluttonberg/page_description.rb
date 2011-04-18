@@ -132,6 +132,12 @@ module Gluttonberg
       @rewrite_route = route
       @options[:behaviour] = :rewrite
     end
+
+    # Allows us to check if this page needs to have a path rewritten to point
+    # to a controller.
+    def rewrite_required?
+      @options[:behaviour] == :rewrite
+    end
     
     # Returns the named route to be used when rewriting the request.
     def rewrite_route

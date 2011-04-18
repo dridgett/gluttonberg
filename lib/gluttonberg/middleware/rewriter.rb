@@ -12,13 +12,11 @@ module Gluttonberg
           unless page.blank?
             env['gluttonberg.page'] = page
             env['gluttonberg.path_info'] = path
-            if page.mount_point?
-              env['PATH_INFO'] = page.mount_path#(path) 
+            if page.rewrite_required?
+              env['PATH_INFO'] = page.generate_rewrite_path(path) 
             else
               env['PATH_INFO'] = '/_public/page'
             end
-          else
-              #env['PATH_INFO'] = '/_public/page'
           end
         end
 
