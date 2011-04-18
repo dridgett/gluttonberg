@@ -2,6 +2,10 @@
   Available Blogs
   
 #blogs
-  - @blogs.each do |blog|
-    .blog
-      = link_to blog.name, blog_path(blog.slug)
+  - if @blogs.blank?
+    %p
+      There are no blogs yet.
+  - else
+    - @blogs.each do |blog|
+      .blog
+        = link_to blog.name, blog_path(blog.slug)
