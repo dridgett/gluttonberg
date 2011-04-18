@@ -1,0 +1,7 @@
+%h1
+  Available Blogs
+  
+#blogs
+  - @blogs.each do |blog|
+    .blog
+      = link_to blog.name, blog_path(blog.slug)
