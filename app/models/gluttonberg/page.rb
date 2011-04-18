@@ -34,7 +34,7 @@ module Gluttonberg
       unless locale.blank?
           path = path.match(/^\/(\S+)/)[1]
           page = joins(:localizations).where("locale_id = ? AND path LIKE ?", locale.id, "#{path}%")
-          unless page.blank?   
+          unless page.blank? 
             page = page.first
             page.current_localization = page.localizations.where("locale_id = ? AND path LIKE ?", locale.id,  "#{path}%").first
           end  

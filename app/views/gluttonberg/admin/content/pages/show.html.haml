@@ -32,14 +32,13 @@
           %th.controls Controls
       %tbody
         - for localization in @page.localizations
-          - pair = "#{localization.locale.slug}"
           %tr
-            %td= "<strong>#{localization.locale.name}</strong> <span>(#{pair})</span>".html_safe
-            %td= "#{pair}/#{localization.path}"
+            %td= "<strong>#{localization.locale.name}</strong> <span>(#{localization.locale.slug})</span>".html_safe
+            %td= localization.public_path
             %td.controls
               = link_to("Edit", edit_admin_page_page_localization_path( :page_id => @page.id, :id => localization.id)) 
               
-              = link_to("Preview", "/#{pair}/#{localization.path}"  , { :target => "_blank" }) 
+              = link_to("Preview", localization.public_path  , { :target => "_blank" }) 
 
 %dl.meta
   %dt Created at

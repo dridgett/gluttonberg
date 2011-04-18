@@ -57,6 +57,15 @@ module Gluttonberg
       "#{name} (#{locale.name}/#{dialect.code})"
     end
     
+    def public_path
+        if Gluttonberg.localized?
+          "/#{self.locale.slug}/#{self.path}"
+        else
+          "/#{self.path}"
+        end
+    end
+    
+    
     # Forces the localization to regenerate it's full path. It will firstly
     # look to see if there is a parent page that it need to derive the path
     # prefix from. Otherwise it will just use the slug, with a fall-back

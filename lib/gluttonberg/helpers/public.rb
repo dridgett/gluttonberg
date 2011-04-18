@@ -4,13 +4,13 @@ module Gluttonberg
     module Public
       # A simple helper which loops through a heirarchy of pages and produces a
       # set of nested lists with links to each page.
-      def navigation_tree(pages, opts = {})        
+      def navigation_tree(pages, opts = {})
         content = ""
         pages.each do |page|
           li_opts = {:id => page.slug + "Nav"}
           li_opts[:class] = "current" if page == @page
           li_content = content_tag(:a, page.nav_label, :href => page_url(page , opts)).html_safe
-          children = page.children#_with_localization(:dialect => params[:dialect], :locale => params[:locale])
+          children = page.children#_with_localization(:locale => params[:locale])
           li_content << navigation_tree(children , opts).html_safe unless children.blank?
           content << content_tag(:li, li_content, li_opts).html_safe
         end
@@ -18,11 +18,14 @@ module Gluttonberg
       end
 
       # TODO FIXME
-      # Returns the URL with any locale/dialect prefix it needs
+      # Returns the URL with any locale prefix it needs
       def page_url(path_or_page , opts = {})
         path = path_or_page.is_a?(String) ? path_or_page : path_or_page.path
-        #::Gluttonberg::Router.localized_url(path, params)
-        "/#{opts[:slug]}/#{path}"
+        if Gluttonberg.localized?
+          "/#{opts[:slug]}/#{path}"
+        else
+          "/#{path}"
+        end  
       end
       
       # Returns the code for google analytics
