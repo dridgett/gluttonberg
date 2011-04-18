@@ -31,12 +31,15 @@ module Gluttonberg
     # search to the specified locale, otherwise it will fall back to the
     # default.
     def self.find_by_path(path, locale = nil)
-      path = path.match(/^\/(\S+)/)[1]
-      page = joins(:localizations).where("locale_id = ? AND path LIKE ?", locale.id, "#{path}%").first
-      unless page.blank?   
-        page.current_localization = page.localizations.where("locale_id = ? AND path LIKE ?", locale.id,  "#{path}%").first
+      unless locale.blank?
+          path = path.match(/^\/(\S+)/)[1]
+          page = joins(:localizations).where("locale_id = ? AND path LIKE ?", locale.id, "#{path}%")
+          unless page.blank?   
+            page = page.first
+            page.current_localization = page.localizations.where("locale_id = ? AND path LIKE ?", locale.id,  "#{path}%").first
+          end  
+          page
       end  
-      page
     end
 
     # Indicates if the page is used as a mount point for a public-facing

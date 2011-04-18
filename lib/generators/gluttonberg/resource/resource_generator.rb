@@ -35,7 +35,7 @@ class Gluttonberg::ResourceGenerator < Rails::Generators::Base
     build_views
   end
 
-  def add_route
+  def add_route    
     route("namespace :admin do\n resources :#{plural_name} do\n member do\n get 'delete'\n end\n end\n end")
   end
   

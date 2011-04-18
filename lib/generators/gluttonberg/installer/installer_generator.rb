@@ -30,7 +30,7 @@ class Gluttonberg::InstallerGenerator < Rails::Generators::Base
   
   def bootstrap_asset_library
     rake("gluttonberg:library:bootstrap")
-    rake("gluttonberg:generate_default_dialect_and_locale")
+    rake("gluttonberg:generate_default_locale")
     rake("gluttonberg:generate_or_update_default_settings")
   end
   

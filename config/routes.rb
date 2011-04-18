@@ -3,6 +3,11 @@ Rails.application.routes.draw do
   mount_at = Gluttonberg::Engine.config.mount_at
 
   scope :module => 'Gluttonberg' do
+    
+    resources :blogs do      
+      resources :articles 
+    end
+    
     namespace :admin do
       root :to => "main#index"
       

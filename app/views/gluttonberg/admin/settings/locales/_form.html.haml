@@ -14,7 +14,7 @@
     
     %br
     = f.label :type
-    = f.select(:slug_type , options_for_select(Gluttonberg::Locale.all_slug_types) , :include_blank => "Select Locale Type" , :class => "required" )
+    = f.select(:slug_type , options_for_select(Gluttonberg::Locale.all_slug_types , @locale.slug_type ) , :include_blank => "Select Locale Type" , :class => "required" )
             
     = f.check_box(:default, :boolean => true)
     %label{:for => "gluttonberg_locale_default", :class => "checkbox"} Default

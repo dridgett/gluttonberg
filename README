@@ -58,7 +58,7 @@ To skip require_user use
 
 SETTINGS
   rake gluttonberg:library:bootstrap
-  rake gluttonberg:generate_default_dialect_and_locale
+  rake gluttonberg:generate_default_locale
   rake gluttonberg:generate_or_update_default_settings
   
 
@@ -74,4 +74,8 @@ is_versioned
 or 
 
 is_versioned opts_hash # for more detail about opts hash Please read acts_as_versioned documentation
+
+please add following line your application.rb file
+
+config.filter_parameters += [:password , :password_confirmation]
   
