@@ -6,6 +6,7 @@ module Gluttonberg
   require 'zip/zip'
   require 'acts_as_tree'
   require 'acts_as_list'
+  require 'acts_as_versioned'
   require 'gluttonberg/authorizable'
   require 'gluttonberg/components'
   require 'gluttonberg/content'

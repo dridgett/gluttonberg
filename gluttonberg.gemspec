@@ -32,7 +32,7 @@ Gem::Specification.new do |s|
   s.add_dependency "rubyzip"
   s.add_dependency "acts_as_tree"
   s.add_dependency "acts_as_list" 
-  #s.add_dependency "acts_as_versioned" 
+  s.add_dependency "acts_as_versioned" 
   #s.add_dependency "transitions" 
   
   s.add_development_dependency "rspec-rails", "~> 2.0.1"
