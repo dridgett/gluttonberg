@@ -23,7 +23,7 @@ module Gluttonberg
 
     is_drag_tree :scope => :parent_id, :flat => false , :order => "position"
     
-    attr_accessor :current_localization, :dialect_id, :locale_id, :paths_need_recaching
+    attr_accessor :current_localization, :locale_id, :paths_need_recaching
     
     
     # A custom finder used to find a page + locale combination which most
@@ -33,9 +33,10 @@ module Gluttonberg
     def self.find_by_path(path, locale = nil)
       unless locale.blank?
         path = path.match(/^\/(\S+)/)[1]
-        page = joins(:localizations).where("locale_id = ? AND ? LIKE path || '%'", locale.id, "#{path}%").first
+        # page = joins(:localizations).where("locale_id = ? AND ? LIKE path || '%'", locale.id, "#{path}%").first
+        page = joins(:localizations).where("locale_id = ? AND path LIKE ? || '%'", locale.id, "#{path}%").first
         unless page.blank? 
-          page.current_localization = page.localizations.where("locale_id = ? AND ? LIKE path || '%'", locale.id,  "#{path}%").first
+          page.current_localization = page.localizations.where("locale_id = ? AND path LIKE ? || '%'", locale.id,  "#{path}%").first
         end  
         page
       end  
@@ -123,8 +124,9 @@ module Gluttonberg
 
     
     # Load the matching localization as specified in the options
+    # TODO Write spec for it
     def load_localization(locale = nil)
-      @current_localization = localizations.where("locale_id = ? AND dialect_id = ? AND path LIKE ?", locale.id, locale.dialect_id, "#{path}%").first unless conditions.empty?
+      @current_localization = localizations.where("locale_id = ? AND path LIKE ?", locale.id, "#{path}%").first 
     end
 
     def home=(state)
