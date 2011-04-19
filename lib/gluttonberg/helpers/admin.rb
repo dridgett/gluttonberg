@@ -172,11 +172,11 @@ module Gluttonberg
         (title.blank?)? "Gluttonberg" : title.html_safe
       end  
       
-      def meta_keywords_tag
+      def keywords_meta_tag
         content_tag(:meta , "" , :content => Rails.configuration.gluttonberg[:keywords] , :name => "keywords")
       end 
       
-      def meta_description_tag
+      def description_meta_tag
         content_tag(:meta , "" , :content => Rails.configuration.gluttonberg[:description] , :name => "description")
       end
       

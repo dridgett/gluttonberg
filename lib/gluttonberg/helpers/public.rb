@@ -29,7 +29,7 @@ module Gluttonberg
       end
       
       # Returns the code for google analytics
-      def google_analytics
+      def google_analytics_js_tag
         code = Rails.configuration.gluttonberg[:google_analytics]
         output = ""
         unless code.blank?
