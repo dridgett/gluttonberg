@@ -3,22 +3,6 @@ module Gluttonberg
     # Helpers specific to the administration interface. The majority are 
     # related to forms, but there are other short cuts for things like navigation.
     module Admin
-      # This checks to see if there have been any editors defined for the 
-      # content records associated with a page. These are partials that live in
-      # "<ROOT>/templates/editors/pages/"
-      def page_editors?
-        glob = dir = Gluttonberg::Templates.path_for("editors") + "/" + "pages" + "/" + "*"
-        !Dir[glob].empty?
-      end
-      
-      # Returns a collection of paths to the content editors to be used
-      # by a page.
-      def page_editors
-        dir = Gluttonberg::Templates.path_for("editors") + "/" + "pages"
-        Dir[dir / "*"].inject("") do |output, editor|
-          output << partial(dir + "/" + editor.match(/\/_(\w+)\.\S+/)[1])
-        end
-      end
       
       # Returns a form for selecting the localized version of a record you want 
       # to edit.
@@ -235,7 +219,7 @@ JAVASCRIPT_CODE
       def page_table_rows(pages, output = "", inset = 0 , row = 0)
         pages.each do |page|
           row += 1 
-          output << render( :partial => "gluttonberg/admin/content/pages/row", :locals => { :page => page, :inset => inset , :row => row })#.html_safe
+          output << render( :partial => "gluttonberg/admin/content/pages/row", :locals => { :page => page, :inset => inset , :row => row })
           page_table_rows(page.children, output, inset + 1 , row)
         end
         output.html_safe
