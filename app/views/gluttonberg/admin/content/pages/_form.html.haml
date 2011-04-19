@@ -20,14 +20,7 @@
     - unless @pages.empty?
       = f.label :parent_id , "Parent page"
       = f.select(:parent_id, @pages.collect{|p| [p.name , p.id] }, :include_blank => true)
-      
-    %br
-    = f.check_box(:home)
-    = f.label :home  , "Set as homepage" , :class => "checkbox"
-  
-  - if page_editors?
-    = page_editors
-  
+    
   = block("Page Description") do
     %p.help
       Page descriptions are used to define how this page behaves. For example,

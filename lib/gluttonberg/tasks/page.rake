@@ -1,6 +1,5 @@
 namespace :gluttonberg do 
   
-  # reviewed by abdul on 18/04/2011
   desc "Generate default locale (en-au)"
   task :generate_default_locale => :environment do
     locale = Gluttonberg::Locale.create( :slug => "en-au" , :name => "Australia English" , :default => true , :slug_type => Gluttonberg::Locale.prefix_slug_type )      

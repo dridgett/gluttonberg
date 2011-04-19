@@ -1,14 +1,23 @@
 module Gluttonberg
   module Public
     class PagesController < Gluttonberg::Public::BaseController
-      # TODO: In the future, pick the template to render using a custom
-      # resolver. Then this can be included in all the public controllers,
-      # meaning they all get locale support for free.
-      # TODO: should we support fallback for default localization's template??
       before_filter :retrieve_page
+      
+      # If localized template file exist then render that file otherwise render non-localized template
       def show
         template = page.view
-        render :template => "pages/#{template}.#{locale.slug}"
+        template_path = "pages/#{template}" 
+        
+        if File.exists?(File.join(Rails.root,  "app/views/pages/#{template}.#{locale.slug}.html.haml" ) )
+          template_path = "pages/#{template}.#{locale.slug}"
+        end  
+        
+        # do not render layout for ajax requests
+        if request.xhr?
+          render :template => template_path, :layout => false
+        else
+          render :template => template_path
+        end
       end
       
       private 

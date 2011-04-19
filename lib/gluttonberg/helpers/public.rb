@@ -10,7 +10,7 @@ module Gluttonberg
           li_opts = {:id => page.slug + "Nav"}
           li_opts[:class] = "current" if page == @page
           li_content = content_tag(:a, page.nav_label, :href => page_url(page , opts)).html_safe
-          children = page.children#_with_localization(:locale => params[:locale])
+          children = page.children
           li_content << navigation_tree(children , opts).html_safe unless children.blank?
           content << content_tag(:li, li_content, li_opts).html_safe
         end
@@ -29,7 +29,7 @@ module Gluttonberg
       end
       
       # Returns the code for google analytics
-      def google_analytics
+      def google_analytics_js_tag
         code = Rails.configuration.gluttonberg[:google_analytics]
         output = ""
         unless code.blank?
@@ -50,6 +50,15 @@ module Gluttonberg
         end  
         output.html_safe
       end  
+      
+      def keywords_meta_tag
+        content_tag(:meta , "" , :content => Rails.configuration.gluttonberg[:keywords] , :name => "keywords")
+      end 
+      
+      def description_meta_tag
+        content_tag(:meta , "" , :content => Rails.configuration.gluttonberg[:description] , :name => "description")
+      end
+      
     end # Public
   end # Helpers
 end # Gluttonberg

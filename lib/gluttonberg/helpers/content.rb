@@ -60,7 +60,7 @@ module Gluttonberg
       def content_editor(content_class)
         locals  = {:content => content_class}
         type    = content_class.content_type 
-        render :partial => "/gluttonberg/admin/content/editors/#{type}", :locals => locals
+        render :partial => Gluttonberg::Templates.editor_template_path(type) , :locals => locals
       end
       
       # generate javascript code to enable tinymce on it. textArea need to have class = jwysiwyg

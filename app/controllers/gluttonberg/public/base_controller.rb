@@ -11,7 +11,7 @@ class Gluttonberg::Public::BaseController < ActionController::Base
     # It also installs before and after hooks that have been declared elsewhere
     # in this module.
     
-    attr_accessor :page, :locale #, :path, :page_template, :page_layout    
+    attr_accessor :page, :locale  
     before_filter :retrieve_locale    
     layout "public"
         
@@ -22,14 +22,6 @@ class Gluttonberg::Public::BaseController < ActionController::Base
   
       def retrieve_locale
         @locale = env['gluttonberg.locale']
-      end
-
-      # TODO Fixme
-      def store_templates
-        # Store the templates
-        # templates       = @page.template_paths(:dialect => params[:dialect], :locale => params[:locale])
-        # @page_template  = "pages/" + templates[:page] if templates[:page]
-        # @page_layout    = "#{templates[:layout]}.#{content_type}" if templates[:layout]        
       end
       
       # Exception handlers

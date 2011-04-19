@@ -21,27 +21,14 @@ module Gluttonberg
     # These should likely move into one of the initializers inside of the
     # engine config. This will ensure they only run after Rails and the app
     # has been loaded.
-    #Templates.setup
     Helpers.setup
     DragTree.setup
     
-  
-  # Checks to see if Gluttonberg has been configured to have a locale/location
-  # and a translation.
-  def self.localized_and_translated?
-    self.localized? && self.translated?
-  end
  
   # Check to see if Gluttonberg is configured to be localized.
   def self.localized?
     Engine.config.localize
   end
-  
-  # Check to see if Gluttonberg has been configured to translate contents.
-  def self.translated?
-    Engine.config.translate
-  end
-  
   
   def self.laod_settings_from_db
     begin

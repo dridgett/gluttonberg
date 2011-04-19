@@ -23,7 +23,7 @@ module Gluttonberg
     def self.generate_common_settings
       settings = {
         :title => [ "" , 0, "Website Title"], 
-        :keywords => [1, "Please separate keywords with a comma."],
+        :keywords => ["" , 1, "Please separate keywords with a comma."],
         :description => ["" ,2 , "The Description will appear in search engine's result list."],
         :google_analytics => ["", 3, "Google Analytics ID"],
         :number_of_revisions => ["10" , 4 , "Number of revisions to maintain for versioned contents."],

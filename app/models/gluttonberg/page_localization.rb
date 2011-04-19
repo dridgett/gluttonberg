@@ -1,7 +1,6 @@
 module Gluttonberg
   class PageLocalization < ActiveRecord::Base
     belongs_to :page, :class_name => "Gluttonberg::Page"
-    belongs_to :dialect
     belongs_to :locale
     set_table_name "gb_page_localizations"
     
@@ -54,7 +53,7 @@ module Gluttonberg
     end
 
     def name_and_code
-      "#{name} (#{locale.name}/#{dialect.code})"
+      "#{name} (#{locale.name})"
     end
     
     def public_path
@@ -75,10 +74,9 @@ module Gluttonberg
       if page.parent_id
         localization = page.parent.localizations.find(:first,
           :conditions => {
-            :locale_id        => locale_id 
+            :locale_id  => locale_id 
           }  
         )
-        
         new_path = "#{localization.path}/#{slug || page.slug}"
       else
         new_path = "#{slug || page.slug}"

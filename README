@@ -19,9 +19,9 @@ Gluttonberg engine.
 
 The require should look like this - assuming you use the same dirs as me:
 
-  gem 'acts_as_versioned', :git => "http://github.com/technoweenie/acts_as_versioned" , :ref => 'efc726d055ac75e3684b7272561e7f9d95735738'
   gem 'gluttonberg', :path => '../gluttonberg'
-   
+  
+  bundle install 
 
 If this is the first time you are bootstrapping gluttonberg, you will need to copy the migrations to the host app.
 There is a simple generator that will do this for you.

@@ -23,7 +23,7 @@ module Gluttonberg
 
     is_drag_tree :scope => :parent_id, :flat => false , :order => "position"
     
-    attr_accessor :current_localization, :dialect_id, :locale_id, :paths_need_recaching
+    attr_accessor :current_localization, :locale_id, :paths_need_recaching
     
     
     # A custom finder used to find a page + locale combination which most
@@ -31,11 +31,12 @@ module Gluttonberg
     # search to the specified locale, otherwise it will fall back to the
     # default.
     def self.find_by_path(path, locale = nil)
-      unless locale.blank?
-        path = path.match(/^\/(\S+)/)[1]
-        page = joins(:localizations).where("locale_id = ? AND ? LIKE path || '%'", locale.id, "#{path}%").first
+      path = path.match(/^\/(\S+)/)
+      unless locale.blank? || path.blank?
+        path = path[1]        
+        page = joins(:localizations).where("locale_id = ? AND ? LIKE path || '%'", locale.id, path).first
         unless page.blank? 
-          page.current_localization = page.localizations.where("locale_id = ? AND ? LIKE path || '%'", locale.id,  "#{path}%").first
+          page.current_localization = page.localizations.where("locale_id = ? AND ? LIKE path || '%'", locale.id,  path).first
         end  
         page
       end  
@@ -123,13 +124,27 @@ module Gluttonberg
 
     
     # Load the matching localization as specified in the options
+    # TODO Write spec for it
     def load_localization(locale = nil)
-      @current_localization = localizations.where("locale_id = ? AND dialect_id = ? AND path LIKE ?", locale.id, locale.dialect_id, "#{path}%").first unless conditions.empty?
+      @current_localization = localizations.where("locale_id = ? AND path LIKE ?", locale.id, "#{path}%").first 
     end
 
     def home=(state)
       write_attribute(:home, state)
       @home_updated = state
+    end
+    
+    def self.home_page
+      Page.find( :first ,  :conditions => [ "home = ? " , true ] )
+    end
+    
+    def self.home_page_name
+      home_temp = self.home_page
+      if home_temp.blank?
+        "Not Selected"
+      else
+        home_temp.name
+      end
     end
     
     # if page type is not redirection.
@@ -162,7 +177,7 @@ module Gluttonberg
       # then go and 
       def check_for_home_update
         if @home_updated && @home_updated == true
-          previous_home = Page.find( :first ,  :conditions => [ "home = ? AND id <> ? " , true ,id ] )
+          previous_home = Page.find( :first ,  :conditions => [ "home = ? AND id <> ? " , true ,self.id ] )
           previous_home.update_attributes(:home => false) if previous_home
         end
       end

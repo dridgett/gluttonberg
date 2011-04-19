@@ -1,4 +1,4 @@
-- @page_title = "Metadata"
+- @page_title = "Configuration"
 = sub_nav do
   = back_link("Settings", admin_settings_path)
   = nav_link('New', new_admin_generic_setting_path)
@@ -13,7 +13,14 @@
         %th Value
         %th.controls Controls
     %tbody
-      - i = 0
+      - i = 1
+      %tr{ :class => ""}
+        %td Select Home Page
+        %td
+          = Gluttonberg::Page.home_page_name
+        %td.controls
+          %ul  
+            %li= link_to('Edit', admin_page_edit_home_path(1))
       - for setting in @settings
         - i += 1
         %tr{ :class => "#{i % 2 == 0? "even" : ""}"}

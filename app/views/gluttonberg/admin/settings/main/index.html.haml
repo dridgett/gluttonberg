@@ -4,7 +4,7 @@
   - if Gluttonberg.localized?
     %li= link_to("Locales", admin_locales_path , :id => "localesNav" , :title => "Locales")
   
-  %li= link_to("Metadata", admin_generic_settings_path , :id => "metadataNav"  , :title => "Metadata") 
+  %li= link_to("Configuration", admin_generic_settings_path , :id => "metadataNav"  , :title => "Configurations") 
   
   %li= link_to("Users", admin_users_path, :id => "usersNav" , :title => "Users")  
   
@@ -13,7 +13,5 @@
   / - else
   /   %li= link_to("Users", slice_url(:edit_user, Gluttonberg::User.get( session.user.id )), :id => "usersNav" , :title => "Users")
   /         
-  / - if Gluttonberg.localized?
-  /   %li= link_to("Locales", slice_url(:locales), :id => "localesNav" , :title => "Locales")
   / - if current_user.is_super_admin  
   /   %li= link_to("Metadata", slice_url(:generic_settings), :id => "metadataNav"  , :title => "Metadata") 

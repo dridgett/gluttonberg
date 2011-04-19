@@ -14,7 +14,9 @@ Rails.application.routes.draw do
         match 'content' => "main#index",      :as => :content
         resources :pages do
           get 'delete', :on => :member
-          resources :page_localizations           
+          resources :page_localizations
+          get 'edit_home' => "pages#edit_home", :as =>  :edit_home
+          post 'update_home' => "pages#update_home", :as =>  :update_home        
         end
         resources :blogs do
           get 'delete', :on => :member

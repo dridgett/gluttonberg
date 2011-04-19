@@ -3,22 +3,6 @@ module Gluttonberg
     # Helpers specific to the administration interface. The majority are 
     # related to forms, but there are other short cuts for things like navigation.
     module Admin
-      # This checks to see if there have been any editors defined for the 
-      # content records associated with a page. These are partials that live in
-      # "<ROOT>/templates/editors/pages/"
-      def page_editors?
-        glob = dir = Gluttonberg::Templates.path_for("editors") + "/" + "pages" + "/" + "*"
-        !Dir[glob].empty?
-      end
-      
-      # Returns a collection of paths to the content editors to be used
-      # by a page.
-      def page_editors
-        dir = Gluttonberg::Templates.path_for("editors") + "/" + "pages"
-        Dir[dir / "*"].inject("") do |output, editor|
-          output << partial(dir + "/" + editor.match(/\/_(\w+)\.\S+/)[1])
-        end
-      end
       
       # Returns a form for selecting the localized version of a record you want 
       # to edit.
@@ -91,25 +75,6 @@ module Gluttonberg
             :id => "contextualHelp"
           )          
         end
-      end
-      
-
-      # Creates a link tag that shows the AssetBrowser popup
-      def link_to_asset_browser(name, opts={})
-
-        # work out the updating url for the collection from opts[:collection]
-        add_asset_url = slice_url(:add_asset_to_collection, opts[:collection].id)
-
-        js_code = <<JAVASCRIPT_CODE
-showAssetBrowser({rootUrl: '#{url(:gluttonberg_asset_browser)}', onSelect: function(assetId){writeAssetToAssetCollection(assetId,'#{add_asset_url}')}}); return false;
-JAVASCRIPT_CODE
-        opts[:onclick] = opts[:onclick] || js_code
-        link_to(name, '#', opts)
-      end
-
-      # Writes out a link styled like a button. To be used in the sub nav only
-      def asset_browser_nav_link(*args)
-        content_tag(:li, link_to_asset_browser(*args), :class => "button")
       end
 
       # TODO Do we need these?
@@ -197,27 +162,10 @@ JAVASCRIPT_CODE
       end
       
       def website_title
-        title = Engine.config.app_name 
+        title = Rails.configuration.gluttonberg[:keywords]
         (title.blank?)? "Gluttonberg" : title.html_safe
       end  
       
-      def meta_keywords
-        Rails.configuration.gluttonberg[:keywords]
-      end 
-      
-      def meta_description
-        Rails.configuration.gluttonberg[:description]
-      end
-      
-      def asset_url(asset)
-        if Rails.env == "development"
-          "http://#{request.host}:#{request.port}/asset/#{asset.asset_hash[0..3]}/#{asset.id}"
-        else  
-          "http://#{request.host}/asset/#{asset.asset_hash[0..3]}/#{asset.id}"
-        end  
-      end  
-      
-
       #Returns a link for sorting assets in the library
       def sorter_link(name, param, url)
         opts = {}
@@ -235,7 +183,7 @@ JAVASCRIPT_CODE
       def page_table_rows(pages, output = "", inset = 0 , row = 0)
         pages.each do |page|
           row += 1 
-          output << render( :partial => "gluttonberg/admin/content/pages/row", :locals => { :page => page, :inset => inset , :row => row })#.html_safe
+          output << render( :partial => "gluttonberg/admin/content/pages/row", :locals => { :page => page, :inset => inset , :row => row })
           page_table_rows(page.children, output, inset + 1 , row)
         end
         output.html_safe
