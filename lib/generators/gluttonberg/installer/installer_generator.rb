@@ -26,7 +26,8 @@ class Gluttonberg::InstallerGenerator < Rails::Generators::Base
   
   def create_default_public_layout
     #create pages folder
-    FileUtils.mkdir(File.join(Rails.root, "app", "views" , "pages" ))
+    path = File.join(Rails.root, "app", "views" , "pages" )
+    FileUtils.mkdir(path) unless File.exists?(path)
     #copy layout into host app
     template "public.html.haml", File.join('app/views/layouts', "public.html.haml")    
   end
@@ -35,15 +36,17 @@ class Gluttonberg::InstallerGenerator < Rails::Generators::Base
     rake("db:migrate")
   end
   
-  def bootstrap_asset_library
+  def bootstrap_data
     rake("gluttonberg:library:bootstrap")
     rake("gluttonberg:generate_default_locale")
     rake("gluttonberg:generate_or_update_default_settings")
   end
   
-  # def require_gems
-  #     gem("'acts_as_versioned', :git => 'http://github.com/technoweenie/acts_as_versioned' , :ref => 'efc726d055ac75e3684b7272561e7f9d95735738' ")
-  #   end
+  def localization_config
+    application "  # config.localize = false  "
+    application "  # By Default gluttonberg applications are localized. If you do not want localized application then uncomment following line."    
+    application "  "
+  end
     
 end
 
