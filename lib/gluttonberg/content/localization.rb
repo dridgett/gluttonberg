@@ -12,7 +12,7 @@ module Gluttonberg
           include Model::InstanceMethods
           
           class << self; 
-            attr_reader :localized, :localized_model, :localized_fields, :locale, :dialect;
+            attr_reader :localized, :localized_model, :localized_fields, :locale;
           end
           @localized = false
           @localized_fields = []
@@ -139,7 +139,6 @@ module Gluttonberg
 
           def extract_localization_conditions(conditions)
             extractions = {
-              :dialect  => conditions.delete(:dialect),
               :locale   => conditions.delete(:locale)
             }
             coerce_localization_conditions(extractions)
@@ -147,7 +146,7 @@ module Gluttonberg
           
           def coerce_localization_conditions(conditions)
             if conditions
-              [:dialect, :locale].inject({}) do |hash, entry|
+              [:locale].inject({}) do |hash, entry|
                 if conditions[entry]
                   hash[:"#{entry}_id"] = case conditions[entry]
                     when Numeric, String then conditions[entry].to_i
@@ -165,7 +164,7 @@ module Gluttonberg
           
           def extract_localization_opts(opts)
             # Coerce each entry into an integer
-            [:dialect, :locale].inject({}) do |m, n|
+            [:locale].inject({}) do |m, n|
               m[:"#{n}_id"] = opts.delete(n).to_i if opts[n]
               m
             end
@@ -201,7 +200,6 @@ module Gluttonberg
             # Check to see if we missed the load and if we also need the fallback
             if @current_localization.nil? && fallback
               @current_localization = self.class.localized_model.first(opts.merge(
-                :dialect_id => self.class.dialect.id, 
                 :locale_id  => self.class.locale.id
               ))
             end
@@ -267,7 +265,6 @@ module Gluttonberg
         # to set up associations to the dialect and locale
         def self.included(klass)
           klass.class_eval do
-            belongs_to :dialect,  :class_name => "Gluttonberg::Dialect"
             belongs_to :locale,   :class_name => "Gluttonberg::Locale"
           end
         end

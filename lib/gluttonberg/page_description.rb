@@ -198,8 +198,7 @@ module Gluttonberg
       localization = PageLocalization.find(:first,
         :conditions => {
           :page_id  => page.redirect_target_id,
-          :locale   => params[:locale],
-          :dialect  => params[:dialect]
+          :locale   => params[:locale]
         }  
       )
       raise ActiveRecord::RecordNotFound if localization.blank?
