@@ -162,7 +162,7 @@ module Gluttonberg
       end
       
       def website_title
-        title = Engine.config.app_name 
+        title = Rails.configuration.gluttonberg[:keywords]
         (title.blank?)? "Gluttonberg" : title.html_safe
       end  
       
