@@ -33,9 +33,9 @@ module Gluttonberg
     def self.find_by_path(path, locale = nil)
       unless locale.blank?
         path = path.match(/^\/(\S+)/)[1]
-        page = joins(:localizations).where("locale_id = ? AND path LIKE ? || '%'", locale.id, "#{path}%").first
+        page = joins(:localizations).where("locale_id = ? AND ? LIKE path || '%'", locale.id, path).first
         unless page.blank? 
-          page.current_localization = page.localizations.where("locale_id = ? AND path LIKE ? || '%'", locale.id,  "#{path}%").first
+          page.current_localization = page.localizations.where("locale_id = ? AND ? LIKE path || '%'", locale.id,  path).first
         end  
         page
       end  
