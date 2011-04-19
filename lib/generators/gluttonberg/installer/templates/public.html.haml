@@ -4,8 +4,8 @@
     %title GluttonbergTest
     = csrf_meta_tag
     = google_analytics
-    = meta_keywords
-    = meta_description
+    = meta_keywords_tag
+    = meta_description_tag
   %body
     - @pages = Gluttonberg::Page.find(:all , :conditions => { :home => true } )
     - slug = @locale ? @locale.slug : ""
