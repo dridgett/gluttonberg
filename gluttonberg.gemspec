@@ -26,15 +26,13 @@ Gem::Specification.new do |s|
      "spec"
   ]
 
-  s.add_dependency 'haml'
-  s.add_dependency "authlogic"
+  s.add_dependency 'haml' , '~> 3.0.25'
+  s.add_dependency "authlogic" , '~> 2.1.6'
   s.add_dependency "will_paginate" , '~> 3.0.pre2'
-  s.add_dependency "rubyzip"
-  s.add_dependency "acts_as_tree"
-  s.add_dependency "acts_as_list" 
-  s.add_dependency "acts_as_versioned" 
-  #s.add_dependency "transitions" 
-  
+  s.add_dependency "rubyzip"  , '~> 0.9.4'
+  s.add_dependency "acts_as_tree"  , '~> 0.1.1'
+  s.add_dependency "acts_as_list"   , '~> 0.1.2' 
+  s.add_dependency "acts_as_versioned" , '~> 0.6.0'
   s.add_development_dependency "rspec-rails", "~> 2.0.1"
   
 
