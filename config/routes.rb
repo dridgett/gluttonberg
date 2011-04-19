@@ -22,6 +22,10 @@ Rails.application.routes.draw do
           get 'delete', :on => :member
           resources :articles do
             get 'delete', :on => :member
+            resources :comments do
+              get 'delete', :on => :member
+              get 'moderation', :on => :member
+            end
           end
         end
         match "/pages/move(.:format)" => "pages#move_node" , :as=> :page_move
@@ -70,22 +74,14 @@ Rails.application.routes.draw do
       match "/asset/:hash/:id" => "public_assets#show" , :as => :public_asset
       match "/_public/page" => "pages#show"
       
+      # Blog Stuff
       resources :blogs do      
-        resources :articles 
+        resources :articles do
+          resources :comments
+        end
       end
       
     end
     
   end
 end
-
-
-
-
-# s.match("/content").to(:controller => "content/main").name(:content)
-# s.match("/content") do |c|
-#   c.resources(:pages, :controller => "content/pages") do |p|
-#     p.resources(:localizations, :controller => "content/page_localizations")
-#   end
-#   c.match("/pages/move(.:format)").to(:controller => "content/pages", :action => "move_node").name(:page_move)
-# end

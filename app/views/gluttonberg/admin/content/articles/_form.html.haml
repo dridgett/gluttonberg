@@ -17,6 +17,9 @@
       = f.label :slug
       = f.text_field(:slug, :id => 'page_slug')
     %p
+      = f.label :author
+      = f.select("author_id" ,  @authors.collect{|a| [a.email , a.id] })
+    %p
       = f.label :excerpt
       = f.text_area(:excerpt)
     %p

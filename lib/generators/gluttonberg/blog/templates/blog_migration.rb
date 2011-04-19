@@ -2,24 +2,40 @@ class BlogMigration < ActiveRecord::Migration
   def self.up
     
     create_table :gb_blogs do |t|
-      t.column :name, :string, :null => false
-      t.column :slug, :string, :null => false
-      t.column :description, :text
-      t.column :user_id, :integer, :null => false
+      t.string :name, :null => false
+      t.string :slug, :null => false
+      t.text :description
+      t.integer :user_id, :null => false
+      t.timestamps
     end
     
     create_table :gb_articles do |t|
-      t.column :title, :string, :null => false
-      t.column :slug, :string, :null => false
-      t.column :excerpt, :text
-      t.column :body, :text
-      t.column :blog_id, :integer, :null => false
-      t.column :user_id, :integer, :null => false
+      t.string :title, :null => false
+      t.string :slug, :null => false
+      t.text :excerpt
+      t.text :body
+      t.integer :blog_id, :null => false
+      t.integer :user_id, :null => false
+      t.integer :author_id, :null => false
+      t.timestamps
+    end
+    
+    create_table :gb_comments do |t|
+      t.text :body
+      t.string :author_name
+      t.string :author_email
+      t.string :author_website
+      t.references :commentable, :polymorphic => true
+      t.integer :author_id
+      t.boolean :moderation_required, :default => true
+      t.boolean :approved, :default => false
+      t.timestamps
     end
     
   end
 
   def self.down
+    drop_table :gb_comments
     drop_table :gb_articles
     drop_table :gb_blogs
   end
