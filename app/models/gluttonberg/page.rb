@@ -31,8 +31,9 @@ module Gluttonberg
     # search to the specified locale, otherwise it will fall back to the
     # default.
     def self.find_by_path(path, locale = nil)
-      unless locale.blank?
-        path = path.match(/^\/(\S+)/)[1]
+      path = path.match(/^\/(\S+)/)
+      unless locale.blank? || path.blank?
+        path = path[1]        
         page = joins(:localizations).where("locale_id = ? AND ? LIKE path || '%'", locale.id, path).first
         unless page.blank? 
           page.current_localization = page.localizations.where("locale_id = ? AND ? LIKE path || '%'", locale.id,  path).first
@@ -133,6 +134,19 @@ module Gluttonberg
       @home_updated = state
     end
     
+    def self.home_page
+      Page.find( :first ,  :conditions => [ "home = ? " , true ] )
+    end
+    
+    def self.home_page_name
+      home_temp = self.home_page
+      if home_temp.blank?
+        "Not Selected"
+      else
+        home_temp.name
+      end
+    end
+    
     # if page type is not redirection.
     # then create default view files for all localzations of the page. 
     # file will be created in host appliation/app/views/pages/template_name.locale-slug.html.haml
@@ -163,7 +177,7 @@ module Gluttonberg
       # then go and 
       def check_for_home_update
         if @home_updated && @home_updated == true
-          previous_home = Page.find( :first ,  :conditions => [ "home = ? AND id <> ? " , true ,id ] )
+          previous_home = Page.find( :first ,  :conditions => [ "home = ? AND id <> ? " , true ,self.id ] )
           previous_home.update_attributes(:home => false) if previous_home
         end
       end

@@ -61,6 +61,19 @@ module Gluttonberg
             raise ActiveResource::ServerError
           end
         end
+        
+        def edit_home
+          @current_home_page_id  = Page.home_page.id unless Page.home_page.blank?
+          @pages = Page.all
+        end
+        
+        def update_home
+          @new_home = Page.find(params[:home])
+          unless @new_home.blank?
+            @new_home.update_attributes(:home => true)
+          end
+          redirect_to admin_generic_settings_path
+        end
 
         private
 

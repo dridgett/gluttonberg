@@ -1,0 +1,14 @@
+- @page_title = "Edit Homepage"
+
+= sub_nav do
+  = back_link("Settings", admin_settings_path)
+  = back_link("Configuration", admin_generic_settings_path )
+  
+= form_tag( admin_page_update_home_path(@home) ) do
+  
+  = block("Setting") do
+    = label_tag :home ,  "Select New Homepage"
+    = select_tag :home , options_from_collection_for_select(@pages, "id", "name" , selected = @current_home_page_id.to_s )  ,  { :class => "required"}
+    %br
+      
+  = form_controls(admin_generic_settings_path)
