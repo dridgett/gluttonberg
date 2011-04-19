@@ -35,7 +35,7 @@ Gluttonberg::PageDescription.add do
     label "Shows"
     description "Shows Page"
     
-    rewrite_to :shows
+    rewrite_to 'shows'
     layout "application"
   end
   
@@ -43,35 +43,35 @@ Gluttonberg::PageDescription.add do
     label "Companies"
     description "Company Pages"
     
-    rewrite_to :companies
+    rewrite_to 'companies'
   end
   
   page :venues do
     label "Venues"
     description "Venue Pages"
     
-    rewrite_to :venues
+    rewrite_to 'venues'
   end
   
   page :reviews do
     label "Reviews"
     description "Review Pages"
     
-    rewrite_to :reviews
+    rewrite_to 'reviews'
   end
   
   page :news do
     label "News"
     description "News Page"
     layout "other"
-    rewrite_to :news
+    rewrite_to 'news'
   end
   
   page :subscribe do
     label "Subscribe"
     description "Subscription Page"
     
-    rewrite_to :subscribe
+    rewrite_to 'subscribe'
   end
   
   page :about do
