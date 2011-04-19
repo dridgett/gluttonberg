@@ -11,6 +11,7 @@ module Gluttonberg
          end     
        end
 
+
        # Returns a link for sorting assets in the library
        def sorter_link(name, param, url)
          opts = {}

@@ -76,20 +76,7 @@ module Gluttonberg
           )          
         end
       end
-      
 
-      # Creates a link tag that shows the AssetBrowser popup
-      def link_to_asset_browser(name, opts={})
-
-        # work out the updating url for the collection from opts[:collection]
-        add_asset_url = slice_url(:add_asset_to_collection, opts[:collection].id)
-
-        js_code = <<JAVASCRIPT_CODE
-showAssetBrowser({rootUrl: '#{url(:gluttonberg_asset_browser)}', onSelect: function(assetId){writeAssetToAssetCollection(assetId,'#{add_asset_url}')}}); return false;
-JAVASCRIPT_CODE
-        opts[:onclick] = opts[:onclick] || js_code
-        link_to(name, '#', opts)
-      end
 
       # Writes out a link styled like a button. To be used in the sub nav only
       def asset_browser_nav_link(*args)
@@ -185,23 +172,14 @@ JAVASCRIPT_CODE
         (title.blank?)? "Gluttonberg" : title.html_safe
       end  
       
-      def meta_keywords
-        Rails.configuration.gluttonberg[:keywords]
+      def meta_keywords_tag
+        content_tag(:meta , "" , :content => Rails.configuration.gluttonberg[:keywords] , :name => "keywords")
       end 
       
-      def meta_description
-        Rails.configuration.gluttonberg[:description]
+      def meta_description_tag
+        content_tag(:meta , "" , :content => Rails.configuration.gluttonberg[:description] , :name => "description")
       end
       
-      def asset_url(asset)
-        if Rails.env == "development"
-          "http://#{request.host}:#{request.port}/asset/#{asset.asset_hash[0..3]}/#{asset.id}"
-        else  
-          "http://#{request.host}/asset/#{asset.asset_hash[0..3]}/#{asset.id}"
-        end  
-      end  
-      
-
       #Returns a link for sorting assets in the library
       def sorter_link(name, param, url)
         opts = {}
