@@ -13,10 +13,12 @@ module Gluttonberg
         end
         
         def show
+          @comment = Comment.new
         end
         
         def new
           @article = Article.new
+          @authors = User.all
         end
         
         def create
@@ -30,6 +32,7 @@ module Gluttonberg
         end
         
         def edit
+          @authors = User.all
         end
         
         def update

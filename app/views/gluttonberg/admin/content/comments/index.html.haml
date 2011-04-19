@@ -1,0 +1,35 @@
+- @page_title = "Comments"
+= sub_nav do
+  = back_link("Articles", admin_blog_articles_path(@blog))
+    
+- if @comments.empty?
+  %p.empty No Comments
+- else
+  %table{:cellpadding => 0, :cellspacing => 0, :summary => "Articles"}
+    %thead
+      %tr
+        %th
+          Author
+        %th 
+          Comment
+        %th
+          Date Commented
+        %th.controls
+          Controls
+    %tbody
+      - @comments.each do |comment|
+        %tr
+          %td{:style => "width:15%;"}
+            = comment.author_name
+          %td{:style => "width:48%;"}
+            = comment.body
+          %td{:style => "width:17%;"}
+            = comment.created_at
+          %td.controls{:style => "width:20%;"}
+            %ul
+              - if comment.moderation_required
+                %li
+                  = link_to "Approve", moderation_admin_blog_article_comment_path(@blog, @article, comment, :moderation => "approve")
+                  = link_to "Disapprove", moderation_admin_blog_article_comment_path(@blog, @article, comment, :moderation => "disapprove")
+              %li
+                = link_to "Delete", delete_admin_blog_article_comment_path(@blog, @article, comment)
