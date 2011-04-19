@@ -77,12 +77,6 @@ module Gluttonberg
         end
       end
 
-
-      # Writes out a link styled like a button. To be used in the sub nav only
-      def asset_browser_nav_link(*args)
-        content_tag(:li, link_to_asset_browser(*args), :class => "button")
-      end
-
       # TODO Do we need these?
       # Generates a styled tab bar
       def tab_bar(&blk)
@@ -171,14 +165,6 @@ module Gluttonberg
         title = Engine.config.app_name 
         (title.blank?)? "Gluttonberg" : title.html_safe
       end  
-      
-      def keywords_meta_tag
-        content_tag(:meta , "" , :content => Rails.configuration.gluttonberg[:keywords] , :name => "keywords")
-      end 
-      
-      def description_meta_tag
-        content_tag(:meta , "" , :content => Rails.configuration.gluttonberg[:description] , :name => "description")
-      end
       
       #Returns a link for sorting assets in the library
       def sorter_link(name, param, url)
