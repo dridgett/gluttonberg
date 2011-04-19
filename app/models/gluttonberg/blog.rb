@@ -5,5 +5,8 @@ module Gluttonberg
     belongs_to :user
     has_many :articles, :dependent => :destroy
     
+    include Content::SlugManagement
+    
+    
   end
 end

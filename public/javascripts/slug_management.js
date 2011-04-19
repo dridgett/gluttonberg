@@ -3,7 +3,7 @@ $(document).ready(function()
    var pt = $('#page_title');
    var ps = $('#page_slug');
    
-   var regex = /[\!\*'"″′‟‛„‚”“”˝\(\);:@&=+$,\/?%#\[\]]/gim;
+   var regex = /[\!\*'"″′‟‛„‚”“”˝\(\);:.@&=+$,\/?%#\[\]]/gim;
 
    var pt_function = function()
    {

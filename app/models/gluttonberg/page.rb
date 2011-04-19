@@ -4,6 +4,7 @@
 module Gluttonberg
   class Page < ActiveRecord::Base
     include Content::Publishable
+    include Content::SlugManagement
     
     has_many :localizations, :class_name => "Gluttonberg::PageLocalization"   , :dependent => :destroy 
 
@@ -18,7 +19,7 @@ module Gluttonberg
     set_table_name "gb_pages"
        
     
-    before_validation :slug_management
+    
     after_save   :check_for_home_update
 
     is_drag_tree :scope => :parent_id, :flat => false , :order => "position"
@@ -102,12 +103,7 @@ module Gluttonberg
     end
     
 
-    def slug=(new_slug)
-      #if you're changing this regex, make sure to change the one in /javascripts/slug_management.js too
-      # utf-8 special chars are fixed for new ruby 1.9.2
-      new_slug = new_slug.downcase.gsub(/\s/, '_').gsub(/[\!\*'"″′‟‛„‚”“”˝\(\)\;\:\@\&\=\+\$\,\/?\%\#\[\]]/, '')
-      write_attribute(:slug, new_slug)
-    end
+    
 
     def paths_need_recaching?
       @paths_need_recaching
@@ -169,9 +165,7 @@ module Gluttonberg
         
     private
 
-      def slug_management
-        self.slug= name if self.slug.blank?
-      end
+      
 
       # Checks to see if this page has been set as the homepage. If it has, we 
       # then go and 
