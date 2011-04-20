@@ -7,7 +7,11 @@ module Gluttonberg
             render :layout => "bare" , :template => 'gluttonberg/admin/exceptions/not_found'
             return 
           end
-          redirect_to @asset.url
+          if params[:thumb_name].blank?
+            redirect_to @asset.url
+          else
+            redirect_to @asset.url_for(params[:thumb_name].to_sym)
+          end  
         end  
     end
   end  

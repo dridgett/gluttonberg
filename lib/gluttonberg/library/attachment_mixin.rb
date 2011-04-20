@@ -110,13 +110,10 @@ module Gluttonberg
         # Returns the URL for the specified image size.
         
         def url_for(name)
-            #if custom_thumbnail
-              
-            #else
-            #  "/assets/#{asset_hash}/_thumb_small.jpg"            
-            #end
-            filename = self.class.sizes[name][:filename]
-            "/assets/#{asset_hash}/#{filename}.jpg"
+            if self.class.sizes.has_key? name
+              filename = self.class.sizes[name][:filename]
+              "/assets/#{asset_hash}/#{filename}.jpg"
+            end  
         end
 
         # Returns the public URL to the asset’s small thumbnail — relative 

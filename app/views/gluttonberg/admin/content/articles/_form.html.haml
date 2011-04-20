@@ -20,6 +20,10 @@
       = f.label :author
       = f.select("author_id" ,  @authors.collect{|a| [a.email , a.id] })
     %p
+      = f.label :featured_image_id
+      = f.asset_browser( :featured_image_id ,  opts = { :filter => "image"   } )  
+      
+    %p
       = f.label :excerpt
       = f.text_area(:excerpt)
     %p

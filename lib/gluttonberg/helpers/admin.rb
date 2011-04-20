@@ -248,7 +248,7 @@ module Gluttonberg
       
       def wysiwyg_js_css_link_tag
         if Rails.configuration.gluttonberg[:enable_WYSIWYG] == "Yes"
-          stylesheet_link_tag("/javascripts/akzhan-jwysiwyg-2b20f74/jquery.wysiwyg.css") + javascript_include_tag("akzhan-jwysiwyg-2b20f74/jquery.wysiwyg.js")
+          stylesheet_link_tag("/javascripts/akzhan-jwysiwyg-2b20f74/jquery.wysiwyg.css") + javascript_include_tag("akzhan-jwysiwyg-2b20f74/jquery.wysiwyg.js" , "akzhan-jwysiwyg-2b20f74/controls/wysiwyg.image.js" , "akzhan-jwysiwyg-2b20f74/controls/wysiwyg.link.js" , "akzhan-jwysiwyg-2b20f74/controls/wysiwyg.table.js")
         end
       end
       

@@ -3,12 +3,19 @@ module Gluttonberg
     module AssetLibrary
      
        #  nice and clean public url of assets
-       def asset_url(asset)
+       def asset_url(asset , opts = {})
+         url = ""
          if RAILS_ENV=="development"
-           "http://#{request.host}:#{request.port}/asset/#{asset.asset_hash[0..3]}/#{asset.id}"
+           url = "http://#{request.host}:#{request.port}/asset/#{asset.asset_hash[0..3]}/#{asset.id}"
          else
-           "http://#{request.host}/asset/#{asset.asset_hash[0..3]}/#{asset.id}"
-         end     
+           url = "http://#{request.host}/asset/#{asset.asset_hash[0..3]}/#{asset.id}"
+         end 
+         
+         if opts[:thumb_name]
+           url << "/#{opts[:thumb_name]}"
+         end
+         
+         url    
        end
 
 
@@ -75,8 +82,10 @@ module Gluttonberg
          link_contents << link_to(button_text, admin_asset_browser_url + "?filter=#{filter}" , { :class => opts[:button_class] , :rel => opts[:id] })
          link_contents << hidden_field_tag(field_id , asset_id , { :id => opts[:id] , :class => "choose_asset_hidden_field" } )  
 
-         content_tag(:span , link_contents , { :class => "assetBrowserLink" } )         
+         content_tag(:span , link_contents , { :class => "assetBrowserLink" } )
        end
+       
+       
 
        
        def asset_paginator(assets , name_or_id , type)
@@ -88,20 +97,67 @@ module Gluttonberg
            render :partial => "gluttonberg/admin/shared/asset_panel.html" , :locals => {:assets => assets , :name_or_id => name_or_id , :type => type}
        end
 
-
+       
        def asset_tag(asset , thumbnail_type = nil)
-         unless asset.blank?
-           path = asset.url
-           unless thumbnail_type.blank?
-             path = asset.url_for(thumbnail_type)
-           end
-           "<img title='#{asset.name}' alt='#{asset.name}' src='#{path}' />"
-         end 
+          unless asset.blank?
+            path = thumbnail_type.blank? ? asset.url : asset.url_for(thumbnail_type)
+            content_tag(:img , "" , :class => asset.name , :alt => asset.name , :src => path)
+          end 
        end
-     
      
      
     end # Assets
   end # Helpers
 end # Gluttonberg
 
+
+# Luke I need your help to improve this method. 
+# Ideally i should be able to call asset_browser_tag( field_id , opts = {} ) method from here.
+module ActionView
+  module Helpers
+    class FormBuilder
+        include ActionView::Helpers
+        
+        def asset_browser( field_id , opts = {} )
+          asset_id = self.object.send(field_id.to_s)
+          filter = opts[:filter].blank? ? "all" : opts[:filter]
+
+          opts[:id] = "#{field_id}_#{asset_id}" if opts[:id].blank?
+          html_id = opts[:id]
+          button_text = opts[:button_text].blank? ? "Browse" : opts[:button_text]
+            
+          opts[:button_class] = "" if opts[:button_class].blank?  
+          opts[:button_class] << "button choose"  
+
+          # Find the asset so we can get the name
+          asset_info = "Nothing selected"
+          unless asset_id.blank?
+            asset = Gluttonberg::Asset.find(asset_id)
+            asset_info = if asset
+              asset_tag(asset , :small_thumb).html_safe + content_tag(:span , asset.name) 
+            else
+              "Asset missing!"
+            end    
+          end
+           
+          #hack for url
+          admin_asset_browser_url = "/admin/browser"
+
+          # Output it all
+          link_contents =  content_tag(:span , asset_info) 
+          link_contents << hidden_field_tag("filter_#{html_id}"  , value=filter  )
+          link_contents << link_to(button_text, admin_asset_browser_url + "?filter=#{filter}" , { :class => opts[:button_class] , :rel => html_id })
+          link_contents << self.hidden_field(field_id , { :id => html_id , :class => "choose_asset_hidden_field" } )  
+
+          content_tag(:span , link_contents , { :class => "assetBrowserLink" } )
+        end
+        
+        def asset_tag(asset , thumbnail_type = nil)
+           unless asset.blank?
+             path = thumbnail_type.blank? ? asset.url : asset.url_for(thumbnail_type)
+             content_tag(:img , "", :class => asset.name , :alt => asset.name , :src => path)
+           end 
+        end
+    end
+  end
+end  

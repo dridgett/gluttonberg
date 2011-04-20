@@ -8,7 +8,7 @@
       by
       = @article.author.email
     %p
-      = @article.body
+      = @article.body.html_safe
       
   #comments
     %h3
@@ -21,7 +21,7 @@
       - @comments.each do |comment|
         .comment
           .content
-            = comment.body
+            = comment.body.html_safe
           .author
             - if comment.author.blank?
               Anonymous

@@ -73,7 +73,12 @@
   
 %h3 Public path
 %dl  
+  %dd Actual Image
   %dd= text_field(nil ,nil ,:value => asset_url(@asset) , :id => "public-path")  
+  
+  - Gluttonberg::Asset.sizes.each do |asset_size_type , val|
+    %dd= val[:label]
+    %dd= text_field(nil ,nil ,:value => asset_url(@asset , :thumb_name => asset_size_type ) , :id => "public-path")  
   
   
 %p#public-path-note 

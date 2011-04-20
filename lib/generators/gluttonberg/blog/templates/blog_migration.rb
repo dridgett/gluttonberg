@@ -17,6 +17,7 @@ class BlogMigration < ActiveRecord::Migration
       t.integer :blog_id, :null => false
       t.integer :user_id, :null => false
       t.integer :author_id, :null => false
+      t.integer :featured_image_id
       t.timestamps
     end
     

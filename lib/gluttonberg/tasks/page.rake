@@ -2,7 +2,7 @@ namespace :gluttonberg do
   
   desc "Generate default locale (en-au)"
   task :generate_default_locale => :environment do
-    Gluttonberg::Setting.generate_default_locale
+    Gluttonberg::Locale.generate_default_locale
   end
   
   desc "Generate or update default settings"
