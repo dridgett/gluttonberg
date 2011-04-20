@@ -17,7 +17,29 @@ $(document).ready(function() {
 function enable_jwysiwyg_on(selector){
   $(document).ready(function(){
    $(selector).wysiwyg();
+   $(selector).wysiwyg("addControl", "asset_selector", {
+   				groupIndex: 6,
+   				icon: '/images/browse_images_control.gif',
+   				tooltip: 'Select Image From Library',
+   				tags: ['library'],
+   				exec: function () {
+  
+   				},
+   				callback: function (event, Wysiwyg) {
+   				  
+   				  var url = "/admin/browser?filter=image"
+   				  var link = $("<img src='/admin/browser?filter=image' />");
+   				  var p = $("<p> </p>")
+   				  $.get(url, null, function(markup) {AssetBrowser.load(p, link, markup , Wysiwyg);});    
+   				  
+   					
+      			
+   				}
+   			});
+  
   }); 
+  
+  
 }
 
 // if container element has class "add_to_photoseries" , it returns html of new image
@@ -64,11 +86,14 @@ var AssetBrowser = {
   overlay: null,
   dialog: null,
 	imageDisplay: null,
+	Wysiwyg: null,
 	
 	filter: null,
-  load: function(p, link, markup ) {
+  load: function(p, link, markup , Wysiwyg ) {
 	
-		
+		if(Wysiwyg != undefined){
+		  AssetBrowser.Wysiwyg = Wysiwyg;
+		}
 		AssetBrowser.filter = $("#filter_" + $(link).attr("rel")); // its used for category filtering on assets and collections	
 	
     // Set everthing up
@@ -150,9 +175,23 @@ var AssetBrowser = {
 			if(AssetBrowser.target !== null){
 				AssetBrowser.target.attr("value", id); 
 				var image = target.find("div").html();
+				
+				if(AssetBrowser.Wysiwyg != undefined && AssetBrowser.Wysiwyg !== null){
+    		  Wysiwyg = AssetBrowser.Wysiwyg;
+    		  image_url = $(image).attr('src');
+    			title = ""
+    			description = "";
+    			style = "";
+    			image = "<img src='" + image_url + "' title='" + title + "' alt='" + description + "'" + style + "/>";
+          Wysiwyg.insertHtml(image);
+    		}
+				
 				AssetBrowser.imageDisplay.html(image);    					      	
 				AssetBrowser.nameDisplay.html(name);
-			}	
+				
+				
+			}
+			
       AssetBrowser.close();
     }
     else if (target.is("#previous") || target.is("#next")) {
