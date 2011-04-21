@@ -42,14 +42,14 @@ module Gluttonberg
           conditions = {:order => get_order, :per_page => Rails.configuration.gluttonberg[:library_number_of_per_page_assets] , :page => params[:page]}
           if params[:category] == "all" then
             # ignore asset category if user selects 'all' from category
-            @assets = Asset.paginate( conditions ) 
+            @assets = Asset.includes(:asset_type).paginate( conditions ) 
           else
             req_category = AssetCategory.first(:conditions => "name = '#{params[:category]}'" )
             # if category is not found then raise exception
             if req_category.blank?
               raise ActiveRecord::RecordNotFound  
             else
-              @assets = req_category.assets.paginate( conditions )                   
+              @assets = req_category.assets.includes(:asset_type).paginate( conditions )                   
             end          
           end # category#all      
         end
