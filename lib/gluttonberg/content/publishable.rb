@@ -10,10 +10,10 @@ module Gluttonberg
         klass.class_eval do
           extend ClassMethods
           include InstanceMethods
-          named_scope :published, :conditions => { :state => "published" }
-          named_scope :archived, :conditions => { :state => "archived" }
-          named_scope :draft, :conditions => { :state => "draft" }
-          named_scope :non_published, :conditions => "state != 'published'" 
+          scope :published, :conditions => { :state => "published" }
+          scope :archived, :conditions => { :state => "archived" }
+          scope :draft, :conditions => { :state => "draft" }
+          scope :non_published, :conditions => "state != 'published'" 
         end
       end
 

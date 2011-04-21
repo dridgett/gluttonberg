@@ -5,13 +5,11 @@
     %meta{"http-equiv" => "Content-Type", :content => "text/html;charset=utf-8" }/
 
     
-    = stylesheet_link_tag "admin" 
+    = stylesheet_link_tag "admin" , "jquery.ui.autocomplete.custom.css" 
     
     = custom_stylesheet_link_tag
     
-    = javascript_include_tag "jquery-1.4.2.min.js" , "jquery.dimensions.min.js" , "jquery-ui-1.8.1.custom.min.js" , "jquery.dragTree.js" , "rails"
-    
-    /= javascript_include_tag "jquery-1.2.6.min.js" , "jquery.dimensions.min.js" , "jquery-ui-1.6.custom.min.js" , "jquery.dragTree.old.js" ,  "gb_application" 
+    = javascript_include_tag "jquery-1.4.2.min.js" , "jquery.dimensions.min.js" , "jquery-ui-1.8.1.custom.min.js" , "jquery.dragTree.js" , "rails" , "jquery.tagarea.js"
     
     = wysiwyg_js_css_link_tag
     

@@ -6,7 +6,7 @@ module Gluttonberg
   require 'zip/zip'
   require 'acts_as_tree'
   require 'acts_as_list'
-  require 'acts_as_versioned'
+  require 'acts_as_versioned'  
   require 'gluttonberg/authorizable'
   require 'gluttonberg/components'
   require 'gluttonberg/content'
@@ -17,6 +17,7 @@ module Gluttonberg
   require 'gluttonberg/page_description'
   require 'gluttonberg/templates'
   require 'gluttonberg/middleware'
+  
   
     # These should likely move into one of the initializers inside of the
     # engine config. This will ensure they only run after Rails and the app

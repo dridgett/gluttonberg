@@ -9,7 +9,9 @@ $(document).ready(function() {
 	$("#wrapper p#contextualHelp a").click(Help.click);  
 	
 	initClickEventsForAssetLinks($("body"));
-
+  
+  init_tag_area();
+  
 });
 
 
@@ -51,6 +53,19 @@ function enable_jwysiwyg_on(selector){
   
   
 }
+
+// input/textarea tags with .tags class will be initlized as 
+function init_tag_area(){
+	try{
+		$('.tags').tagarea({
+			separator: ','  
+		});
+	}catch(e){
+		console.log(e)
+		}
+}
+
+
 
 // if container element has class "add_to_photoseries" , it returns html of new image
 function initClickEventsForAssetLinks( element ){

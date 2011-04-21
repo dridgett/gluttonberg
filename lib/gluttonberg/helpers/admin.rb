@@ -254,6 +254,19 @@ module Gluttonberg
         end
       end
       
+      def tags_string(tag_type)
+        @themes = ActsAsTaggableOn::Tag.find_by_sql(%{select DISTINCT tags.id , tags.name 
+          from tags inner join taggings on tags.id = taggings.tag_id 
+          where context = '#{tag_type}'
+        })
+        output = ""
+        @themes.each do |theme|
+          output << "," unless output.blank?
+          output << theme.name
+        end
+        output
+      end
+      
     end # Admin
   end # Helpers
 end # Gluttonberg

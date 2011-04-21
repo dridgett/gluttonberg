@@ -58,7 +58,8 @@ module Gluttonberg
     end
     
     initializer "setup gluttonberg asset library" do |app| 
-      Gluttonberg::Library.setup      
+      Gluttonberg::Library.setup     
+      require "acts-as-taggable-on" 
     end
     
   end

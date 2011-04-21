@@ -1,4 +1,4 @@
-module Gluttonberg
+module Gluttonberg  
   class Article < ActiveRecord::Base
     set_table_name "gb_articles"
     include Content::SlugManagement
@@ -10,5 +10,10 @@ module Gluttonberg
     belongs_to :featured_image , :foreign_key => :featured_image_id , :class_name => "Gluttonberg::Asset"
     
     is_versioned :non_versioned_columns => 'state'
+    
+    validates_presence_of :title
+    
+    acts_as_taggable_on :article_category , :tag
+    
   end
 end

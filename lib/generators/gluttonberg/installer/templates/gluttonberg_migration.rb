@@ -174,6 +174,26 @@ class GluttonbergMigration < ActiveRecord::Migration
     rescue => e
       puts e
     end
+    
+    create_table :tags do |t|
+      t.string :name
+    end
+
+    create_table :taggings do |t|
+      t.references :tag
+
+      # You should make sure that the column created is
+      # long enough to store the required class names.
+      t.references :taggable, :polymorphic => true
+      t.references :tagger, :polymorphic => true
+
+      t.string :context
+
+      t.datetime :created_at
+    end
+
+    add_index :taggings, :tag_id
+    add_index :taggings, [:taggable_id, :taggable_type, :context]
          
   end
 
@@ -195,5 +215,7 @@ class GluttonbergMigration < ActiveRecord::Migration
     drop_table :gb_assets
     drop_table :gb_asset_collections_assets
     drop_table :gb_audio_asset_attributes
+    drop_table :taggings
+    drop_table :tags
   end
 end

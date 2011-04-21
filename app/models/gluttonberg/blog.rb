@@ -7,6 +7,10 @@ module Gluttonberg
     belongs_to :user
     has_many :articles, :dependent => :destroy
     
+    validates_presence_of :name
+    
     is_versioned :non_versioned_columns => 'state'
+    
+    acts_as_taggable_on :tag
   end
 end

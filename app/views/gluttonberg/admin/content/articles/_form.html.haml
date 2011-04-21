@@ -32,6 +32,14 @@
     %p
       = f.label :body
       = f.text_area(:body  , :class => "jwysiwyg" )
+    
+    %p
+      = f.label :article_category_list , "Category"
+      = f.text_field(:article_category_list, :class => "tags" , :rel => tags_string("article_category") ) 
+    
+    %p
+      = f.label :tag_list , "Tags"
+      = f.text_field(:tag_list, :class => "tags" , :rel => tags_string("tag") )   
   
   = f.publisable_dropdown 
   = form_controls(admin_pages_path)
