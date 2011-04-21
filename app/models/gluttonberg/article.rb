@@ -2,6 +2,7 @@ module Gluttonberg
   class Article < ActiveRecord::Base
     set_table_name "gb_articles"
     include Content::SlugManagement
+    include Content::Publishable
     
     belongs_to :blog
     belongs_to :author, :class_name => "User"

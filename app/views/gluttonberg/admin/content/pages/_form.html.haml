@@ -28,6 +28,6 @@
     = f.label :description_name  , "Page Description"
     = f.select(:description_name, @descriptions , :include_blank => true)  
   
-  = publisable_dropdown(f , @page)
+  = f.publisable_dropdown
        
   = form_controls(admin_pages_path)

@@ -6,6 +6,7 @@ class BlogMigration < ActiveRecord::Migration
       t.string :slug, :null => false
       t.text :description
       t.integer :user_id, :null => false
+      t.column :state , :string
       t.timestamps
     end
     
@@ -16,8 +17,9 @@ class BlogMigration < ActiveRecord::Migration
       t.text :body
       t.integer :blog_id, :null => false
       t.integer :user_id, :null => false
-      t.integer :author_id, :null => false
+      t.integer :author_id, :null => false      
       t.integer :featured_image_id
+      t.column :state , :string
       t.timestamps
     end
     

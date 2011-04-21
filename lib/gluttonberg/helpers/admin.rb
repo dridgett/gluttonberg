@@ -255,3 +255,24 @@ module Gluttonberg
     end # Admin
   end # Helpers
 end # Gluttonberg
+
+
+
+
+
+
+module ActionView
+  module Helpers
+    class FormBuilder
+        include ActionView::Helpers
+        
+        def publisable_dropdown
+          object = self.object
+          val = object.state
+          val = "ready" if val.blank? || val == "not_ready"
+          @@workflow_states = [  [ 'Draft' , 'ready' ] , ['Published' , "published" ] , [ "Archived" , 'archived' ]  ]
+          select( :state, options_for_select(@@workflow_states , val)   ) 
+        end
+    end
+  end
+end

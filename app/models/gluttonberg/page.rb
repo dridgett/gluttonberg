@@ -12,13 +12,10 @@ module Gluttonberg
     Content::Block.classes.each do |klass| 
       has_many klass.association_name, :class_name => klass.name, :dependent => :destroy
     end
-
     
     validates_presence_of :name , :description_name
     
     set_table_name "gb_pages"
-       
-    
     
     after_save   :check_for_home_update
 

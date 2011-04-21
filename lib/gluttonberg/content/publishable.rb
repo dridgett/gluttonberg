@@ -10,54 +10,26 @@ module Gluttonberg
         klass.class_eval do
           extend ClassMethods
           include InstanceMethods
-          
+          named_scope :published, :conditions => { :state => "published" }
+          named_scope :archived, :conditions => { :state => "archived" }
+          named_scope :draft, :conditions => { :state => "draft" }
+          named_scope :non_published, :conditions => "state != 'published'" 
         end
       end
 
       module ClassMethods
         
-        # Returns the first matching record that is not published. May be called 
-        # with additional conditions.
-        def unpublished(options = {})
-          options[:published] = false
-          find(:first , :conditions => options)
-        end
-        
-        # Returns the first matching record that is published. May be called 
-        # with additional conditions.
-        def published(options = {})
-          options[:published] = true
-          find(:first , :conditions => options)
-        end
-      
-        # Returns all matching records that are published. May be called 
-        # with additional conditions.
-        def all_published(options = {})
-          options[:published] = true
-          find(:all , :conditions => options)
-        end
-        
-        # Returns all matching records that are published for a particular user. May be called 
-        # with additional conditions.
-        def all_published_for_user( user , options = {})
-          options[:published] = true
-          options[:user_id] = user.id unless user.is_super_admin        
-          find(:all , :conditions => options)
-        end
-        
-        # Returns all matching records that are published. May be called 
-        # with additional conditions.
-        def all_unpublished(options = {})
-          options[:published] = false
-          find(:all , :conditions => options)
-        end
-        
+         
         # Returns all matching records that are published for a particular user. May be called 
         # with additional conditions.
         def all_unpublished_for_user( user , options = {})
-          options[:published] = false
-          options[:user_id] = user.id unless user.is_super_admin        
-          find(:all , :conditions => options)
+          if options[:conditions].blank?
+             options[:conditions] = { :state => "published" }
+          else   
+            options[:conditions][:state] = "published"
+          end
+          
+          all(options)
         end
         
       end

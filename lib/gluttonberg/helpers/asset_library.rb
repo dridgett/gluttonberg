@@ -85,16 +85,13 @@ module Gluttonberg
          content_tag(:span , link_contents , { :class => "assetBrowserLink" } )
        end
        
-       
-
-       
        def asset_paginator(assets , name_or_id , type)
-           render :partial => "gluttonberg/admin/shared/asset_paginator.html" , :locals => {:assets => assets , :name_or_id => name_or_id , :type => type}
+          render :partial => "gluttonberg/admin/shared/asset_paginator.html" , :locals => {:assets => assets , :name_or_id => name_or_id , :type => type}
        end
 
               
        def asset_panel(assets, name_or_id , type)
-           render :partial => "gluttonberg/admin/shared/asset_panel.html" , :locals => {:assets => assets , :name_or_id => name_or_id , :type => type}
+          render :partial => "gluttonberg/admin/shared/asset_panel.html" , :locals => {:assets => assets , :name_or_id => name_or_id , :type => type}
        end
 
        
