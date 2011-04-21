@@ -12,30 +12,58 @@ $(document).ready(function() {
 
 });
 
-
+// $(selector).wysiwyg({
+//         rmUnusedControls: true,
+//        controls: {
+//          bold: { visible : true },
+//          italic: { visible : true },
+//          underline: { visible : true },
+//          justifyLeft: { visible : true },
+//          justifyRight: { visible : true },
+//          subscript: { visible : true },
+//          superscript: { visible : true },
+//          insertOrderedList: { visible : true },
+//          insertUnorderedList: { visible : true },
+//          insertImage: { visible : true },
+//          insertTable: { visible : true },
+//          h1: { visible : true },
+//          h2: { visible : true },
+//          h3: { visible : true },
+//          html: { visible : true },
+//          insertOrderedList: { visible : true },
+//          removeFormat: { visible : true }
+//        }
 
 function enable_jwysiwyg_on(selector){
   $(document).ready(function(){
-   $(selector).wysiwyg();
-   $(selector).wysiwyg("addControl", "asset_selector", {
+    $(selector).wysiwyg({
+      			controls: {
+      				strikeThrough: { visible : false },
+      				justifyCenter: { visible : false },
+      				justifyFull: { visible : false },
+      				justifyCenter: { visible : false },
+      				subscript: { visible : false },
+              superscript: { visible : false },
+              redo: { visible : false },
+              undo: { visible : false },
+      				html: { visible : true }
+      			}
+    });
+    $(selector).wysiwyg("addControl", "asset_selector", {
    				groupIndex: 6,
-   				icon: '/images/browse_images_control.gif',
+   				icon: '/images/library/browse_images_control.gif',
    				tooltip: 'Select Image From Library',
    				tags: ['library'],
    				exec: function () {
-  
+            
    				},
    				callback: function (event, Wysiwyg) {
-   				  
    				  var url = "/admin/browser?filter=image"
    				  var link = $("<img src='/admin/browser?filter=image' />");
    				  var p = $("<p> </p>")
-   				  $.get(url, null, function(markup) {AssetBrowser.load(p, link, markup , Wysiwyg);});    
-   				  
-   					
-      			
+   				  $.get(url, null, function(markup) {AssetBrowser.load(p, link, markup , Wysiwyg);});
    				}
-   			});
+    });
   
   }); 
   
