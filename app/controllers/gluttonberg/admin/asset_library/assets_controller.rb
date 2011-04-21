@@ -14,7 +14,8 @@ module Gluttonberg
           @assets = Asset.find(:all, 
               :conditions => { :updated_at => ((Time.now - 24.hours).gmtime)..(Time.now.gmtime)  }, 
               :limit => Rails.configuration.gluttonberg[:library_number_of_recent_assets] , 
-              :order => "updated_at" 
+              :order => "updated_at" , 
+              :include => :asset_type
           )
           # all categories for categories tab
           @categories = AssetCategory.all
