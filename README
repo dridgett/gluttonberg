@@ -40,6 +40,13 @@ Then boot your Rails app.
 Simple as that!
 
 =======================================================================================
+ASSET LIBRARY
+
+First, you should install ImageMagick (www.imagemagick.org/) on your machine. Command line tools of ImageMagick must be in your system path. You can check this by running the command:
+
+Customise your asset library settings in application.rb file. gluttonberg:installer will generate an example setting in readme file.
+
+=======================================================================================
 
 AUTHENTICATION
 

@@ -12,27 +12,6 @@ $(document).ready(function() {
 
 });
 
-// $(selector).wysiwyg({
-//         rmUnusedControls: true,
-//        controls: {
-//          bold: { visible : true },
-//          italic: { visible : true },
-//          underline: { visible : true },
-//          justifyLeft: { visible : true },
-//          justifyRight: { visible : true },
-//          subscript: { visible : true },
-//          superscript: { visible : true },
-//          insertOrderedList: { visible : true },
-//          insertUnorderedList: { visible : true },
-//          insertImage: { visible : true },
-//          insertTable: { visible : true },
-//          h1: { visible : true },
-//          h2: { visible : true },
-//          h3: { visible : true },
-//          html: { visible : true },
-//          insertOrderedList: { visible : true },
-//          removeFormat: { visible : true }
-//        }
 
 function enable_jwysiwyg_on(selector){
   $(document).ready(function(){

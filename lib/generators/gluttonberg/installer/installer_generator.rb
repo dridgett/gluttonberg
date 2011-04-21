@@ -43,9 +43,22 @@ class Gluttonberg::InstallerGenerator < Rails::Generators::Base
   end
   
   def localization_config
-    application "  # config.localize = false  "
-    application "  # By Default gluttonberg applications are localized. If you do not want localized application then uncomment following line."    
-    application "  "
+    
+    application %{
+     # Gluttonberg Related config
+       
+     # config.localize = false  
+     # By Default gluttonberg applications are localized. If you do not want localized application then uncomment following line.
+       
+     # You can customize your thumbnails. For geometry values please read ImageMagick documentation
+     # config.thumbnails = { 
+     #   :jwysiwyg_image => {:label => "Thumb for jwysiwyg", :filename => "_jwysiwyg_image", :geometry => "250x200"} ,
+     #   :show_page_image => {:label => "Image for show page", :filename => "show_page_image", :geometry => "500x350"} ,
+     #   .....
+     # }
+      
+    }
+    
   end
     
 end
