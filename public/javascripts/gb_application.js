@@ -185,7 +185,7 @@ var AssetBrowser = {
 				
 				if(AssetBrowser.Wysiwyg != undefined && AssetBrowser.Wysiwyg !== null){
     		  Wysiwyg = AssetBrowser.Wysiwyg;
-    		  image_url = $(image).attr('src');
+    		  image_url = target.find(".jwysiwyg_image").val();
     			title = ""
     			description = "";
     			style = "";
@@ -195,7 +195,6 @@ var AssetBrowser = {
 				
 				AssetBrowser.imageDisplay.html(image);    					      	
 				AssetBrowser.nameDisplay.html(name);
-				
 				
 			}
 			

@@ -8,7 +8,8 @@
           %h2= asset.name
           %p= "Added #{asset.created_at}"
           %div
-            %img{:src => asset.thumb_small_url}/
+            %img{:src => asset.thumb_small_url  }
+          
     
    
   - if @assets.total_pages > 1
