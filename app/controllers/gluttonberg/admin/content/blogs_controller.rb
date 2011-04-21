@@ -25,6 +25,10 @@ module Gluttonberg
         end
         
         def edit
+          unless params[:version].blank?
+            @version = params[:version]  
+            @blog.revert_to(@version)
+          end
         end
         
         def update

@@ -211,7 +211,8 @@ module Gluttonberg
       end
       
       def version_listing(versions , selected_version_num )
-        output = "<div class='historycontrols'>"
+        unless versions.blank?
+          output = "<div class='historycontrols'>"
           selected = versions.last.version
           selected_version = versions.last
           collection = []
@@ -238,7 +239,8 @@ module Gluttonberg
           output += "<br />"
           output += "<br />"
           output.html_safe
-        end
+        end  
+      end
       
       def custom_stylesheet_link_tag
         if Rails.configuration.gluttonberg[:custom_css_for_cms] == "Yes"

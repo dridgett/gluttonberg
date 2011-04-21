@@ -1,6 +1,5 @@
 class BlogMigration < ActiveRecord::Migration 
   def self.up
-    
     create_table :gb_blogs do |t|
       t.string :name, :null => false
       t.string :slug, :null => false
@@ -33,6 +32,18 @@ class BlogMigration < ActiveRecord::Migration
       t.boolean :moderation_required, :default => true
       t.boolean :approved, :default => false
       t.timestamps
+    end
+    
+    begin
+      Gluttonberg::Blog.create_versioned_table
+    rescue => e
+      puts e
+    end
+    
+    begin
+      Gluttonberg::Article.create_versioned_table
+    rescue => e
+      puts e
     end
     
   end

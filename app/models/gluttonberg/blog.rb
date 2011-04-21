@@ -6,6 +6,7 @@ module Gluttonberg
     
     belongs_to :user
     has_many :articles, :dependent => :destroy
-        
+    
+    is_versioned :non_versioned_columns => 'state'
   end
 end

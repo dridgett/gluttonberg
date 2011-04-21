@@ -33,6 +33,10 @@ module Gluttonberg
         
         def edit
           @authors = User.all
+          unless params[:version].blank?
+            @version = params[:version]  
+            @article.revert_to(@version)
+          end
         end
         
         def update

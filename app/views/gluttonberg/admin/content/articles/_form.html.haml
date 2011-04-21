@@ -4,6 +4,9 @@
   = back_link("Blogs", admin_blogs_path)
   = back_link("Articles", admin_blog_articles_path(@blog))
 
+- unless @article.blank?
+  = version_listing(@article.versions , @version )
+
 = form_for(@article, :url => url) do  |f|
   = gb_error_messages_for(@article)
   
