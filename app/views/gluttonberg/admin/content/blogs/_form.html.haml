@@ -16,6 +16,9 @@
     = f.text_field(:slug, :id => 'page_slug')
     %br
     = f.label :description
-    = f.text_area(:description)
+    = f.text_area(:description , :class => "jwysiwyg" )
    
   = form_controls(admin_pages_path)
+
+
+= enable_jwysiwyg_on_class("jwysiwyg")

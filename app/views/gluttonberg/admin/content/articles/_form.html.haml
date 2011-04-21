@@ -22,12 +22,15 @@
     %p
       = f.label :featured_image_id
       = f.asset_browser( :featured_image_id ,  opts = { :filter => "image"   } )  
-      
+    
     %p
       = f.label :excerpt
-      = f.text_area(:excerpt)
+      = f.text_area(:excerpt  , :class => "jwysiwyg" )
     %p
       = f.label :body
-      = f.text_area(:body)
+      = f.text_area(:body  , :class => "jwysiwyg" )
    
   = form_controls(admin_pages_path)
+
+
+= enable_jwysiwyg_on_class("jwysiwyg")

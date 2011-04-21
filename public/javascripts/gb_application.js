@@ -34,13 +34,16 @@ function enable_jwysiwyg_on(selector){
    				tooltip: 'Select Image From Library',
    				tags: ['library'],
    				exec: function () {
-            
-   				},
-   				callback: function (event, Wysiwyg) {
-   				  var url = "/admin/browser?filter=image"
+   				  // $(this) is returning array which have only one object. that is why i am taking first object.
+            Wysiwyg = $(this)[0];
+            var url = "/admin/browser?filter=image"
    				  var link = $("<img src='/admin/browser?filter=image' />");
    				  var p = $("<p> </p>")
    				  $.get(url, null, function(markup) {AssetBrowser.load(p, link, markup , Wysiwyg);});
+   				},
+   				callback: function (event, Wysiwyg) {
+   				  // if we have multiple jWysiwyg on same page. jWysiwyg is calling callback twice which is causing issues. That is why i moved asset selector code 
+   				  // from callback to exec.
    				}
     });
   
@@ -97,12 +100,12 @@ var AssetBrowser = {
 	
 	filter: null,
   load: function(p, link, markup , Wysiwyg ) {
-	
+	  console.log("------step1")
 		if(Wysiwyg != undefined){
 		  AssetBrowser.Wysiwyg = Wysiwyg;
 		}
 		AssetBrowser.filter = $("#filter_" + $(link).attr("rel")); // its used for category filtering on assets and collections	
-	
+		  console.log("------step2")
     // Set everthing up
     AssetBrowser.showOverlay();
     $("body").append(markup);
@@ -140,6 +143,7 @@ var AssetBrowser = {
     AssetBrowser.display.find("a").click(AssetBrowser.click);
     AssetBrowser.backControl.click(AssetBrowser.back);
 		
+			  console.log("------step end")
 
   },
   resizeDisplay: function() {
