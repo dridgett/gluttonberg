@@ -10,46 +10,47 @@
       = asset_tag(@article.featured_image , :small_thumb)
     %p
       = @article.body.html_safe
+  - unless @article.commenting_disabled?       
+    #comments
+      %h3
+        Comments
       
-  #comments
-    %h3
-      Comments
-      
-    - if @comments.blank?
-      %p
-        There are no comments.
-    - else
-      - @comments.each do |comment|
-        .comment
-          .content
-            = comment.body
-          .author
-            - if comment.author.blank?
-              Anonymous
-            - else
-              = comment.author.email
-          .time
-            = time_ago_in_words(comment.created_at)
-            ago
+      - if @comments.blank?
+        %p
+          There are no comments.
+      - else
+        - @comments.each do |comment|
+          .comment
+            .content
+              = comment.body
+            .author
+              - if comment.author.blank?
+                Anonymous
+              - else
+                = comment.author.email
+            .time
+              = time_ago_in_words(comment.created_at)
+              ago
+            %br
+       
+    #new_comment
+      = form_for(:comment, :url => blog_article_comments_path(@blog.slug, @article.slug)) do |f|
+        %p
+          = f.label :name
           %br
-  #new_comment
-    = form_for(:comment, :url => blog_article_comments_path(@blog.slug, @article.slug)) do |f|
-      %p
-        = f.label :name
-        %br
-        = f.text_field :author_name
-      %p
-        = f.label :email
-        %br
-        = f.text_field :author_email
-      %p
-        = f.label :website
-        %br
-        = f.text_field :author_website
-      %p
-        = f.label :comment
-        %br
-        = f.text_area :body
+          = f.text_field :author_name
+        %p
+          = f.label :email
+          %br
+          = f.text_field :author_email
+        %p
+          = f.label :website
+          %br
+          = f.text_field :author_website
+        %p
+          = f.label :comment
+          %br
+          = f.text_area :body
         
-      %p
-        = f.submit
+        %p
+          = f.submit

@@ -80,6 +80,7 @@ Rails.application.routes.draw do
           resources :comments
         end
       end
+      match "/articles/tag/:tag" => "articles#tag" , :as => :articles_by_tag
       
     end
     

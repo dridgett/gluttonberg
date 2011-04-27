@@ -9,11 +9,15 @@ module Gluttonberg
     has_many :comments, :as => :commentable, :dependent => :destroy
     belongs_to :featured_image , :foreign_key => :featured_image_id , :class_name => "Gluttonberg::Asset"
     
-    is_versioned :non_versioned_columns => 'state'
+    is_versioned :non_versioned_columns => ['state' , 'disable_comments' ]
     
     validates_presence_of :title
     
     acts_as_taggable_on :article_category , :tag
+    
+    def commenting_disabled?
+      !disable_comments.blank? && disable_comments
+    end
     
   end
 end

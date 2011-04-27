@@ -24,6 +24,7 @@ module Gluttonberg
           excluded_columns = options.delete(:non_versioned_columns)
           acts_as_versioned( options.merge( :limit => Rails.configuration.gluttonberg[:number_of_revisions] ) , &extension )   
           self.non_versioned_columns << excluded_columns 
+          self.non_versioned_columns.flatten!
         end
         
         def versioned?

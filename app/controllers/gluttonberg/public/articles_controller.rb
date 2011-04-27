@@ -16,6 +16,11 @@ module Gluttonberg
         @comments = @article.comments.where(:approved => true)
       end
       
+      def tag
+        @articles = Article.tagged_with(params[:tag]).includes(:blog).published 
+        @tags = Gluttonberg::Article.published.tag_counts_on(:tag)   
+      end
+      
   
     end
   end

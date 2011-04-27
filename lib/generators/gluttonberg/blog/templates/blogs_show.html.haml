@@ -10,3 +10,7 @@
         = article.author.email
       %p
         = article.excerpt
+  
+  .tags_cloud
+    - tag_cloud(@tags, %w(css1 css2 css3 css4)) do |tag, css_class|
+      = link_to tag.name, articles_by_tag_path(tag.name), :class => css_class

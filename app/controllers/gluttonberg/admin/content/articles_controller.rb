@@ -12,6 +12,7 @@ module Gluttonberg
           @articles = Article.all(:conditions => {:blog_id => @blog.id})
         end
         
+        
         def show
           @comment = Comment.new
         end

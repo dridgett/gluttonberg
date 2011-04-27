@@ -8,7 +8,7 @@ module Gluttonberg
         before_filter :find_blog, :only => [:edit, :update, :delete, :destroy]
         
         def index
-          @blogs = Blog.all
+          @blogs = Blog.all          
         end
         
         def new
@@ -38,7 +38,7 @@ module Gluttonberg
             render :edit
           end
         end
-        
+                
         def delete
           display_delete_confirmation(
             :title      => "Delete Blog '#{@blog.name}'?",
@@ -58,6 +58,7 @@ module Gluttonberg
           end
         end
         
+                
         protected
         
           def find_blog

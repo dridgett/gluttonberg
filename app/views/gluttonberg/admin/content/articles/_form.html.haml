@@ -40,6 +40,10 @@
     %p
       = f.label :tag_list , "Tags"
       = f.text_field(:tag_list, :class => "tags" , :rel => tags_string("tag") )   
+      
+    %p
+      = f.label :disable_comments
+      = f.check_box(:disable_comments, :id => 'disable_comments')  
   
   = f.publisable_dropdown 
   = form_controls(admin_pages_path)

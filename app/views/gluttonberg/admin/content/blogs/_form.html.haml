@@ -19,11 +19,10 @@
     = f.text_field(:slug, :id => 'page_slug')
     %br
     = f.label :description
-    = f.text_area(:description , :class => "jwysiwyg" )
-    
-    %p
-      = f.label :tag_list , "Tags"
-      = f.text_field(:tag_list, :class => "tags" , :rel => tags_string("tag") )
+    = f.text_area(:description , :class => "jwysiwyg" )    
+    /%p
+    /  = f.label :tag_list , "Tags"
+    /  = f.text_field(:tag_list, :class => "tags" , :rel => tags_string("tag") )
   
   = f.publisable_dropdown
   = form_controls(admin_pages_path)

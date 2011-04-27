@@ -19,6 +19,7 @@ class BlogMigration < ActiveRecord::Migration
       t.integer :author_id, :null => false      
       t.integer :featured_image_id
       t.column :state , :string
+      t.column :disable_comments , :boolean , :default => false 
       t.timestamps
     end
     

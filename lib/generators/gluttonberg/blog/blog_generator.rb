@@ -31,7 +31,8 @@ class Gluttonberg::BlogGenerator < Rails::Generators::Base
         'blogs_index.html.haml' => File.join('app/views/gluttonberg/public/blogs', "index.html.haml"),
         'blogs_show.html.haml' => File.join('app/views/gluttonberg/public/blogs', "show.html.haml"),
         'articles_index.html.haml' => File.join('app/views/gluttonberg/public/articles', "index.html.haml"),
-        'articles_show.html.haml' => File.join('app/views/gluttonberg/public/articles', "show.html.haml")
+        'articles_show.html.haml' => File.join('app/views/gluttonberg/public/articles', "show.html.haml"),
+        'articles_tag.html.haml' => File.join('app/views/gluttonberg/public/articles', "tag.html.haml")
       }
       copy_views(views)
     end
