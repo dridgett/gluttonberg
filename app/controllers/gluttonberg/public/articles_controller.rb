@@ -5,7 +5,7 @@ module Gluttonberg
       def index
         @blog = Gluttonberg::Blog.published.first(:conditions => {:slug => params[:blog_id]}, :include => [:articles])
         raise ActiveRecord::RecordNotFound.new if @blog.blank?
-        @articles = @blog.articles
+        @articles = @blog.articles.published
       end
   
       def show

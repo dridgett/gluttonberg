@@ -6,6 +6,7 @@ class BlogMigration < ActiveRecord::Migration
       t.text :description
       t.integer :user_id, :null => false
       t.column :state , :string
+      t.datetime :published_at 
       t.timestamps
     end
     
@@ -18,8 +19,9 @@ class BlogMigration < ActiveRecord::Migration
       t.integer :user_id, :null => false
       t.integer :author_id, :null => false      
       t.integer :featured_image_id
-      t.column :state , :string
+      t.column :state , :string #use for publishing
       t.column :disable_comments , :boolean , :default => false 
+      t.datetime :published_at 
       t.timestamps
     end
     

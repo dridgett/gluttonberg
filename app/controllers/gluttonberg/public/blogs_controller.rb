@@ -16,7 +16,7 @@ module Gluttonberg
       def show
         @blog = Gluttonberg::Blog.published.first(:conditions => {:slug => params[:id]}, :include => [:articles])
         raise ActiveRecord::RecordNotFound.new if @blog.blank?
-        @articles = @blog.articles
+        @articles = @blog.articles.published
         @tags = Gluttonberg::Article.published.tag_counts_on(:tag)
       end
   

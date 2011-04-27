@@ -78,6 +78,7 @@ class GluttonbergMigration < ActiveRecord::Migration
       t.column :position, :integer
       t.column :user_id, :integer
       t.column :state , :string
+      t.datetime :published_at 
     end
 
     create_table :gb_plain_text_contents do |t|

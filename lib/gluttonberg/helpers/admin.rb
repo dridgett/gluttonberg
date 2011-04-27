@@ -267,6 +267,12 @@ module Gluttonberg
         output
       end
       
+      def honeypot_field_tag
+        html = label_tag(Rails.configuration.honeypot_field_name , 'Please leave this field empty:' )
+        html << text_field_tag( Rails.configuration.honeypot_field_name )
+        content_tag :div , html , :class => Rails.configuration.honeypot_field_name , :style => "display:none"
+      end
+      
     end # Admin
   end # Helpers
 end # Gluttonberg
@@ -286,7 +292,7 @@ module ActionView
           val = object.state
           val = "ready" if val.blank? || val == "not_ready"
           @@workflow_states = [  [ 'Draft' , 'ready' ] , ['Published' , "published" ] , [ "Archived" , 'archived' ]  ]
-          select( :state, options_for_select(@@workflow_states , val)   ) 
+          select( :state, options_for_select(@@workflow_states , val)   ) + self.datetime_select("published_at")          
         end
     end
   end

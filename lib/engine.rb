@@ -18,6 +18,8 @@ module Gluttonberg
     config.gluttonberg = {}
     config.identify_locale = :prefix
     
+    config.honeypot_field_name = "gluttonberg_honeypot"
+    
     # Load rake tasks
     rake_tasks do
       load File.join(File.dirname(__FILE__), 'rails/railties/tasks.rake')
@@ -39,6 +41,7 @@ module Gluttonberg
     initializer "middleware" do |app|
       app.middleware.use Gluttonberg::Middleware::Locales
       app.middleware.use Gluttonberg::Middleware::Rewriter
+      app.middleware.use Gluttonberg::Middleware::Honeypot , config.honeypot_field_name
     end
       
 

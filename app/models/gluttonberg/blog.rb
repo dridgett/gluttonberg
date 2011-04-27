@@ -9,7 +9,7 @@ module Gluttonberg
     
     validates_presence_of :name
     
-    is_versioned :non_versioned_columns => 'state'
+    is_versioned :non_versioned_columns => ['state' ,'published_at' ]
     
     acts_as_taggable_on :tag
   end

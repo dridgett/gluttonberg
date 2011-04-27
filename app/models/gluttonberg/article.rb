@@ -9,7 +9,7 @@ module Gluttonberg
     has_many :comments, :as => :commentable, :dependent => :destroy
     belongs_to :featured_image , :foreign_key => :featured_image_id , :class_name => "Gluttonberg::Asset"
     
-    is_versioned :non_versioned_columns => ['state' , 'disable_comments' ]
+    is_versioned :non_versioned_columns => ['state' , 'disable_comments' , 'published_at' ]
     
     validates_presence_of :title
     
