@@ -294,6 +294,7 @@ module ActionView
           @@workflow_states = [  [ 'Draft' , 'ready' ] , ['Published' , "published" ] , [ "Archived" , 'archived' ]  ]
           select( :state, options_for_select(@@workflow_states , val)   ) + self.datetime_select("published_at")          
         end
+        
     end
   end
 end

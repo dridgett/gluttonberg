@@ -148,6 +148,8 @@ class GluttonbergMigration < ActiveRecord::Migration
     end
     
     create_table :gb_users do |t|
+      t.string :first_name, :null => false
+      t.string :last_name
       t.string :email, :null => false
       t.string :crypted_password, :null => false
       t.string :password_salt, :null => false
@@ -155,6 +157,7 @@ class GluttonbergMigration < ActiveRecord::Migration
       t.string :single_access_token, :null => false
       t.string :perishable_token, :null => false
       t.integer :login_count, :null => false, :default => 0
+      t.string :role, :null => false
       t.timestamps
     end
     

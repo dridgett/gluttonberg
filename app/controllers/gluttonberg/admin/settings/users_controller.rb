@@ -7,6 +7,9 @@ module Gluttonberg
         before_filter :find_user, :only => [:delete, :edit, :update, :destroy]
             
         def index
+          unless current_user.super_admin?
+            redirect_to :action => "edit" , :id => current_user.id
+          end
           @users = User.all
           @users = @users.paginate(:page => params[:page] , :per_page => 20 )
         end
@@ -59,12 +62,11 @@ module Gluttonberg
   
        private
           def find_user
-            #if current_user.admin?
-            #  @user = User.find(params[:id])
-            #else
-            #  @user =  current_user
-            #end
-            @user = User.find(params[:id])
+            if current_user.super_admin?
+             @user = User.find(params[:id])
+            else
+             @user =  current_user
+            end
             raise ActiveRecord::RecordNotFound  unless @user
           end
     

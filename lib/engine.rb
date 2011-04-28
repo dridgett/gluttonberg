@@ -17,7 +17,8 @@ module Gluttonberg
     config.encoding = "utf-8"
     config.gluttonberg = {}
     config.identify_locale = :prefix
-    
+    config.host_name = "localhost:3000"
+    config.user_roles = [] # User model always concat following two roles ["superadmin" , "admin"]
     config.honeypot_field_name = "gluttonberg_honeypot"
     
     # Load rake tasks

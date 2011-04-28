@@ -1,17 +1,29 @@
-
-
 = sub_nav do
   = back_link("Settings", admin_settings_path)
-  = back_link("Users", admin_users_path)
+  - if current_user.super_admin?
+    = back_link("Users", admin_users_path)
 
 = form_for(@user, :url => url) do  |f|
   = gb_error_messages_for(@user)
 
   = block("Details") do
-    = f.label :email , "E-mail"
-    = f.text_field(:email, :class => "large")
+    %div
+      = f.label :first_name
+      = f.text_field(:first_name, :class => "large")
+    
+    %div
+      = f.label :last_name
+      = f.text_field(:last_name, :class => "large")  
 
-    /= admin_rights_form(@user.new_record? ? session.user : @user)
+    %div
+      = f.label :email , "E-mail"
+      = f.text_field(:email, :class => "large")
+
+    -if current_user.super_admin? && current_user.id != @user.id     
+      %div
+        = f.label :role            
+        = f.select(:role , User.user_roles.collect{|u| [u.humanize , u] }  )
+       
 
   = block("Password") do
     = f.label :password , "Password"
@@ -19,5 +31,9 @@
     %br
     = f.label :password_confirmation , "Confirm Password"
     = f.password_field(:password_confirmation, :class => "medium", :label => "Confirm Password")
-
-  = form_controls(admin_users_path)
+    
+    
+  - if current_user.super_admin?
+    = form_controls(admin_users_path)
+  - else
+    = form_controls(admin_settings_path)

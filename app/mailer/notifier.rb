@@ -1,7 +1,7 @@
 class Notifier < ActionMailer::Base
   
   default :from => "noreply@freerangefuture.com"
-  default_url_options[:host] = "freerangefuture.com"
+  default_url_options[:host] = Rails.configuration.host_name 
   
   def password_reset_instructions(user_id)
     user = User.find(user_id)
