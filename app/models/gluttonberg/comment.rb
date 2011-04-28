@@ -6,9 +6,10 @@ module Gluttonberg
     belongs_to :article
     belongs_to :author, :class_name => "User"
     
+    before_save :init_moderation
     after_save :send_notifications_if_needed
     
-    attr_accessor :subscribe_to_comments
+    attr_accessor :subscribe_to_comments , :blog_slug
     
     def moderate(params)
       if params == "approve"
@@ -43,6 +44,14 @@ module Gluttonberg
     end
     
     protected
+      def init_moderation
+        if Blog.find(:first , :conditions => { :slug => blog_slug }).moderation_required == false
+          self.approved = true
+          write_attribute(:moderation_required, false)
+        end
+        true
+      end 
+    
       def send_notifications_if_needed        
         if @approve_updated == true
           @approve_updated = false

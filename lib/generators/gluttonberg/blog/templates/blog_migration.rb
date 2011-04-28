@@ -6,6 +6,7 @@ class BlogMigration < ActiveRecord::Migration
       t.text :description
       t.integer :user_id, :null => false
       t.column :state , :string
+      t.boolean :moderation_required, :default => true
       t.datetime :published_at 
       t.timestamps
     end

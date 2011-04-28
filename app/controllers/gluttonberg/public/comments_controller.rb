@@ -5,7 +5,7 @@ module Gluttonberg
       def create
         @blog = Gluttonberg::Blog.first(:conditions => {:slug => params[:blog_id]})
         @article = Gluttonberg::Article.first(:conditions => {:slug => params[:article_id], :blog_id => @blog.id})
-        @comment = @article.comments.new(params[:comment])
+        @comment = @article.comments.new(params[:comment].merge(:blog_slug => params[:blog_id]))
         if @comment.save
           @subscription = CommentSubscription.find(:first , :conditions => {:article_id => @article.id , :author_email => @comment.writer_email })
           if @comment.subscribe_to_comments == "1" && @subscription.blank?
