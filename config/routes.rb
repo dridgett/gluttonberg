@@ -81,7 +81,7 @@ Rails.application.routes.draw do
         end
       end
       match "/articles/tag/:tag" => "articles#tag" , :as => :articles_by_tag
-      
+      match "/articles/unsubscribe/:reference" => "articles#unsubscribe" , :as => :unsubscribe_article_comments      
     end
     
   end

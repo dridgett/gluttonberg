@@ -14,6 +14,7 @@ module Gluttonberg
         @article = Gluttonberg::Article.published.first(:conditions => {:slug => params[:id], :blog_id => @blog.id})
         raise ActiveRecord::RecordNotFound.new if @article.blank?
         @comments = @article.comments.where(:approved => true)
+        @comment = Comment.new(:subscribe_to_comments => true)
       end
       
       def tag
@@ -21,6 +22,14 @@ module Gluttonberg
         @tags = Gluttonberg::Article.published.tag_counts_on(:tag)   
       end
       
+      def unsubscribe
+        @subscription = CommentSubscription.find(:first , :conditions => {:reference_hash => params[:reference] })
+        unless @subscription.blank?
+          @subscription.destroy
+          flash[:notice] = "You are successfully unsubscribe from comments of \"#{@subscription.article.title}\""
+          redirect_to blog_article_url(@subscription.article.blog.slug, @subscription.article.slug)
+        end
+      end
   
     end
   end

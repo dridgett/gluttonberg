@@ -8,6 +8,8 @@ module Gluttonberg
     
     after_save :send_notifications_if_needed
     
+    attr_accessor :subscribe_to_comments
+    
     def moderate(params)
       if params == "approve"
         update_attributes(:moderation_required => false, :approved => true)

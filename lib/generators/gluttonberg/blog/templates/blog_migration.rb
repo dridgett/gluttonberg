@@ -42,6 +42,7 @@ class BlogMigration < ActiveRecord::Migration
       t.integer :article_id
       t.string :author_name
       t.string :author_email
+      t.string :reference_hash
       t.timestamps
     end
     
