@@ -162,7 +162,7 @@ module Gluttonberg
       end
       
       def website_title
-        title = Rails.configuration.gluttonberg[:keywords]
+        title = Rails.configuration.gluttonberg[:title]
         (title.blank?)? "Gluttonberg" : title.html_safe
       end  
       

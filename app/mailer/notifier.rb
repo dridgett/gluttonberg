@@ -11,6 +11,17 @@ class Notifier < ActionMailer::Base
     @body[:edit_password_reset_url] = edit_admin_password_reset_url(user.perishable_token)
   end
   
+  def comment_notification(subscriber , article , comment)
+    @subscriber = subscriber
+    @article = article
+    @comment = comment
+    @website_title = Rails.configuration.gluttonberg[:title]
+    @article_url = blog_article_url(article.blog.slug, article.slug)
+    @unsubscribe_url = ""
+    
+    mail(:to => @subscriber.author_email, :subject => "Re: [#{@website_title}] #{@article.title}")
+  end
+  
   protected
   
     def setup_email

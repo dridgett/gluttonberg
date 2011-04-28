@@ -6,6 +6,8 @@ module Gluttonberg
     belongs_to :article
     belongs_to :author, :class_name => "User"
     
+    after_save :send_notifications_if_needed
+    
     def moderate(params)
       if params == "approve"
         update_attributes(:moderation_required => false, :approved => true)
@@ -15,6 +17,36 @@ module Gluttonberg
         #error
       end
     end
+    
+    # these are helper methods for comment. 
+    def writer_email
+      if self.author_email
+        self.author_email
+      elsif author
+        author.email
+      end  
+    end
+    
+    def writer_name
+      if self.author_name
+        self.author_name
+      elsif author
+        author.name
+      end  
+    end
+    
+    def approved=(val)
+      @approve_updated = !self.moderation_required && val && self.notification_sent_at.blank? #just got approved
+      write_attribute(:approved, val)
+    end
+    
+    protected
+      def send_notifications_if_needed        
+        if @approve_updated == true
+          @approve_updated = false
+          CommentSubscription.notify_subscribers_of(self.commentable , self)
+        end
+      end
     
   end
 end

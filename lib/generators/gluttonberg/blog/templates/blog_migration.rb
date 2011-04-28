@@ -34,6 +34,14 @@ class BlogMigration < ActiveRecord::Migration
       t.integer :author_id
       t.boolean :moderation_required, :default => true
       t.boolean :approved, :default => false
+      t.datetime :notification_sent_at
+      t.timestamps
+    end
+    
+    create_table :gb_comment_subscriptions do |t|
+      t.integer :article_id
+      t.string :author_name
+      t.string :author_email
       t.timestamps
     end
     
@@ -55,5 +63,6 @@ class BlogMigration < ActiveRecord::Migration
     drop_table :gb_comments
     drop_table :gb_articles
     drop_table :gb_blogs
+    drop_table :gb_comment_subscriptions
   end
 end

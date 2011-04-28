@@ -15,7 +15,12 @@ class Gluttonberg::InstallerGenerator < Rails::Generators::Base
       "%.3d" % (current_migration_number(dirname) + 1)
     end
   end
-
+  
+  def create_delayed_job_script_file
+    template 'delayed_job_script', 'script/delayed_job'
+    chmod 'script/delayed_job', 0755
+  end
+  
   def create_migration_file
     migration_template 'gluttonberg_migration.rb', 'db/migrate/gluttonberg_migration.rb'
   end

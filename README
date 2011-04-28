@@ -92,4 +92,9 @@ config.filter_parameters += [:password , :password_confirmation]
 config.app_name = "Gluttonberg Test" # Human readable name of your application
 config.localize = false # or true : if you want localized pages then please set  it true
 
-  
+
+
+BLOG
+======================================================================================
+
+rake jobs:work
