@@ -1,0 +1,17 @@
+%p= "Hi #{@subscriber.author_name}"
+
+
+%p= "#{@comment.writer_name} commented on \"#{@article.title}\""
+
+%p= "#{@comment.writer_name} wrote \"#{@article.body}\""
+
+%p= link_to "Click here to see the full thread" , @article_url
+
+%p
+  Thanks,
+  %br
+  = "The #{@website_title} Team"
+
+%p
+  If you don't want to receive notification emails about this article, you can 
+  = link_to "unsubscribe" , @unsubscribe_url
