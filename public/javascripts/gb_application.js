@@ -12,46 +12,76 @@ $(document).ready(function() {
   
   init_tag_area();
   
+  initSlugManagement();
+  
 });
 
 
 function enable_jwysiwyg_on(selector){
   $(document).ready(function(){
-    $(selector).wysiwyg({
-      			controls: {
-      				strikeThrough: { visible : false },
-      				justifyCenter: { visible : false },
-      				justifyFull: { visible : false },
-      				justifyCenter: { visible : false },
-      				subscript: { visible : false },
-              superscript: { visible : false },
-              redo: { visible : false },
-              undo: { visible : false },
-      				html: { visible : true }
-      			}
+    try{
+      $(selector).wysiwyg({
+        			controls: {
+        				strikeThrough: { visible : false },
+        				justifyCenter: { visible : false },
+        				justifyFull: { visible : false },
+        				justifyCenter: { visible : false },
+        				subscript: { visible : false },
+                superscript: { visible : false },
+                redo: { visible : false },
+                undo: { visible : false },
+        				html: { visible : true }
+        			}
+      });
+      $(selector).wysiwyg("addControl", "asset_selector", {
+     				groupIndex: 6,
+     				icon: '/images/library/browse_images_control.gif',
+     				tooltip: 'Select Image From Library',
+     				tags: ['library'],
+     				exec: function () {
+     				  // $(this) is returning array which have only one object. that is why i am taking first object.
+              Wysiwyg = $(this)[0];
+              var url = "/admin/browser?filter=image"
+     				  var link = $("<img src='/admin/browser?filter=image' />");
+     				  var p = $("<p> </p>")
+     				  $.get(url, null, function(markup) {AssetBrowser.load(p, link, markup , Wysiwyg);});
+     				},
+     				callback: function (event, Wysiwyg) {
+     				  // if we have multiple jWysiwyg on same page. jWysiwyg is calling callback twice which is causing issues. That is why i moved asset selector code 
+     				  // from callback to exec.
+     				}
+      });
+    }catch(e){
+      console.log(e)
+    }  
+  
+  });   
+}
+
+// This method initialize slug related event on a title text box.
+function initSlugManagement(){
+  try{
+    var pt = $('#page_title');
+    var ps = $('#page_slug');
+
+    var regex = /[\!\*'"″′‟‛„‚”“”˝\(\);:.@&=+$,\/?%#\[\]]/gim;
+
+    var pt_function = function()
+    {
+      if(ps.attr('donotmodify') != 'true') ps.attr('value', pt.attr('value').toLowerCase().replace(/\s/gim, '_').replace(regex, ''));
+    };
+
+    pt.bind("keyup", pt_function);
+    pt.bind("blur", pt_function);
+
+    ps.bind("blur", function()
+    {
+      ps.attr('value', ps.attr('value').toLowerCase().replace(/\s/gim, '_').replace(regex, ''));
+      ps.attr('donotmodify', 'true');
     });
-    $(selector).wysiwyg("addControl", "asset_selector", {
-   				groupIndex: 6,
-   				icon: '/images/library/browse_images_control.gif',
-   				tooltip: 'Select Image From Library',
-   				tags: ['library'],
-   				exec: function () {
-   				  // $(this) is returning array which have only one object. that is why i am taking first object.
-            Wysiwyg = $(this)[0];
-            var url = "/admin/browser?filter=image"
-   				  var link = $("<img src='/admin/browser?filter=image' />");
-   				  var p = $("<p> </p>")
-   				  $.get(url, null, function(markup) {AssetBrowser.load(p, link, markup , Wysiwyg);});
-   				},
-   				callback: function (event, Wysiwyg) {
-   				  // if we have multiple jWysiwyg on same page. jWysiwyg is calling callback twice which is causing issues. That is why i moved asset selector code 
-   				  // from callback to exec.
-   				}
-    });
-  
-  }); 
-  
-  
+  }catch(e){
+    console.log(e)
+  }  
 }
 
 // input/textarea tags with .tags class will be initlized as 
@@ -62,7 +92,7 @@ function init_tag_area(){
 		});
 	}catch(e){
 		console.log(e)
-		}
+	}
 }
 
 
@@ -115,12 +145,12 @@ var AssetBrowser = {
 	
 	filter: null,
   load: function(p, link, markup , Wysiwyg ) {
-	  console.log("------step1")
+		// it is required for asset selector in jWysiwyg
 		if(Wysiwyg != undefined){
 		  AssetBrowser.Wysiwyg = Wysiwyg;
 		}
-		AssetBrowser.filter = $("#filter_" + $(link).attr("rel")); // its used for category filtering on assets and collections	
-		  console.log("------step2")
+		// its used for category filtering on assets and collections	
+		AssetBrowser.filter = $("#filter_" + $(link).attr("rel")); 
     // Set everthing up
     AssetBrowser.showOverlay();
     $("body").append(markup);
@@ -157,9 +187,6 @@ var AssetBrowser = {
     // Capture anchor clicks
     AssetBrowser.display.find("a").click(AssetBrowser.click);
     AssetBrowser.backControl.click(AssetBrowser.back);
-		
-			  console.log("------step end")
-
   },
   resizeDisplay: function() {
     var newHeight = AssetBrowser.browser.innerHeight() - AssetBrowser.offsetHeight;
@@ -250,7 +277,6 @@ var AssetBrowser = {
   }
 
 };
-
 
 
 
