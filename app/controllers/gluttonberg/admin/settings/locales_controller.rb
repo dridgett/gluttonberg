@@ -5,7 +5,8 @@ module Gluttonberg
     module Settings
       class LocalesController < Gluttonberg::Admin::BaseController
         before_filter :find_locale, :only => [:delete, :edit, :update, :destroy]
-      
+        before_filter :require_super_admin_user
+        
         def index
           @locales = Locale.all
         end

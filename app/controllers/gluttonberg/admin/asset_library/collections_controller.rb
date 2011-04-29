@@ -35,7 +35,7 @@ module Gluttonberg
 
   
         def create
-          @collection = AssetCollection.new(params[:collection])
+          @collection = AssetCollection.new(params[:collection].merge(:user_id => current_user.id))
           if @collection.save
             flash[:notice] = "Collection created successfully!"
             # library home page

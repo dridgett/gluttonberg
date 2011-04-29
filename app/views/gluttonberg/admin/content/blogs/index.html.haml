@@ -1,7 +1,8 @@
 - @page_title = "Blogs"
 = sub_nav do
   = back_link("Content", admin_content_path)
-  = nav_link('New', new_admin_blog_path)
+  - if current_user.super_admin?
+    = nav_link('New', new_admin_blog_path)
     
 - if @blogs.empty?
   %p.empty No Blogs
@@ -20,7 +21,8 @@
             %ul
               %li
                 = link_to "Articles", admin_blog_articles_path(blog)
-              %li
-                = link_to "Edit", edit_admin_blog_path(blog)
-              %li
-                = link_to "Delete", delete_admin_blog_path(blog)
+              - if current_user.super_admin?  
+                %li
+                  = link_to "Edit", edit_admin_blog_path(blog)
+                %li
+                  = link_to "Delete", delete_admin_blog_path(blog)

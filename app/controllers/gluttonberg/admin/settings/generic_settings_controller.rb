@@ -5,6 +5,7 @@ module Gluttonberg
     module Settings
       class GenericSettingsController < Gluttonberg::Admin::BaseController
         before_filter :find_setting, :only => [:delete, :edit, :update, :destroy]
+        before_filter :require_super_admin_user 
         
         def index
           @settings = Setting.find(:all , :order => "row asc")

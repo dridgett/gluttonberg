@@ -6,6 +6,7 @@ module Gluttonberg
       class BlogsController < Gluttonberg::Admin::BaseController
         
         before_filter :find_blog, :only => [:edit, :update, :delete, :destroy]
+        before_filter :require_super_admin_user , :except => [:index]
         
         def index
           @blogs = Blog.all          

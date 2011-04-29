@@ -13,6 +13,8 @@
           Article
         %th 
           Author
+        - if current_user.super_admin?
+          %th Created By  
         %th.controls
           Controls
     %tbody
@@ -22,6 +24,10 @@
             = article.title
           %td{:style => "width:25%;"}
             = article.author.email
+          - if current_user.super_admin?
+            %td
+              - unless article.user.blank?
+                = article.user.email   
           %td.controls
             %ul
               %li

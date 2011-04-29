@@ -9,7 +9,9 @@ module Gluttonberg
         before_filter :find_article, :only => [:show, :edit, :update, :delete, :destroy]
         
         def index
-          @articles = Article.all(:conditions => {:blog_id => @blog.id})
+          conditions = {:blog_id => @blog.id}
+          conditions[:user_id] = current_user.id unless current_user.super_admin?
+          @articles = Article.all(:conditions => conditions)
         end
         
         
@@ -74,7 +76,9 @@ module Gluttonberg
           end
           
           def find_article
-            @article = Article.find(params[:id])
+            conditions = { :id => params[:id] }
+            conditions[:user_id] = current_user.id unless current_user.super_admin?
+            @article = Article.find(:first , :conditions => conditions )
           end
         
       end

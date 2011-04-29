@@ -105,6 +105,18 @@ class Gluttonberg::Admin::BaseController < ActionController::Base
         redirect_to admin_login_url
         return false
       end
+      true
+    end
+    
+    def require_super_admin_user
+      return false unless require_user
+      
+      unless current_user.super_admin?
+        store_location
+        flash[:notice] = "You dont have privilege to access this page"
+        redirect_to admin_login_url
+        return false
+      end
     end
     
     def store_location

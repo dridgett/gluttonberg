@@ -5,7 +5,7 @@ module Gluttonberg
     module Settings
       class UsersController < Gluttonberg::Admin::BaseController
         before_filter :find_user, :only => [:delete, :edit, :update, :destroy]
-            
+        before_filter :require_super_admin_user , :except => [:edit , :update]    
         def index
           unless current_user.super_admin?
             redirect_to :action => "edit" , :id => current_user.id
@@ -35,9 +35,14 @@ module Gluttonberg
         def update
           if @user.update_attributes(params[:user])
             flash[:notice] = "Account updated!"
-            redirect_to  :action => :index
+            if current_user.super_admin?
+              redirect_to  :action => :index
+            else
+              redirect_to  :action => :edit
+            end  
           else
-            render :action => :new
+            flash[:notice] = "Failed to save account changes!"
+            render :action => :edit
           end 
         end
         

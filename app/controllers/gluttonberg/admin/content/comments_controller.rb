@@ -6,14 +6,14 @@ module Gluttonberg
       class CommentsController < Gluttonberg::Admin::BaseController
         
         before_filter :find_blog
+        before_filter :find_article ,  :except => [:index]
         
         def index
-          @article = Article.find(params[:article_id], :include => [:comments])
+          find_article([:comments])
           @comments = @article.comments
         end
         
         def delete
-          @article = Article.find(params[:article_id])
           @comment = Comment.find(params[:id], :conditions => {:commentable_type => "Gluttonberg::Article", :commentable_id => @article.id})
           display_delete_confirmation(
             :title      => "Delete Comment ?",
@@ -24,7 +24,6 @@ module Gluttonberg
         end
         
         def moderation 
-          @article = Article.find(params[:article_id])
           @comment = Comment.find(params[:id], :conditions => {:commentable_type => "Gluttonberg::Article", :commentable_id => @article.id})
           @comment.moderate(params[:moderation])
           redirect_to admin_blog_article_comments_path(@blog, @article)
@@ -32,7 +31,6 @@ module Gluttonberg
         
         def destroy
           @comment = Comment.find(params[:id])
-          @article = Article.find(params[:article_id])
           if @comment.delete
             flash[:notice] = "Comment deleted."
             redirect_to admin_blog_article_comments_path(@blog, @article)
@@ -46,6 +44,14 @@ module Gluttonberg
         
           def find_blog
             @blog = Blog.find(params[:blog_id])
+            raise ActiveRecord::RecordNotFound unless @blog
+          end
+          
+          def find_article(include_model=[])
+            conditions = { :id => params[:article_id] }
+            conditions[:user_id] = current_user.id unless current_user.super_admin?
+            @article = Article.find(:first , :conditions => conditions , :include => include_model )
+            raise ActiveRecord::RecordNotFound unless @article
           end
         
       end

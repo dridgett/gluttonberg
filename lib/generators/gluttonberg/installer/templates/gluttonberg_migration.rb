@@ -109,7 +109,8 @@ class GluttonbergMigration < ActiveRecord::Migration
       t.column :created_at, :datetime
       t.column :updated_at, :datetime
       t.column :created_by, :integer
-      t.column :updated_by, :integer      
+      t.column :updated_by, :integer
+      t.column :user_id, :integer
     end
         
     create_table :gb_assets do |t|
@@ -129,6 +130,7 @@ class GluttonbergMigration < ActiveRecord::Migration
       t.column :created_by, :integer
       t.column :updated_by, :integer
       t.column :duration, :string
+      t.column :user_id, :integer
     end
     
     create_table :gb_audio_asset_attributes do |t|

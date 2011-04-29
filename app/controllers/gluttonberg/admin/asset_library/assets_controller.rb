@@ -10,9 +10,11 @@ module Gluttonberg
         
         # home page of asset library
         def index
-          # Get the latest assets, ensuring that we always grab at most 15 records      
+          # Get the latest assets, ensuring that we always grab at most 15 records  
+          conditions =  { :updated_at => ((Time.now - 24.hours).gmtime)..(Time.now.gmtime)  }
+          conditions[:user_id] = current_user.id unless current_user.super_admin?
           @assets = Asset.find(:all, 
-              :conditions => { :updated_at => ((Time.now - 24.hours).gmtime)..(Time.now.gmtime)  }, 
+              :conditions => conditions, 
               :limit => Rails.configuration.gluttonberg[:library_number_of_recent_assets] , 
               :order => "updated_at" , 
               :include => :asset_type
@@ -41,6 +43,7 @@ module Gluttonberg
         # list assets page by page if user drill down into a category from category tab of home page
         def category
           conditions = {:order => get_order, :per_page => Rails.configuration.gluttonberg[:library_number_of_per_page_assets] , :page => params[:page]}
+          conditions[:user_id] = current_user.id unless current_user.super_admin?
           if params[:category] == "all" then
             # ignore asset category if user selects 'all' from category
             @assets = Asset.includes(:asset_type).paginate( conditions ) 
@@ -51,8 +54,8 @@ module Gluttonberg
               raise ActiveRecord::RecordNotFound  
             else
               @assets = req_category.assets.includes(:asset_type).paginate( conditions )                   
-            end          
-          end # category#all      
+            end
+          end # category#all
         end
     
     
@@ -110,7 +113,7 @@ module Gluttonberg
           # process new asset_collection and merge into existing collections
           process_new_collection_and_merge(params)
 
-          @asset = Asset.new(params[:asset])       
+          @asset = Asset.new(params[:asset].merge(:user_id => current_user.id))       
           if @asset.save
             flash[:notice] = "Asset created successfully!"
             redirect_to(edit_admin_asset_url(@asset))
@@ -147,12 +150,16 @@ module Gluttonberg
     
         private
             def find_asset
-              @asset = Asset.find(:first , :conditions => { :id => params[:id] } )   
+              conditions = { :id => params[:id] }
+              conditions[:user_id] = current_user.id unless current_user.super_admin?
+              @asset = Asset.find(:first , :conditions => conditions )   
               raise ActiveRecord::RecordNotFound  if @asset.blank?              
             end
     
             def prepare_to_edit
-              @collections = AssetCollection.all( :order => "name")
+              conditions = { }
+              conditions[:user_id] = current_user.id unless current_user.super_admin?
+              @collections = AssetCollection.find(:all  , :conditions => conditions ,  :order => "name")
             end
     
      
@@ -183,10 +190,10 @@ module Gluttonberg
                        # Retireve the existing AssetCollection if it matches or create a new one                  
                        the_collection = AssetCollection.find(:first , :conditions => options)
                        unless the_collection
-                         the_collection = AssetCollection.create(options)
+                         the_collection = AssetCollection.create(options.merge(:user_id => current_user.id))
                        end 
 
-                       the_collection                    
+                       the_collection
                      end # new_collection_name value
                    end # new_collection_name key
                  end # param_hash 
@@ -228,7 +235,7 @@ module Gluttonberg
                   entry.extract(filename)
                   file = MyFile.init(filename , entry)            
                   asset_name_with_extention = entry.name.split(".").first
-                  asset = Asset.new(params[:asset].merge( :name => asset_name_with_extention ,  :file => file ) )
+                  asset = Asset.new(params[:asset].merge( :name => asset_name_with_extention ,  :file => file , :user_id => current_user.id) )
                   @new_assets << asset if asset.save
                   file.close
                   FileUtils.remove_file(filename)            

@@ -6,6 +6,7 @@ module Gluttonberg
       class PagesController < Gluttonberg::Admin::BaseController
         drag_tree Page , :route_name => :admin_page_move 
         before_filter :find_page, :only => [:show, :edit, :delete, :update, :destroy]
+        before_filter :require_super_admin_user , :except => [:index]
 
         def index
           @pages = Page.find(:all , :conditions => { :parent_id => nil } , :order => 'position' )       
