@@ -13,7 +13,9 @@ $(document).ready(function() {
   init_tag_area();
   
   initSlugManagement();
-  
+
+	init_sub_nav();
+	
 });
 
 
@@ -324,3 +326,19 @@ var Help = {
     }
   }
 };
+
+
+// Collapsible sub navigation functionality
+function init_sub_nav(){
+	if($('#navigation ul a.active').length > 0){
+		$('#navigation ul a.active').parent().parent().parent().addClass('active_parent');
+		$('#navigation ul a.active').parent().parent().parent().find('a.nav_trigger').addClass('open');
+	} else {
+		$('#navigation a.active').parent().addClass('active_parent');
+		$('#navigation a.active').parent().find('a.nav_trigger').addClass('open');
+	}
+	$('#navigation a.nav_trigger').click(function(){
+		$(this).next().slideToggle('fast');
+		$(this).toggleClass('open');
+	});
+}

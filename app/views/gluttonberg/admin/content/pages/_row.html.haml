@@ -1,17 +1,22 @@
 %tr{:id => drag_tree_row_id(page), :class => drag_tree_row_class(page) + "#{row % 2 == 0? " even" : ""}"}
   %td
     %span{:class => "#{drag_tree_drag_point_class} #{page.home ? "home" : "page"}"}
+    %span.pagetitle
       = page.home ? "#{page.name} (Home page)" : page.name
-  %td.published= page.publishing_status
-  %td.controls
-    %ul
+    %span.controls
       - if Gluttonberg.localized? &&  page.localizations.length > 1
-        %li= link_to 'Details', admin_page_path(page) 
+        = link_to 'Details', admin_page_path(page) 
       - else        
         - default_localization = Gluttonberg::PageLocalization.find(:first , :conditions => { :page_id => page.id , :locale_id => Gluttonberg::Locale.first_default.id } )
-        %li= link_to("Edit", edit_admin_page_page_localization_path( :page_id => page.id, :id => default_localization.id))
-        %li= link_to("Preview", default_localization.public_path  , { :target => "_blank" }) 
-      
+        = link_to("Edit", edit_admin_page_page_localization_path( :page_id => page.id, :id => default_localization.id))
+        = link_to("Preview", default_localization.public_path  , { :target => "_blank" }) 
+
       - if current_user.super_admin?
-        %li= link_to 'Settings', edit_admin_page_path(page) 
-        %li= link_to 'Destroy',  delete_admin_page_path(page)
+        = link_to 'Settings', edit_admin_page_path(page) 
+        = link_to 'Destroy',  delete_admin_page_path(page)
+  %td.author
+    David Walker
+  %td.date
+    03/07/2011
+  %td.published_state{:class=>"#{page.publishing_status.downcase}"}
+    = page.publishing_status

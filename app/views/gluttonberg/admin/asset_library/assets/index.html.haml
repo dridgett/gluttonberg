@@ -1,4 +1,6 @@
+- @window_title = "Asset Library"
 - @page_title = "Asset Library"
+- @page_image = "/images/sidebar/icon_library.png"
 = sub_nav do
   = render :partial => "add_buttons"
   = nav_link("Collections", admin_collections_path )
@@ -17,14 +19,14 @@
   %ul.assetList
     %li
       %a{:href => admin_asset_category_path(:category => 'all' , :page => 1 ), :class => "browseAll"}
-        %h3 All
+        All
         
     - @categories.each do |category|
       %li
         - text = ( category.name == "uncategorised" ?  "Uncategorised" : category.name.pluralize.capitalize )
         %a{:href => admin_asset_category_path(:category => category.name , :page => 1), :class => "browse#{text}"}
-          %h3= text
-          
+          = text
+    %li.clear
   .clear
 %div#tabs-collection
   - unless @collections.empty?

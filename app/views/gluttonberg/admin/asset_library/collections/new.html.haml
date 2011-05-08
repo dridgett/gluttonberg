@@ -1,2 +1,4 @@
-- @page_title = "Add New Collection"
+- @window_title = "Library"
+- @page_title = "#{link_to "Asset Library", admin_library_path} > #{link_to("Collections", admin_collections_path)} > Add new collection"
+- @page_image = "/images/sidebar/icon_library.png"
 = render :partial => "form" , :locals => { :url_opts =>{ :action => :create } , :method_name => "post" }

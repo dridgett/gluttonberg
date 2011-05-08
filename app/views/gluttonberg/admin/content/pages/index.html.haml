@@ -1,8 +1,9 @@
-- @page_title = "Pages"
+- @window_title = "Content"
+- @page_title = "#{link_to "Content", admin_content_path} > Pages"
+- @page_image = "/images/sidebar/icon_content.png"
 = sub_nav do
-  = back_link("Content", admin_content_path)
   - if current_user.super_admin?
-    = nav_link('New', new_admin_page_path)
+    = nav_link('Add New Page', new_admin_page_path)
     
 - if @pages.empty?
   %p.empty No Pages
@@ -11,7 +12,8 @@
     %thead
       %tr
         %th Page
-        %th.published Published        
-        %th.controls Controls
+        %th.author Author     
+        %th.date Date
+        %th.published_state Published
     %tbody
       = page_table_rows(@pages)

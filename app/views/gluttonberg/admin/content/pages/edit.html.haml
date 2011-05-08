@@ -1,2 +1,6 @@
-- @page_title = "Edit page"
+- @window_title = "Content"
+- @page_title = "#{link_to "Content", admin_content_path} > Pages"
+- @page_image = "/images/sidebar/icon_content.png"
+
+
 = render :partial => "form" , :locals => { :url => admin_page_path( @page) } 

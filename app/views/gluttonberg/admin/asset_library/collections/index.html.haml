@@ -2,7 +2,9 @@
   = back_link("Library", admin_assets_url)
   = nav_link("New Collection", new_admin_collection_url )
   
-- @page_title = "Collections"
+- @window_title = "Library"
+- @page_title = "#{link_to "Asset Library", admin_library_path} > Collections"
+- @page_image = "/images/sidebar/icon_library.png"
 - if @collections.empty?
   %p.empty No collections available
 - else

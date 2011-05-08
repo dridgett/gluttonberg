@@ -71,7 +71,7 @@ module Gluttonberg
         if Help.help_available?(:controller => params[:controller], :page => params[:action])
           content_tag(
             :p, 
-            link_to("Help", admin_help_path(:module_and_controller => params[:controller], :page => params[:action])),
+            link_to("Help", admin_help_path(:module_and_controller => params[:controller], :page => params[:action]), :class => "button"),
             :id => "contextualHelp"
           )          
         end
@@ -271,6 +271,11 @@ module Gluttonberg
         html = label_tag(Rails.configuration.honeypot_field_name , 'Please leave this field empty:' )
         html << text_field_tag( Rails.configuration.honeypot_field_name )
         content_tag :div , html , :class => Rails.configuration.honeypot_field_name , :style => "display:none"
+      end
+      
+      def active_link?(url, active_class="active")
+        url = url.to_s + "_path" if url.class == Symbol
+        active_class if request.env["PATH_INFO"] && request.env["PATH_INFO"].include?(url)
       end
       
     end # Admin

@@ -1,3 +1,5 @@
-- @page_title = "Add a new locale"
+- @window_title = "Settings"
+- @page_title = "#{link_to "Settings", admin_settings_path} > Locales > Add a new locale"
+- @page_image = "/images/sidebar/icon_settings.png"
 
 = render :partial => "form", :locals => { :url => admin_locales_path }
