@@ -69,9 +69,9 @@
 %h3 Updates
 %dl
   %dt Created
-  %dd= @asset.created_at
+  %dd= date_format @asset.created_at
   %dt Updated
-  %dd= @asset.updated_at
+  %dd= date_format @asset.updated_at
   
 %h3 Public path
 %dl  

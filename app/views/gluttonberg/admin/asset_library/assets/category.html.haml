@@ -1,9 +1,6 @@
 - @window_title = "Asset Library"
 - @page_title = "#{link_to "Asset Library", admin_library_path} > #{params[:category].capitalize}"
 - @page_image = "/images/sidebar/icon_library.png"
-= sub_nav do
-  = back_link("Library", admin_assets_url)
-  = render :partial => "add_buttons"
   
 .category-area
   = render :partial => "/gluttonberg/admin/asset_library/shared/sorter", :locals => {  :url =>  admin_asset_category_url(:category => params[:category] , :page => params[:page]  ) } 

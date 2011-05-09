@@ -1,7 +1,4 @@
-= sub_nav do
-  = back_link("Settings", admin_settings_path)
-  = back_link("Configuration", admin_generic_settings_path )
-  
+
 = form_for(@setting, :url => url) do  |f|
   = gb_error_messages_for(@setting)
   

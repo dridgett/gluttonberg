@@ -10,7 +10,7 @@ module Gluttonberg
         
         def index
           find_article([:comments])
-          @comments = @article.comments
+          @comments = @article.comments.paginate(:per_page => Rails.configuration.gluttonberg[:number_of_per_page_items], :page => params[:page])
         end
         
         def delete

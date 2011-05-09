@@ -9,7 +9,7 @@ module Gluttonberg
         before_filter :require_super_admin_user , :except => [:index]
         
         def index
-          @blogs = Blog.all          
+          @blogs = Blog.all.paginate(:per_page => Rails.configuration.gluttonberg[:number_of_per_page_items], :page => params[:page])
         end
         
         def new

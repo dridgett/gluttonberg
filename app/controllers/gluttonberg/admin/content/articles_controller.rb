@@ -11,7 +11,7 @@ module Gluttonberg
         def index
           conditions = {:blog_id => @blog.id}
           conditions[:user_id] = current_user.id unless current_user.super_admin?
-          @articles = Article.all(:conditions => conditions)
+          @articles = Article.all(:conditions => conditions).paginate(:per_page => Rails.configuration.gluttonberg[:number_of_per_page_items], :page => params[:page])
         end
         
         

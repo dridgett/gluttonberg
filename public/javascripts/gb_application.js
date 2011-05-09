@@ -248,9 +248,9 @@ var AssetBrowser = {
 			
       AssetBrowser.close();
     }
-    else if (target.is("#previous") || target.is("#next")) {
+    else if( target.is(".next_page") ||  target.is(".previous_page") ||  target.is('a[rel="next"]')  ||  target.is('a[rel="prev"]') ){  
       if (target.attr("href") != '') {
-        $.getJSON(target.attr("href") + ".json", null, AssetBrowserEx.handleJSON);
+          $.getJSON(target.attr("href") , null, AssetBrowser.handleJSON);
       }
     }
     else {

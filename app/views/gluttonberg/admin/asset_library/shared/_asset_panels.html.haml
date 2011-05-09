@@ -7,7 +7,8 @@
       %th Asset
       %th
       %th.author Author     
-      %th.date Date
+      %th.date Date Added
+      %th.date Date Updated
   %tbody
 
 
@@ -23,21 +24,8 @@
       %td.author
         David Walker
       %td.date
-        = "Added #{asset.created_at}"
+        = date_format(asset.created_at)
+      %td.date
+        = date_format(asset.updated_at)  
 
-
-  - if @assets.total_pages > 1
-    %ul#paginator
-      %li#count= "Page #{@assets.current_page} of #{@assets.total_pages}"
-      - if @assets.previous_page
-        - url = ( type == "category" ?  admin_asset_category_url(:category => name_or_id , :page => @assets.previous_page ) : admin_asset_collection_url(:id => name_or_id , :page => @assets.previous_page )  ) 
-        
-        %li#previous= link_to("Previous", url )
-      - else
-        %li#previous.disabled= link_to("Previous")
-        
-      - if @assets.next_page
-        - url = ( type == "category" ?  admin_asset_category_url(:category => name_or_id , :page => @assets.next_page ) : admin_asset_collection_url(:id => name_or_id , :page => @assets.next_page )  )
-        %li#next= link_to("Next", url )  
-      - else
-        %li#next.disabled= link_to("Next")
+  = will_paginate(@assets)      

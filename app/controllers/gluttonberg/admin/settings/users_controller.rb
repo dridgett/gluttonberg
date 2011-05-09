@@ -11,7 +11,7 @@ module Gluttonberg
             redirect_to :action => "edit" , :id => current_user.id
           end
           @users = User.all
-          @users = @users.paginate(:page => params[:page] , :per_page => 20 )
+          @users = @users.paginate(:page => params[:page] , :per_page => Rails.configuration.gluttonberg[:number_of_per_page_items] )
         end
   
         def new

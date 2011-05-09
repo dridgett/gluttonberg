@@ -278,6 +278,14 @@ module Gluttonberg
         active_class if request.env["PATH_INFO"] && request.env["PATH_INFO"].include?(url)
       end
       
+      def date_format(date_time)
+        if date_time < 1.week.ago
+          date_time.strftime("%d/%m/%Y")
+        else
+          time_ago_in_words(date_time)
+        end  
+      end
+      
     end # Admin
   end # Helpers
 end # Gluttonberg

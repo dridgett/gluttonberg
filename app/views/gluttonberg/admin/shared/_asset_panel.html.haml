@@ -18,5 +18,4 @@
           
           = hidden_field_tag("jwysiwyg_image_#{asset.id}" , asset.url_for(:jwysiwyg_image) , :class => "jwysiwyg_image")  
             
-
-  = asset_paginator(assets, name_or_id , type)
+  = will_paginate(assets)

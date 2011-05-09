@@ -34,3 +34,4 @@
                   = link_to "Disapprove", moderation_admin_blog_article_comment_path(@blog, @article, comment, :moderation => "disapprove")
               %li
                 = link_to "Delete", delete_admin_blog_article_comment_path(@blog, @article, comment)
+  = will_paginate(@comments)              

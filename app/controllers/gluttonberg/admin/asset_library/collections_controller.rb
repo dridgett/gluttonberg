@@ -22,7 +22,7 @@ module Gluttonberg
           @category_filter = ( params[:filter].blank? ? "all" : params[:filter] )
           opts = {
               :order => get_order , 
-              :per_page => Rails.configuration.gluttonberg[:library_number_of_per_page_assets] , 
+              :per_page => Rails.configuration.gluttonberg[:number_of_per_page_items] , 
               :page => params[:page]
           }
           if @category_filter != "all"

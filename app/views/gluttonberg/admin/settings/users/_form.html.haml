@@ -1,7 +1,3 @@
-= sub_nav do
-  = back_link("Settings", admin_settings_path)
-  - if current_user.super_admin?
-    = back_link("Users", admin_users_path)
 
 = form_for(@user, :url => url) do  |f|
   = gb_error_messages_for(@user)

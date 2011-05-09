@@ -42,7 +42,7 @@ module Gluttonberg
     
         # list assets page by page if user drill down into a category from category tab of home page
         def category
-          conditions = {:order => get_order, :per_page => Rails.configuration.gluttonberg[:library_number_of_per_page_assets] , :page => params[:page]}
+          conditions = {:order => get_order, :per_page => Rails.configuration.gluttonberg[:number_of_per_page_items] , :page => params[:page]}
           conditions[:user_id] = current_user.id unless current_user.super_admin?
           if params[:category] == "all" then
             # ignore asset category if user selects 'all' from category
