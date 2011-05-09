@@ -247,7 +247,8 @@ body {
   #subnav .button {
     float: right; }
   #subnav .button a {
- 		display: block; }
+ 		display: block;
+ 		margin: 0 0 25px 25px; }
     .button a, a.button {
       color: #727272;
       background-color: #ffffff;
@@ -285,23 +286,38 @@ body {
 
 /* ICON NAVIGATION ================================================== */
 #iconNav {
-  margin: 2em 2% 0 2%;
-  width: 96%;
-  float: left; }
-  #iconNav li, #iconNav a {
-    float: left; }
-  #iconNav a {
-    background-position: center top;
-    background-repeat: no-repeat;
-    text-align: center;
-    text-decoration: none;
-    color: #333333;
-    font-size: 1.5em;
-    padding: 85px 0 0 0;
-    width: 8em; }
-
+	width: 80%;
+	padding: 50px 10%;
+	float: left;
+	color: #727272;
+	background-color: white;
+	border: #E0DED8 1px solid;
+	margin-top: 25px;
+	-webkit-border-top-left-radius: 0 0;
+	-webkit-border-top-right-radius: 3px 3px;
+	-webkit-border-bottom-left-radius: 3px 3px;
+	-webkit-border-bottom-right-radius: 3px 3px;
+	border-top-left-radius: 0px 0px;
+	border-top-right-radius: 3px 3px;
+	border-bottom-left-radius: 3px 3px;
+	border-bottom-right-radius: 3px 3px; }
+  #iconNav li {
+		float: left; }
+#iconNav a {
+		background: top no-repeat;
+		text-decoration: none;
+		min-height: 56px;
+		padding-top: 100px;
+		display: block;
+		width: 110px;
+		overflow: hidden;
+		color: #727272;
+		text-align: center;
+		font-family: Georgia, Serif;
+		font-size: 14px;
+		margin: auto; }
 /* Base styles */
-form {
+form, .pageBlock {
   margin-top: 25px;
   background: #fafafa;
   border: #e5e4e3 1px solid;
@@ -550,7 +566,7 @@ td {
   padding: 15px 15px 20px; }
 
 tr {
-	background: #ffffff url("../images/row_divider.jpg") repeat-x bottom;
+	background: #ffffff url("../images/row_divider.jpg") repeat-x bottom; }
 
 tr.even td {
   background-color: #f3f2f2; }
@@ -664,8 +680,8 @@ ul.assetList {
 .asset_title .controls {
 	display: none; }
 
-tr:hover .controls {
-	display: inline; }
+tr:hover span.controls {
+	display: block; }
 
 /* Assets */
 #assets.show #subnav {
@@ -1149,7 +1165,7 @@ table tr {
 	font-family: Georgia, Serif;
 	font-size: 14px;
 }
-table td span.pagetitle {
+table td span.pagetitle, table td span.asset_title {
 	display: block;
 	float: left;
 	padding-right: 10px; }
@@ -1268,7 +1284,11 @@ table .home {
 
 /* Contents Page Icons ---------------------------------------------- */
 #iconNav #pagesNav {
-  background-image: url("../images/content/pages.gif"); }
+  background-image: url("../images/content/pages.png"); }
+#iconNav #blogsNav {
+  background-image: url("../images/content/blogs.png"); }
+#iconNav a {
+  background-image: url("../images/icons/folder.png"); }
 #iconNav #news_storiesNav {
   background-image: url("../images/content/newsstories.gif"); }
 #iconNav #companiesNav {
@@ -1289,13 +1309,13 @@ table .home {
 
 /* LOCALES PAGE ICONS =============================================== */
 #iconNav #usersNav {
-  background-image: url("../images/settings/users.gif"); }
+  background-image: url("../images/settings/users.png"); }
 #iconNav #dialectsNav {
   background-image: url("../images/settings/dialects.gif"); }
 #iconNav #localesNav {
   background-image: url("../images/settings/locales.gif"); }
 #iconNav #metadataNav {
-  background-image: url("../images/settings/metadata.gif"); }
+  background-image: url("../images/settings/config.png"); }
 
 /* Locales form ----------------------------------------------------- */
 #dialects .checkbox {
@@ -1379,7 +1399,7 @@ table .home {
     padding: 1em 1.7em 0.6em; }
 
 .ui-tabs-nav {
-  margin: 0;
+  margin: 25px 0 0 0;
   padding: 0;
   border: 0;
   outline: 0;

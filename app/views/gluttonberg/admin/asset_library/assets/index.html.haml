@@ -1,8 +1,6 @@
 - @window_title = "Asset Library"
 - @page_title = "Asset Library"
 - @page_image = "/images/sidebar/icon_library.png"
-= sub_nav do
-  = nav_link("Collections", admin_collections_path )
   
 %div#tabs
   %ul
@@ -37,13 +35,30 @@
     .clear
 %div#tabs-recent
   - unless @assets.blank?
-    %ul.assetList#assetPanels
-      - for asset in @assets
-        %li
-          %a{:href => admin_asset_url(asset), :class => "assetLink"}
-            %div
-              %img{:src => asset.thumb_small_url}/
-            %h2= asset.name
-    .clear
+    %table{:id => 'assets_table', :cellpadding => 0, :cellspacing => 0, :rel => "" , :summary => "Assets" }
+      %thead
+        %tr
+          %th
+          %th Title
+          %th.author Author
+          %th.date Uploaded
+          %th.date Updated
+      %tbody
+        - for asset in @assets
+          %tr
+            %td.thumbnail
+              %img{:src => asset.thumb_small_url  }
+            %td.asset_title
+              = asset.name
+              %span.controls
+                %a{:href => admin_asset_url(asset), :class => "assetLink"}
+                  View
+            %td.author
+              David Walker
+            %td.date
+              = date_format(asset.created_at)
+            %td.date
+              = date_format(asset.updated_at)  
+
             
 .clear
