@@ -1,5 +1,5 @@
 - @window_title = "Library"
-- @page_title = "#{link_to "Asset Library", admin_library_path} > #{link_to("Collections", admin_collections_path)} > Edit collection"
+- @page_title = "#{link_to "Asset Library", admin_library_path} > Edit collection"
 - @page_image = "/images/sidebar/icon_library.png"
 
 = render :partial => "form" , :locals => { :url_opts =>{ :action => :update , :id => @collection.id }  , :method_name => "put"}

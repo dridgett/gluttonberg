@@ -1,17 +1,31 @@
 - if @assets.blank?
   %p.empty No assets
 - else
-  %ul#assetPanels
-    - for asset in @assets
-      %li
+%table{:id => 'assets_table', :cellpadding => 0, :cellspacing => 0, :rel => "" , :summary => "Assets" }
+  %thead
+    %tr
+      %th Asset
+      %th
+      %th.author Author     
+      %th.date Date
+  %tbody
+
+
+  - for asset in @assets
+    %tr
+      %td.thumbnail
+        %img{:src => asset.thumb_small_url  }
+      %td.asset_title
+        = asset.name
+        %span.controls
         %a{:href => admin_asset_url(asset), :class => "assetLink"}
-          %h2= asset.name
-          %p= "Added #{asset.created_at}"
-          %div
-            %img{:src => asset.thumb_small_url  }
-          
-    
-   
+          View
+      %td.author
+        David Walker
+      %td.date
+        = "Added #{asset.created_at}"
+
+
   - if @assets.total_pages > 1
     %ul#paginator
       %li#count= "Page #{@assets.current_page} of #{@assets.total_pages}"

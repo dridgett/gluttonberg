@@ -1,8 +1,7 @@
 - @window_title = "Library"
-- @page_title = "#{link_to "Asset Library", admin_library_path} > #{link_to("Collections", admin_collections_path)} > #{@collection.name}"
+- @page_title = "#{link_to "Asset Library", admin_library_path} > Collection: #{@collection.name}"
 - @page_image = "/images/sidebar/icon_library.png"
 = sub_nav do
-  = back_link("Library", admin_assets_url)
   = nav_link("Delete", delete_admin_collection_url(@collection) )
   = nav_link("Edit", edit_admin_collection_url(@collection))
   = nav_link("Add asset", new_admin_asset_url )
