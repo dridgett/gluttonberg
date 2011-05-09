@@ -13,13 +13,14 @@ class Gluttonberg::Admin::BaseController < ActionController::Base
   protected 
     # this method is used by sorter on asset listing by category and by collection
     def get_order
+      order_type = params[:order_type].blank? ? "asc" : params[:order_type]
       case params[:order]
       when 'name'
-        "gb_assets.name"
+        "gb_assets.name #{order_type}"
       when 'date-updated'
-        "updated_at desc"
+        "updated_at #{order_type}"
       else
-        "created_at desc"
+        "created_at #{order_type}"
       end
     end
     

@@ -6,10 +6,7 @@
   = nav_link("Edit", edit_admin_collection_url(@collection))
   = nav_link("Add asset", new_admin_asset_url )
 
-.category-area
-  = render  :partial => "/gluttonberg/admin/asset_library/shared/sorter",  :locals => { :url =>  admin_collection_url(@collection) }
-.clear
 .block
   .content    
-    = render  :partial => "/gluttonberg/admin/asset_library/shared/asset_panels" , :locals => { :type => "collection" , :name_or_id =>  @collection.id }
+    = render  :partial => "/gluttonberg/admin/asset_library/shared/asset_panels" , :locals => { :type => "collection" , :name_or_id =>  @collection.id , :sorter_url => admin_collection_url(@collection) }
 .clear

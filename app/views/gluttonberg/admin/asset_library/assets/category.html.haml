@@ -2,9 +2,6 @@
 - @page_title = "#{link_to "Asset Library", admin_library_path} > #{params[:category].capitalize}"
 - @page_image = "/images/sidebar/icon_library.png"
   
-.category-area
-  = render :partial => "/gluttonberg/admin/asset_library/shared/sorter", :locals => {  :url =>  admin_asset_category_url(:category => params[:category] , :page => params[:page]  ) } 
-  .clear
-= render :partial => "/gluttonberg/admin/asset_library/shared/asset_panels" , :locals => { :type => "category" , :name_or_id =>  params[:category] }
+= render :partial => "/gluttonberg/admin/asset_library/shared/asset_panels" , :locals => { :type => "category" , :name_or_id =>  params[:category] , :sorter_url => admin_asset_category_url(:category => params[:category]) }
 .clear
 

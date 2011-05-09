@@ -4,11 +4,11 @@
 %table{:id => 'assets_table', :cellpadding => 0, :cellspacing => 0, :rel => "" , :summary => "Assets" }
   %thead
     %tr
-      %th Asset
       %th
-      %th.author Author     
-      %th.date Date Added
-      %th.date Date Updated
+      %th= sorter_link("Title",   "name",   sorter_url )
+      %th.author Author
+      %th.date= sorter_link("Date added",   "date-added",   sorter_url )
+      %th.date= sorter_link("Date updated",   "date-updated",   sorter_url )
   %tbody
 
 
