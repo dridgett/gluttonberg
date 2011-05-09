@@ -167,16 +167,16 @@ module Gluttonberg
       end  
       
       #Returns a link for sorting assets in the library
-      def sorter_link(name, param, url)
-        opts = {}
-         if param == params[:order] || (!params[:order] && param == 'date-added')
-           opts[:class] = "current"
-         end
-
-         route_opts = { :order => param  }
-
-         link_to(name, url + "?" + route_opts.to_param , opts)
-      end
+      # def sorter_link(name, param, url)
+      #         opts = {}
+      #          if param == params[:order] || (!params[:order] && param == 'date-added')
+      #            opts[:class] = "current"
+      #          end
+      # 
+      #          route_opts = { :order => param  }
+      # 
+      #          link_to(name, url + "?" + route_opts.to_param , opts)
+      #       end
 
       # Writes out a row for each page and then for each page's children, 
       # iterating down through the heirarchy.

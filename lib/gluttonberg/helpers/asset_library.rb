@@ -22,11 +22,17 @@ module Gluttonberg
        # Returns a link for sorting assets in the library
        def sorter_link(name, param, url)
          opts = {}
+         route_opts = { :order => param , :order_type => "asc" }
          if param == params[:order] || (!params[:order] && param == 'date-added')
            opts[:class] = "current"
+           unless params[:order_type].blank?
+             route_opts[:order_type] = (params[:order_type] == "asc" ? "desc" : "asc" ) 
+           else
+             route_opts[:order_type] = "desc"
+           end
+           opts[:class] << (route_opts[:order_type] == "asc" ? " desc" : " asc" )          
          end
-
-         route_opts = { :order => param  }
+         
          link_to(name, url + "?" + route_opts.to_param , opts)
        end
 
