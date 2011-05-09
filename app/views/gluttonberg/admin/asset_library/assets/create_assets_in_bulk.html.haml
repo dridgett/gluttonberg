@@ -2,9 +2,6 @@
 - @page_title = "#{link_to "Asset Library", admin_library_path} > Bulk uploaded assets"
 - @page_image = "/images/sidebar/icon_library.png"
 
-= sub_nav do
-  = back_link("Library", admin_assets_url)
-  
 %ul.assetList#assetPanels
   - for asset in @new_assets
     %li

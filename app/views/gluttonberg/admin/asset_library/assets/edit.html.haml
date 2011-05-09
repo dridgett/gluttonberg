@@ -1,7 +1,5 @@
 - @window_title = "Asset Library"
 - @page_title = "#{link_to "Asset Library", admin_library_path} > Edit asset"
 - @page_image = "/images/sidebar/icon_library.png"
-= sub_nav do
-  = back_link("Library", admin_assets_url)
 
 = render :partial => "form" , :locals => { :url_opts =>{ :action => :update , :id => @asset.id }  , :method_name => "put"}

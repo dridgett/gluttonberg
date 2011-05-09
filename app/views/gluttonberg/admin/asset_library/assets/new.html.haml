@@ -2,7 +2,4 @@
 - @page_title = "#{link_to "Asset Library", admin_library_path} > Add asset"
 - @page_image = "/images/sidebar/icon_library.png"
 
-= sub_nav do
-  = back_link("Library", admin_assets_url)
-
 = render :partial => "form" , :locals => { :url_opts =>{ :action => :create } , :method_name => "post" }

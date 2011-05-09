@@ -303,35 +303,41 @@ body {
 /* Base styles */
 form {
   margin-top: 25px;
-  padding: 20px 25px; }
-
-fieldset {
-  border: 0; }
-
-legend {
-  font-size: 1.2em;
-  color: #1b1b1b;
-  padding: 0 0 0.35em 7px; }
-
-div.fieldset,
-ol.fieldset {
-  background: #e1f2f3;
-  border: #b4e8e9 1px solid;
+  background: #fafafa;
+  border: #e5e4e3 1px solid;
   padding: 1.5em 0 0.5em 0;
-  margin: 0 0 1.5em 0;
+  margin: 25px 0 0 0;
   width: 99.9%;
   float: left;
   -moz-border-radius: 5px;
-  -webkit-border-radius: 5px; }
+  -webkit-border-radius: 5px;
+ }
+
+fieldset {
+  border: 0;
+ 	width: 545px;
+ 	margin: auto; }
+
+legend {
+	font-size: 16px;
+	color: #727272;
+	padding: 0 0 10px 7px;
+	width: 100%;
+	margin-bottom: 10px;
+	display: block; }
+	
+div.fieldset,
+ol.fieldset { }
 
 label {
-  font-weight: bold;
   text-align: right;
   padding: 0.2em 0.6em 0.2em 0;
   margin: 1px 0 0 0;
   width: 12em;
   float: left;
-  clear: left; }
+  clear: left;
+ 	font-size: 14px;
+	font-family: Georgia, Serif; }
 
 label.checkbox {
   text-align: left;
@@ -357,7 +363,8 @@ textarea,
 select {
   margin-bottom: 1em;
   float: left;
-  clear: right; }
+  clear: right;
+	background: #ebebeb; }
 
 input.checkbox,
 input.radio {
@@ -369,8 +376,8 @@ input.radio {
 input.text,
 input.password,
 textarea {
-  background: white left top no-repeat url("../images/form/input_bkg.gif");
-  border: #999999 1px solid;
+  background: #ebebeb right top no-repeat url("../images/form/input_bkg.jpg");
+  border: none;
   padding: 0.2em 0.5em; }
 
 input.tiny {
@@ -385,10 +392,10 @@ textarea.medium {
   width: 10em; }
 
 input.large {
-  width: 20em; }
+  width: 335px; }
 
 textarea.large {
-  width: 35em; }
+  width: 365px; }
 
 textarea.short {
   height: 5em; }
@@ -540,7 +547,10 @@ tbody th {
   color: #999999; }
 
 td {
-  padding: 5px 15px; }
+  padding: 15px 15px 20px; }
+
+tr {
+	background: #ffffff url("../images/row_divider.jpg") repeat-x bottom;
 
 tr.even td {
   background-color: #f3f2f2; }
@@ -650,6 +660,12 @@ ul.assetList {
     background-image: url("../images/library/video.png"); }
   ul.assetList a.browseUncategorised {
     background-image: url("../images/library/other.png"); }
+
+.asset_title .controls {
+	display: none; }
+
+tr:hover .controls {
+	display: inline; }
 
 /* Assets */
 #assets.show #subnav {
