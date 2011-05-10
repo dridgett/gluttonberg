@@ -2,7 +2,6 @@
 - @page_title = "#{link_to "Asset Library", admin_library_path} > #{@asset.name}"
 - @page_image = "/images/sidebar/icon_library.png"
 = sub_nav do
-  = back_link("Library", admin_assets_url)
   = nav_link("Delete", delete_admin_asset_url(@asset) )
   = nav_link("Edit", edit_admin_asset_url(@asset))
   
@@ -10,10 +9,6 @@
 %p{:id => "categoryAndType", :class => @asset.category}
   = h(@asset.asset_type.name)
   
-%p{:id => "assetID"}
-  %strong= @asset.id
-  Asset ID
-
 - unless @asset.description.blank?
   %p#description= @asset.description
 
@@ -26,6 +21,8 @@
   %dd= h(@asset.category.capitalize)
   %dt Type
   %dd= h(@asset.asset_type.name)
+  %dt Asset ID
+  %dd= @asset.id
   %dt Filesize
   %dd= h(@asset.formatted_file_size)
   %dt Filename
@@ -74,15 +71,9 @@
   %dd= date_format @asset.updated_at
   
 %h3 Public path
-%dl  
-  %dd Actual Image
-  %dd= text_field(nil ,nil ,:value => asset_url(@asset) , :id => "public-path")  
-  
-  - Gluttonberg::Asset.sizes.each do |asset_size_type , val|
-    %dd= val[:label]
-    %dd= text_field(nil ,nil ,:value => asset_url(@asset , :thumb_name => asset_size_type ) , :id => "public-path")  
-  
-  
+%p.publicpath
+  %a{:href => "#{asset_url(@asset)}", :target => "_blank"}
+    = asset_url(@asset)
 %p#public-path-note 
   This address can be used to link to this asset.
   %br/
