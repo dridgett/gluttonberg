@@ -442,7 +442,6 @@ select {
 
 /* Form controls — save/cancel */
 p.controls {
-  border-top: 1px solid #cccccc;
   padding: 1em 0 0 0;
   margin: 0.5em 0 0 0;
  	text-align: center; }
@@ -721,11 +720,12 @@ tr:hover span.controls {
 #assets.show #wrapper {
   position: relative; }
   #assets.show #wrapper h2, #assets.show #wrapper h3, #assets.show #wrapper p, #assets.show #wrapper dl, #assets.show #wrapper ul.collections {
-    margin-left: 340px;
+    margin-left: 270px;
     margin-right: 30px; }
   #assets.show #wrapper h2 {
     font-weight: bold;
-    margin-bottom: 0.3em; }
+    margin-bottom: 0.3em;
+ 		clear: both; }
   #assets.show #wrapper h3 {
     border-bottom: 1px solid #e6e6e6;
     font-size: 0.88em;
@@ -755,8 +755,10 @@ tr:hover span.controls {
   height: 200px;
   position: absolute;
   left: 50px;
-  top: 5.3em;
+  top: 158px;
   overflow: hidden; }
+#assets.edit #preview {
+  text-align: center; }
 #assets.show #assetID {
   background: #006699;
   color: white;
@@ -783,7 +785,7 @@ tr:hover span.controls {
 #assets.show #public-path-note {
   font-size: 0.9em;
   color: #333333;
-  padding-bottom: 1em;
+  padding: 1em 0;
   clear: both;
   float: left; }
 
@@ -802,6 +804,9 @@ tr:hover span.controls {
     margin: 0 0.5em 0 0;
     width: 17em;
     overflow: hidden; }
+.publicpath a {
+	color:#727272; }
+
 
 /* Asset Browser */
 #assetsDialog h1 {
