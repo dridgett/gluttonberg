@@ -29,6 +29,10 @@
           %td
             - if setting.dropdown_required?
               = select_tag(:value , options_for_select( setting.parsed_values_list_for_dropdown , setting.value  ) , { :include_blank => true , :data_id => setting.id  , :rel => admin_generic_setting_path( setting) , :class => "setting_dropdown"   })
+              
+            - elsif setting.name == "backend_logo"
+              = asset_browser_tag( "gluttonberg_setting[value]" ,  opts = {:button_class => "logo_setting" , :filter => "image" ,  :id => "gluttonberg_setting_backend_logo", :asset_id => setting.value  , :data_url => admin_generic_setting_path( setting) } )
+              
             - else
               = editable_field setting, :value , :update_url => admin_generic_setting_path( setting)
             

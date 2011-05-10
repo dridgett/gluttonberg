@@ -165,19 +165,7 @@ module Gluttonberg
         title = Rails.configuration.gluttonberg[:title]
         (title.blank?)? "Gluttonberg" : title.html_safe
       end  
-      
-      #Returns a link for sorting assets in the library
-      # def sorter_link(name, param, url)
-      #         opts = {}
-      #          if param == params[:order] || (!params[:order] && param == 'date-added')
-      #            opts[:class] = "current"
-      #          end
-      # 
-      #          route_opts = { :order => param  }
-      # 
-      #          link_to(name, url + "?" + route_opts.to_param , opts)
-      #       end
-
+     
       # Writes out a row for each page and then for each page's children, 
       # iterating down through the heirarchy.
       def page_table_rows(pages, output = "", inset = 0 , row = 0)

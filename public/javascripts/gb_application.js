@@ -146,7 +146,7 @@ var AssetBrowser = {
   dialog: null,
 	imageDisplay: null,
 	Wysiwyg: null,
-	
+	logo_setting: false,
 	filter: null,
   load: function(p, link, markup , Wysiwyg ) {
 		// it is required for asset selector in jWysiwyg
@@ -154,7 +154,12 @@ var AssetBrowser = {
 		  AssetBrowser.Wysiwyg = Wysiwyg;
 		}
 		// its used for category filtering on assets and collections	
-		AssetBrowser.filter = $("#filter_" + $(link).attr("rel")); 
+		AssetBrowser.filter = $("#filter_" + $(link).attr("rel"));
+		
+		if($(link).is(".logo_setting")){
+		  AssetBrowser.logo_setting = true; 
+		  AssetBrowser.logo_setting_url = $(link).attr("data_url");
+	  }
     // Set everthing up
     AssetBrowser.showOverlay();
     $("body").append(markup);
@@ -245,7 +250,24 @@ var AssetBrowser = {
 				
 				AssetBrowser.imageDisplay.html(image);    					      	
 				AssetBrowser.nameDisplay.html(name);
-				
+
+				// HACK FOR LOGO SETTINGS
+				if(AssetBrowser.logo_setting != undefined && AssetBrowser.logo_setting != null && AssetBrowser.logo_setting == true){
+				  url = AssetBrowser.logo_setting_url;
+          data_id = $(this).attr("data_id");
+          new_value = id;
+
+          $("#progress_" + data_id).show("fast")
+
+          $.ajax({
+              url: url,
+              data: 'gluttonberg_setting[value]=' + new_value,
+              type: "PUT",
+              success: function(data) {
+                  $("#progress_" + data_id).hide("fast")
+              }
+          });
+				}
 			}
 			
       AssetBrowser.close();
