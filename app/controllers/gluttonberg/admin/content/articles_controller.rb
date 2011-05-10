@@ -5,7 +5,7 @@ module Gluttonberg
     module Content    
       class ArticlesController < Gluttonberg::Admin::BaseController
         
-        before_filter :find_blog
+        before_filter :find_blog , :except => [:create]
         before_filter :find_article, :only => [:show, :edit, :update, :delete, :destroy]
         
         def index
@@ -27,7 +27,7 @@ module Gluttonberg
         def create
           @article = Article.new(params[:gluttonberg_article])
           if @article.save
-            redirect_to admin_blog_articles_path(@blog)
+            redirect_to admin_blog_articles_path(@article.blog)
           else
             render :edit
           end

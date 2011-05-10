@@ -3,7 +3,55 @@
 
 .left
   .article_form
-  
+    - unless @blogs.blank?
+      %h3 Post to Blog
+    
+      = form_for(@article, :url => admin_blog_articles_path(@blogs.first.id)) do  |f|
+        = gb_error_messages_for(@article)
+
+        = block("Article") do
+          = f.hidden_field(:user_id, :value => current_user.id) if @article.user_id.blank?
+          = f.select(:blog_id, @blogs.collect{|a| [a.name , a.id] } ) 
+          %p
+            = f.label :title
+            = f.text_field(:title, :id => "page_title")
+          %p
+            = f.label :slug
+            = f.text_field(:slug, :id => 'page_slug')
+          %p
+            = f.label :author
+            = f.select("author_id" ,  @authors.collect{|a| ["#{a.full_name} [#{a.email}]" , a.id] })
+          %p
+            = f.label :featured_image_id
+            = f.asset_browser( :featured_image_id ,  opts = { :filter => "image"   } )  
+
+          %p
+            = f.label :excerpt
+            = f.text_area(:excerpt  , :class => "jwysiwyg" )
+          %p
+            = f.label :body
+            = f.text_area(:body  , :class => "jwysiwyg" )
+
+          %p
+            = f.label :article_category_list , "Category"
+            = f.text_field(:article_category_list, :class => "tags" , :rel => tags_string("article_category") ) 
+
+          %p
+            = f.label :tag_list , "Tags"
+            = f.text_field(:tag_list, :class => "tags" , :rel => tags_string("tag") )   
+
+          %p
+            = f.label :disable_comments
+            = f.check_box(:disable_comments, :id => 'disable_comments')  
+
+        = f.publisable_dropdown 
+        = f.submit("Post")
+
+
+      = enable_jwysiwyg_on_class("jwysiwyg")
+    
+    
+    
   .analytics
 
 .right
@@ -17,7 +65,6 @@
       = "#{@categories_count} Categories"
     %p
       = "#{@tags_counts} Tags"
-        
         
     %h3 Discussion
     

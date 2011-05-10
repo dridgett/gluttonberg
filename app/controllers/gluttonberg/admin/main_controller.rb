@@ -12,6 +12,9 @@ module Gluttonberg
         }).first.category_count
         @tags_counts =  ActsAsTaggableOn::Tag.count - @categories_count      
         @comments = Comment.find(:all , :order => "created_at DESC" , :limit => 10)
+        @article = Article.new
+        @blogs = Gluttonberg::Blog.all
+        @authors = User.all
       end
       
       def show
