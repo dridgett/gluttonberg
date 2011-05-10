@@ -35,6 +35,7 @@ Gem::Specification.new do |s|
   s.add_dependency "acts_as_versioned" , '~> 0.6.0'
   s.add_dependency "acts-as-taggable-on" , '~> 2.0.6'  
   s.add_dependency "delayed_job" , '~> 2.1.4' 
+  s.add_dependency 'jeditable-rails' , '~> 0.1.1'
   
   #s.add_dependency "akismet" , "~> 0.1.2"
   s.add_development_dependency "rspec-rails", "~> 2.0.1"

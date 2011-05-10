@@ -9,6 +9,8 @@ module Gluttonberg
         
         def index
           @settings = Setting.find(:all , :order => "row asc")
+          @current_home_page_id  = Page.home_page.id unless Page.home_page.blank?
+          @pages = Page.all
         end
               
         def new
@@ -31,12 +33,20 @@ module Gluttonberg
         end
     
         def update
-          if @setting.update_attributes(params["gluttonberg_setting"])
-            redirect_to admin_generic_settings_path
+          if params.has_key? "gluttonberg/setting"
+            params[:gluttonberg_setting] = params["gluttonberg/setting"]
+          end  
+          if @setting.update_attributes(params[:gluttonberg_setting])
+            if request.xhr?
+              render :text => @setting.value
+            else
+              format.html redirect_to admin_generic_settings_path 
+            end            
           else
             render :edit
           end
         end
+      
         
         def delete
           display_delete_confirmation(

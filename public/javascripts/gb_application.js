@@ -16,6 +16,8 @@ $(document).ready(function() {
 
 	init_sub_nav();
 	
+	init_setting_dropdown_ajax();
+	
 });
 
 
@@ -341,4 +343,49 @@ function init_sub_nav(){
 		$(this).next().slideToggle('fast');
 		$(this).toggleClass('open');
 	});
+}
+
+function init_setting_dropdown_ajax()
+ {
+    $(".setting_dropdown").change(function() {
+        url = $(this).attr("rel");
+        id = $(this).attr("data_id");
+        new_value = $(this).val()
+
+        $("#progress_" + id).show("fast")
+
+        $.ajax({
+            url: url,
+            data: 'gluttonberg_setting[value]=' + new_value,
+            type: "PUT",
+            success: function(data) {
+                $("#progress_" + id).hide("fast")
+            }
+        });
+
+    });
+    init_home_page_setting_dropdown_ajax();
+}
+
+function init_home_page_setting_dropdown_ajax()
+ {
+    $(".home_page_setting_dropdown").change(function() {
+        url = $(this).attr("rel");
+        id = "home_page"
+        new_value = $(this).val()
+
+        $("#progress_" + id).show("fast")
+
+        $.ajax({
+            url: url,
+            data: 'home=' + new_value,
+            type: "POST",
+            success: function(data) {
+                $("#progress_" + id).hide("fast")
+            }
+        });
+
+    })
+
+
 }

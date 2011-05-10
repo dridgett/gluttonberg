@@ -11,24 +11,32 @@
     %thead
       %tr
         %th Name
-        %th Value
+        %th Value (Click to edit)
         %th.controls Controls
     %tbody
       - i = 1
       %tr{ :class => ""}
         %td Select Home Page
         %td
-          = Gluttonberg::Page.home_page_name
+          = select_tag :home , options_from_collection_for_select(@pages, "id", "name" , selected = @current_home_page_id.to_s )  ,  { :include_blank => true , :class => "home_page_setting_dropdown"  , :rel => admin_page_update_home_path(1)  }
+          
         %td.controls
-          %ul  
-            %li= link_to('Edit', admin_page_edit_home_path(1))
+          = image_tag("spinner.gif" , :id => "progress_home_page" , :style => "display:none")
       - for setting in @settings
         - i += 1
         %tr{ :class => "#{i % 2 == 0? "even" : ""}"}
           %td= setting.user_friendly_name
-          %td= setting.value
+          %td
+            - if setting.dropdown_required?
+              = select_tag(:value , options_for_select( setting.parsed_values_list_for_dropdown , setting.value  ) , { :include_blank => true , :data_id => setting.id  , :rel => admin_generic_setting_path( setting) , :class => "setting_dropdown"   })
+            - else
+              = editable_field setting, :value , :update_url => admin_generic_setting_path( setting)
+            
           %td.controls
+            = image_tag("spinner.gif" , :id => "progress_#{setting.id}" , :style => "display:none")
             %ul
-              %li= link_to('Edit', edit_admin_generic_setting_path(setting))
               - if setting.delete_able
                 %li= link_to 'Delete', delete_admin_generic_setting_path(setting)
+
+
+                
