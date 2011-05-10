@@ -1,7 +1,4 @@
-= sub_nav do
-  = back_link("Library", admin_assets_url)
-
-= form_for( :collection , @collection , :url => url_opts ,  :html => { :method => method_name} ) do |collection_form|
+= form_for( :collection , @collection , :url => url_opts ,  :html => { :method => method_name, :class => "nosubnav"} ) do |collection_form|
   = gb_error_messages_for(@collection)
   = block("Collection") do
     = collection_form.label :name

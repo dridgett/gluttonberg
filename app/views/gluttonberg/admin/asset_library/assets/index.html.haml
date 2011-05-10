@@ -48,8 +48,9 @@
           %tr
             %td.thumbnail
               %img{:src => asset.thumb_small_url  }
-            %td.asset_title
-              = asset.name
+            %td
+              %span.asset_title
+                = asset.name
               %span.controls
                 %a{:href => admin_asset_url(asset), :class => "assetLink"}
                   View

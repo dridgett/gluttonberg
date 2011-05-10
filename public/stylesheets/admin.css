@@ -248,7 +248,7 @@ body {
     float: right; }
   #subnav .button a {
  		display: block;
- 		margin: 0 0 25px 25px; }
+ 		margin: 0 0 15px 25px; }
     .button a, a.button {
       color: #727272;
       background-color: #ffffff;
@@ -258,6 +258,9 @@ body {
 			font-weight: bold;
 			padding: 7px 12px;
 			text-decoration: none; }
+			a.button:hover, .button:hover a {
+				background: #f58da2;
+				color: #ffffff; }
 
 #assets.show #wrapper #subnav li {
   padding: 0 !important; }
@@ -318,33 +321,43 @@ body {
 		margin: auto; }
 /* Base styles */
 form, .pageBlock {
-  margin-top: 25px;
+  margin-bottom: 25px;
   background: #fafafa;
   border: #e5e4e3 1px solid;
   padding: 1.5em 0 0.5em 0;
-  margin: 25px 0 0 0;
   width: 99.9%;
   float: left;
   -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
- }
+  -webkit-border-radius: 5px; }
 
-fieldset {
+.nosubnav {
+	margin-top: 25px; }
+	
+.fieldset {
   border: 0;
  	width: 545px;
- 	margin: auto; }
+ 	margin: auto;
+ 	padding-top: 15px; }
 
+fieldset {
+	padding: 0 15px;
+	border: none;
+}
 legend {
-	font-size: 16px;
+	font-size: 14px;
+	font-family: Georgia, Serif;
 	color: #727272;
-	padding: 0 0 10px 7px;
 	width: 100%;
-	margin-bottom: 10px;
-	display: block; }
+	padding: 0 0 16px 0;
+	margin-bottom: 16px;
+	display: block;
+	border-bottom: 1px solid #dcdbd9; }
 	
 div.fieldset,
 ol.fieldset { }
-
+div.fieldset input {
+	margin-bottom: 15px;
+}
 label {
   text-align: right;
   padding: 0.2em 0.6em 0.2em 0;
@@ -377,7 +390,7 @@ input.checkbox,
 input.radio,
 textarea,
 select {
-  margin-bottom: 1em;
+  margin-bottom: 15px;
   float: left;
   clear: right;
 	background: #ebebeb; }
@@ -392,6 +405,7 @@ input.radio {
 input.text,
 input.password,
 textarea {
+	margin-bottom: 15px;
   background: #ebebeb right top no-repeat url("../images/form/input_bkg.jpg");
   border: none;
   padding: 0.2em 0.5em; }
@@ -430,24 +444,29 @@ select {
 p.controls {
   border-top: 1px solid #cccccc;
   padding: 1em 0 0 0;
-  margin: 0.5em 0 0 0; }
+  margin: 0.5em 0 0 0;
+ 	text-align: center; }
   p.controls a {
-    color: #408eb3; }
+    color: #727272;
+ 		text-decoration: none; }
   p.controls a:hover {
-    color: #c26b31; }
+    color: #727272;
+ 		text-decoration: underline; }
   p.controls input {
-    background: #cccccc left top repeat-x url("../images/button_bkg_grey.gif");
-    border-width: 2px;
-    border-style: solid;
-    border-color: #244e66;
-    color: #244e66;
-    font-weight: bold;
-    font-size: 1.2em;
-    padding: 0.3em 0.4em;
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px; }
+    color: #727272;
+    background-color: #ffffff;
+    border: #e0ded8 1px solid;
+    -webkit-border-radius: 3px;
+		font-size: 13px;
+		font-weight: bold;
+		padding: 7px 12px;
+		text-decoration: none; }
+		p.controls input:hover {
+			background: #f58da2;
+			color: #ffffff; }
   p.controls strong {
-    font-size: 1.2em; }
+    font-size: 14px;
+ 		color: #727272; }
 
 /* Error display */
 div.error {
@@ -557,6 +576,19 @@ thead th {
  	height: 45px;
  	padding: 0 0 0 15px;}
 
+thead th a {
+	color: #727272;
+	text-decoration: none;
+	padding-right: 25px;
+	background: none;
+	display: inline-block; }
+
+thead th a:hover, thead th a.desc:hover, thead th a.current.asc {
+	background: url("../images/library/sort_by_asc.png") right no-repeat; }
+
+thead th a:hover, thead th a.asc:hover, thead th a.current.desc {
+	background: url("../images/library/sort_by_desc.png") right no-repeat; }
+
 tbody th {
   background: #f2f2f2;
   font-size: 1.2em;
@@ -659,7 +691,7 @@ ul.assetList {
   ul.assetList a.assetVideo {
     background-image: url("../images/library/asset_generic_medium.gif"); }
   ul.assetList a.collection {
-    background-image: url("../images/library/collection_medium.gif"); }
+    background-image: url("../images/icons/folder.png"); }
   ul.assetList a.browseAll {
     background-image: url("../images/library/all.png"); }
   ul.assetList a.browseArchives {
@@ -1063,6 +1095,9 @@ p.newLink {
 		text-decoration: none;
 		width: 36px;
 		display: block; }
+	  #contextualHelp a:hover {
+			background: #f58da2;
+			color: #ffffff; }
 
 /* HELP DIALOG BOX ================================================== */
 #helpDialog .display {
@@ -2141,6 +2176,9 @@ ul.tagit {
 	margin: auto;
 	position: relative;
 	padding-top: 100px; }
+	#form fieldset {
+		width: 375px;
+		padding: 0; }
 	#form #login_tab, #form #password_tab {
 		position: absolute;
 		right: 50px;
@@ -2154,7 +2192,10 @@ ul.tagit {
 	#form form {
 		margin: 0;
 		padding: 25px 0px 25px 40px;
-		width: 366px; }
+		width: 366px;
+		background: none;
+		float: none;
+		border: none; }
 	#form h2 {
 		font-family: Georgia, Serif;
 		font-size: 16px;
@@ -2188,6 +2229,9 @@ ul.tagit {
 		font-family: Georgia, Serif;
 		padding: 7px 12px;
 		text-decoration: none; }
+		#form .button:hover {
+			background: #f58da2;
+			color: #ffffff; }
 #login_title {
 	position: absolute;
 	top: 44px;

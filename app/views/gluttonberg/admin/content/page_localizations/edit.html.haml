@@ -1,7 +1,5 @@
-- @page_title = "Edit localization"
-- @page_image = "/images/sidebar/icon_settings.png"
-= sub_nav do
-  = back_link("Content", admin_content_path)
-  = back_link("Pages", admin_pages_path)
+- @window_title = "Content"
+- @page_title = "#{link_to "Content", admin_content_path} > #{link_to "Pages", admin_pages_path} > Edit Localization"
+- @page_image = "/images/sidebar/icon_content.png"
   
 = render :partial => "form" , :locals => { :url => admin_page_page_localization_path( :page_id => params[:page_id], :id => @page_localization) } 
