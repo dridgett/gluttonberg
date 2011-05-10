@@ -9,6 +9,10 @@ module Gluttonberg
     before_save :init_moderation
     after_save :send_notifications_if_needed
     
+    scope :all_approved, :conditions => { :approved => true }
+    scope :all_pending, :conditions => { :moderation_required => true }
+    scope :all_rejected, :conditions => { :approved => false , :moderation_required => false }
+    
     attr_accessor :subscribe_to_comments , :blog_slug
     
     def moderate(params)

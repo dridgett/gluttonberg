@@ -1,2 +1,47 @@
 - @page_title = "Dashboard"
 - @page_image = "/images/sidebar/icon_dashboard.png"
+
+.left
+  .article_form
+  
+  .analytics
+
+.right
+  .summary
+    %h3 Your Site
+    %p
+      = "#{Gluttonberg::Article.count} Posts"
+    %p
+      = "#{Gluttonberg::Page.count} Pages"
+    %p
+      = "#{@categories_count} Categories"
+    %p
+      = "#{@tags_counts} Tags"
+        
+        
+    %h3 Discussion
+    
+    %p
+      = "#{Gluttonberg::Comment.count} Comments"
+    %p
+      = "#{Gluttonberg::Comment.all_approved.count} Approved"
+    %p
+      = "#{Gluttonberg::Comment.all_pending.count} Pending"
+    %p
+      = "#{Gluttonberg::Comment.all_rejected.count} Spam"
+        
+  .recent_comments
+    - @comments.each do |comment|
+      .comment
+        = comment.body
+        
+        Posted by
+        = comment.author_name
+        
+        Blog Post
+        = comment.commentable.title
+        
+        - if comment.moderation_required
+          = link_to "Approve", moderation_admin_blog_article_comment_path(comment.commentable.blog, comment.commentable, comment, :moderation => "approve")
+          = link_to "Disapprove", moderation_admin_blog_article_comment_path(comment.commentable.blog, comment.commentable, comment, :moderation => "disapprove")
+            
