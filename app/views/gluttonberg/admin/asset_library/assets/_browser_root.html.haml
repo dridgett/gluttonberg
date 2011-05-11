@@ -4,6 +4,8 @@
       %a{ :href => "#tabs-browse"} Browse
     %li
       %a{ :href => "#tabs-collection"} Collections
+    %li
+      %a{ :href => "#tabs-upload"} Upload  
   .clear
 
 #tabs-browse
@@ -25,5 +27,23 @@
         %li
           %a{:href => admin_collection_url(collection), :class => "collection"}
             %h3= collection.name
+
+#tabs-upload
+  - @asset  = Gluttonberg::Asset.new
+  = form_for( :asset , @asset , :url => { :action => :ajax_new } ,  :html => { :multipart=>true  , :method => "POST", :class => "nosubnav" } ) do |asset_form|
+    = block("Asset") do
+      = asset_form.label :file , "File to upload"
+      = asset_form.file_field(:file)
+
+      = asset_form.label :name , "Name"
+      = asset_form.text_field(:name, :class => "large")
+
+      %br        
+
+    = render :partial => "collection_select_form" , :locals => {:asset_form => asset_form }
+
+    .controls
+      = asset_form.submit("Upload" , :id => "ajax_image_upload" )
+
 .clear              
          

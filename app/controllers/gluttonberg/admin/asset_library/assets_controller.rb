@@ -147,6 +147,21 @@ module Gluttonberg
           end
           redirect_to :action => :index
         end
+        
+        def ajax_new
+          params[:asset][:name] = "ajax upload #{Time.now.to_i}"
+          # process new asset_collection and merge into existing collections
+          process_new_collection_and_merge(params)
+
+          @asset = Asset.new(params[:asset].merge(:user_id => current_user.id))       
+          if @asset.save
+            render :text => { "asset_id" => @asset.id , "url" => @asset.thumb_small_url }.to_json.to_s
+            #render :text => "#{@asset.id}" ##{@asset.thumb_small_url}
+          else
+            prepare_to_edit
+            render :new
+          end
+        end
     
         private
             def find_asset

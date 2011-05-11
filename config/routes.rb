@@ -53,6 +53,7 @@ Rails.application.routes.draw do
             get 'delete', :on => :member
           end
           match "library" => "assets#index" , :as => :library
+          match "add_asset_using_ajax"  => "assets#ajax_new" , :as => :add_asset_using_ajax
           match "add_assets_in_bulk"  => "assets#add_assets_in_bulk" , :as => :add_assets_in_bulk
           match "create_assets_in_bulk"  => "assets#create_assets_in_bulk" , :as => :create_assets_in_bulk
           match "browser"  => "assets#browser" , :as => :asset_browser
