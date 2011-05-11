@@ -71,10 +71,11 @@ body {
 /* HEADINGS ========================================================= */
 #content {
 	padding: 0 100px 0 50px;
+	min-width: 797px;
 }
 /* SIDEBAR ========================================================== */
 #sidebar {
-  position: absolute;
+  position: fixed;
   left: 0;
   top: 0;
  	height: 100%;
@@ -218,8 +219,10 @@ body {
 	#header #user a.username {
 		color: #727272;
 		text-decoration: underline;
-		margin-right: 25px;
-	}
+		margin-right: 25px; }
+	#header img {
+		position: absolute;
+		top: 18px; }
 
 #subheader {
 	position: relative; }
@@ -596,12 +599,12 @@ tbody th {
 td {
   padding: 15px 15px 20px; }
 
-tr {
-	background: #ffffff url("../images/row_divider.jpg") repeat-x bottom; }
+table tr {
+	background: #ffffff url("../images/row_divider.jpg") repeat-x bottom !important; }
 
-tr.even td {
+/*tr.even td {
   background-color: #f3f2f2; }
-
+*/
 table .controls {
   border-right-width: 0; }
 
@@ -634,6 +637,26 @@ tr.insert_before td {
 
 /* Asset Library */
 
+#tabs-recent {
+	padding: 50px;
+	float: left;
+	color: #727272;
+	background-color: white;
+	border: #E0DED8 1px solid;
+	margin-top: -1px;
+	-webkit-border-top-left-radius: 0 0;
+	-webkit-border-top-right-radius: 3px 3px;
+	-webkit-border-bottom-left-radius: 3px 3px;
+	-webkit-border-bottom-right-radius: 3px 3px;
+	border-top-left-radius: 0px 0px;
+	border-top-right-radius: 3px 3px;
+	border-bottom-left-radius: 3px 3px;
+	border-bottom-right-radius: 3px 3px; }
+
+#assets_table #tabs-recent {
+	width: 80%;
+	margin: 0 10%; }
+
 h2.assetList {
   border-bottom: 1px solid #cccccc;
   font-weight: bold;
@@ -655,7 +678,7 @@ ul.assetList {
   -webkit-border-bottom-left-radius: 3px 3px;
   -webkit-border-bottom-right-radius: 3px 3px; }
   ul.assetList li {
-		width: 16%;
+		width: 20%;
 		float: left;
 		text-align: center }
 	ul.assetList li.clear {
@@ -2259,8 +2282,7 @@ ul.tagit {
 	display: block; }
 	
 /* MAIN DASHBOARD */
-#main .new_gluttonberg_article {
-	width: 49%; }
+#main .new_gluttonberg_article { }
 
 #main .new_gluttonberg_article p {
 	clear: both; }
@@ -2288,13 +2310,26 @@ ul.tagit {
 		background: #f58da2;
 		color: #ffffff; }
 
+#main .right, #main .left {
+	width: 48%;
+	float: left; }
+#main .left {
+	margin-right: 4%; }
 #main .right .summary {
-	float: left;
-	width: 47%; }
+}
 
 #main .right .summary div {
 	float: left;
-	width: 50%; }
+	width: 50%;
+	font-size: 16px;
+	font-family: Georgia, Serif; }
+
+#main .left h3, #main .right .summary div h3 {
+	padding: 18px 0;
+	border-bottom: 1px solid #EBE4D1;
+	margin: 0 0 18px 0;
+	font-size: 16px;
+	font-family: Georgia, Serif; }
 
 #main .right .summary div p {
 	padding: 0 0 12px; }
@@ -2318,3 +2353,7 @@ div.wysiwyg ul.toolbar li.createLink {
   background: url('../images/wysiwyg.gif');
 	background-position: 0 0 !important;
 }*/
+
+
+
+.first_column, .second_column { width: 50%; }
