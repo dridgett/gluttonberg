@@ -4,8 +4,8 @@ module Gluttonberg
   module  Admin
     module Settings
       class LocalesController < Gluttonberg::Admin::BaseController
-        before_filter :find_locale, :only => [:delete, :edit, :update, :destroy]
-        before_filter :require_super_admin_user
+        before_filter :find_locale, :only => [:delete, :edit, :update, :destroy]        
+        before_filter :authorize_user
         
         def index
           @locales = Locale.all
@@ -54,12 +54,15 @@ module Gluttonberg
         end
 
         private
-
       
-       def find_locale
-          @locale = Locale.find(params[:id])
-          raise ActiveRecord::RecordNotFound  unless @locale
-        end
+          def find_locale
+            @locale = Locale.find(params[:id])
+            raise ActiveRecord::RecordNotFound  unless @locale
+          end
+          
+          def authorize_user
+            authorize! :manage, Gluttonberg::Locale
+          end
       
       end
     end

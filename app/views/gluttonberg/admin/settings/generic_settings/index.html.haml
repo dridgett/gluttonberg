@@ -2,7 +2,8 @@
 - @page_title = "#{link_to "Settings", admin_settings_path} > Configuration"
 - @page_image = "/images/sidebar/icon_settings.png"
 = sub_nav do
-  = nav_link('New', new_admin_generic_setting_path)
+  - if can? :create_or_destroy, Gluttonberg::Setting
+    = nav_link('New', new_admin_generic_setting_path)
   
 - if @settings.empty?
   %p.empty No settings

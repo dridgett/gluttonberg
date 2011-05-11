@@ -5,12 +5,18 @@ module Gluttonberg
     module Settings
       class UsersController < Gluttonberg::Admin::BaseController
         before_filter :find_user, :only => [:delete, :edit, :update, :destroy]
-        before_filter :require_super_admin_user , :except => [:edit , :update]    
+        before_filter :authorize_user , :except => [:edit , :update]    
+        
         def index
-          unless current_user.super_admin?
+          unless current_user.super_admin? || current_user.admin?
             redirect_to :action => "edit" , :id => current_user.id
           end
-          @users = User.all
+          if current_user.super_admin?
+            @users = User.all
+          else
+            @users = User.find(:all , :conditions => ["role != ?" , "super_admin"] )
+          end
+          
           @users = @users.paginate(:page => params[:page] , :per_page => Rails.configuration.gluttonberg[:number_of_per_page_items] )
         end
   
@@ -27,15 +33,14 @@ module Gluttonberg
             render :action => :new
           end
         end
-  
-  
+        
         def edit          
         end
   
         def update
           if @user.update_attributes(params[:user])
             flash[:notice] = "Account updated!"
-            if current_user.super_admin?
+            if current_user.super_admin? || current_user.admin?
               redirect_to  :action => :index
             else
               redirect_to  :action => :edit
@@ -53,7 +58,6 @@ module Gluttonberg
             :return_url => admin_users_path  
           )        
         end
-        
   
         def destroy
           if @user.destroy
@@ -64,17 +68,27 @@ module Gluttonberg
           end  
         end
   
-  
        private
           def find_user
             if current_user.super_admin?
              @user = User.find(params[:id])
+            elsif current_user.admin?
+              @user = User.find(params[:id])
+              if @user.super_admin?
+                @user = nil
+              end
             else
-             @user =  current_user
+              @user = User.find(params[:id])
+              unless @user.id == current_user.id
+                @user =  nil
+              end             
             end
             raise ActiveRecord::RecordNotFound  unless @user
           end
-    
+          
+          def authorize_user
+            authorize! :manage, User
+          end
       
       end
     end

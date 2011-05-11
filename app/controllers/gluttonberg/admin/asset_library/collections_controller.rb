@@ -14,7 +14,7 @@ module Gluttonberg
           @collection = AssetCollection.new
         end
 
-        def edit              
+        def edit
         end
 
         # if u pass filter param then it will bring filtered assets inside collection  
