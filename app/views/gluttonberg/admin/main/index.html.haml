@@ -4,14 +4,17 @@
 .left 
   .article_form
     - unless @blogs.blank?
+          
       %h3 Post to Blog
-    
       = form_for(@article, :url => admin_blog_articles_path(@blogs.first.id)) do  |f|
         = gb_error_messages_for(@article)
-
-        = block("Article") do
+        = block() do
           = f.hidden_field(:user_id, :value => current_user.id) if @article.user_id.blank?
-          = f.select(:blog_id, @blogs.collect{|a| [a.name , a.id] } ) 
+          = f.hidden_field(:author_id, :value => current_user.id)
+          %p
+            %label
+              Post to
+            = f.select(:blog_id, @blogs.collect{|a| [a.name , a.id] } ) 
           %p
             = f.label :title
             = f.text_field(:title, :id => "page_title")
@@ -19,32 +22,11 @@
             = f.label :slug
             = f.text_field(:slug, :id => 'page_slug')
           %p
-            = f.label :author
-            = f.select("author_id" ,  @authors.collect{|a| ["#{a.full_name} [#{a.email}]" , a.id] })
-          %p
-            = f.label :featured_image_id
-            = f.asset_browser( :featured_image_id ,  opts = { :filter => "image"   } )  
-
-          %p
-            = f.label :excerpt
-            = f.text_area(:excerpt  , :class => "jwysiwyg" )
-          %p
-            = f.label :body
             = f.text_area(:body  , :class => "jwysiwyg" )
-
-          %p
-            = f.label :article_category_list , "Category"
-            = f.text_field(:article_category_list, :class => "tags" , :rel => tags_string("article_category") ) 
-
-          %p
-            = f.label :tag_list , "Tags"
-            = f.text_field(:tag_list, :class => "tags" , :rel => tags_string("tag") )   
-
           %p
             = f.label :disable_comments
             = f.check_box(:disable_comments, :id => 'disable_comments')  
 
-        = f.publisable_dropdown 
         = f.submit("Post")
 
 
@@ -56,26 +38,28 @@
 
 .right
   .summary
-    %h3 Your Site
-    %p
-      = "#{Gluttonberg::Article.count} Posts"
-    %p
-      = "#{Gluttonberg::Page.count} Pages"
-    %p
-      = "#{@categories_count} Categories"
-    %p
-      = "#{@tags_counts} Tags"
+    %div
+      %h3 Your Site
+      %p
+        = "#{Gluttonberg::Article.count} Posts"
+      %p
+        = "#{Gluttonberg::Page.count} Pages"
+      %p
+        = "#{@categories_count} Categories"
+      %p
+        = "#{@tags_counts} Tags"
         
-    %h3 Discussion
+    %div
+      %h3 Discussion
     
-    %p
-      = "#{Gluttonberg::Comment.count} Comments"
-    %p
-      = "#{Gluttonberg::Comment.all_approved.count} Approved"
-    %p
-      = "#{Gluttonberg::Comment.all_pending.count} Pending"
-    %p
-      = "#{Gluttonberg::Comment.all_rejected.count} Spam"
+      %p
+        = "#{Gluttonberg::Comment.count} Comments"
+      %p
+        = "#{Gluttonberg::Comment.all_approved.count} Approved"
+      %p
+        = "#{Gluttonberg::Comment.all_pending.count} Pending"
+      %p
+        = "#{Gluttonberg::Comment.all_rejected.count} Spam"
         
   .recent_comments
     - @comments.each do |comment|
