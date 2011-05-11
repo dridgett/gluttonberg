@@ -8,6 +8,7 @@ module Gluttonberg
   require 'acts_as_list'
   require 'acts_as_versioned' 
   require 'delayed_job' 
+  
   require 'gluttonberg/authorizable'
   require 'gluttonberg/components'
   require 'gluttonberg/content'
@@ -19,7 +20,7 @@ module Gluttonberg
   require 'gluttonberg/templates'
   require 'gluttonberg/middleware'
   
-  
+    
     # These should likely move into one of the initializers inside of the
     # engine config. This will ensure they only run after Rails and the app
     # has been loaded.
@@ -42,7 +43,6 @@ module Gluttonberg
       Rails.logger.info e
     end
   end
-  
-  
+  require 'jeditable-rails'
 end
 
