@@ -7,14 +7,8 @@
 
 
 %div#assetsDialog  
-  %h1 
-    - if @show_bigstories_contents.to_s == "true"
-      Choose Content
-    - else
-      Choose Asset
-  
   %ul#assetsNavigation
-    %li#back= link_to("Back", "#back")
+    %li#back= link_to("Back", "#back", :class => "button")
     
     %li
       %button#cancel.button
