@@ -186,6 +186,9 @@ var AssetBrowser = {
         if ($(link).is(".logo_setting")) {
             AssetBrowser.logo_setting = true;
             AssetBrowser.logo_setting_url = $(link).attr("data_url");
+        }else{
+          AssetBrowser.logo_setting = false;
+          AssetBrowser.logo_setting_url = "";
         }
         // Set everthing up
         AssetBrowser.showOverlay();
@@ -279,39 +282,14 @@ var AssetBrowser = {
                 AssetBrowser.target.attr("value", id);
                 var image = target.find("div").html();
 
-                if (AssetBrowser.Wysiwyg != undefined && AssetBrowser.Wysiwyg !== null) {
-                    Wysiwyg = AssetBrowser.Wysiwyg;
-                    image_url = target.find(".jwysiwyg_image").val();
-                    title = ""
-                    description = "";
-                    style = "";
-                    image = "<img src='" + image_url + "' title='" + title + "' alt='" + description + "'" + style + "/>";
-                    Wysiwyg.insertHtml(image);
-                }
+                
+                image_url = target.find(".jwysiwyg_image").val();
+                insert_image_in_wysiwyg(image_url);
 
                 AssetBrowser.imageDisplay.html(image);
                 AssetBrowser.nameDisplay.html(name);
-
-                // // HACK FOR LOGO SETTINGS
-                //                 if (AssetBrowser.logo_setting != undefined && AssetBrowser.logo_setting != null && AssetBrowser.logo_setting == true) {
-                //                     url = AssetBrowser.logo_setting_url;
-                //                     data_id = $(this).attr("data_id");
-                //                     new_value = id;
-                // 
-                //                     $("#progress_" + data_id).show("fast")
-                // 
-                //                     $.ajax({
-                //                         url: url,
-                //                         data: 'gluttonberg_setting[value]=' + new_value,
-                //                         type: "PUT",
-                //                         success: function(data) {
-                //                             $("#progress_" + data_id).hide("fast")
-                //                         }
-                //                     });
-                //                 }
-                data_id = $(this).attr("data_id");
-                url = AssetBrowser.logo_setting_url;
-                auto_save_asset(url , id )
+                
+                auto_save_asset(AssetBrowser.logo_setting_url , id ); //auto save if it is required
             }
 
             AssetBrowser.close();
@@ -349,7 +327,16 @@ var AssetBrowser = {
     }
 
 };
-
+function insert_image_in_wysiwyg(image_url){
+  if (AssetBrowser.Wysiwyg != undefined && AssetBrowser.Wysiwyg !== null) {
+      Wysiwyg = AssetBrowser.Wysiwyg;
+      title = ""
+      description = "";
+      style = "";
+      image = "<img src='" + image_url + "' title='" + title + "' alt='" + description + "'" + style + "/>";
+      Wysiwyg.insertHtml(image);
+  }
+}
 function auto_save_asset(url , new_id ){
   // HACK FOR LOGO SETTINGS
   if (AssetBrowser.logo_setting != undefined && AssetBrowser.logo_setting != null && AssetBrowser.logo_setting == true) {
@@ -486,7 +473,8 @@ function ajaxFileUpload(link)
     });
     link = $(link);
     
-    console.log($("#asset_asset_collection_ids").val())
+    $("#progress_ajax_upload").show();
+    
     asset_name = $('input[name$="asset[name]"]').val();
     var formData = { "asset[name]" : asset_name , "asset[asset_collection_ids]" : $("#asset_asset_collection_ids").val() , "new_collection[new_collection_name]" : $('input[name$="new_collection[new_collection_name]"]').val() }
     
@@ -508,7 +496,6 @@ function ajaxFileUpload(link)
             fileElementId:'asset_file',
             dataType: 'json',
             data: formData  ,
-            //data: {"new_collection[new_collection_name]":"runtime"},
             success: function (data, status)
             {
                 if(typeof(data.error) != 'undefined')
@@ -522,23 +509,19 @@ function ajaxFileUpload(link)
                     }
                 }
                 
-                
                 new_id = data["asset_id"]
                 file_path = data["url"]
-                
-                
+                jwysiwyg_image = data["jwysiwyg_image"];
+                 
                 $("#"+ link.attr('rel')).val(new_id);
-                //$("#"+ link.attr('rel')).parent().find("img").attr("src" , file_path)
                 $("#title_thumb_"+ link.attr('rel')).html("<img src='"+file_path+"' /> " + asset_name );
                 
+                insert_image_in_wysiwyg(jwysiwyg_image);
                 
                 data_id = $(this).attr("data_id");
                 url = AssetBrowser.logo_setting_url;
-                auto_save_asset(url ,  new_id )
-                
+                auto_save_asset(url ,  new_id ); // only if autosave is required
                 AssetBrowser.close();
-                
-                
             },
             error: function (data, status, e)
             {

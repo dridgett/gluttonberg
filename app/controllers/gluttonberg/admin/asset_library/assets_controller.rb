@@ -157,7 +157,7 @@ module Gluttonberg
 
           @asset = Asset.new(params[:asset].merge(:user_id => current_user.id))       
           if @asset.save
-            render :text => { "asset_id" => @asset.id , "url" => @asset.thumb_small_url }.to_json.to_s
+            render :text => { "asset_id" => @asset.id , "url" => @asset.thumb_small_url , "jwysiwyg_image" => @asset.url_for(:jwysiwyg_image) }.to_json.to_s
             #render :text => "#{@asset.id}" ##{@asset.thumb_small_url}
           else
             prepare_to_edit
