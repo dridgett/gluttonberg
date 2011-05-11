@@ -149,7 +149,9 @@ module Gluttonberg
         end
         
         def ajax_new
-          params[:asset][:name] = "ajax upload #{Time.now.to_i}"
+          if(params[:asset][:name].blank?)
+            params[:asset][:name] = "Image #{Time.now.to_i}"
+          end  
           # process new asset_collection and merge into existing collections
           process_new_collection_and_merge(params)
 
@@ -181,6 +183,8 @@ module Gluttonberg
             # if new collection is provided it will create the object for that
             # then it will add new collection id into other existing collection ids     
             def process_new_collection_and_merge(params)
+              params[:asset][:asset_collection_ids] = params[:asset][:asset_collection_ids].split(",") if params[:asset][:asset_collection_ids].kind_of?(String)
+                
               the_collection = find_or_create_asset_collection_from_hash(params["new_collection"])
                unless the_collection.blank?
                  params[:asset][:asset_collection_ids] = params[:asset][:asset_collection_ids] || []

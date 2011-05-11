@@ -475,6 +475,7 @@ function init_home_page_setting_dropdown_ajax()
 
 }
 
+
 function ajaxFileUpload(link)
 {
     //starting setting some animation when the ajax starts and completes
@@ -484,6 +485,11 @@ function ajaxFileUpload(link)
         $(this).hide();
     });
     link = $(link);
+    
+    console.log($("#asset_asset_collection_ids").val())
+    asset_name = $('input[name$="asset[name]"]').val();
+    var formData = { "asset[name]" : asset_name , "asset[asset_collection_ids]" : $("#asset_asset_collection_ids").val() , "new_collection[new_collection_name]" : $('input[name$="new_collection[new_collection_name]"]').val() }
+    
     /*
         prepareing ajax file upload
         url: the url of script file handling the uploaded files
@@ -501,7 +507,8 @@ function ajaxFileUpload(link)
             secureuri:false,
             fileElementId:'asset_file',
             dataType: 'json',
-            data: {"new_collection[new_collection_name]":"runtime"},
+            data: formData  ,
+            //data: {"new_collection[new_collection_name]":"runtime"},
             success: function (data, status)
             {
                 if(typeof(data.error) != 'undefined')
@@ -521,7 +528,9 @@ function ajaxFileUpload(link)
                 
                 
                 $("#"+ link.attr('rel')).val(new_id);
-                $("#"+ link.attr('rel')).parent().find("img").attr("src" , file_path)
+                //$("#"+ link.attr('rel')).parent().find("img").attr("src" , file_path)
+                $("#title_thumb_"+ link.attr('rel')).html("<img src='"+file_path+"' /> " + asset_name );
+                
                 
                 data_id = $(this).attr("data_id");
                 url = AssetBrowser.logo_setting_url;
