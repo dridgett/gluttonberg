@@ -5,7 +5,8 @@ module Gluttonberg
     module Settings
       class GenericSettingsController < Gluttonberg::Admin::BaseController
         before_filter :find_setting, :only => [:delete, :edit, :update, :destroy]
-        before_filter :require_super_admin_user 
+        before_filter :authorize_user
+        before_filter :authorize_user_for_create_or_destroy, :only => [:delete, :new, :create, :destroy]
         
         def index
           @settings = Setting.find(:all , :order => "row asc")
@@ -69,6 +70,13 @@ module Gluttonberg
         def find_setting
           @setting = Setting.find(params[:id]) 
           raise ActiveRecord::RecordNotFound  unless @setting
+        end
+        
+        def authorize_user
+          authorize! :manage, Gluttonberg::Setting
+        end
+        def authorize_user_for_create_or_destroy
+          authorize! :create_or_destroy, Gluttonberg::Setting
         end
     
       end # GenericSettings

@@ -8,7 +8,7 @@ module Gluttonberg
   require 'acts_as_list'
   require 'acts_as_versioned' 
   require 'delayed_job' 
-  
+  require 'cancan'
   require 'gluttonberg/authorizable'
   require 'gluttonberg/components'
   require 'gluttonberg/content'

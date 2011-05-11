@@ -6,13 +6,14 @@ module Gluttonberg
       class AssetsController < Gluttonberg::Admin::BaseController
         before_filter :find_asset , :only => [:delete , :edit , :show , :update , :destroy  ]  
         before_filter :prepare_to_edit  , :except => [:category , :show , :delete , :create , :update  ]
-    
+        before_filter :authorize_user 
+        before_filter :authorize_user_for_destroy , :except => [:destroy , :delete]  
+        
         
         # home page of asset library
         def index
           # Get the latest assets, ensuring that we always grab at most 15 records  
           conditions =  { :updated_at => ((Time.now - 24.hours).gmtime)..(Time.now.gmtime)  }
-          conditions[:user_id] = current_user.id unless current_user.super_admin?
           @assets = Asset.find(:all, 
               :conditions => conditions, 
               :limit => Rails.configuration.gluttonberg[:library_number_of_recent_assets] , 
@@ -43,7 +44,6 @@ module Gluttonberg
         # list assets page by page if user drill down into a category from category tab of home page
         def category
           conditions = {:order => get_order, :per_page => Rails.configuration.gluttonberg[:number_of_per_page_items] , :page => params[:page]}
-          conditions[:user_id] = current_user.id unless current_user.super_admin?
           if params[:category] == "all" then
             # ignore asset category if user selects 'all' from category
             @assets = Asset.includes(:asset_type).paginate( conditions ) 
@@ -168,17 +168,22 @@ module Gluttonberg
         private
             def find_asset
               conditions = { :id => params[:id] }
-              conditions[:user_id] = current_user.id unless current_user.super_admin?
               @asset = Asset.find(:first , :conditions => conditions )   
               raise ActiveRecord::RecordNotFound  if @asset.blank?              
             end
     
             def prepare_to_edit
               conditions = { }
-              conditions[:user_id] = current_user.id unless current_user.super_admin?
               @collections = AssetCollection.find(:all  , :conditions => conditions ,  :order => "name")
             end
-    
+            
+            def authorize_user
+              authorize! :manage, Gluttonberg::Asset
+            end
+            
+            def authorize_user_for_destroy
+              authorize! :destroy, Gluttonberg::Asset
+            end
      
             # if new collection is provided it will create the object for that
             # then it will add new collection id into other existing collection ids     
