@@ -263,7 +263,7 @@ module Gluttonberg
       
       def active_link?(url, active_class="active")
         url = url.to_s + "_path" if url.class == Symbol
-        active_class if request.env["PATH_INFO"] && request.env["PATH_INFO"].include?(url)
+        active_class if request.env["PATH_INFO"] && request.env["PATH_INFO"] == url
       end
       
       def date_format(date_time)
