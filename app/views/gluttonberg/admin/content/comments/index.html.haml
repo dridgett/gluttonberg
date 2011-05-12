@@ -1,7 +1,8 @@
 - @page_title = "Comments"
+- @page_title = "#{link_to "Content", admin_content_path} > #{link_to "Blogs", admin_blogs_path} > #{link_to @blog.name, admin_blog_articles_path(@blog)} > #{@article.title} Comments"
+
 - @page_image = "/images/sidebar/icon_feedback.png"
-= sub_nav do
-  = back_link("Articles", admin_blog_articles_path(@blog))
+
     
 - if @comments.empty?
   %p.empty No Comments

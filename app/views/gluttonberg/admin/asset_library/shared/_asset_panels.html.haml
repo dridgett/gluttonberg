@@ -13,10 +13,12 @@
     - for asset in @assets
       %tr
         %td.thumbnail
-          %img{:src => asset.thumb_small_url  }
+          %a{:href => admin_asset_url(asset), :class => "assetLink"}
+            %img{:src => asset.thumb_small_url  }
         %td
           %span.asset_title
-            = asset.name
+            %a{:href => admin_asset_url(asset), :class => "assetLink"}
+              = asset.name
           %span.controls
             %a{:href => admin_asset_url(asset), :class => "assetLink"}
               View

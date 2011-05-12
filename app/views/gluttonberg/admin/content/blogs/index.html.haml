@@ -1,8 +1,7 @@
-- @page_title = "Blogs"
+- @page_title = "#{link_to "Content", admin_content_path} > Blogs"
 - @page_image = "/images/sidebar/icon_content.png"
 = sub_nav do
-  = back_link("Content", admin_content_path)
-  - if current_user.super_admin?
+  - if can? :manage, Gluttonberg::Blog
     = nav_link('New', new_admin_blog_path)
     
 - if @blogs.empty?
@@ -12,12 +11,17 @@
     %thead
       %tr
         %th Blog
+        %th 
+          Created By          
         %th.controls Controls
     %tbody
       - @blogs.each do |blog|
         %tr
           %td
             = blog.name
+          %td
+            - unless blog.user.blank?
+              = blog.user.full_name  
           %td.controls
             %ul
               %li

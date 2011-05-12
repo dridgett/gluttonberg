@@ -2,7 +2,6 @@
 - @page_title = "#{link_to "Content", admin_content_path} > <%= plural_class_name %>"
 - @page_image = "/images/sidebar/icon_content.png"
 = sub_nav do
-  = back_link("Content", admin_content_path)
   = nav_link('New', new_admin_<%= singular_name %>_path)
 
 - if @<%= plural_name %>.empty?

@@ -1,3 +1,4 @@
-- @page_title = "Edit #{@blog.name}"
+- @page_title = "#{link_to "Content", admin_content_path} > #{link_to "Blogs", admin_blogs_path} > Edit #{@blog.name}"
+
 - @page_image = "/images/sidebar/icon_content.png"
 = render :partial => "form", :locals => {:url => admin_blog_path(@blog)}

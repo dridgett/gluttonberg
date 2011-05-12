@@ -1,6 +1,3 @@
-= sub_nav do
-  = back_link("Content", admin_content_path)
-  = back_link("Blogs", admin_blogs_path)
 
 - unless @blog.blank?
   = version_listing(@blog.versions , @version )
@@ -30,7 +27,7 @@
   
   - if can? :publish , Gluttonberg::Blog  
     = f.publisable_dropdown
-  = form_controls(admin_pages_path)
+  = form_controls(admin_blogs_path)
 
 
 = enable_jwysiwyg_on_class("jwysiwyg")

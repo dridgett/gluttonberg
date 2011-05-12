@@ -41,7 +41,7 @@
             - for entry in Gluttonberg::Components.nav_entries
               -if entry[3].blank? || entry[3]==false || (entry[3]==true && session.user.is_super_admin)
                 %li
-                  = active_link_to(entry[0], entry[2], :html_options => {:id => (entry[0].to_s.underscore).gsub(/\s/, '_') + "Nav" , :title => entry[0] } )    
+                  = active_link_to(entry[0], url_for(entry[2]), :html_options => {:id => (entry[0].to_s.underscore).gsub(/\s/, '_') + "Nav" , :title => entry[0] } )    
         %li
           = active_link_to("Library", admin_library_path, :id => "library_nav" , :title => "Library", :class => "page_item")
           %a.nav_trigger{ :href => "javascript:;" }
@@ -70,7 +70,7 @@
               
     %div#wrapper
       %div#header
-        = backend_logo({:height => "46px"})
+        = backend_logo("logo.png" , {:height => "46px"})
         %h1#sidebar_title
           = website_title
         %div#user

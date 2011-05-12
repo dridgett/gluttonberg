@@ -1,10 +1,6 @@
 - @window_title = "Content"
-- @page_title = "#{link_to "Content", admin_content_path} > <%= plural_class_name %> > Add New <%= class_name %>"
+- @page_title = "#{link_to "Content", admin_content_path} > #{link_to("<%= plural_class_name %>", admin_<%= plural_name %>_path)} > Add New <%= class_name %>"
 - @page_image = "/images/sidebar/icon_content.png"
-
-= sub_nav do
-  = back_link("Content", admin_content_path)
-  = back_link("<%= plural_class_name %>", admin_<%= plural_name %>_path)
 
 = form_for(@<%= singular_name %>, :url => admin_<%= plural_name %>_path) do  |f|
   = gb_error_messages_for(@<%= singular_name %>)

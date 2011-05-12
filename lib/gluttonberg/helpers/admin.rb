@@ -269,22 +269,20 @@ module Gluttonberg
         end  
       end
       
-      def backend_logo(html_opts={}, thumbnail_type = nil)
+      def backend_logo(default_logo_image_path , html_opts={}, thumbnail_type = nil)
         backend_logo = Rails.configuration.gluttonberg[:backend_logo]
         asset = Asset.find(:first , :conditions => { :id => backend_logo } )
         unless asset.blank?
           path = thumbnail_type.blank? ? asset.url : asset.url_for(thumbnail_type)
           content_tag(:img , "" , html_opts.merge( :alt => asset.name , :src => path ) )
+        else  
+          image_tag(default_logo_image_path)
         end
       end
       
     end # Admin
   end # Helpers
 end # Gluttonberg
-
-
-
-
 
 
 module ActionView

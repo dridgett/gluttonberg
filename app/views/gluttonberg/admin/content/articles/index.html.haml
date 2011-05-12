@@ -1,7 +1,7 @@
-- @page_title = "Articles"
+- @page_title = "#{link_to "Content", admin_content_path} > #{link_to "Blogs", admin_blogs_path} >  #{link_to @blog.name, admin_blog_path(@blog)}"
+
 - @page_image = "/images/sidebar/icon_content.png"
 = sub_nav do
-  = back_link("Blogs", admin_blogs_path)
   = nav_link('New', new_admin_blog_article_path)
     
 - if @articles.empty?
@@ -14,8 +14,8 @@
           Article
         %th 
           Author
-        - if current_user.super_admin?
-          %th Created By  
+        %th 
+          Created By  
         %th.controls
           Controls
     %tbody
@@ -23,12 +23,11 @@
         %tr
           %td{:style => "width:50%;"}
             = article.title
-          %td{:style => "width:25%;"}
-            = article.author.email
-          - if current_user.super_admin?
-            %td
-              - unless article.user.blank?
-                = article.user.email
+          %td{:style => "width:15%;"}
+            = article.author.full_name
+          %td{:style => "width:15%;"}
+            - unless article.user.blank?
+              = article.user.full_name
           %td.controls
             %ul
               %li
