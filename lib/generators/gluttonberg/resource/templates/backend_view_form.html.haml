@@ -2,5 +2,7 @@
 %p
   = f.label :<%= attribute.name %>
   %br
-  = f.<%= attribute.field_type %> :<%= attribute.name %>
+  = f.<%= attribute.field_type %> :<%= attribute.name %> , :class => "<%= attribute.field_type.to_s == 'text_area' ? 'jwysiwyg' : ''  %>"
 <% end %>
+
+= enable_jwysiwyg_on_class("jwysiwyg")
