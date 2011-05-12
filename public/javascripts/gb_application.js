@@ -17,6 +17,10 @@ $(document).ready(function() {
 
     init_setting_dropdown_ajax();
 
+		if($('table').length > 0){
+			$('table').find('tr:last').css('background-image','none !important');
+		}
+
 });
 
 
