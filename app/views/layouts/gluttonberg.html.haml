@@ -29,44 +29,44 @@
 
       %ul#navigation
         %li
-          = link_to("Dashboard", admin_root_path, :id => "dashboard_nav" , :title => "Dashboard", :class => "page_item #{active_link?(admin_root_path)}")
+          = active_link_to("Dashboard", admin_root_path, :id => "dashboard_nav" , :title => "Dashboard", :active => {:when => :self_only})
         %li
-          = link_to("Content", admin_content_path, :id => "content_nav" , :title => "Content", :class => "page_item #{active_link?(admin_content_path)}")
+          = active_link_to("Content", admin_content_path, :id => "content_nav" , :title => "Content")
           %a.nav_trigger{ :href => "javascript:;" }
           %ul.subnavigation
             %li
-              = link_to("Pages", admin_pages_path, :title => "Pages", :class => "#{active_link?(admin_pages_path)}")
+              = active_link_to("Pages", admin_pages_path, :title => "Pages")
             %li
-              = link_to("Blogs", admin_blogs_path, :title => "Blogs", :class => "#{active_link?(admin_blogs_path)}")
+              = active_link_to("Blogs", admin_blogs_path, :title => "Blogs")
             - for entry in Gluttonberg::Components.nav_entries
               -if entry[3].blank? || entry[3]==false || (entry[3]==true && session.user.is_super_admin)
                 %li
-                  = link_to(entry[0], entry[2], :html_options => {:id => (entry[0].to_s.underscore).gsub(/\s/, '_') + "Nav" , :title => entry[0] } )    
+                  = active_link_to(entry[0], entry[2], :html_options => {:id => (entry[0].to_s.underscore).gsub(/\s/, '_') + "Nav" , :title => entry[0] } )    
         %li
-          = link_to("Library", admin_library_path, :id => "library_nav" , :title => "Library", :class => "page_item #{active_link?(admin_library_path)}")
+          = active_link_to("Library", admin_library_path, :id => "library_nav" , :title => "Library", :class => "page_item")
           %a.nav_trigger{ :href => "javascript:;" }
           %ul.subnavigation
             %li
-              = link_to("Add collection", new_admin_collection_url , :title => "Add collection", :class => "#{active_link?(new_admin_collection_url)}")
+              = active_link_to("Add collection", new_admin_collection_path, :title => "Add collection")
             %li
-              = link_to("Add asset", new_admin_asset_url , :title => "Add asset", :class => "#{active_link?(new_admin_asset_url)}")
+              = active_link_to("Add asset", new_admin_asset_path, :title => "Add asset")
             %li
-              = link_to("Add assets in bulk", admin_add_assets_in_bulk_url , :title => "Add assets in bulk", :class => "#{active_link?(admin_add_assets_in_bulk_url)}")
+              = active_link_to("Add assets in bulk", admin_add_assets_in_bulk_path, :title => "Add assets in bulk")
         %li
-          = link_to("Settings", admin_settings_path, :id => "settings_nav" , :title => "Settings", :class => "page_item #{active_link?(admin_settings_path)}")
+          = active_link_to("Settings", admin_settings_path, :id => "settings_nav" , :title => "Settings")
           %a.nav_trigger{ :href => "javascript:;" }
           %ul
             - if can? :manage, Gluttonberg::Locale   
               - if Gluttonberg.localized? 
-                %li= link_to("Locales", admin_locales_path , :title => "Locales", :class => "#{active_link?(admin_locales_path)}")
+                %li= active_link_to("Locales", admin_locales_path , :title => "Locales")
 
             - if can? :manage, Gluttonberg::Setting
-              %li= link_to("Configuration", admin_generic_settings_path , :title => "Configurations", :class => "#{active_link?(admin_generic_settings_path)}")
+              %li= active_link_to("Configuration", admin_generic_settings_path , :title => "Configurations")
 
             - if can? :create, User
-              %li= link_to("Users", admin_users_path, :title => "Users", :class => "#{active_link?(admin_users_path)}")  
+              %li= active_link_to("Users", admin_users_path, :title => "Users")  
             - else
-              %li= link_to("Edit Account", edit_admin_user_path(current_user.id) , :title => "Users", :class => "#{active_link?(edit_admin_user_path(current_user.id))}")
+              %li= active_link_to("Edit Account", edit_admin_user_path(current_user.id) , :title => "Users")
               
     %div#wrapper
       %div#header

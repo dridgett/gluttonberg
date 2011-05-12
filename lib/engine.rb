@@ -63,7 +63,8 @@ module Gluttonberg
     
     initializer "setup gluttonberg asset library" do |app| 
       Gluttonberg::Library.setup     
-      require "acts-as-taggable-on" 
+      require "acts-as-taggable-on"
+      require 'active_link_to'
     end
     
   end

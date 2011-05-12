@@ -2362,3 +2362,21 @@ div.wysiwyg ul.toolbar li.createLink {
 
 
 .first_column, .second_column { width: 50%; }
+
+.pagination {
+	float: right;
+	padding-top: 15px;
+}
+
+.pagination a {
+	text-decoration: none;
+	color: #727272;
+}
+
+.pagination em {
+	font-weight: bold;
+}
+
+.pagination .disabled {
+	color: #9c9c9f;
+}

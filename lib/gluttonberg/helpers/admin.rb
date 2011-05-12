@@ -261,11 +261,6 @@ module Gluttonberg
         content_tag :div , html , :class => Rails.configuration.honeypot_field_name , :style => "display:none"
       end
       
-      def active_link?(url, active_class="active")
-        url = url.to_s + "_path" if url.class == Symbol
-        active_class if request.env["PATH_INFO"] && request.env["PATH_INFO"].include?(url)
-      end
-      
       def date_format(date_time)
         if date_time < 1.week.ago
           date_time.strftime("%d/%m/%Y")
