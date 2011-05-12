@@ -28,7 +28,7 @@
             = comment.created_at
           %td.controls{:style => "width:20%;"}
             %ul
-              - if comment.moderation_required
+              - if comment.moderation_required && can?(:moderate , Gluttonberg::Comment)
                 %li
                   = link_to "Approve", moderation_admin_blog_article_comment_path(@blog, @article, comment, :moderation => "approve")
                   = link_to "Disapprove", moderation_admin_blog_article_comment_path(@blog, @article, comment, :moderation => "disapprove")

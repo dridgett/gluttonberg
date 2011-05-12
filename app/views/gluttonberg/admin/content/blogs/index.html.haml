@@ -25,6 +25,7 @@
               - if current_user.super_admin?  
                 %li
                   = link_to "Edit", edit_admin_blog_path(blog)
-                %li
-                  = link_to "Delete", delete_admin_blog_path(blog)
+                - if can? :destroy , Gluttonberg::Blog  
+                  %li
+                    = link_to "Delete", delete_admin_blog_path(blog)
   = will_paginate(@blogs)

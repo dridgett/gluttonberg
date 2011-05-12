@@ -7,6 +7,8 @@ module Gluttonberg
         
         before_filter :find_blog , :except => [:create]
         before_filter :find_article, :only => [:show, :edit, :update, :delete, :destroy]
+        before_filter :authorize_user , :except => [:destroy , :delete]  
+        before_filter :authorize_user_for_destroy , :only => [:destroy , :delete]  
         
         def index
           conditions = {:blog_id => @blog.id}
@@ -79,6 +81,14 @@ module Gluttonberg
             conditions = { :id => params[:id] }
             conditions[:user_id] = current_user.id unless current_user.super_admin?
             @article = Article.find(:first , :conditions => conditions )
+          end
+          
+          def authorize_user
+            authorize! :manage, Gluttonberg::Article
+          end
+
+          def authorize_user_for_destroy
+            authorize! :destroy, Gluttonberg::Article
           end
         
       end

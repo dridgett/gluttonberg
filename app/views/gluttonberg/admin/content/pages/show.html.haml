@@ -2,7 +2,8 @@
 - @page_title = "#{link_to "Content", admin_content_path} > #{link_to "Pages", admin_pages_path} > #{@page.name}"
 - @page_image = "/images/sidebar/icon_content.png"
 = sub_nav do
-  = nav_link('Delete', delete_admin_page_path(@page) )
+  - if can? :destroy , Gluttonberg::Page
+    = nav_link('Delete', delete_admin_page_path(@page) )
   = nav_link('Edit settings', edit_admin_page_path(@page))  
   
 %div.pageBlock

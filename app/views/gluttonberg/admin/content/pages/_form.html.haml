@@ -21,8 +21,10 @@
       all of it’s contents may be editable, or it may be generated dynamically.
     = f.label :description_name  , "Page Description"
     = f.select(:description_name, @descriptions , :include_blank => true)  
-  %fieldset
-    .fieldset
-      = f.publisable_dropdown
+  
+  - if can? :publish , Gluttonberg::Page  
+    %fieldset
+      .fieldset
+        = f.publisable_dropdown
        
   = form_controls(admin_pages_path)

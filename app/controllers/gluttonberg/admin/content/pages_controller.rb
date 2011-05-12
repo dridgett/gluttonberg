@@ -6,10 +6,11 @@ module Gluttonberg
       class PagesController < Gluttonberg::Admin::BaseController
         drag_tree Page , :route_name => :admin_page_move 
         before_filter :find_page, :only => [:show, :edit, :delete, :update, :destroy]
-        before_filter :require_super_admin_user , :except => [:index]
-
+        before_filter :authorize_user , :except => [:destroy , :delete]  
+        before_filter :authorize_user_for_destroy , :only => [:destroy , :delete]
+        
         def index
-          @pages = Page.find(:all , :conditions => { :parent_id => nil } , :order => 'position' )       
+          @pages = Page.find(:all , :conditions => { :parent_id => nil } , :order => 'position' )
         end
 
         def show
@@ -90,6 +91,15 @@ module Gluttonberg
           @page = Page.find( params[:id])
           raise ActiveRecord::RecordNotFound unless @page
         end      
+        
+        def authorize_user
+          authorize! :manage, Gluttonberg::Page
+        end
+        
+        def authorize_user_for_destroy
+          authorize! :destroy, Gluttonberg::Page
+        end
+        
       end
     end #content  
   end #admin

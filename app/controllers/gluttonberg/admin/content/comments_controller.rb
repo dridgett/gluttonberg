@@ -7,6 +7,7 @@ module Gluttonberg
         
         before_filter :find_blog
         before_filter :find_article ,  :except => [:index]
+        before_filter :authorize_user ,  :except => [:moderation]
         
         def index
           find_article([:comments])
@@ -24,6 +25,7 @@ module Gluttonberg
         end
         
         def moderation 
+          authorize_user_for_moderation
           @comment = Comment.find(params[:id], :conditions => {:commentable_type => "Gluttonberg::Article", :commentable_id => @article.id})
           @comment.moderate(params[:moderation])
           redirect_to admin_blog_article_comments_path(@blog, @article)
@@ -54,6 +56,13 @@ module Gluttonberg
             raise ActiveRecord::RecordNotFound unless @article
           end
         
+          def authorize_user
+            authorize! :manage, Gluttonberg::Comment
+          end
+          
+          def authorize_user_for_moderation
+            authorize! :moderate, Gluttonberg::Comment
+          end
       end
     end
   end

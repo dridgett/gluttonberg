@@ -43,7 +43,8 @@
       = f.label :disable_comments
       = f.check_box(:disable_comments, :id => 'disable_comments')  
   
-  = f.publisable_dropdown 
+  - if can? :publish , Gluttonberg::Article  
+    = f.publisable_dropdown 
   = form_controls(admin_pages_path)
 
 

@@ -3,6 +3,7 @@ module Gluttonberg
     module Content
       class PageLocalizationsController < Gluttonberg::Admin::BaseController
         before_filter :find_localization, :exclude => [:index, :new, :create]
+        before_filter :authorize_user 
         
         def edit
           @page_localization.navigation_label = @page_localization.page.navigation_label if @page_localization.navigation_label.blank?
@@ -27,6 +28,11 @@ module Gluttonberg
             @page_localization = PageLocalization.find(params[:id])
             raise ActiveRecord::RecordNotFound  unless @page_localization
           end
+          
+          def authorize_user
+            authorize! :manage, Gluttonberg::Page
+          end
+          
       end #class  
     end
   end  
