@@ -10,23 +10,21 @@
       %th.date= sorter_link("Date added",   "date-added",   sorter_url )
       %th.date= sorter_link("Date updated",   "date-updated",   sorter_url )
   %tbody
+    - for asset in @assets
+      %tr
+        %td.thumbnail
+          %img{:src => asset.thumb_small_url  }
+        %td
+          %span.asset_title
+            = asset.name
+          %span.controls
+            %a{:href => admin_asset_url(asset), :class => "assetLink"}
+              View
+        %td.author
+          = asset.user.full_name
+        %td.date
+          = date_format(asset.created_at)
+        %td.date
+          = date_format(asset.updated_at)  
 
-
-  - for asset in @assets
-    %tr
-      %td.thumbnail
-        %img{:src => asset.thumb_small_url  }
-      %td
-        %span.asset_title
-          = asset.name
-        %span.controls
-          %a{:href => admin_asset_url(asset), :class => "assetLink"}
-            View
-      %td.author
-        David Walker
-      %td.date
-        = date_format(asset.created_at)
-      %td.date
-        = date_format(asset.updated_at)  
-
-  = will_paginate(@assets)      
+= will_paginate(@assets)      

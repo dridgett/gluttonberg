@@ -5,7 +5,7 @@ module Gluttonberg
   class Page < ActiveRecord::Base
     include Content::Publishable
     include Content::SlugManagement
-    
+    belongs_to :user
     has_many :localizations, :class_name => "Gluttonberg::PageLocalization"   , :dependent => :destroy 
 
     # Generate the associations for the block/content classes

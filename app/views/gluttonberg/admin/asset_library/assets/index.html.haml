@@ -55,7 +55,7 @@
                 %a{:href => admin_asset_url(asset), :class => "assetLink"}
                   View
             %td.author
-              David Walker
+              = asset.user.full_name
             %td.date
               = date_format(asset.created_at)
             %td.date

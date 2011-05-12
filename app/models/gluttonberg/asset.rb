@@ -11,7 +11,8 @@ module Gluttonberg
       has_and_belongs_to_many :asset_collections     , :join_table => "gb_asset_collections_assets"
       belongs_to  :asset_type  
       has_one :audio_asset_attribute , :dependent => :destroy
- 
+      
+      belongs_to :user
  
       # constants for formatted file size
       GIGA_SIZE = 1073741824.0
