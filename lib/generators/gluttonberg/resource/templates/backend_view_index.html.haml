@@ -24,5 +24,6 @@
                 = link_to "Show", admin_<%= singular_name %>_path(<%= singular_name %>)
               %li
                 = link_to "Edit", edit_admin_<%= singular_name %>_path(<%= singular_name %>)
-              %li
-                = link_to "Delete", delete_admin_<%= singular_name %>_path(<%= singular_name %>)
+              - if can? :destroy , <%= class_name %>
+                %li
+                  = link_to "Delete", delete_admin_<%= singular_name %>_path(<%= singular_name %>)

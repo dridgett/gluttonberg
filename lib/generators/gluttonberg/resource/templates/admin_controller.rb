@@ -1,6 +1,8 @@
 module Admin
   class <%= plural_class_name %>Controller < Gluttonberg::Admin::BaseController
-  
+    before_filter :authorize_user , :except => [:destroy , :delete]  
+    before_filter :authorize_user_for_destroy , :only => [:destroy , :delete]
+    
     def index
       @<%= plural_name %> = <%= class_name %>.all
     end
@@ -57,6 +59,16 @@ module Admin
         redirect_to admin_<%= plural_name %>_path
       end
     end
+    
+    private 
+      
+      def authorize_user
+        authorize! :manage, <%= class_name %>
+      end
+
+      def authorize_user_for_destroy
+        authorize! :destroy, <%= class_name %>
+      end
 
   end
 end
