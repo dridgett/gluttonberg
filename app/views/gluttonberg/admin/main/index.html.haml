@@ -2,35 +2,36 @@
 - @page_image = "/images/sidebar/icon_dashboard.png"
 
 .left 
-  .article_form
-    - unless @blogs.blank?
+  - if Gluttonberg::Comment.table_exists?
+    .article_form
+      - unless @blogs.blank?
           
-      %h3 Post to Blog
-      = form_for(@article, :url => admin_blog_articles_path(@blogs.first.id)) do  |f|
-        = gb_error_messages_for(@article)
-        = block() do
-          = f.hidden_field(:user_id, :value => current_user.id) if @article.user_id.blank?
-          = f.hidden_field(:author_id, :value => current_user.id)
-          %p
-            %label
-              Post to
-            = f.select(:blog_id, @blogs.collect{|a| [a.name , a.id] } ) 
-          %p
-            = f.label :title
-            = f.text_field(:title, :id => "page_title")
-          %p
-            = f.label :slug
-            = f.text_field(:slug, :id => 'page_slug')
-          %p
-            = f.text_area(:body  , :class => "jwysiwyg" )
-          %p
-            = f.label :disable_comments
-            = f.check_box(:disable_comments, :id => 'disable_comments')  
+        %h3 Post to Blog
+        = form_for(@article, :url => admin_blog_articles_path(@blogs.first.id)) do  |f|
+          = gb_error_messages_for(@article)
+          = block() do
+            = f.hidden_field(:user_id, :value => current_user.id) if @article.user_id.blank?
+            = f.hidden_field(:author_id, :value => current_user.id)
+            %p
+              %label
+                Post to
+              = f.select(:blog_id, @blogs.collect{|a| [a.name , a.id] } ) 
+            %p
+              = f.label :title
+              = f.text_field(:title, :id => "page_title")
+            %p
+              = f.label :slug
+              = f.text_field(:slug, :id => 'page_slug')
+            %p
+              = f.text_area(:body  , :class => "jwysiwyg" )
+            %p
+              = f.label :disable_comments
+              = f.check_box(:disable_comments, :id => 'disable_comments')  
 
-        = f.submit("Post")
+          = f.submit("Post")
 
 
-      = enable_jwysiwyg_on_class("jwysiwyg")
+        = enable_jwysiwyg_on_class("jwysiwyg")
     
   .analytics
 
@@ -38,39 +39,42 @@
   .summary
     %div
       %h3 Your Site
-      %p
-        = "#{Gluttonberg::Article.count} Posts"
+      - if Gluttonberg::Comment.table_exists?
+        %p
+          = "#{Gluttonberg::Article.count} Posts"
       %p
         = "#{Gluttonberg::Page.count} Pages"
       %p
         = "#{@categories_count} Categories"
       %p
         = "#{@tags_counts} Tags"
-        
-    %div
-      %h3 Discussion
     
-      %p
-        = "#{Gluttonberg::Comment.count} Comments"
-      %p
-        = "#{Gluttonberg::Comment.all_approved.count} Approved"
-      %p
-        = "#{Gluttonberg::Comment.all_pending.count} Pending"
-      %p
-        = "#{Gluttonberg::Comment.all_rejected.count} Spam"
+    - if Gluttonberg::Comment.table_exists?    
+      %div
+        %h3 Discussion
+    
+        %p
+          = "#{Gluttonberg::Comment.count} Comments"
+        %p
+          = "#{Gluttonberg::Comment.all_approved.count} Approved"
+        %p
+          = "#{Gluttonberg::Comment.all_pending.count} Pending"
+        %p
+          = "#{Gluttonberg::Comment.all_rejected.count} Spam"
+
+  - if Gluttonberg::Comment.table_exists?      
+    .recent_comments
+      - @comments.each do |comment|
+        .comment
+          = comment.body
         
-  .recent_comments
-    - @comments.each do |comment|
-      .comment
-        = comment.body
+          Posted by
+          = comment.author_name
         
-        Posted by
-        = comment.author_name
+          Blog Post
+          = comment.commentable.title
         
-        Blog Post
-        = comment.commentable.title
-        
-        - if comment.moderation_required
-          = link_to "Approve", moderation_admin_blog_article_comment_path(comment.commentable.blog, comment.commentable, comment, :moderation => "approve")
-          = link_to "Disapprove", moderation_admin_blog_article_comment_path(comment.commentable.blog, comment.commentable, comment, :moderation => "disapprove")
+          - if comment.moderation_required
+            = link_to "Approve", moderation_admin_blog_article_comment_path(comment.commentable.blog, comment.commentable, comment, :moderation => "approve")
+            = link_to "Disapprove", moderation_admin_blog_article_comment_path(comment.commentable.blog, comment.commentable, comment, :moderation => "disapprove")
             

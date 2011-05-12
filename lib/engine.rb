@@ -20,7 +20,7 @@ module Gluttonberg
     config.host_name = "localhost:3000"
     config.user_roles = [] # User model always concat following two roles ["superadmin" , "admin"]
     config.honeypot_field_name = "gluttonberg_honeypot"
-    
+
     # Load rake tasks
     rake_tasks do
       load File.join(File.dirname(__FILE__), 'rails/railties/tasks.rake')

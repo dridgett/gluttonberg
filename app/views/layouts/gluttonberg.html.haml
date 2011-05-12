@@ -36,8 +36,9 @@
           %ul.subnavigation
             %li
               = active_link_to("Pages", admin_pages_path, :title => "Pages")
-            %li
-              = active_link_to("Blogs", admin_blogs_path, :title => "Blogs")
+            - if Gluttonberg::Blog.table_exists?  
+              %li
+                = active_link_to("Blogs", admin_blogs_path, :title => "Blogs")
             - for entry in Gluttonberg::Components.nav_entries
               -if entry[3].blank? || entry[3]==false || (entry[3]==true && session.user.is_super_admin)
                 %li
