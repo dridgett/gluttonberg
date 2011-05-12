@@ -7,6 +7,8 @@ module Gluttonberg
         
         before_filter :find_blog, :only => [:edit, :update, :delete, :destroy]
         before_filter :require_super_admin_user , :except => [:index]
+        before_filter :authorize_user , :except => [:destroy , :delete]  
+        before_filter :authorize_user_for_destroy , :only => [:destroy , :delete]
         
         def index
           @blogs = Blog.all.paginate(:per_page => Rails.configuration.gluttonberg[:number_of_per_page_items], :page => params[:page])
@@ -65,7 +67,15 @@ module Gluttonberg
           def find_blog
             @blog = Blog.find(params[:id])
           end
-        
+          
+          def authorize_user
+            authorize! :manage, Gluttonberg::Blog
+          end
+
+          def authorize_user_for_destroy
+            authorize! :destroy, Gluttonberg::Blog
+          end
+          
       end
     end
   end

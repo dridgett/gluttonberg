@@ -17,7 +17,7 @@ module Gluttonberg
           @assets = Asset.find(:all, 
               :conditions => conditions, 
               :limit => Rails.configuration.gluttonberg[:library_number_of_recent_assets] , 
-              :order => "updated_at" , 
+              :order => "updated_at DESC" , 
               :include => :asset_type
           )
           # all categories for categories tab
