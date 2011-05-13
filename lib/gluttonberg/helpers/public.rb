@@ -59,6 +59,17 @@ module Gluttonberg
         content_tag(:meta , "" , :content => Rails.configuration.gluttonberg[:description] , :name => "description")
       end
       
+      def render_match_partial(result)
+        begin
+          klass = result.class.name.demodulize.underscore
+          render :partial => "search/#{klass}", :locals => { :result => result }
+        rescue ActionView::MissingTemplate => e
+          "Missing search template for model #{klass}. Create a search/_#{klass}.html.erb partial in the correct plugin and try again."
+        rescue RuntimeError => e
+          "Unable to find the class name of the following match #{debug result}"
+        end
+      end
+      
     end # Public
   end # Helpers
 end # Gluttonberg

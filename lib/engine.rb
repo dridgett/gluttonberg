@@ -20,6 +20,13 @@ module Gluttonberg
     config.host_name = "localhost:3000"
     config.user_roles = [] # User model always concat following two roles ["superadmin" , "admin"]
     config.honeypot_field_name = "gluttonberg_honeypot"
+    config.search_models = { 
+        "Gluttonberg::Page" => [:name], 
+        "Gluttonberg::Blog" => [:name , :description], 
+        "Gluttonberg::Article" => [:title , :body], 
+        "Gluttonberg::PlainTextContentLocalization" => [:text] , 
+        "Gluttonberg::HtmlContentLocalization" => [:text]
+    }
 
     # Load rake tasks
     rake_tasks do
