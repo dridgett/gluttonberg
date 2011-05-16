@@ -1,4 +1,3 @@
-
 = form_for(@user, :url => url) do  |f|
   = gb_error_messages_for(@user)
 
@@ -19,7 +18,6 @@
       %div
         = f.label :role            
         = f.select(:role , User.user_roles.collect{|u| [u.humanize , u] }  )
-       
 
   = block("Password") do
     = f.label :password , "Password"

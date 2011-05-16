@@ -217,11 +217,13 @@ module Gluttonberg
           output << publish_message(selected_version , versions )
 
           # Output the form for picking the version
-            output << "<form  method='get' id = 'select-version' style='display:none;'> "
-            output << select_tag(:version, options_for_select( collection , selected ) , :id => "version_drop" )
-            output << submit_tag("Preview", :class => "buttonGrey" , :id => "change_verson_btn" , :name => nil ) 
-            output << "</form>"
-
+          versions_html = "<ul>"
+          collection.each do |c|
+            versions_html << content_tag(:li , link_to(c[0] , "?version=#{c[1]}") , :class => "#{c[1].to_s == selected.to_s ? 'active' : '' }" )
+          end
+          versions_html << "</ul"
+            output << content_tag(:div , versions_html.html_safe , :id => 'select-version' , :style=>'display:none;' )
+            
           output += "</div>"
           output += "<div class='clear'></div>"
           output += "<br />"

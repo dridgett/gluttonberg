@@ -10,6 +10,7 @@ module Gluttonberg
           @page_localization.slug = @page_localization.page.slug  if @page_localization.slug.blank?
           @page_localization.save!
           @version = params[:version]  unless params[:version].blank?
+          @page = @page_localization.page
         end
 
         def update

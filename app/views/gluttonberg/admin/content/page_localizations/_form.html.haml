@@ -2,35 +2,16 @@
 
 - unless @page_localization.contents.blank?
   = version_listing(@page_localization.contents.first.versions , @version )
-
-- if Gluttonberg.localized? && @page.localizations &&  @page.localizations.length > 1
-  %div.pageBlock
-    %h2 Localizations
-    %table{:cellpadding => 0, :cellspacing => 0, :summary => "Available Localizations"}
-      %thead
-        %tr
-          %th Locale
-          %th Path
-          %th.controls Controls
-      %tbody
-        - for localization in @page.localizations
-          - pair = "#{localization.locale.slug}/#{localization.dialect.code}"
-          %tr
-            %td
-              %strong= localization.locale.name
-              %span= localization.locale.slug
-            %td= localization.public_path
-            %td.controls= link_to("Edit", edit_admin_page_page_localization_path( :page_id => @page.id, :id => localization.id)) 
-            = link_to("Preview", localization.public_path  , { :target => "_blank" })  
             
 = form_for(@page_localization, :url => url) do  |f|
+  
   = gb_error_messages_for(@page_localization)
   = block("Localization") do
     = f.label :name
     = f.text_field(:name, :id => "page_title")    
     %br
     = f.label :navigation_label
-    = f.text_field(:navigation_label )
+    = f.text_field(:navigation_label)
     %br
     = f.label :slug
     = f.text_field(:slug, :id => 'page_slug')

@@ -1,6 +1,26 @@
 - @window_title = "Content"
-- @page_title = "#{link_to "Content", admin_content_path} > Pages"
+- @page_title = "#{link_to "Content", admin_content_path} > #{link_to("Pages", admin_pages_path, :title => "Pages")} > Edit Page Settings"
 - @page_image = "/images/sidebar/icon_content.png"
 
+- default_localization = Gluttonberg::PageLocalization.find(:first , :conditions => { :page_id => @page.id , :locale_id => Gluttonberg::Locale.first_default.id } )
 
-= render :partial => "form" , :locals => { :url => admin_page_path( @page) } 
+.ui-tabs-nav
+  %ul
+    - if Gluttonberg.localized? && @page.localizations &&  @page.localizations.length > 1
+      - for localization in @page.localizations
+        - pair = "#{localization.locale.slug}"
+        %li
+          %a{:href => edit_admin_page_page_localization_path( :page_id => @page.id, :id => localization.id) ,:id=>"edit_content_tab",:class=>"button"}
+            = "Edit #{localization.locale.slug}" 
+    - else
+      %li.ui-tabs-selected.ui-state-active
+        %a{:href => "javascript:;",:id=>"edit_content_tab",:class=>"button"}
+          Edit Content
+    %li.ui-tabs-selected.ui-state-active
+      %a{:href => "javascript:;",:id=>"settings_tab",:class=>"button"}
+        Settings
+
+#edit_content_tab_section.ui-tabs-panel.ui-widget-content.ui-corner-bottom
+  
+#settings_tab_section.ui-tabs-panel.ui-widget-content.ui-corner-bottom
+  = render :partial => "form" , :locals => { :url => admin_page_path( @page) } 
