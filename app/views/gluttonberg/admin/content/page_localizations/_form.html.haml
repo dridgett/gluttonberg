@@ -6,21 +6,27 @@
 = form_for(@page_localization, :url => url) do  |f|
   
   = gb_error_messages_for(@page_localization)
-  = block("Localization") do
-    = f.label :name
-    = f.text_field(:name, :id => "page_title")    
-    %br
-    = f.label :navigation_label
-    = f.text_field(:navigation_label)
-    %br
-    = f.label :slug
-    = f.text_field(:slug, :id => 'page_slug')
-    
-  = block("Content") do
-    - for content in @page_localization.contents
-      - unless @version.blank? || !content.versioned? 
-        - content.revert_to(@version)         
-      = content_editor(content)
-      %br
   
-  = form_controls(admin_page_path(params[:page_id]))
+  - if Gluttonberg.localized? && @page.localizations &&  @page.localizations.length > 1
+    = block("Localization") do
+      = f.label :name
+      = f.text_field(:name, :id => "page_title")    
+      %br
+      = f.label :navigation_label
+      = f.text_field(:navigation_label)
+      %br
+      = f.label :slug
+      = f.text_field(:slug, :id => 'page_slug')
+  
+  - if @page_localization.contents.length > 1   
+    = block("Content") do
+      - for content in @page_localization.contents
+        - unless @version.blank? || !content.versioned? 
+          - content.revert_to(@version)         
+        = content_editor(content)
+        %br
+  - else
+    This page does not have any content area.
+  
+  - if( Gluttonberg.localized? && @page.localizations &&  @page.localizations.length > 1 ) || @page_localization.contents.length > 1
+    = form_controls(admin_page_path(params[:page_id]))

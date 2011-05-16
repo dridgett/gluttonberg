@@ -14,7 +14,7 @@
             = "Edit #{localization.locale.slug}" 
     - else
       %li.ui-tabs-selected.ui-state-active
-        %a{:href => "javascript:;",:id=>"edit_content_tab",:class=>"button"}
+        %a{:href =>  edit_admin_page_page_localization_path( :page_id => @page.id, :id =>  @page.localizations.first.id) ,:id=>"edit_content_tab",:class=>"button"}
           Edit Content
     %li.ui-tabs-selected.ui-state-active
       %a{:href => "javascript:;",:id=>"settings_tab",:class=>"button"}

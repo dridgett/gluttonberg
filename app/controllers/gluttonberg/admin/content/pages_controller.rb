@@ -29,7 +29,7 @@ module Gluttonberg
         def delete
           display_delete_confirmation(
             :title      => "Delete “#{@page.name}” page?",
-            :url        => admin_page_path(@page),
+            :url        => edit_admin_page_url(@page),
             :return_url => admin_pages_path , 
             :warning    => "Children of this page will be also deleted."
           )
@@ -40,7 +40,7 @@ module Gluttonberg
           @page.user_id = current_user.id
           if @page.save
             @page.create_default_template_file
-            redirect_to admin_page_url(@page)
+            redirect_to edit_admin_page_url(@page)
           else
             prepare_to_edit
             render :new
@@ -49,7 +49,7 @@ module Gluttonberg
 
         def update
           if @page.update_attributes(params["gluttonberg_page"]) || !@page.changed?
-            redirect_to admin_page_url(@page)
+            redirect_to edit_admin_page_url(@page)
           else
             prepare_to_edit
             render :edit
