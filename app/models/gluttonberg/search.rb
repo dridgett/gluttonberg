@@ -21,9 +21,18 @@ module Gluttonberg
   
     # if search engine is provided the use its custom methods
     # otherwise use texticle for postgresql and like queries for mysql
-    def self.find(query, sources = nil , published_only=true)
+    # opts = {
+    #   :sources => [],
+    #   :published_only => true,
+    #   :per_page => 20,
+    #   :page => 1
+    # }
+    def self.find(query, opts = {} )
       models = {}
-      
+      sources = opts[:sources]
+      published_only = opts[:published_only].blank? ? true : opts[:published_only]
+      per_page = opts[:per_page].blank? ? Rails.configuration.gluttonberg[:number_of_per_page_items] : opts[:per_page]
+      page_num = opts[:page]
       # if sources are provided then only look in sources models. It is only required when user want to search in specified models.
       if sources.blank?
         models = Rails.configuration.search_models
@@ -35,13 +44,13 @@ module Gluttonberg
       
       case self.dbms_name
         when "mysql"
-          find_in_mysql(query , models , published_only)
+          find_in_mysql(query, page_num , per_page , models , published_only)
         when "postgresql"
-          find_in_postgresql(query, models , published_only)
+          find_in_postgresql(query, page_num , per_page, models , published_only)
       end
     end
   
-    def self.find_in_mysql(query, models , published_only)
+    def self.find_in_mysql(query, page_num , per_page , models , published_only)
       results = []
       prepared_query = "'%#{query}%'"
       models.each do |model , columns|
@@ -59,10 +68,10 @@ module Gluttonberg
       end
       results = results.flatten
       results.uniq!
-      replace_contents_with_page(results)
+      replace_contents_with_page(results).paginate(:per_page => per_page , :page => page_num )
     end
   
-    def self.find_in_postgresql(query, models , published_only)
+    def self.find_in_postgresql(query, page_num , per_page , models , published_only)
       results = []
       models.each do |model , columns|
         model =  eval(model) #convert class name from sting to a constant
@@ -74,7 +83,7 @@ module Gluttonberg
       end
       results = results.flatten
       results.uniq!
-      replace_contents_with_page(results)
+      replace_contents_with_page(results).paginate(:per_page => per_page , :page => page_num )
     end
   
     

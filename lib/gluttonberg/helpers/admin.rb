@@ -280,6 +280,52 @@ module Gluttonberg
         end
       end
       
+      
+      # Creates an editable span for the given property of the given object.
+      #
+      # === Options
+      #
+      # [:method]
+      #   Specify the HTTP method to use: <tt>'PUT'</tt> or <tt>'POST'</tt>.
+      # [:name]
+      #   The <tt>name</tt> attribute to be used when the form is posted.
+      # [:update_url]
+      #   The URL to submit the form to.  Defaults to <tt>url_for(object)</tt>.
+      def editable_field(object, property, options={})
+
+        name = "#{object.class.to_s.underscore}[#{property}]"
+        value = object.send property
+        update_url = options.delete(:update_url) || url_for(object)
+        args = {:method => 'PUT', :name => name}.merge(options)
+        %{
+          <span class="editable" data-id="#{object.id}" data-name="#{name}">#{value}</span>
+          <script type="text/javascript">
+            (function( $ ){
+              $(function(){
+                var args = {data: function(value, settings) {
+                  // Unescape HTML
+                  var retval = value
+                    .replace(/&amp;/gi, '&')
+                    .replace(/&gt;/gi, '>')
+                    .replace(/&lt;/gi, '<')
+                    .replace(/&quot;/gi, "\\\"");
+                  return retval;
+                },
+                   type      : 'textarea',
+                   cancel    : 'Cancel',
+                   submit    : 'OK',
+                   indicator : '#{image_tag('spinner.gif')}'
+                };
+                $.extend(args, #{args.to_json});
+                $(".editable[data-id='#{object.id}'][data-name='#{name}']").editable("#{update_url}", args);
+              });
+            })( jQuery );
+          </script>
+        }.html_safe
+      end
+      
+      
+      
     end # Admin
   end # Helpers
 end # Gluttonberg
