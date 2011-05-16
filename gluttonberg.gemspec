@@ -10,9 +10,6 @@ Gem::Specification.new do |s|
   s.authors = ["Nick Crowther","Abdul Rauf", "Luke Sutton", "Yuri Tomanek"]
   s.date = %q{2011-03-30}
   s.email = %q{office@freerangefuture.com}
-  s.extra_rdoc_files = [
-    "README.rdoc"
-  ]
   s.files = [
     
   ]
@@ -21,8 +18,6 @@ Gem::Specification.new do |s|
   s.rubygems_version = %q{1.3.7}
   s.summary = %q{Gluttonberg – An Open Source Content Management System being developed by Freerange Future}
   s.test_files = [
-    "test/test_helper.rb",
-     "test/unit/widget_test.rb", 
      "spec"
   ]
 
