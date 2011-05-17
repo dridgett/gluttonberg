@@ -14,6 +14,8 @@ class Gluttonberg::Public::BaseController < ActionController::Base
     attr_accessor :page, :locale  
     before_filter :retrieve_locale    
     layout "public"
+    
+    helper_method :current_user_session, :current_user
         
     rescue_from ActiveRecord::RecordNotFound, :with => :not_found
     rescue_from ActionController::RoutingError, :with => :not_found
@@ -59,7 +61,7 @@ class Gluttonberg::Public::BaseController < ActionController::Base
       redirect_to(session[:return_to] || default)
       session[:return_to] = nil
     end
-    
+      
     def retrieve_locale
       @locale = env['gluttonberg.locale']
     end
