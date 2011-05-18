@@ -37,6 +37,10 @@ module Gluttonberg
           page.current_localization = page.localizations.where("locale_id = ? AND ? LIKE path || '%'", locale.id,  path).first
         end  
         page
+      else
+        locale = Gluttonberg::Locale.first_default if locale.blank?
+        pages = joins(:localizations).where("locale_id = ? AND home = ?", locale.id, true)
+        page = pages.first unless pages.blank?
       end  
     end
 

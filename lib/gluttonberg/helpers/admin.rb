@@ -293,7 +293,7 @@ module Gluttonberg
       #   The <tt>name</tt> attribute to be used when the form is posted.
       # [:update_url]
       #   The URL to submit the form to.  Defaults to <tt>url_for(object)</tt>.
-      def editable_field(object, property, options={})
+      def gb_editable_field(object, property, options={})
 
         name = "#{object.class.to_s.underscore}[#{property}]"
         value = object.send property

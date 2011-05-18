@@ -29,7 +29,7 @@ class User < ActiveRecord::Base
   end
   
   def self.user_roles
-    @roles ||= (["super_admin" , "admin"] << (Rails.configuration.user_roles) ).flatten
+    @roles ||= (["super_admin" , "admin" , "contributor"] << (Rails.configuration.user_roles) ).flatten
   end
   
 end
