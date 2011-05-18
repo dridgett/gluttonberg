@@ -14,7 +14,11 @@ module Gluttonberg
             when :prefix
               if Gluttonberg.localized?
                 locale = path.split('/')[1]
-                result = Gluttonberg::Locale.find_by_locale(locale)
+                if locale.blank?
+                  result = Gluttonberg::Locale.first_default
+                else  
+                  result = Gluttonberg::Locale.find_by_locale(locale)
+                end
               else # take default locale
                 result = Gluttonberg::Locale.first_default
                 locale = result.slug               

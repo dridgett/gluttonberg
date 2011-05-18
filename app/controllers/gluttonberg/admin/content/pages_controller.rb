@@ -70,11 +70,14 @@ module Gluttonberg
         end
         
         def update_home
-          @new_home = Page.find(params[:home])
+          @new_home = Page.find(:first , :conditions => { :id => params[:home] })
           unless @new_home.blank?
             @new_home.update_attributes(:home => true)
+          else
+              @old_home = Page.find(:first , :conditions => { :home => true })
+              @old_home.update_attributes(:home => false)
           end
-          redirect_to admin_generic_settings_path
+          render :text => "Home Page is changed"
         end
 
         private
