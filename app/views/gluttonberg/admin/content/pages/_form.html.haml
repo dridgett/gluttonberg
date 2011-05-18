@@ -1,7 +1,7 @@
 = form_for(@page, :url => url) do  |f|
   = gb_error_messages_for(@page)
   
-  - if( action_name == "new"  || ( !@pages.blank?  && !(Gluttonberg.localized? && @page.localizations &&  @page.localizations.length > 1) ) )
+  - if( action_name == "new"  || ( !@pages.blank?  || !(Gluttonberg.localized? && @page.localizations &&  @page.localizations.length > 1) ) )
     = block("General") do
       - if( action_name == "new"  || !(Gluttonberg.localized? && @page.localizations &&  @page.localizations.length > 1) )
         = f.label :name
