@@ -38,9 +38,6 @@ function enable_jwysiwyg_on(selector) {
                     justifyFull: {
                         visible: false
                     },
-                    justifyCenter: {
-                        visible: false
-                    },
                     subscript: {
                         visible: false
                     },
@@ -55,6 +52,15 @@ function enable_jwysiwyg_on(selector) {
                     },
                     html: {
                         visible: true
+                    },
+                    underline: {
+                        visible: false
+                    },
+                    outdent: {
+                        visible: false
+                    },
+                    insertTable: {
+                        visible: false
                     }
                 }
             });

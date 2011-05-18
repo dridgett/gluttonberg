@@ -109,16 +109,16 @@ module Gluttonberg
 
       # Controls for standard forms. Writes out a save button and a cancel link
       def form_controls(return_url)
-        content = "#{submit_tag("Save").html_safe} or #{link_to("<strong>Cancel</strong>".html_safe, return_url)}"
+        content = "#{link_to("<strong>Cancel</strong>".html_safe, return_url)} or #{submit_tag("Save").html_safe}"
         content_tag(:p, content.html_safe, :class => "controls")
       end
       
       # Controls for publishable forms. Writes out a draft ,  publish/unpublish button and a cancel link
       def publishable_form_controls(return_url , object_name , is_published )
         content = hidden_field(:published , :value => false) 
-        content += "#{submit_tag("draft")}"        
-        content += " or #{submit_tag("publish" , :onclick => "publish('#{object_name}_published')" )} "
-        content += " or #{link_to("<strong>Cancel</strong>", return_url)}"
+        content += "#{link_to("<strong>Cancel</strong>", return_url)}"        
+        content += " or #{submit_tag("draft")}"
+        content += " or #{submit_tag("publish" , :onclick => "publish('#{object_name}_published')" )}"
         content_tag(:p, content, :class => "controls")
       end
 

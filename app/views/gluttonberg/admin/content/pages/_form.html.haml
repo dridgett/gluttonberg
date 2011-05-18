@@ -5,13 +5,13 @@
     = block("General") do
       - if( action_name == "new"  || !(Gluttonberg.localized? && @page.localizations &&  @page.localizations.length > 1) )
         = f.label :name
-        = f.text_field(:name, :id => "page_title")
+        = f.text_field(:name, :id => "page_title", :class=>"medium")
         %br
         = f.label :navigation_label
-        = f.text_field(:navigation_label)
+        = f.text_field(:navigation_label, :class=>"medium")
         %br
         = f.label :slug
-        = f.text_field(:slug, :id => 'page_slug')
+        = f.text_field(:slug, :id => 'page_slug', :class=>"medium")
         %br
       - unless @pages.empty?
         = f.label :parent_id , "Parent page"
