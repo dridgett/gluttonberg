@@ -233,7 +233,7 @@ module Gluttonberg
       end
       
       def custom_stylesheet_link_tag
-        if Rails.configuration.gluttonberg[:custom_css_for_cms] == "Yes"
+        if Rails.configuration.custom_css_for_cms == true
           stylesheet_link_tag "custom"
         end  
       end
