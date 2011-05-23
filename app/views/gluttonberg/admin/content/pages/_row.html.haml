@@ -18,6 +18,7 @@
   %td.author
     = page.user.full_name
   %td.date
-    03/07/2011
+    - unless page.published_at.blank?
+      = page.published_at.strftime("%d/%m/%Y at %H:%M")
   %td.published_state{:class=>"#{page.publishing_status.downcase}"}
     = page.publishing_status
