@@ -38,9 +38,6 @@ function enable_jwysiwyg_on(selector) {
                     justifyFull: {
                         visible: false
                     },
-                    justifyCenter: {
-                        visible: false
-                    },
                     subscript: {
                         visible: false
                     },
@@ -55,7 +52,20 @@ function enable_jwysiwyg_on(selector) {
                     },
                     html: {
                         visible: true
+                    },
+                    underline: {
+                        visible: false
+                    },
+                    outdent: {
+                        visible: false
+                    },
+                    insertTable: {
+                        visible: false
+                    },
+                    code: {
+                        visible: false
                     }
+                    
                 }
             });
             $(selector).wysiwyg("addControl", "asset_selector", {
@@ -79,6 +89,25 @@ function enable_jwysiwyg_on(selector) {
                     // from callback to exec.
                     }
             });
+            
+            $(selector).wysiwyg("addControl" , "cssWrap", {
+            		visible : true,
+            		groupIndex: 7,
+            		tooltip: "CSS Wrapper",
+            		exec: function () { 
+            				$.wysiwyg.controls.cssWrap.init(this);
+            			}
+            	})
+            	
+                $(selector).wysiwyg("addControl" , "colorpicker", {
+                		visible : true,
+                		groupIndex: 8,
+                		tooltip: "color picker",
+                		exec: function () { 
+                				$.wysiwyg.controls.colorpicker.init(this);
+                			}
+                	})	
+            
         } catch(e) {
             console.log(e)
         }

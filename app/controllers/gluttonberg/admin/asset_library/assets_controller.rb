@@ -188,6 +188,7 @@ module Gluttonberg
             # if new collection is provided it will create the object for that
             # then it will add new collection id into other existing collection ids     
             def process_new_collection_and_merge(params)
+              params[:asset][:asset_collection_ids] = "" if params[:asset][:asset_collection_ids].blank? || params[:asset][:asset_collection_ids] == "null"
               params[:asset][:asset_collection_ids] = params[:asset][:asset_collection_ids].split(",") if params[:asset][:asset_collection_ids].kind_of?(String)
                 
               the_collection = find_or_create_asset_collection_from_hash(params["new_collection"])

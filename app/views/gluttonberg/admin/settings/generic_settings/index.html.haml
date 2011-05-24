@@ -37,7 +37,7 @@
               = asset_browser_tag( "gluttonberg_setting[value]" ,  opts = {:button_class => "logo_setting button" , :filter => "image" ,  :id => "gluttonberg_setting_backend_logo", :asset_id => setting.value  , :data_url => admin_generic_setting_path( setting) } )
               
             - else
-              = editable_field setting, :value , :update_url => admin_generic_setting_path( setting)
+              = gb_editable_field setting, :value , :update_url => admin_generic_setting_path( setting)
             
             = image_tag("spinner.gif" , :id => "progress_#{setting.id}" , :style => "display:none")
           %td.controls

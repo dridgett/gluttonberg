@@ -108,17 +108,17 @@ module Gluttonberg
       end
 
       # Controls for standard forms. Writes out a save button and a cancel link
-      def form_controls(return_url)
-        content = "#{submit_tag("Save").html_safe} or #{link_to("<strong>Cancel</strong>".html_safe, return_url)}"
+      def form_controls(return_url , opts={})
+        content = "#{link_to("<strong>Cancel</strong>".html_safe, return_url)} or #{submit_tag("Save" , :id => opts[:submit_id]).html_safe}"
         content_tag(:p, content.html_safe, :class => "controls")
       end
       
       # Controls for publishable forms. Writes out a draft ,  publish/unpublish button and a cancel link
       def publishable_form_controls(return_url , object_name , is_published )
         content = hidden_field(:published , :value => false) 
-        content += "#{submit_tag("draft")}"        
-        content += " or #{submit_tag("publish" , :onclick => "publish('#{object_name}_published')" )} "
-        content += " or #{link_to("<strong>Cancel</strong>", return_url)}"
+        content += "#{link_to("<strong>Cancel</strong>", return_url)}"        
+        content += " or #{submit_tag("draft")}"
+        content += " or #{submit_tag("publish" , :onclick => "publish('#{object_name}_published')" )}"
         content_tag(:p, content, :class => "controls")
       end
 
@@ -233,14 +233,15 @@ module Gluttonberg
       end
       
       def custom_stylesheet_link_tag
-        if Rails.configuration.gluttonberg[:custom_css_for_cms] == "Yes"
+        if Rails.configuration.custom_css_for_cms == true
           stylesheet_link_tag "custom"
         end  
       end
       
       def wysiwyg_js_css_link_tag
         if Rails.configuration.gluttonberg[:enable_WYSIWYG] == "Yes"
-          stylesheet_link_tag("/javascripts/akzhan-jwysiwyg-2b20f74/jquery.wysiwyg.css") + javascript_include_tag("akzhan-jwysiwyg-2b20f74/jquery.wysiwyg.js" , "akzhan-jwysiwyg-2b20f74/controls/wysiwyg.image.js" , "akzhan-jwysiwyg-2b20f74/controls/wysiwyg.link.js" , "akzhan-jwysiwyg-2b20f74/controls/wysiwyg.table.js")
+          # stylesheet_link_tag("/javascripts/akzhan-jwysiwyg-2b20f74/jquery.wysiwyg.css") + javascript_include_tag("akzhan-jwysiwyg-2b20f74/jquery.wysiwyg.js" , "akzhan-jwysiwyg-2b20f74/controls/wysiwyg.image.js" , "akzhan-jwysiwyg-2b20f74/controls/wysiwyg.link.js" , "akzhan-jwysiwyg-2b20f74/controls/wysiwyg.table.js",  "akzhan-jwysiwyg-2b20f74/controls/wysiwyg.colorpicker.js")
+          stylesheet_link_tag("/javascripts/akzhan-jwysiwyg-b743d9f/jquery.wysiwyg.css") + javascript_include_tag("akzhan-jwysiwyg-b743d9f/jquery.wysiwyg.js" , "akzhan-jwysiwyg-b743d9f/controls/wysiwyg.image.js" , "akzhan-jwysiwyg-b743d9f/controls/wysiwyg.link.js" , "akzhan-jwysiwyg-b743d9f/controls/wysiwyg.table.js",  "akzhan-jwysiwyg-b743d9f/controls/wysiwyg.cssWrap.js",  "akzhan-jwysiwyg-b743d9f/controls/wysiwyg.colorpicker.js")
         end
       end
       
@@ -293,7 +294,7 @@ module Gluttonberg
       #   The <tt>name</tt> attribute to be used when the form is posted.
       # [:update_url]
       #   The URL to submit the form to.  Defaults to <tt>url_for(object)</tt>.
-      def editable_field(object, property, options={})
+      def gb_editable_field(object, property, options={})
 
         name = "#{object.class.to_s.underscore}[#{property}]"
         value = object.send property
