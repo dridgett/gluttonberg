@@ -40,7 +40,7 @@ module Gluttonberg
           @page.user_id = current_user.id
           if @page.save
             @page.create_default_template_file
-            redirect_to edit_admin_page_url(@page)
+            redirect_to admin_pages_path
           else
             prepare_to_edit
             render :new
