@@ -30,14 +30,14 @@ module Gluttonberg
     # default.
     def self.find_by_path(path, locale = nil)
       path = path.match(/^\/(\S+)/)
-      unless locale.blank? || path.blank?
+      if( !locale.blank? && !path.blank?)
         path = path[1]        
         page = joins(:localizations).where("locale_id = ? AND ? LIKE path || '%'", locale.id, path).first
         unless page.blank? 
           page.current_localization = page.localizations.where("locale_id = ? AND ? LIKE path || '%'", locale.id,  path).first
         end  
         page
-      else
+      elsif path.blank?
         locale = Gluttonberg::Locale.first_default if locale.blank?
         pages = joins(:localizations).where("locale_id = ? AND home = ?", locale.id, true)
         page = pages.first unless pages.blank?
