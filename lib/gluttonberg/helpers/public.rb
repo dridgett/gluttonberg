@@ -14,7 +14,6 @@ module Gluttonberg
           else
             li_content = content_tag(:a, page.nav_label, :href => page_url(page , opts)).html_safe
           end
-          puts "===== #{page_url(page)}"
           children = page.children
           li_content << navigation_tree(children , opts).html_safe unless children.blank?
           content << content_tag(:li, li_content.html_safe, li_opts).html_safe
