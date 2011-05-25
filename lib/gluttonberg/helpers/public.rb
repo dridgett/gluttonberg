@@ -9,23 +9,46 @@ module Gluttonberg
         pages.each do |page|
           li_opts = {:id => page.slug + "Nav"}
           li_opts[:class] = "current" if page == @page
-          li_content = content_tag(:a, page.nav_label, :href => page_url(page , opts)).html_safe
+          if page.home?
+            li_content = ""
+          else
+            li_content = content_tag(:a, page.nav_label, :href => page_url(page , opts)).html_safe
+          end
+          puts "===== #{page_url(page)}"
           children = page.children
           li_content << navigation_tree(children , opts).html_safe unless children.blank?
-          content << content_tag(:li, li_content, li_opts).html_safe
+          content << content_tag(:li, li_content.html_safe, li_opts).html_safe
         end
         content_tag(:ul, content.html_safe, opts).html_safe
       end
-
-      # TODO FIXME
-      # Returns the URL with any locale prefix it needs
+      
+      # This is hacked this together.
+      # It is working at the moment but needs further work.
+      # - Yuri
       def page_url(path_or_page , opts = {})
-        path = path_or_page.is_a?(String) ? path_or_page : path_or_page.path
-        if Gluttonberg.localized?
-          "/#{opts[:slug]}/#{path}"
+        if path_or_page.is_a?(String)
+          if Gluttonberg.localized?
+            "/#{opts[:slug]}/#{path_or_page}"
+          else
+            "/#{path_or_page}"
+          end
         else
-          "/#{path}"
-        end  
+          if path_or_page.rewrite_required?
+            url = Rails.application.routes.recognize_path(path_or_page.description.rewrite_route)
+            if request.env["SERVER_PORT"] == "80"
+              url[:host] = "#{request.env["SERVER_NAME"]}"
+            else
+              url[:host] = "#{request.env["SERVER_NAME"]}" + ":#{request.env["SERVER_PORT"]}"
+            end
+            Rails.application.routes.url_for(url)
+          else
+            if Gluttonberg.localized?
+              "/#{opts[:slug]}/#{path_or_page.path}"
+            else
+              "/#{path_or_page.path}"
+            end
+          end
+        end
       end
       
       # Returns the code for google analytics
