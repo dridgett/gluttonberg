@@ -12,7 +12,11 @@ module Gluttonberg
           if page.home?
             li_content = ""
           else
-            li_content = content_tag(:a, page.nav_label, :href => page_url(page , opts)).html_safe
+            if page.description && page.description.top_level_page?
+              li_content = content_tag(:a, page.nav_label, :href => "#").html_safe
+            else
+              li_content = content_tag(:a, page.nav_label, :href => page_url(page , opts)).html_safe
+            end
           end
           children = page.children
           li_content << navigation_tree(children , opts).html_safe unless children.blank?
