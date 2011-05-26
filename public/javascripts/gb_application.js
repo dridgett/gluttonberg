@@ -90,23 +90,16 @@ function enable_jwysiwyg_on(selector) {
                     }
             });
             
-            $(selector).wysiwyg("addControl" , "cssWrap", {
+            
+            $(selector).wysiwyg("addControl" , "gbStyles", {
             		visible : true,
             		groupIndex: 7,
-            		tooltip: "CSS Wrapper",
+            		tooltip: "Styles",
             		exec: function () { 
-            				$.wysiwyg.controls.cssWrap.init(this);
+            				$.wysiwyg.controls.gbStyles.init(this);
             			}
             	})
             	
-                $(selector).wysiwyg("addControl" , "colorpicker", {
-                		visible : true,
-                		groupIndex: 8,
-                		tooltip: "color picker",
-                		exec: function () { 
-                				$.wysiwyg.controls.colorpicker.init(this);
-                			}
-                	})	
             
         } catch(e) {
             console.log(e)
@@ -114,6 +107,8 @@ function enable_jwysiwyg_on(selector) {
 
     });
 }
+
+
 
 // This method initialize slug related event on a title text box.
 function initSlugManagement() {

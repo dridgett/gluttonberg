@@ -20,7 +20,7 @@
 		version: "",
 		defaults: {
 			baseFile:		"jquery.wysiwyg.js",
-			css:			["jquery.wysiwyg.css", "jquery.wysiwyg.modal.css"],
+			css:			["jquery.wysiwyg.css", "jquery.wysiwyg.modal.css" , "user-styles.css"],
 			cssPath:		"",
 			controlPath:	"controls/",
 			i18nPath:		"i18n/"

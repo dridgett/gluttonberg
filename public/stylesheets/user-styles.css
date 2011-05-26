@@ -1,2 +1,16 @@
-.test {
-  color: green; }
+.green.wysiwygCssWrapper {
+  color: green; 
+}
+
+.red.wysiwygCssWrapper {
+  color: red; 
+}
+
+
+h1.wysiwygCssWrapper {
+  font-size:20px; 
+}
+
+h4.wysiwygCssWrapper {
+  font-size:14px; 
+}
