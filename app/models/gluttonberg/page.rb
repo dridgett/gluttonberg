@@ -31,10 +31,10 @@ module Gluttonberg
     def self.find_by_path(path, locale = nil)
       path = path.match(/^\/(\S+)/)
       if( !locale.blank? && !path.blank?)
-        path = path[1]        
-        page = joins(:localizations).where("locale_id = ? AND ? LIKE path || '%'", locale.id, path).first
+        path = path[1]
+        page = joins(:localizations).where("locale_id = ? AND gb_page_localizations.path LIKE ? ", locale.id, path).first
         unless page.blank? 
-          page.current_localization = page.localizations.where("locale_id = ? AND ? LIKE path || '%'", locale.id,  path).first
+          page.current_localization = page.localizations.where("locale_id = ? AND path LIKE ? ", locale.id, path).first
         end  
         page
       elsif path.blank?

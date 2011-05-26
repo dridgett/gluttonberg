@@ -1,7 +1,6 @@
 <% attributes.each do |attribute| -%>
 %p
   = f.label :<%= attribute.name %>
-  %br
   = f.<%= attribute.field_type %> :<%= attribute.name %> , :class => "<%= attribute.field_type.to_s == 'text_area' ? 'jwysiwyg' : ''  %>"
 <% end %>
 

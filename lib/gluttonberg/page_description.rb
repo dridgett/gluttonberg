@@ -68,8 +68,8 @@ module Gluttonberg
     
     # Returns the definition for a specific page description.
     def self.[](name)
-      puts @@_descriptions
-      puts @@_descriptions[name.to_s.downcase.to_sym].options
+      # puts @@_descriptions
+      # puts @@_descriptions[name.to_s.downcase.to_sym].options
       @@_descriptions[name.to_s.downcase.to_sym]
     end
     
@@ -120,6 +120,10 @@ module Gluttonberg
       new_section = Section.new(name)
       new_section.instance_eval(&blk)
       @sections[name] = new_section
+    end
+    
+    def top_level_page?
+       @options[:name] == :top_level_page
     end
     
     def redirection_required?
