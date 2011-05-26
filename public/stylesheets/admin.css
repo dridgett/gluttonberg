@@ -2401,7 +2401,8 @@ ul.tagit {
 	
 div.wysiwyg {
 	margin: auto;
-	clear: both;
+	clear: both !important;
+	float: none !important;
 	border: none !important;
 	background: none !important; }
 
@@ -2490,12 +2491,9 @@ div.wysiwyg ul.toolbar li.removeFormat {
 	color: #9c9c9f;
 }
 
-
 .new_gluttonberg_article .fieldset {
 	width: 600px; }
-.new_gluttonberg_article .wysiwyg {
-	float: left;
-	clear: none; }
+.new_gluttonberg_article .wysiwyg { }
 .new_gluttonberg_article textarea.wysiwyg {
 	margin-left: 176px; }
 #gluttonberg_article_state {
