@@ -228,8 +228,8 @@ body {
 	position: relative; }
 	#subheader img {
 		position: absolute;
-		top: 7px;
-		left: 55px; }
+		top: 6px;
+		left: 48px; }
 		
 /* SUB-NAVIGATION =================================================== */
 #subnav {
@@ -252,7 +252,7 @@ body {
   #subnav .button a {
  		display: block;
  		margin: 0 0 15px 14px; }
-    .button a, a.button {
+    .button a, a.button, button {
       color: #727272;
       background-color: #ffffff;
       border: #e0ded8 1px solid;
@@ -261,9 +261,13 @@ body {
 			font-weight: bold;
 			padding: 7px 12px;
 			text-decoration: none; }
-			a.button:hover, .button:hover a {
+			a.button:hover, .button:hover a, button:hover {
 				background: #f58da2;
 				color: #ffffff; }
+			.editable {
+				border:none; }
+			.editable button {
+				margin: 0 0 0 15px; }
 
 #assets.show #wrapper #subnav li {
   padding: 0 !important; }
@@ -323,16 +327,28 @@ body {
 		font-family: Georgia, Serif;
 		font-size: 14px;
 		margin: auto; }
+		#iconNav a:hover {
+			color: #F58DA2; }
 /* Base styles */
 form, .pageBlock {
   margin-bottom: 25px;
-  background: #fafafa;
+  background: #FFFFFF;
   border: #e5e4e3 1px solid;
   padding: 1.5em 0 25px 0;
   width: 99.9%;
   float: left;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px; }
+	-moz-border-top-left-radius: 0 0;
+	-moz-border-top-right-radius: 3px 3px;
+	-moz-border-bottom-left-radius: 3px 3px;
+	-moz-border-bottom-right-radius: 3px 3px;
+	-webkit-border-top-left-radius: 0 0;
+	-webkit-border-top-right-radius: 3px 3px;
+	-webkit-border-bottom-left-radius: 3px 3px;
+	-webkit-border-bottom-right-radius: 3px 3px;
+	border-top-left-radius: 0px 0px;
+	border-top-right-radius: 3px 3px;
+	border-bottom-left-radius: 3px 3px;
+	border-bottom-right-radius: 3px 3px; }
 
 #assetsDialog .nosubnav {
 	margin-top: 0; }
@@ -436,12 +452,16 @@ textarea.medium {
   border: none;
   padding: 0.2em 0.5em;
   width: 10em; }
+	select.medium {
+	  width: 11em; }
 
 input.large {
   background: #ebebeb right top no-repeat url("../images/form/input_bkg.jpg");
   border: none;
   padding: 0.2em 0.5em;
   width: 335px; }
+	select.large {
+	  width: 335px; }
 
 textarea.large {
   background: #ebebeb right top no-repeat url("../images/form/input_bkg.jpg");
@@ -478,10 +498,8 @@ p.controls {
  	text-align: center; }
   p.controls a {
     color: #727272;
- 		text-decoration: none; }
-  p.controls a:hover {
-    color: #727272;
- 		text-decoration: underline; }
+ 		text-decoration: none;
+ 		font-family: 'Lucida Grande'; }
   p.controls input {
     color: #727272;
     background-color: #ffffff;
@@ -490,7 +508,8 @@ p.controls {
 		font-size: 13px;
 		font-weight: bold;
 		padding: 7px 12px;
-		text-decoration: none; }
+		text-decoration: none;
+		cursor: pointer; }
 		p.controls input:hover {
 			background: #f58da2;
 			color: #ffffff; }
@@ -666,11 +685,10 @@ tr.insert_before td {
 /* Asset Library */
 
 #tabs-recent {
-	padding: 50px;
+	width: 100%;
 	float: left;
 	color: #727272;
 	background-color: white;
-	border: #E0DED8 1px solid;
 	margin-top: -1px;
 	-webkit-border-top-left-radius: 0 0;
 	-webkit-border-top-right-radius: 3px 3px;
@@ -723,6 +741,8 @@ ul.assetList {
 		font-family: Georgia, Serif;
 		font-size: 14px;
 		margin: auto; }
+		ul.assetList a:hover {
+			color: #F58DA2; }
   ul.assetList h3 {
  		text-align: center; }
   ul.assetList p {
@@ -1511,7 +1531,6 @@ table .home {
   float: left;
   position: relative;
   z-index: 1;
-  border-right: 1px solid #d3d3d3;
   bottom: -1px; }
   .ui-tabs-nav ul {
     margin: 0;
@@ -1521,7 +1540,9 @@ table .home {
     line-height: 1.3;
     text-decoration: none;
     font-size: 100%;
-    list-style: none; }
+    list-style: none;
+ 		position: relative;
+		bottom: -1px; }
   .ui-tabs-nav li {
     float: left;
 		border-bottom: #E0DED8 1px solid; }
@@ -2286,6 +2307,7 @@ ul.tagit {
 		float: right;
 		margin: 30px 5px;	}
 	#form .button {
+		float: right;
 		color: #727272;
     background-color: #ffffff;
     border: #e0ded8 1px solid;
@@ -2474,3 +2496,18 @@ div.wysiwyg ul.toolbar li.removeFormat {
 	clear: both;
 	float: none;
 	margin: 25px auto; }
+
+p.no_content {
+	text-align: center;
+	color: #727272; }
+
+#gluttonberg_page_state {
+	display: block;
+	float: none;
+	margin: auto;
+	width: 132px; }
+
+#publish_meta {
+	text-align: center; }
+#publish_meta select {
+	float: none; }

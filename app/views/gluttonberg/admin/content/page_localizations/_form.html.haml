@@ -26,7 +26,8 @@
         = content_editor(content)
         %br
   - else
-    This page does not have any content area.
+    %p.no_content
+      This page does not have any content area.
   
   - if( Gluttonberg.localized? && @page.localizations &&  @page.localizations.length > 1 ) || @page_localization.contents.length > 1
     = form_controls(admin_page_path(params[:page_id]))

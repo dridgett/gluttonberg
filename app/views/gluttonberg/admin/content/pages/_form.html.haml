@@ -15,7 +15,7 @@
         %br
       - unless @pages.empty?
         = f.label :parent_id , "Parent page"
-        = f.select(:parent_id, @pages.collect{|p| [p.name , p.id] }, :include_blank => true)
+        = f.select(:parent_id, @pages.collect{|p| [p.name , p.id] }, :include_blank => true, :class=>"medium")
     
   = block("Page Description") do
     %p.help
@@ -26,7 +26,7 @@
   
   - if can? :publish , Gluttonberg::Page  
     %fieldset
-      .fieldset
+      .fieldset#publish_meta
         = f.publisable_dropdown
        
   = form_controls(admin_pages_path)

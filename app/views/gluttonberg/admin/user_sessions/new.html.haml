@@ -13,7 +13,7 @@
         Forgot your password?
   #login_tab_section.active
     = form_for(@user_session, :url => admin_login_url, :method => :post) do |f|
-      %h2 Login
+      %h2 Log in
       - if @user_session.errors.any?
         #error
           %ul
@@ -27,11 +27,11 @@
         = f.label :password
         = f.password_field :password, :class => "text_field"
       %fieldset.last
-        = f.submit "Login", :class => "button", :disable_with => "Logging you in..."
+        = f.submit "Log in", :class => "button", :disable_with => "Logging you in..."
 
   #password_reset_tab_section
     = form_for(User.new, :url => admin_password_resets_path) do |f|
-      %h2 Forgotten your password?
+      %h2 Forgot your password?
 
       %fieldset
         = f.label :email

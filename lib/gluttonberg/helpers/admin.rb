@@ -109,7 +109,7 @@ module Gluttonberg
 
       # Controls for standard forms. Writes out a save button and a cancel link
       def form_controls(return_url , opts={})
-        content = "#{link_to("<strong>Cancel</strong>".html_safe, return_url)} or #{submit_tag("Save" , :id => opts[:submit_id]).html_safe}"
+        content = "#{link_to("Cancel".html_safe, return_url, :class => "button")} or #{submit_tag("Save" , :id => opts[:submit_id]).html_safe}"
         content_tag(:p, content.html_safe, :class => "controls")
       end
       
@@ -344,7 +344,7 @@ module ActionView
           val = object.state
           val = "ready" if val.blank? || val == "not_ready"
           @@workflow_states = [  [ 'Draft' , 'ready' ] , ['Published' , "published" ] , [ "Archived" , 'archived' ]  ]
-          select( :state, options_for_select(@@workflow_states , val)   ) + self.datetime_select("published_at")          
+          self.datetime_select("published_at") + select( :state, options_for_select(@@workflow_states , val)   )
         end
         
     end
