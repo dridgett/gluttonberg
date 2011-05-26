@@ -57,7 +57,7 @@
 						width: '408px',
 						height: '120px',
 						padding: '0px 0px 8px 8px',
-						border: '2px solid #666666',
+						border: 'none',
 						overflow: 'auto'
 					}
 				},
