@@ -68,6 +68,8 @@ module Gluttonberg
     
     # Returns the definition for a specific page description.
     def self.[](name)
+      puts @@_descriptions
+      puts @@_descriptions[name.to_s.downcase.to_sym].options
       @@_descriptions[name.to_s.downcase.to_sym]
     end
     
