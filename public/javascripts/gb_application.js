@@ -28,6 +28,7 @@ function enable_jwysiwyg_on(selector) {
     $(document).ready(function() {
         try {
             $(selector).wysiwyg({
+								iFrameClass: "wysiwyg-input",
                 controls: {
                     strikeThrough: {
                         visible: false

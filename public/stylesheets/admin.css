@@ -874,6 +874,9 @@ tr:hover span.controls {
     margin: 0 0.5em 0 0;
     width: 17em;
     overflow: hidden; }
+.assetBrowserLink span {
+	display: block;
+	padding-top: 15px; }
 .publicpath a {
 	color:#727272; }
 
@@ -1231,17 +1234,18 @@ p.newLink {
   margin-left: 20px; }
   #delete form {
     background: 15px 25px no-repeat url("../images/form/warning.gif");
-    background-color: #ffffcc;
-    border: #807f65 4px solid;
+    background-color: #white;
+    border: #727272 1px solid;
     margin: 8em auto 0 auto;
-    padding-left: 90px;
+    padding: 25px 25px 25px 90px;
     width: 25em;
     -moz-border-radius: 4px;
-    -webkit-border-radius: 4px; }
+    -webkit-border-radius: 4px;
+		float: none; }
   #delete h1 {
     font-weight: bold;
     font-size: 2em;
-    color: #244e66; }
+    color: #727272; }
   #delete p.message {
     font-size: 1.2em;
     margin: 0.3em 0 1em 0;
@@ -2400,8 +2404,15 @@ ul.tagit {
 	
 div.wysiwyg {
 	margin: auto;
-	clear: both; }
+	clear: both !important;
+	float: none !important;
+	border: none !important;
+	background: none !important; }
 
+div.wysiwyg ul.toolbar {
+	border: none !important;
+	padding-bottom: 15px !important;
+}
 
 div.wysiwyg ul.toolbar li {
 	width: 25px !important;
@@ -2483,12 +2494,9 @@ div.wysiwyg ul.toolbar li.removeFormat {
 	color: #9c9c9f;
 }
 
-
 .new_gluttonberg_article .fieldset {
 	width: 600px; }
-.new_gluttonberg_article .wysiwyg {
-	float: left;
-	clear: none; }
+.new_gluttonberg_article .wysiwyg { }
 .new_gluttonberg_article textarea.wysiwyg {
 	margin-left: 176px; }
 #gluttonberg_article_state {
@@ -2511,3 +2519,9 @@ p.no_content {
 	text-align: center; }
 #publish_meta select {
 	float: none; }
+
+.second_column form {
+	border: none; }
+	
+	
+.wysiwyg-input { width: 545px; height: 400px }
