@@ -56,8 +56,6 @@ module Gluttonberg
                 true
               end
 
-              puts "-------- step-1"
-
               @pages = self.class.drag_class.all
               raise ActiveRecord::RecordNotFound if @pages.blank?
               @mode = params[:mode]
@@ -67,17 +65,11 @@ module Gluttonberg
               raise ActiveRecord::RecordNotFound.new("Drag source is nil [#{params[:source_page_id]}]") unless @source
               raise ActiveRecord::RecordNotFound.new("Drag destination is nil [#{params[:dest_page_id]}]") unless @dest
 
-              puts "-------- step-2"
-
               if !self.class.drag_class.behaves_as_a_flat_drag_tree
                 if source_in_destination_ancestry(@source, @dest)
-                  puts "-------- step-3"
                    raise ActionController::RoutingError.new
-                   puts "-------- step-4"
                 end
               end
-              
-              puts "-------- step-5"
 
               if (@mode == 'INSERT') and @source and @dest and !self.class.drag_class.behaves_as_a_flat_drag_tree
                 # an insert is a reparenting operation. the source becomes the child of the
@@ -85,26 +77,20 @@ module Gluttonberg
                 @source.parent_id = @dest.id
                 ### @source.move :highest
                 @source.move_to_bottom
-
-                puts "-------- step-6"
                 
                 render :json => {:success => true}
               else
                 # if we are inserting after a node and that node has children, we are actually
                 # reparenting to that node
 
-                puts "-------- step-7"
-
                 do_reparent = false
                 if !self.class.drag_class.behaves_as_a_flat_drag_tree then
                   if (@mode == 'AFTER') and (@dest.children.count > 0) then
-                    puts "-------- step-8"
                     do_reparent = true
                   end
                 end
 
                 if do_reparent
-                  puts "-------- step-9"
                   if (@source.parent_id != @dest.id)
                     @source.parent_id = @dest.id
                     @source.save!
@@ -115,7 +101,6 @@ module Gluttonberg
                   @source.save!
                   render :json => {:success => true}
                 else
-                  puts "-------- step-10"
                   if !self.class.drag_class.behaves_as_a_flat_drag_tree
                     # if the pages don't have the same parent, need to reparent
                     # the @source
@@ -126,13 +111,11 @@ module Gluttonberg
                   end
 
                   if @mode == 'AFTER'
-                    puts "-------- step-11"
                     @source.insert_at( @dest.position + 1 ) #+ 1
                     #@source.move :below => @dest
                     @source.save!
                     render :json => {:success => true}                    
                   elsif @mode == 'BEFORE'
-                    puts "-------- step-12  dest position #{@dest.position}   src pos #{@source.position}"
                     @source.insert_at( @dest.position)
                     #@source.move :above => @dest
                     @source.save!

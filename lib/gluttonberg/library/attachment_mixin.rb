@@ -176,7 +176,6 @@ module Gluttonberg
           
             update_attribute( :custom_thumbnail , true)         
           rescue => e
-            puts "-------- #{e} "
             update_attribute( :custom_thumbnail , false)   
           end    
           
