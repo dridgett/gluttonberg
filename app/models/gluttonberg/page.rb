@@ -59,6 +59,7 @@ module Gluttonberg
     # Returns the PageDescription associated with this page.
     def description
       @description = PageDescription[self.description_name.to_sym] if self.description_name
+      @description
     end
     
     # Returns the name of the view template specified for this page —
