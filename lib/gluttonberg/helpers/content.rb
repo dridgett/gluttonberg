@@ -8,7 +8,7 @@ module Gluttonberg
       def render_content_for(section_name, opts = {})
         # At present this generates a bunch of queries. Eventually we should 
         # look at caching section names to save some DB hits.
-        content = content_for(section_name)
+        content = gb_content_for(section_name)
         render_method = :"render_#{content.content_type}"
         if respond_to? render_method
           send(:"render_#{content.content_type}", content, opts)
@@ -21,7 +21,7 @@ module Gluttonberg
 
       # Returns the content record for the specified section. It will include
       # the relevant localized version based the current locale/dialect
-      def content_for(section_name, opts = nil)
+      def gb_content_for(section_name, opts = nil)
         section_name = section_name.to_sym         
         @page.localized_contents.pluck {|c| c.section[:name] == section_name}
       end
