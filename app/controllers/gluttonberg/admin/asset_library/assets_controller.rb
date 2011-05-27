@@ -13,7 +13,7 @@ module Gluttonberg
         # home page of asset library
         def index
           # Get the latest assets, ensuring that we always grab at most 15 records  
-          conditions =  { :updated_at => ((Time.now - 24.hours).gmtime)..(Time.now.gmtime)  }
+          conditions =  { :updated_at => ((Time.now - 72.hours).gmtime)..(Time.now.gmtime)  }
           @assets = Asset.find(:all, 
               :conditions => conditions, 
               :limit => Rails.configuration.gluttonberg[:library_number_of_recent_assets] , 
