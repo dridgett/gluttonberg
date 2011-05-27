@@ -381,6 +381,8 @@ ol.fieldset { }
 div.fieldset input {
 	margin-bottom: 15px;
 }
+div.fieldset p {
+	clear:both; }
 label {
   text-align: right;
   padding: 0.2em 0.6em 0.2em 0;
