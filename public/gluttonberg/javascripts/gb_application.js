@@ -64,6 +64,18 @@ function enable_jwysiwyg_on(selector) {
                     insertTable: {
                         visible: false
                     },
+										insertImage: {
+										    visible: false
+										},
+										h1: {
+										    visible: false
+										},
+										h2: {
+                        visible: false
+                    },
+										h3: {
+                        visible: false
+                    },
                     code: {
                         visible: false
                     }

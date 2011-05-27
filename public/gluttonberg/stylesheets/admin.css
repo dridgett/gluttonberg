@@ -2443,7 +2443,7 @@ div.wysiwyg ul.toolbar li.createLink {
 	background-position: -150px 0 !important; }
 div.wysiwyg ul.toolbar li.insertHorizontalRule {
 	background-position: -125px 0 !important; }
-div.wysiwyg ul.toolbar li.insertImage {
+div.wysiwyg ul.toolbar li.asset_selector {
 	background-position: -100px 0 !important; }
 div.wysiwyg ul.toolbar li.insertOrderedList {
 	background-position: -250px 0 !important; }
@@ -2467,7 +2467,7 @@ div.wysiwyg ul.toolbar li.removeFormat {
 		background-position: -150px -25px !important; }
 	div.wysiwyg ul.toolbar li.insertHorizontalRule.wysiwyg-button-hover {
 		background-position: -125px -25px !important; }
-	div.wysiwyg ul.toolbar li.insertImage.wysiwyg-button-hover {
+	div.wysiwyg ul.toolbar li.asset_selector.wysiwyg-button-hover {
 		background-position: -100px -25px !important; }
 	div.wysiwyg ul.toolbar li.insertOrderedList.wysiwyg-button-hover {
 		background-position: -250px -25px !important; }
