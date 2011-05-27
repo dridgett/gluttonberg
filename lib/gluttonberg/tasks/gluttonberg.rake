@@ -12,14 +12,20 @@ namespace :gluttonberg do
   
   desc "Copies missing assets from Railties (e.g. plugins, engines). You can specify Railties to use with FROM=railtie1,railtie2"
   task :copy_assets => :rails_env do
-    require 'rails/generators/base'
-    Rails.application.initialize!
-    app_root_path = Rails.root
-    engine_root_path = Engine.root
+    begin
+      require 'rails/generators/base'
+      Rails.application.initialize!
+      app_root_path = Rails.root
+      engine_root_path = Gluttonberg::Engine.root
 
-    ["images" , "stylesheets", "javascripts"].each do |assets_dir|
-      copy_file File.join(engine_root_path , "public/gluttonberg/#{assets_dir}"), File.join(app_root_path , "public/gluttonberg/#{assets_dir}")
-    end # loop
+      ["images" , "stylesheets", "javascripts"].each do |assets_dir|
+        FileUtils.mkdir_p File.join(app_root_path , "public/gluttonberg/")
+        FileUtils.cp_r File.join(engine_root_path , "public/gluttonberg/#{assets_dir}"), File.join(app_root_path , "public/gluttonberg/")
+      end # loop
+      puts "Completed"
+    rescue => e
+      puts "#{e}"
+    end
   end #task
   
 end
