@@ -1,6 +1,7 @@
 // Place your application-specific JavaScript functions and classes here
 // This file is automatically included by javascript_include_tag :defaults
 $(document).ready(function() {
+    
     $("#tabs").tabs();
 
     dragTreeManager.init();
@@ -71,7 +72,7 @@ function enable_jwysiwyg_on(selector) {
             });
             $(selector).wysiwyg("addControl", "asset_selector", {
                 groupIndex: 6,
-                icon: '/images/library/browse_images_control.gif',
+                icon: '/gluttonberg/images/library/browse_images_control.gif',
                 tooltip: 'Select Image From Library',
                 tags: ['library'],
                 exec: function() {
