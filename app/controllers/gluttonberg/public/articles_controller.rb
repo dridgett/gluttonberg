@@ -6,6 +6,11 @@ module Gluttonberg
         @blog = Gluttonberg::Blog.published.first(:conditions => {:slug => params[:blog_id]}, :include => [:articles])
         raise ActiveRecord::RecordNotFound.new if @blog.blank?
         @articles = @blog.articles.published
+        
+         respond_to do |format|
+           format.html
+           format.rss { render :layout => false }
+        end
       end
   
       def show

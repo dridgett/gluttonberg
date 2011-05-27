@@ -18,6 +18,10 @@ module Gluttonberg
         raise ActiveRecord::RecordNotFound.new if @blog.blank?
         @articles = @blog.articles.published
         @tags = Gluttonberg::Article.published.tag_counts_on(:tag)
+        respond_to do |format|
+           format.html
+           format.rss { render :layout => false }
+        end
       end
   
     end
