@@ -38,11 +38,7 @@ module Gluttonberg
         else
           if path_or_page.rewrite_required?
             url = Rails.application.routes.recognize_path(path_or_page.description.rewrite_route)
-            if request.env["SERVER_PORT"] == "80"
-              url[:host] = "#{request.env["SERVER_NAME"]}"
-            else
-              url[:host] = "#{request.env["SERVER_NAME"]}" + ":#{request.env["SERVER_PORT"]}"
-            end
+            url[:host] = Rails.configuration.host_name
             Rails.application.routes.url_for(url)
           else
             if Gluttonberg.localized?
