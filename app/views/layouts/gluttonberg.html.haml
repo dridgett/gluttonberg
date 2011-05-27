@@ -48,6 +48,10 @@
           %a.nav_trigger{ :href => "javascript:;" }
           %ul.subnavigation
             %li
+              = active_link_to("Collections", admin_library_path+"?tab=collection", :title => "Collections")
+            %li
+              = active_link_to("Recent", admin_library_path+"?tab=recent", :title => "Recent")  
+            %li  
               = active_link_to("Add collection", new_admin_collection_path, :title => "Add collection")
             %li
               = active_link_to("Add asset", new_admin_asset_path, :title => "Add asset")
