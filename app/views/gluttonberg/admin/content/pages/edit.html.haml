@@ -1,6 +1,6 @@
 - @window_title = "Content"
 - @page_title = "#{link_to "Content", admin_content_path} > #{link_to("Pages", admin_pages_path, :title => "Pages")} > Edit Page Settings"
-- @page_image = "/images/sidebar/icon_content.png"
+- @page_image = "/gluttonberg/images/sidebar/icon_content.png"
 
 - default_localization = Gluttonberg::PageLocalization.find(:first , :conditions => { :page_id => @page.id , :locale_id => Gluttonberg::Locale.first_default.id } )
 
