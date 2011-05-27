@@ -105,8 +105,6 @@ module Gluttonberg
     end
     
 
-    
-
     def paths_need_recaching?
       @paths_need_recaching
     end

@@ -13,7 +13,6 @@ namespace :gluttonberg do
   desc "Copies missing assets from Railties (e.g. plugins, engines). You can specify Railties to use with FROM=railtie1,railtie2"
   task :copy_assets => :rails_env do
     begin
-      require 'rails/generators/base'
       Rails.application.initialize!
       app_root_path = Rails.root
       engine_root_path = Gluttonberg::Engine.root

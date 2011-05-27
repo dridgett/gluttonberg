@@ -28,7 +28,7 @@ module Gluttonberg
         # First collect the localized content
         contents_data = Gluttonberg::Content.localization_associations.inject([]) do |memo, assoc|
           memo += send(assoc).all
-        end        
+        end
         # Then grab the content that belongs directly to the page
         Gluttonberg::Content.non_localized_associations.inject(contents_data) do |memo, assoc|
           contents_data += page.send(assoc).all
@@ -71,11 +71,11 @@ module Gluttonberg
     # to it's page's default.
     def regenerate_path
       page.reload #forcing that do not take cached page object
-      if page.parent_id
+      if page.parent_id && page.parent.home != true
         localization = page.parent.localizations.find(:first,
           :conditions => {
             :locale_id  => locale_id 
-          }  
+          }
         )
         new_path = "#{localization.path}/#{slug || page.slug}"
       else
