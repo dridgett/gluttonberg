@@ -45,7 +45,7 @@
       function findCss(stylesheet_name){
         css_index = -1;
         $.each(document.styleSheets , function(index , cssObject){
-          if(cssObject.href.search(stylesheet_name) >= 0){
+          if(cssObject.href != null && cssObject.href.search(stylesheet_name) >= 0){
             css_index = index;
             return;
           }
