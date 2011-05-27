@@ -2525,3 +2525,16 @@ p.no_content {
 	
 	
 .wysiwyg-input { width: 545px; height: 400px }
+
+#login #form img {
+	position: absolute;
+	top: 35px;
+	left: 45px;	}
+
+
+#form li .button {
+	background: #f4f7f9; }
+
+#form li .active.button {
+	background: white;
+	color: #727272; }
