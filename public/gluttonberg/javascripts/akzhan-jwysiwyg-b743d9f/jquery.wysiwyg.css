@@ -77,3 +77,18 @@ box-shadow         :inset 0 0 10px rgba(0, 0, 0, 0.4);
 background-color:white; padding:0px; margin:0; display:block; width: 100%;
 }
 
+.wysiwyg-style-list {
+	background: #EFEFEF;
+}
+.wysiwyg-style-list input {
+  color: #727272;
+  background-color: #ffffff;
+  border: #e0ded8 1px solid;
+  -webkit-border-radius: 3px;
+	font-size: 13px;
+	font-weight: bold;
+	padding: 7px 12px;
+	text-decoration: none; }
+	.wysiwyg-style-list input:hover {
+		background: #f58da2;
+		color: #ffffff; }

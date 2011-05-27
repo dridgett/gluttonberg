@@ -252,7 +252,7 @@ body {
   #subnav .button a {
  		display: block;
  		margin: 0 0 15px 14px; }
-    .button a, a.button, button {
+    .button a, a.button, input.button, button {
       color: #727272;
       background-color: #ffffff;
       border: #e0ded8 1px solid;
@@ -261,14 +261,17 @@ body {
 			font-weight: bold;
 			padding: 7px 12px;
 			text-decoration: none; }
-			a.button:hover, .button:hover a, button:hover {
+			a.button:hover, .button:hover a, input.button:hover, button:hover {
 				background: #f58da2;
 				color: #ffffff; }
 			.editable {
 				border:none; }
 			.editable button {
 				margin: 0 0 0 15px; }
-
+ 			#assetsDisplay input.button {
+				position: absolute;
+				right: 25px;
+				bottom: 25px; }
 #assets.show #wrapper #subnav li {
   padding: 0 !important; }
 
@@ -2440,7 +2443,7 @@ div.wysiwyg ul.toolbar li.createLink {
 	background-position: -150px 0 !important; }
 div.wysiwyg ul.toolbar li.insertHorizontalRule {
 	background-position: -125px 0 !important; }
-div.wysiwyg ul.toolbar li.insertImage {
+div.wysiwyg ul.toolbar li.asset_selector {
 	background-position: -100px 0 !important; }
 div.wysiwyg ul.toolbar li.insertOrderedList {
 	background-position: -250px 0 !important; }
@@ -2464,7 +2467,7 @@ div.wysiwyg ul.toolbar li.removeFormat {
 		background-position: -150px -25px !important; }
 	div.wysiwyg ul.toolbar li.insertHorizontalRule.wysiwyg-button-hover {
 		background-position: -125px -25px !important; }
-	div.wysiwyg ul.toolbar li.insertImage.wysiwyg-button-hover {
+	div.wysiwyg ul.toolbar li.asset_selector.wysiwyg-button-hover {
 		background-position: -100px -25px !important; }
 	div.wysiwyg ul.toolbar li.insertOrderedList.wysiwyg-button-hover {
 		background-position: -250px -25px !important; }

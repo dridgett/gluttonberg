@@ -43,7 +43,7 @@
     = render :partial => "collection_select_form" , :locals => {:asset_form => asset_form }
 
     .controls
-      = asset_form.submit("Upload" , :id => "ajax_image_upload" )
+      = asset_form.submit("Upload" , :id => "ajax_image_upload", :class => "button button_upload" )
       = image_tag("spinner.gif" , :id => "progress_ajax_upload" , :style => "display:none")
 
 .clear              
