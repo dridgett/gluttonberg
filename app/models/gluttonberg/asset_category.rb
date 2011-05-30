@@ -24,10 +24,9 @@ module Gluttonberg
         ensure_exists('audio', false)
         ensure_exists('image', false)
         ensure_exists('video', false)    
+        ensure_exists('document', false)
         ensure_exists(Library::UNCATEGORISED_CATEGORY, true)
       end
-    
-    
 
       private
 

@@ -96,6 +96,28 @@ module Gluttonberg
         
           ensure_type('M4v Video', 'video/x-m4v', AssetCategory.video_category)  
           
+          #document category
+          ensure_type('Generic Document', 'application/x-csh application/x-dvi application/oda application/pgp-encrypted application/pgp-keys application/pgp-signature', AssetCategory.document_category)
+          ensure_type('Calendar Document', 'text/calendar text/x-vcalendar', AssetCategory.document_category)
+          ensure_type('Comma Seperated Values Document (csv)', 'text/csv text/comma-separated-values', AssetCategory.document_category)
+          ensure_type('Tab Seperated Values Text Document', 'text/tab-separated-values', AssetCategory.document_category)
+          ensure_type('Web Document', 'text/html', AssetCategory.document_category)
+          ensure_type('Plain Text Document', 'text/plain', AssetCategory.document_category)
+          ensure_type('Rich Text Document', 'text/richtext text/rtf', AssetCategory.document_category)
+          ensure_type('Sgml Document', 'text/sgml', AssetCategory.document_category)
+          ensure_type('Wap Document', 'text/vnd.wap.wml text/vnd.wap.wmlscript', AssetCategory.document_category)
+          ensure_type('XML Document', 'text/xml text/xml-external-parsed-entity', AssetCategory.document_category)
+          ensure_type('V-Card Document (vcf)', 'text/x-vcard', AssetCategory.document_category)
+          ensure_type('Apple Macintosh Document (hqx)', 'application/mac-binhex40', AssetCategory.document_category)      
+          ensure_type('Adobe Acrobat Document (pdf)', 'application/pdf', AssetCategory.document_category)
+          ensure_type('Microsoft Word Document (doc,dot,docx)', 'application/msword application/word', AssetCategory.document_category)
+          ensure_type('Microsoft Powerpoint Document (ppt,pps,pot,pptx)', 'application/vnd.ms-powerpoint application/powerpoint', AssetCategory.document_category)
+          ensure_type('Microsoft Excel Document (xls,xlt,xlsx)', 'application/vnd.ms-excel application/excel', AssetCategory.document_category)
+          ensure_type('Microsoft Works Document', 'application/vnd.ms-works', AssetCategory.document_category)
+          ensure_type('Microsoft Project Document (mpp)', 'application/vnd.ms-project', AssetCategory.document_category)
+          ensure_type('Microsoft Visio Document (vsd,vst,vsw,vss)', 'application/vnd.visio', AssetCategory.document_category)
+          ensure_type('HTML Help Document (chm)', 'application/x-chm', AssetCategory.document_category)
+          
           
       rescue => e
         puts "asset library init fails."
