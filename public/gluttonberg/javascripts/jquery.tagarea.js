@@ -349,7 +349,7 @@
 				}
 			});
 			//Give the field focus
-			field.trigger('focus');
+			//field.trigger('focus');
 			//For some reason IE does not listen the first time :s
 			//So do it again.....
 			if($.browser.msie) {

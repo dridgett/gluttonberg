@@ -71,6 +71,7 @@ module Gluttonberg
     # to it's page's default.
     def regenerate_path
       page.reload #forcing that do not take cached page object
+      slug = nil if slug.blank?
       if page.parent_id && page.parent.home != true
         localization = page.parent.localizations.find(:first,
           :conditions => {

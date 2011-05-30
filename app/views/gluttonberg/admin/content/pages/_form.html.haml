@@ -22,7 +22,11 @@
       Page descriptions are used to define how this page behaves. For example,
       all of it’s contents may be editable, or it may be generated dynamically.
     = f.label :description_name  , "Page Description"
-    = f.select(:description_name, @descriptions , :include_blank => true)  
+    
+    - if( action_name == "new" )
+      = f.select(:description_name, @descriptions , { :include_blank => true } ) 
+    - else
+      = f.select(:description_name, @descriptions , { :include_blank => true } , {:disabled => "disabled"})  
   
   - if can? :publish , Gluttonberg::Page  
     %fieldset
