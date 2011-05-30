@@ -16,13 +16,13 @@ module Gluttonberg
     attr_accessor :subscribe_to_comments , :blog_slug
     
     def moderate(params)
-      if params == "approve"
-        update_attributes(:moderation_required => false, :approved => true)
-      elsif params == "disapprove"
-        update_attributes(:moderation_required => false, :approved => false)
-      else
-        #error
-      end
+        if params == "approve"
+          update_attributes(:moderation_required => false, :approved => true)
+        elsif params == "disapprove"
+          update_attributes(:moderation_required => false, :approved => false)
+        else
+          #error
+        end
     end
     
     # these are helper methods for comment. 
@@ -49,10 +49,12 @@ module Gluttonberg
     
     protected
       def init_moderation
-        if Blog.find(:first , :conditions => { :slug => blog_slug }).moderation_required == false
-          self.approved = true
-          write_attribute(:moderation_required, false)
-        end
+        if commentable.has_attribute?(:moderation_required)
+          if Blog.find(:first , :conditions => { :slug => blog_slug }).moderation_required == false
+            self.approved = true
+            write_attribute(:moderation_required, false)
+          end
+        end  
         true
       end 
     
