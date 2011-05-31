@@ -207,14 +207,7 @@ module Gluttonberg
                 #todo
                 begin
                   image.resize suggested_measures(image, config[:geometry])
-                  #image.save path   
-                  #image = QuickMagick::Image.read(path).first
-                  puts "geometry after resize #{image.width} #{image.height}"
-                  #image.crop config[:geometry].delete("#")+"+0+0"
-                  puts image.arguments
                   image.arguments << " -gravity Center  -crop #{config[:geometry].delete("#")}+0+0 +repage"
-                  puts "geometry after crop #{image.width} #{image.height}"
-                  puts image.inspect
                 rescue => e
                   puts e
                 end  
