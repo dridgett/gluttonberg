@@ -410,6 +410,9 @@ module Gluttonberg
         	blob
         end
 
+        def arguments
+          @arguments
+        end
         # image file format
         def format
           image_infoline[1]
