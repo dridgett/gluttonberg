@@ -48,6 +48,18 @@ module Gluttonberg
           end
         end
       end
+      
+      # Renders an image url, allows the designer to specify who they want to handle the image.
+      def gb_image_url(section_name, opts = {})
+        content = gb_content_for(section_name)
+        if content.asset
+          if opts[:url_for].blank?
+            content.asset.url
+          else
+            content.asset.url_for(opts[:url_for].to_sym)             
+          end
+        end
+      end
 
       # Simple as it gets, it just pulles the text property from the content 
       # record
