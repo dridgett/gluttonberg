@@ -11,3 +11,5 @@
     -if entry[3].blank? || entry[3]==false || (entry[3]==true && session.user.is_super_admin)
       %li
         = link_to(entry[0], entry[2], :html_options => {:id => (entry[0].to_s.underscore).gsub(/\s/, '_') + "Nav" , :title => entry[0] } )    
+  %li
+    = link_to("Flagged Content", admin_flagged_contents_path, :id => "flaggedNav" , :title => "Flagged Content")      

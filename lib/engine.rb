@@ -66,6 +66,7 @@ module Gluttonberg
       Gluttonberg::Content.setup      
       
       Gluttonberg.laod_settings_from_db
+      Gluttonberg::CanFlag.setup
       
     end
     

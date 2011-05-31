@@ -7,10 +7,13 @@ Rails.application.routes.draw do
     namespace :admin do
       root :to => "main#index"
       
+      
       # Help
       match("/help/:module_and_controller/:page" => "help#show", :module_and_controller => %r{\S+} , :as => :help)
       
       scope :module => 'Content' do
+        match "/flagged_contents" => "flag#index" , :as => :flagged_contents
+        get '/flagged_contents/moderation/:id/:moderation' => "flag#moderation", :as => :flagged_contents_moderation 
         match 'content' => "main#index",      :as => :content
         resources :pages do
           get 'delete', :on => :member
@@ -81,6 +84,8 @@ Rails.application.routes.draw do
           resources :comments
         end
       end
+      match "/mark_as_flag/:flaggable_type/:flaggable_id" => "flag#new" , :as => :mark_as_flag
+      match "/save_mark_as_flag" => "flag#create" , :as => :save_mark_as_flag
       match "/articles/tag/:tag" => "articles#tag" , :as => :articles_by_tag
       match "/articles/unsubscribe/:reference" => "articles#unsubscribe" , :as => :unsubscribe_article_comments      
     end

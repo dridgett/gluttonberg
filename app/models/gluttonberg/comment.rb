@@ -15,6 +15,8 @@ module Gluttonberg
     
     attr_accessor :subscribe_to_comments , :blog_slug
     
+    can_be_flagged
+    
     def moderate(params)
         if params == "approve"
           update_attributes(:moderation_required => false, :approved => true)
@@ -23,6 +25,14 @@ module Gluttonberg
         else
           #error
         end
+    end
+    
+    def user_id
+      self.author_id
+    end
+    
+    def user_id=(new_id)
+      self.author_id=new_id
     end
     
     # these are helper methods for comment. 

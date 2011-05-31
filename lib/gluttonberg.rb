@@ -20,7 +20,7 @@ module Gluttonberg
   require 'gluttonberg/page_description'
   require 'gluttonberg/templates'
   require 'gluttonberg/middleware'
-  
+  require 'gluttonberg/can_flag'
     
     # These should likely move into one of the initializers inside of the
     # engine config. This will ensure they only run after Rails and the app

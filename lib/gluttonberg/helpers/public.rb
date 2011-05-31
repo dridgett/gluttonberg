@@ -92,6 +92,14 @@ module Gluttonberg
         end
       end
       
+      def link_to_inappropriate(obj)
+        if current_user and current_user.flagged?(obj)
+          content_tag(:p, "You have already flagged this item.")
+        else  
+          link_to "Mark as inappropriate" , mark_as_flag_path(obj.class.name , obj.id)
+        end  
+      end  
+      
     end # Public
   end # Helpers
 end # Gluttonberg

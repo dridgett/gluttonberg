@@ -1,0 +1,23 @@
+- if current_user and current_user.flagged?(@flaggable)
+  %p You have already flagged this item.
+- elsif current_user
+  - form_for current_user.flags.build , :url => save_mark_as_flag_path do |form|
+    = form.hidden_field :flaggable_type, :value => @flaggable.class.name
+    = form.hidden_field :flaggable_id,   :value => @flaggable.id
+    
+    .form_element
+      = form.label "Select a reason"
+      %br
+      %select{:name => "flag[reason]"}
+        - @flaggable.reasons.each do |reason|
+          %option{:name => "#{reason.to_s}"}= reason.to_s
+    
+    .form_element
+      = form.label :description
+      %br
+      = form.text_area(:description)    
+    
+      
+    %input{:type => "submit", :value => "Flag this content"}/
+- else
+  Login or sign up to flag content as inappropriate

@@ -13,7 +13,7 @@ module Gluttonberg
         @tags_counts =  ActsAsTaggableOn::Tag.count - @categories_count.to_i
         
         if Comment.table_exists?
-          @comments = Comment.find(:all , :order => "created_at DESC" , :limit => 10)
+          @comments = Comment.find(:all , :conditions => {:commentable_type => "Gluttonberg::Article"} , :order => "created_at DESC" , :limit => 10)
           @article = Article.new
           @blogs = Gluttonberg::Blog.all
           @authors = User.all
