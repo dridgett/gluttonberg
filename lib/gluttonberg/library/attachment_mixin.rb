@@ -155,6 +155,39 @@ module Gluttonberg
           Library.root + "/" + self.asset_hash
         end
         
+        ####################################
+        def suggested_measures(object , required_geometry)
+            required_geometry = required_geometry.delete("#")
+            required_geometry_tokens = required_geometry.split("x")
+            actual_width = object.width.to_i
+            actual_height = object.height.to_i
+            required_width = required_geometry_tokens.first.to_i
+            required_height = required_geometry_tokens.last.to_i
+            
+            ratio_required = required_width.to_f / required_height
+            ratio_actual = actual_width.to_f / actual_height
+            
+            crossover_ratio = required_height.to_f / actual_height			
+            crossover_ratio2 = required_width.to_f / actual_width			
+
+            if(crossover_ratio < crossover_ratio2 )
+              crossover_ratio = crossover_ratio2
+            end  
+
+            projected_height = actual_height * crossover_ratio 
+
+            if(projected_height < required_height )
+              required_width = required_width * (1 + (ratio_actual -  ratio_required ) )
+            end  
+      			projected_width = actual_width * crossover_ratio
+      			      
+            puts "suggested #{(projected_width).to_i}x#{(projected_width/ratio_actual).to_i}"
+            "#{(projected_width).to_i}x#{(projected_width/ratio_actual).to_i}"
+         end
+        
+        ####################################
+        
+        
         # Create thumbnailed versions of image attachements.
         # TODO: generate thumbnails with the correct extension
         def generate_image_thumb
@@ -170,8 +203,24 @@ module Gluttonberg
               end
               
               path = File.join(directory, "#{config[:filename]}.jpg")
-              image.resize config[:geometry]
-              image.save path           
+              if config[:geometry].include?("#")
+                #todo
+                begin
+                  image.resize suggested_measures(image, config[:geometry])
+                  #image.save path   
+                  #image = QuickMagick::Image.read(path).first
+                  puts "geometry after resize #{image.width} #{image.height}"
+                  image.crop config[:geometry].delete("#")+"+0+0"
+                  puts "geometry after crop #{image.width} #{image.height}"
+                  puts image.inspect
+                rescue => e
+                  puts e
+                end  
+              else  
+                image.resize config[:geometry]
+              end
+              image.save path     
+              puts "geometry after save #{image.width} #{image.height}"      
             end 
           
             update_attribute( :custom_thumbnail , true)         
