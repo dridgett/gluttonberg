@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   
   set_table_name "gb_users"
+  belongs_to :images , :foreign_key => "image_id" , :class_name => "Gluttonberg::Asset"
   
   validates_presence_of :first_name , :email , :role
   

@@ -21,6 +21,7 @@ $(document).ready(function() {
 		if($('table').length > 0){
 			$('table').find('tr:last').css('background-image','none !important');
 		}
+		
 
 });
 
@@ -276,6 +277,8 @@ var AssetBrowser = {
           e.preventDefault();
         })
         
+        $("#assetsDialog").css({position: "absolute",top: (($(window).scrollTop()) )+"px"})
+        
     },
     resizeDisplay: function() {
         var newHeight = AssetBrowser.browser.innerHeight() - AssetBrowser.offsetHeight;
@@ -292,6 +295,12 @@ var AssetBrowser = {
                 display: "block"
             });
         }
+        set_height = wrapper_height = $("body").height();
+        window_height = $(window).height() + $(window).scrollTop()
+        if(set_height < window_height)
+          set_height = window_height;
+        $("#assetsDialogOverlay").height(  set_height )
+        
     },
     close: function() {
         AssetBrowser.overlay.css({
