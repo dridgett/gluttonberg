@@ -3,6 +3,7 @@ require File.join(helpers, "content")
 require File.join(helpers, "asset_library")
 require File.join(helpers, "public")
 require File.join(helpers, "admin")
+require File.join(helpers, "form_builder")
 
 module Gluttonberg
   # A whole heaping helping of helpers for both the administration back-end and

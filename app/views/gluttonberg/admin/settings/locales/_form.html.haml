@@ -1,18 +1,11 @@
 
-= form_for(@locale, :url => url) do  |f|
+= admin_form(@locale, :url => url) do  |f|
 
   = gb_error_messages_for(@locale)
   = block("Locale") do
-    = f.label :name
     = f.text_field(:name)
-    %br
-    = f.label :slug
     = f.text_field(:slug)
-    
-    %br
-    = f.label :type
     = f.select(:slug_type , options_for_select(Gluttonberg::Locale.all_slug_types , @locale.slug_type ) , :include_blank => "Select Locale Type" , :class => "required" )
-            
     = f.check_box(:default, :boolean => true)
     %label{:for => "gluttonberg_locale_default", :class => "checkbox"} Default
       

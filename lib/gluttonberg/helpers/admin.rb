@@ -3,6 +3,12 @@ module Gluttonberg
     # Helpers specific to the administration interface. The majority are 
     # related to forms, but there are other short cuts for things like navigation.
     module Admin
+      # A form helper which automatically injects the form builder which
+      # automatically wraps the fields in divs.
+      def admin_form(obj, opts = {}, &blk)
+        opts.merge!(:builder => Gluttonberg::Helpers::FormBuilder)
+        form_for(obj, opts, &blk)
+      end
       
       # Returns a form for selecting the localized version of a record you want 
       # to edit.
