@@ -7,13 +7,12 @@ module Gluttonberg
         
         def edit
           @page_localization.navigation_label = @page_localization.page.navigation_label if @page_localization.navigation_label.blank?
-          
+          @page = @page_localization.page
            if(!(Gluttonberg.localized? && @page.localizations &&  @page.localizations.length > 1) )
              @page_localization.slug = @page_localization.page.slug  if @page_localization.slug.blank?
              @page_localization.save!
            end
           @version = params[:version]  unless params[:version].blank?
-          @page = @page_localization.page
         end
 
         def update
