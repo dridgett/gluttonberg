@@ -35,6 +35,14 @@ module Gluttonberg
           redirect_to blog_article_url(@subscription.article.blog.slug, @subscription.article.slug)
         end
       end
+      
+      def preview
+        @blog = Gluttonberg::Blog.first(:conditions => {:slug => params[:blog_id]})
+        raise ActiveRecord::RecordNotFound.new if @blog.blank?
+        @article = Gluttonberg::Article.first(:conditions => {:slug => params[:article_id], :blog_id => @blog.id})
+        raise ActiveRecord::RecordNotFound.new if @article.blank?
+        render :show
+      end
   
     end
   end
