@@ -323,7 +323,7 @@ module Gluttonberg
                    type      : 'textarea',
                    cancel    : 'Cancel',
                    submit    : 'OK',
-                   indicator : '#{image_tag('spinner.gif')}'
+                   indicator : '#{image_tag('/gluttonberg/images/spinner.gif')}'
                 };
                 $.extend(args, #{args.to_json});
                 $(".editable[data-id='#{object.id}'][data-name='#{name}']").editable("#{update_url}", args);

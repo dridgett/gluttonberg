@@ -23,7 +23,7 @@
           = select_tag :home , options_from_collection_for_select(@pages, "id", "name" , selected = @current_home_page_id.to_s )  ,  { :include_blank => true , :class => "home_page_setting_dropdown"  , :rel => admin_page_update_home_path(1)  }
           
         %td.controls
-          = image_tag("spinner.gif" , :id => "progress_home_page" , :style => "display:none")
+          = image_tag("/gluttonberg/images/spinner.gif" , :id => "progress_home_page" , :style => "display:none")
       - for setting in @settings
         - i += 1
         %tr{ :class => "#{i % 2 == 0? "even" : ""}"}
@@ -39,7 +39,7 @@
             - else
               = gb_editable_field setting, :value , :update_url => admin_generic_setting_path( setting)
             
-            = image_tag("spinner.gif" , :id => "progress_#{setting.id}" , :style => "display:none")
+            = image_tag("/gluttonberg/images/spinner.gif" , :id => "progress_#{setting.id}" , :style => "display:none")
           %td.controls
             %ul
               - if setting.delete_able
