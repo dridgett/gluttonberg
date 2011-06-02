@@ -217,8 +217,10 @@ var AssetBrowser = {
     Wysiwyg: null,
     logo_setting: false,
     filter: null,
+    actualLink: null,
     load: function(p, link, markup, Wysiwyg) {
         
+        AssetBrowser.actualLink = link;
         // it is required for asset selector in jWysiwyg
         if (Wysiwyg != undefined) {
             AssetBrowser.Wysiwyg = Wysiwyg;
@@ -321,6 +323,10 @@ var AssetBrowser = {
         AssetBrowser.display.html(markup);
         AssetBrowser.display.find("a").click(AssetBrowser.click);
         $('#tabs').tabs();
+        AssetBrowser.browser.find("#ajax_image_upload").click(function(e){
+          ajaxFileUpload(AssetBrowser.actualLink);
+          e.preventDefault();
+        })
     },
     click: function() {
         var target = $(this);
