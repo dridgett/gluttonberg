@@ -13,12 +13,12 @@ module Gluttonberg
             li_content = ""
           else
             if page.description && page.description.top_level_page?
-              li_content = content_tag(:a, page.nav_label, :href => "#").html_safe
+              li_content = content_tag(:a, page.nav_label, :href => "#", :class => "menu_disabled", :onclick => "return false").html_safe
             else
               li_content = content_tag(:a, page.nav_label, :href => page_url(page , opts)).html_safe
             end
           end
-          children = page.children
+          children = page.children.published
           li_content << navigation_tree(children , opts).html_safe unless children.blank?
           content << content_tag(:li, li_content.html_safe, li_opts).html_safe
         end
