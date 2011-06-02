@@ -60,6 +60,13 @@ module Gluttonberg
           end
         end
       end
+      
+      def gb_image_alt_text(section_name, opts = {})
+        content = gb_content_for(section_name)
+        if content.asset
+          content.asset.name
+        end
+      end
 
       # Simple as it gets, it just pulles the text property from the content 
       # record
