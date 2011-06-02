@@ -115,6 +115,8 @@ function enable_jwysiwyg_on(selector) {
             			}
             	})
             	
+            $.wysiwyg.rmFormat.enabled = true;
+            	
             
         } catch(e) {
             console.log(e)
