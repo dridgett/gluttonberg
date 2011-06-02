@@ -2,9 +2,9 @@ class Gluttonberg::Admin::BaseController < ActionController::Base
    helper_method :current_user_session, :current_user
    before_filter :require_user
    
-   # rescue_from ActiveRecord::RecordNotFound, :with => :not_found
-   #   rescue_from ActionController::RoutingError, :with => :not_found
-   #rescue_from ActiveResource::ServerError, :with => :internal_server_error
+   rescue_from ActiveRecord::RecordNotFound, :with => :not_found
+   rescue_from ActionController::RoutingError, :with => :not_found
+   
    layout 'gluttonberg'
 
    unloadable

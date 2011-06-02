@@ -29,7 +29,7 @@ class Flag < ActiveRecord::Base
     flaggable.callback :after_flagged
   end
   
-  before_validation_on_create :set_owner_id
+  before_validation :set_owner_id , :on => :create 
   def set_owner_id
     self.flaggable_user_id = flaggable.user_id
   end

@@ -41,6 +41,10 @@ module Gluttonberg
         locale = Gluttonberg::Locale.first_default if locale.blank?
         pages = joins(:localizations).where("locale_id = ? AND home = ?", locale.id, true)
         page = pages.first unless pages.blank?
+        unless page.blank? 
+          page.current_localization = page.localizations.where("locale_id = ? AND path LIKE ? ", locale.id, path).first
+        end  
+        page
       end  
     end
 
@@ -92,7 +96,7 @@ module Gluttonberg
 
     # Returns the localized title for the page or a default
     def title
-      current_localization.name.blank? ? attribute_get(:name) : current_localization.name
+      (current_localization.blank? || current_localization.name.blank?) ? self.name : current_localization.name
     end
     
     # Delegates to the current_localization
@@ -122,7 +126,11 @@ module Gluttonberg
     # Load the matching localization as specified in the options
     # TODO Write spec for it
     def load_localization(locale = nil)
-      @current_localization = localizations.where("locale_id = ? AND path LIKE ?", locale.id, "#{path}%").first 
+      if locale.blank?
+         @current_localization = localizations.first
+      else  
+        @current_localization = localizations.where("locale_id = ? AND path LIKE ?", locale.id, "#{path}%").first
+      end   
     end
 
     def home=(state)
