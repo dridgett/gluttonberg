@@ -36,7 +36,7 @@ class Gluttonberg::Public::BaseController < ActionController::Base
       unless current_user
         store_location
         flash[:notice] = "You must be logged in to access this page"
-        redirect_to admin_login_url
+        redirect_to login_url
         return false
       end
       true
@@ -68,16 +68,16 @@ class Gluttonberg::Public::BaseController < ActionController::Base
     
     # Exception handlers
     def not_found
-      render :layout => "bare" , :template => 'gluttonberg/admin/exceptions/not_found'
+      render :layout => "bare" , :template => 'gluttonberg/exceptions/not_found'
     end
 
     # handle NotAcceptable exceptions (406)
     def not_acceptable
-      render :layout => "bare" , :template => 'gluttonberg/admin/exceptions/not_acceptable'
+      render :layout => "bare" , :template => 'gluttonberg/exceptions/not_acceptable'
     end
     
     def internal_server_error
-      render :layout => "bare" , :template => 'gluttonberg/admin/exceptions/internal_server_error'
+      render :layout => "bare" , :template => 'gluttonberg/exceptions/internal_server_error'
     end
 
 end
