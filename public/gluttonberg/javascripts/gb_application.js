@@ -365,7 +365,7 @@ var AssetBrowser = {
                 $.getJSON(target.attr("href"), null, AssetBrowser.handleJSON);
             }
         }
-        else {
+        else if (!target.is(".tab_link")) {
             var url = target.attr("href") + ".json";
             // its collection url then add category filter for filtering assets
             if (target.hasClass("collection")) {
@@ -381,7 +381,11 @@ var AssetBrowser = {
             var show_content = ""
             // if filter exist then apply it on backurl
             if (AssetBrowser.filter !== null) {
-                category = "&filter=" + AssetBrowser.filter.val();
+                if(AssetBrowser.filter == undefined || AssetBrowser.filter.length == 0 ){
+                  if( AssetBrowser.Wysiwyg!= null)
+                     category = "&filter=image";
+                }else
+                  category = "&filter=" + AssetBrowser.filter.val();
             }
             $.get(AssetBrowser.backURL + category + show_content, null, AssetBrowser.updateDisplay);
             AssetBrowser.backURL = null;

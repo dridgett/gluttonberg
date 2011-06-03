@@ -1,11 +1,11 @@
 #tabs
   %ul
     %li
-      %a{ :href => "#tabs-browse"} Browse
+      %a{ :href => "#tabs-browse" , :class => "tab_link"} Browse
     %li
-      %a{ :href => "#tabs-collection"} Collections
+      %a{ :href => "#tabs-collection", :class => "tab_link"} Collections
     %li
-      %a{ :href => "#tabs-upload"} Upload  
+      %a{ :href => "#tabs-upload" , :class => "tab_link"} Upload  
   .clear
 
 #tabs-browse
@@ -30,7 +30,7 @@
 
 #tabs-upload
   - @asset  = Gluttonberg::Asset.new
-  = form_for( :asset , @asset , :url => { :action => :ajax_new } ,  :html => { :multipart=>true  , :method => "POST", :class => "nosubnav validation" , :id => "ajax_new_asset_form"} ) do |asset_form|
+  = form_for( @asset , :as => :asset , :url => { :action => :ajax_new } ,  :html => { :multipart=>true  , :method => "POST", :class => "nosubnav validation" , :id => "ajax_new_asset_form"} ) do |asset_form|
     = block("Asset") do
       = asset_form.label :file , "File to upload"
       = asset_form.file_field(:file , :class => "required")
