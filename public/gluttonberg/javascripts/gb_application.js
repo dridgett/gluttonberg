@@ -360,7 +360,7 @@ var AssetBrowser = {
 
             AssetBrowser.close();
         }
-        else if (target.is(".next_page") || target.is(".previous_page") || target.is('a[rel="next"]') || target.is('a[rel="prev"]')) {
+        else if (target.is(".next_page") || target.is(".previous_page") || target.is('a[rel="next"]') || target.is('a[rel="prev"]') || target.is('a[rel="prev start"]')  || target.is('a[rel="next end"]')  ) {
             if (target.attr("href") != '') {
                 $.getJSON(target.attr("href"), null, AssetBrowser.handleJSON);
             }
