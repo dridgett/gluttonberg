@@ -396,6 +396,17 @@ label {
  	font-size: 14px;
 	font-family: Georgia, Serif; }
 
+label.error{
+  clear: both;
+  float: none;
+  display: block;
+  margin: 0 auto;
+}	
+
+input.error{
+    background: #EB98A9 !important;
+}
+
 label.checkbox {
   text-align: left;
   clear: right;

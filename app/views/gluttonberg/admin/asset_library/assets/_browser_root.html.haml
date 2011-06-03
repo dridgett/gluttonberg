@@ -17,7 +17,7 @@
     - @categories.each do |category|
       %li
         - text = ( category.name == "uncategorised" ?  "Uncategorised" : category.name.pluralize.capitalize )
-        %a{:href => admin_asset_category_url(:category => category.name , :page => 1) , :class => "browse#{text}"}
+        %a{:href => admin_asset_category_url(:category => category.name , :page => 1) , :class => "browse#{text} "}
           %h3= text
 
 #tabs-collection
@@ -30,13 +30,13 @@
 
 #tabs-upload
   - @asset  = Gluttonberg::Asset.new
-  = form_for( :asset , @asset , :url => { :action => :ajax_new } ,  :html => { :multipart=>true  , :method => "POST", :class => "nosubnav" , :id => "ajax_new_asset_form"} ) do |asset_form|
+  = form_for( :asset , @asset , :url => { :action => :ajax_new } ,  :html => { :multipart=>true  , :method => "POST", :class => "nosubnav validation" , :id => "ajax_new_asset_form"} ) do |asset_form|
     = block("Asset") do
       = asset_form.label :file , "File to upload"
-      = asset_form.file_field(:file)
+      = asset_form.file_field(:file , :class => "required")
 
       = asset_form.label :name , "Name"
-      = asset_form.text_field(:name, :class => "large")
+      = asset_form.text_field(:name, :class => "large required")
 
       %br        
 
