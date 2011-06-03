@@ -1,9 +1,9 @@
-= form_for( :asset , @asset , :url => url_opts ,  :html => { :multipart=>true  , :method => method_name, :class => "nosubnav"} ) do |asset_form|
+= form_for( :asset , @asset , :url => url_opts ,  :html => { :multipart=>true  , :method => method_name, :class => "nosubnav validation"} ) do |asset_form|
   = gb_error_messages_for(@asset)
 
   = block("Asset") do
     = asset_form.label :file , "File to upload"
-    = asset_form.file_field(:file)
+    = asset_form.file_field(:file , :class => "required")
     
     %br
 
@@ -14,7 +14,7 @@
     %br
         
     = asset_form.label :name , "Name"
-    = asset_form.text_field(:name, :class => "large")
+    = asset_form.text_field(:name, :class => "large required")
     
     %br        
     

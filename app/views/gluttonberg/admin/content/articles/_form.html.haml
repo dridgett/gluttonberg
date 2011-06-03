@@ -2,7 +2,7 @@
 - unless @article.blank?
   = version_listing(@article.versions , @version )
 
-= form_for(@article, :url => url) do  |f|
+= form_for(@article, :url => url , :html => {:class => "validation"}) do  |f|
   = gb_error_messages_for(@article)
   
   = block("Article") do
@@ -10,13 +10,13 @@
     = f.hidden_field(:blog_id, :value => @blog.id) if @article.blog_id.blank?
     %p
       = f.label :title
-      = f.text_field(:title, :id => "page_title")
+      = f.text_field(:title, :id => "page_title" , :class => "required")
     %p
       = f.label :slug
       = f.text_field(:slug, :id => 'page_slug')
     %p
       = f.label :author
-      = f.select("author_id" ,  @authors.collect{|a| [a.email , a.id] })
+      = f.select("author_id" ,  @authors.collect{|a| [a.email , a.id] } , :class => "required" )
     %p
       = f.label :featured_image_id
       = f.asset_browser( :featured_image_id ,  opts = { :filter => "image"   } )  

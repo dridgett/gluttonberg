@@ -22,6 +22,7 @@ $(document).ready(function() {
 			$('table').find('tr:last').css('background-image','none !important');
 		}
 		
+		$("form.validation").validate();
 
 });
 
@@ -282,7 +283,10 @@ var AssetBrowser = {
         })
         
         $("#assetsDialog").css({position: "absolute",top: (($(window).scrollTop()) )+"px"})
-        
+        try{
+          //console.log("----- here before validatin")
+          $("#assetsDialog form.validation").validate();
+        }catch(e){console.log(e)}
     },
     resizeDisplay: function() {
         var newHeight = AssetBrowser.browser.innerHeight() - AssetBrowser.offsetHeight;
@@ -325,6 +329,9 @@ var AssetBrowser = {
         AssetBrowser.display.html(markup);
         AssetBrowser.display.find("a").click(AssetBrowser.click);
         $('#tabs').tabs();
+        try{
+          $("form.validation").validate();
+        }catch(e){}  
         AssetBrowser.browser.find("#ajax_image_upload").click(function(e){
           ajaxFileUpload(AssetBrowser.actualLink);
           e.preventDefault();

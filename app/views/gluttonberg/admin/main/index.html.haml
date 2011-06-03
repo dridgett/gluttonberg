@@ -7,7 +7,7 @@
       - unless @blogs.blank?
           
         %h3 Post to Blog
-        = form_for(@article, :url => admin_blog_articles_path(@blogs.first.id)) do  |f|
+        = form_for(@article, :url => admin_blog_articles_path(@blogs.first.id) , :html => {:class => "validation"}) do  |f|
           = gb_error_messages_for(@article)
           = block() do
             = f.hidden_field(:user_id, :value => current_user.id) if @article.user_id.blank?
@@ -18,12 +18,12 @@
               = f.select(:blog_id, @blogs.collect{|a| [a.name , a.id] } ) 
             %p
               = f.label :title
-              = f.text_field(:title, :id => "page_title")
+              = f.text_field(:title, :id => "page_title" , :class => "required")
             %p
               = f.label :slug
               = f.text_field(:slug, :id => 'page_slug')
             %p
-              = f.text_area(:body  , :class => "jwysiwyg" )
+              = f.text_area(:body  , :class => "jwysiwyg" , :class => "required" )
             %p
               = f.label :disable_comments
               = f.check_box(:disable_comments, :id => 'disable_comments')  
