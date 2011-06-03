@@ -13,7 +13,7 @@ module Gluttonberg
             li_content = ""
           else
             if page.description && page.description.top_level_page?
-              li_content = content_tag(:a, page.nav_label, :href => "#", :class => "menu_disabled", :onclick => "return false").html_safe
+              li_content = content_tag(:a, page.nav_label, :href=>"javascript:;", :class => "menu_disabled").html_safe
             else
               li_content = content_tag(:a, page.nav_label, :href => page_url(page , opts)).html_safe
             end
