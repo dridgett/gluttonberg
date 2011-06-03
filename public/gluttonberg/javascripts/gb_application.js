@@ -64,7 +64,7 @@ function enable_jwysiwyg_on(selector) {
                         visible: false
                     },
                     insertTable: {
-                        visible: false
+                        visible: true
                     },
 										insertImage: {
 										    visible: false
