@@ -28,7 +28,8 @@
               = f.label :disable_comments
               = f.check_box(:disable_comments, :id => 'disable_comments')  
 
-          = f.submit("Post")
+          %p.controls    
+            = f.submit("Post" , :class => "button")
 
 
         = enable_jwysiwyg_on_class("jwysiwyg")
