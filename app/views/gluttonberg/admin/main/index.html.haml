@@ -23,12 +23,13 @@
               = f.label :slug
               = f.text_field(:slug, :id => 'page_slug')
             %p
-              = f.text_area(:body  , :class => "jwysiwyg" , :class => "required" )
+              = f.text_area(:body  , :class => "jwysiwyg required" )
             %p
               = f.label :disable_comments
               = f.check_box(:disable_comments, :id => 'disable_comments')  
 
-          = f.submit("Post")
+          %p.controls    
+            = f.submit("Post" , :class => "button")
 
 
         = enable_jwysiwyg_on_class("jwysiwyg")

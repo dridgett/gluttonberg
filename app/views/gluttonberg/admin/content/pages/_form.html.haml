@@ -16,6 +16,10 @@
       - unless @pages.empty?
         = f.label :parent_id , "Parent page"
         = f.select(:parent_id, @pages.collect{|p| [p.name , p.id] }, :include_blank => true, :class=>"medium")
+      %br
+      = f.label :hide_in_nav, "Hide in navigation"
+      = f.check_box(:hide_in_nav, :class=>"medium")
+        
     
   = block("Page Description") do
     %p.help

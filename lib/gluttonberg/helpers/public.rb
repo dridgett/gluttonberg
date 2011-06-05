@@ -7,20 +7,22 @@ module Gluttonberg
       def navigation_tree(pages, opts = {})
         content = ""
         pages.each do |page|
-          li_opts = {:id => page.slug + "Nav"}
-          li_opts[:class] = "current" if page == @page
-          if page.home?
-            li_content = ""
-          else
-            if page.description && page.description.top_level_page?
-              li_content = content_tag(:a, page.nav_label, :href=>"javascript:;", :class => "menu_disabled").html_safe
+          if page.hide_in_nav.blank? || page.hide_in_nav == false
+            li_opts = {:id => page.slug + "Nav"}
+            li_opts[:class] = "current" if page == @page
+            if page.home?
+              li_content = ""
             else
-              li_content = content_tag(:a, page.nav_label, :href => page_url(page , opts)).html_safe
+              if page.description && page.description.top_level_page?
+                li_content = content_tag(:a, page.nav_label, :href=>"javascript:;", :class => "menu_disabled").html_safe
+              else
+                li_content = content_tag(:a, page.nav_label, :href => page_url(page , opts)).html_safe
+              end
             end
-          end
-          children = page.children.published
-          li_content << navigation_tree(children , opts).html_safe unless children.blank?
-          content << content_tag(:li, li_content.html_safe, li_opts).html_safe
+            children = page.children.published
+            li_content << navigation_tree(children , opts).html_safe unless children.blank?
+            content << content_tag(:li, li_content.html_safe, li_opts).html_safe
+          end  
         end
         content_tag(:ul, content.html_safe, opts).html_safe
       end
