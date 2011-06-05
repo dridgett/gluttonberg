@@ -14,7 +14,7 @@ class Ability
       can :manage, :all
       restricted_features_for_admin
       
-      cannot :manage , Gluttonberg::User
+      cannot :manage , User
       cannot :manage , Gluttonberg::Setting
       cannot :destroy , Gluttonberg::Asset
       
