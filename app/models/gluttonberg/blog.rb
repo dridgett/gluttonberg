@@ -12,5 +12,7 @@ module Gluttonberg
     is_versioned :non_versioned_columns => ['state' ,'published_at' , 'moderation_required' ]
     
     acts_as_taggable_on :tag
+    clean_html [:description]
+    
   end
 end

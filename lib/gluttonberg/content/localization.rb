@@ -67,6 +67,8 @@ module Gluttonberg
               end
             end
             
+            
+            @localized_model.clean_html([:text])#(@localized_fields.map{|c|c.to_sym})
             # Set up filters on the class to make sure the localization gets migrated
             
             # Associate the model and it’s localization
@@ -254,6 +256,7 @@ module Gluttonberg
           end
           
           def cleanup_localizations
+            
             localizations(:parent_id => id).destroy!
           end
         end

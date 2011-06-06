@@ -17,6 +17,8 @@ module Gluttonberg
     
     can_be_flagged
     
+    clean_html [:body]
+    
     def moderate(params)
         if params == "approve"
           update_attributes(:moderation_required => false, :approved => true)

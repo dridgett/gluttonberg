@@ -14,6 +14,8 @@ module Gluttonberg
     
     validates_presence_of :title
     
+    clean_html [:excerpt , :body]
+    
     acts_as_taggable_on :article_category , :tag
     
     def commenting_disabled?

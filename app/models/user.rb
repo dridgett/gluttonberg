@@ -5,6 +5,8 @@ class User < ActiveRecord::Base
   
   validates_presence_of :first_name , :email , :role
   
+  clean_html [:bio]
+  
   acts_as_authentic do |c|
     c.login_field = "email"
   end

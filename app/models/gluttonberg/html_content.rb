@@ -3,6 +3,8 @@ module Gluttonberg
     include Content::Block
     set_table_name "gb_html_contents"
 
+    
+
     is_localized do
     end
     

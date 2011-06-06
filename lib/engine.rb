@@ -56,6 +56,7 @@ module Gluttonberg
 
     initializer "setup gluttonberg components" do |app| 
       Gluttonberg::Content::Versioning.setup
+      Gluttonberg::Content::CleanHtml.setup
       Gluttonberg::PageDescription.setup
       
       # register content class here. It is required for lazyloading environments.

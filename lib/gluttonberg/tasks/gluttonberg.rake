@@ -27,4 +27,27 @@ namespace :gluttonberg do
     end
   end #task
   
+  desc "Clean Html for all models"
+  task :clean_html_for_all_models => :environment do
+    Rails.application.initialize!
+    [Gluttonberg::HtmlContentLocalization , Gluttonberg::Page , Gluttonberg::Article , Gluttonberg::Blog , Gluttonberg::Article , Theme , Idea , User , Speaker ].each do |constant|
+      if not constant.nil? and constant.is_a? Class and constant.superclass == ActiveRecord::Base
+        puts constant
+        begin
+          constant.all.each do |v|
+            v.save
+          end
+        rescue => e
+          puts e
+        end  
+        
+      end
+    end
+    
+    Gluttonberg::HtmlContentLocalization.all.each do |l|
+      l.text = Gluttonberg::HtmlContentLocalization.clean_tags(l.text)
+      l.save_without_revision
+    end  
+  end
+  
 end
