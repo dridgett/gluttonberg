@@ -3,3 +3,5 @@
 - name_of_tag = "gluttonberg_page_localization[contents][#{content.association_name}][#{content.id}][asset_id]"
 
 = asset_browser_tag( name_of_tag ,  opts = { :button_class => "button choose" , :button_text => "Select" ,  :filter => "" ,  :id => "page_image_#{content.id}" , :asset_id => content.asset_id } )  
+
+= clear_asset_tag( name_of_tag , opts = {:id => "page_image_#{content.id}" , :asset_id => content.asset_id} )

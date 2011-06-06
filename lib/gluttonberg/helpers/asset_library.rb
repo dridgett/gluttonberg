@@ -90,6 +90,19 @@ module Gluttonberg
 
          content_tag(:span , link_contents , { :class => "assetBrowserLink" } )
        end
+       
+       def clear_asset_tag( field_id , opts = {} )
+         asset_id = nil
+         asset_id = opts[:asset_id]
+         if opts[:id].blank?
+           rel = field_id.to_s + "_" + id.to_s
+           opts[:id] = rel
+         end
+         html_id = opts[:id]
+         button_text = opts[:button_text].blank? ? "Browse" : opts[:button_text]
+         opts[:button_class] = "" if opts[:button_class].blank?  
+         link_to("Remove", "Javascript:;" , { :class => opts[:button_class] , :onclick => "$('##{html_id}').val('');$('#title_thumb_#{opts[:id]}').html('')" })
+       end
       
        def asset_panel(assets, name_or_id , type)
           render :partial => "gluttonberg/admin/shared/asset_panel.html" , :locals => {:assets => assets , :name_or_id => name_or_id , :type => type}
@@ -142,7 +155,7 @@ module ActionView
           admin_asset_browser_url = "/admin/browser"
 
           # Output it all
-          link_contents =  content_tag(:span , asset_info) 
+          link_contents =  content_tag(:span , asset_info , :id => "title_thumb_#{opts[:id]}") 
           link_contents << hidden_field_tag("filter_#{html_id}"  , value=filter  )
           link_contents << link_to(button_text, admin_asset_browser_url + "?filter=#{filter}" , { :class => opts[:button_class] , :rel => html_id })
           link_contents << self.hidden_field(field_id , { :id => html_id , :class => "choose_asset_hidden_field" } )  
@@ -155,6 +168,15 @@ module ActionView
              path = thumbnail_type.blank? ? asset.url : asset.url_for(thumbnail_type)
              content_tag(:img , "", :class => asset.name , :alt => asset.name , :src => path)
            end 
+        end
+        
+        def clear_asset( field_id , opts = {} )
+          asset_id = self.object.send(field_id.to_s)
+          opts[:id] = "#{field_id}_#{asset_id}" if opts[:id].blank?
+          html_id = opts[:id]
+          button_text = opts[:button_text].blank? ? "Browse" : opts[:button_text]
+          opts[:button_class] = "" if opts[:button_class].blank?  
+          link_to("Remove", "Javascript:;" , { :class => opts[:button_class] , :onclick => "$('##{html_id}').val('');$('#title_thumb_#{opts[:id]}').html('')" })
         end
     end
   end

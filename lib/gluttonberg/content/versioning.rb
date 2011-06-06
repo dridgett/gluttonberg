@@ -14,7 +14,6 @@ module Gluttonberg
         klass.class_eval do
           extend  ClassMethods
           include InstanceMethods          
-          
         end
       end
       

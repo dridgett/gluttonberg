@@ -13,13 +13,13 @@ module Gluttonberg
           include InstanceMethods
           before_validation :clean_all_html_content
           
-          cattr_accessor :non_versioned_columns
+          cattr_accessor :html_columns_list
         end
       end
       
       module ClassMethods
         def clean_html(cols)
-          self.non_versioned_columns = cols 
+          self.html_columns_list = cols 
         end
         
         def clean_tags(str)
@@ -61,8 +61,8 @@ module Gluttonberg
       
       module InstanceMethods
         def clean_all_html_content
-          unless self.class.non_versioned_columns.blank?
-            self.class.non_versioned_columns.each do |field|
+          unless self.class.html_columns_list.blank?
+            self.class.html_columns_list.each do |field|
               write_attribute(field , self.class.clean_tags(read_attribute(field)) )
             end
           end  
