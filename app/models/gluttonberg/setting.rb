@@ -58,7 +58,7 @@ module Gluttonberg
     def update_settings_in_config
       begin
         setting = self
-        Rails.config.gluttonberg[setting.name.to_sym] = setting.value
+        Engine.config.gluttonberg[setting.name.to_sym] = setting.value
       rescue => e
         Rails.logger.info e
       end

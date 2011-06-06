@@ -38,7 +38,7 @@ module Gluttonberg
     begin
       settings = Gluttonberg::Setting.find(:all , :conditions => {:enabled => true})
       settings.each do |setting|
-        Rails.config.gluttonberg[setting.name.to_sym] = setting.value
+        Engine.config.gluttonberg[setting.name.to_sym] = setting.value
       end
     rescue => e
       Rails.logger.info e
