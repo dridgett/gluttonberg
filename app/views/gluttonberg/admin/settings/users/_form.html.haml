@@ -21,6 +21,7 @@
     %div
       = f.label :image_id , "Image"
       = f.asset_browser( :image_id ,  opts = { :filter => "image"   } )  
+      = f.clear_asset( :image_id , opts = {  :button_class => "button clear_button"} )
 
     -if current_user.super_admin? && current_user.id != @user.id     
       %div
