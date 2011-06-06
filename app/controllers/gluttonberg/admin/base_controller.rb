@@ -1,6 +1,7 @@
 class Gluttonberg::Admin::BaseController < ActionController::Base
    helper_method :current_user_session, :current_user
    before_filter :require_user
+   before_filter :require_backend_access
    
    rescue_from ActiveRecord::RecordNotFound, :with => :not_found
    rescue_from ActionController::RoutingError, :with => :not_found
@@ -108,6 +109,19 @@ class Gluttonberg::Admin::BaseController < ActionController::Base
       end
       true
     end
+    
+    
+    
+    def require_backend_access
+      return false unless require_user
+      unless current_user.have_backend_access?
+        store_location
+        flash[:notice] = "You dont have privilege to access this page"
+        redirect_to admin_login_url
+        return false
+      end
+    end
+    
     
     def require_super_admin_user
       return false unless require_user

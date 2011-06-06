@@ -47,6 +47,11 @@ module Gluttonberg
       end
     end
     
+    def self.get_setting(key)
+      setting = Setting.find(:first , :conditions => { :name => key })
+      (!setting.blank? && !setting.value.blank?) ? setting.value : ""
+    end
+    
     def self.update_settings(settings={})
       settings.each do |key , val |
         obj = self.first(:name=> key)

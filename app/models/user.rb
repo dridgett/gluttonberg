@@ -34,4 +34,8 @@ class User < ActiveRecord::Base
     @roles ||= (["super_admin" , "admin" , "contributor"] << (Rails.configuration.user_roles) ).flatten
   end
   
+  def have_backend_access?
+    ["super_admin" , "admin" , "contributor"].include?(self.role)
+  end
+  
 end

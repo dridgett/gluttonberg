@@ -14,6 +14,8 @@
   #login_tab_section.active
     = form_for(@user_session, :url => admin_login_url, :method => :post) do |f|
       %h2 Log in
+      
+      =render_flash_messages
       - if @user_session.errors.any?
         #error
           %ul

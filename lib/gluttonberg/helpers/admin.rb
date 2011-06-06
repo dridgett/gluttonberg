@@ -289,6 +289,18 @@ module Gluttonberg
         end
       end
       
+      def render_flash_messages
+          html = ""
+          ["notice", "warning", "error"].each do |type|
+              unless flash[type.intern].nil?
+                  html << content_tag("div", flash[type.intern].to_s.html_safe,
+                      :id => type, :class => "flash").html_safe
+              end
+          end
+
+          content_tag("div", html.html_safe, :id => "flash").html_safe
+      end
+      
       
       # Creates an editable span for the given property of the given object.
       #
