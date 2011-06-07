@@ -366,9 +366,9 @@ module Gluttonberg
           append_to_operators("draw", "#{options_to_str(options)} text #{x0},#{y0} '#{text}'")
         end
     
-        # saves the current image to the given filename
+        # saves the current image to the given filename -quality 100
         def save(output_filename)
-          result = QuickMagick.exec3 "convert #{command_line} #{QuickMagick.c output_filename} -quality 100" 
+          result = QuickMagick.exec3 "convert   #{command_line} #{QuickMagick.c output_filename}" 
         	if @pseudo_image
         		# since it's been saved, convert it to normal image (not pseudo)
         		initialize(output_filename)
