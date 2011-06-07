@@ -183,6 +183,7 @@ module Gluttonberg
       			      
             puts "suggested #{(projected_width).to_i}x#{(projected_width/ratio_actual).to_i}"
             "#{(projected_width).to_i}x#{(projected_width/ratio_actual).to_i}"
+            projected_width
          end
         
         ####################################

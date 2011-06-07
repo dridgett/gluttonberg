@@ -5,6 +5,8 @@ class Gluttonberg::Admin::BaseController < ActionController::Base
    
    rescue_from ActiveRecord::RecordNotFound, :with => :not_found
    rescue_from ActionController::RoutingError, :with => :not_found
+   rescue_from CanCan::AccessDenied, :with => :access_denied
+   
    
    layout 'gluttonberg'
 
@@ -147,6 +149,10 @@ class Gluttonberg::Admin::BaseController < ActionController::Base
     # Exception handlers
     def not_found
         render :layout => "bare" , :template => 'gluttonberg/admin/exceptions/not_found'
+    end
+    
+    def access_denied
+      render :layout => "bare" , :template => 'gluttonberg/admin/exceptions/access_denied'
     end
 
     # handle NotAcceptable exceptions (406)
