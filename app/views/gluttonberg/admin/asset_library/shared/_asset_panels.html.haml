@@ -22,6 +22,8 @@
             %span.controls
               %a{:href => admin_asset_url(asset), :class => "assetLink"}
                 View
+              %a{:href => edit_admin_asset_url(asset), :class => "assetLink"}
+                Edit  
           %td.author
             = asset.user.full_name
           %td.date
