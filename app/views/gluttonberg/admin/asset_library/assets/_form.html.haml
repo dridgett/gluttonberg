@@ -3,7 +3,7 @@
 
   = block("Asset") do
     = asset_form.label :file , "File to upload"
-    = asset_form.file_field(:file , :class => "required")
+    = asset_form.file_field(:file , :class => "#{action_name == "new" ? 'required' : ''}")
     
     %br
 

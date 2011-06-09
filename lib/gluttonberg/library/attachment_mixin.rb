@@ -12,8 +12,8 @@ module Gluttonberg
      
       # Default sizes used when thumbnailing an image.
       DEFAULT_THUMBNAILS = {
-        :small_thumb => {:label => "Small Thumb", :filename => "_thumb_small", :geometry => "110x75" },
-        :large_thumb => {:label => "Large Thumb", :filename => "_thumb_large", :geometry => "250x200"},
+        :small_thumb => {:label => "Small Thumb", :filename => "_thumb_small", :geometry => "110x75>" },
+        :large_thumb => {:label => "Large Thumb", :filename => "_thumb_large", :geometry => "250x200>"},
         :jwysiwyg_image => {:label => "Thumb for jwysiwyg", :filename => "_jwysiwyg_image", :geometry => "250x200"}
       }
       
@@ -80,10 +80,10 @@ module Gluttonberg
             clean_filename = new_file.original_filename.split(%r{[\\|/]}).last
             clean_filename = clean_filename.gsub(" ", "_").gsub(/[^A-Za-z0-9\-_.]/, "").downcase
 
-            # _thumb.jpg is a reserved name for the thumbnailing system, so if the user
+            # _thumb.#{file_extension} is a reserved name for the thumbnailing system, so if the user
             # has a file with that name rename it.
-            if (clean_filename == '_thumb_small.jpg') || (clean_filename == '_thumb_large.jpg')
-              clean_filename = 'thumb.jpg'
+            if (clean_filename == '_thumb_small.#{file_extension}') || (clean_filename == '_thumb_large.#{file_extension}')
+              clean_filename = 'thumb.#{file_extension}'
             end
             
             
@@ -97,6 +97,10 @@ module Gluttonberg
         # Returns the file assigned by file=
         def file
           @file
+        end
+        
+        def file_extension
+          file_name.split(".").last
         end
         
         # Returns the public URL to this asset, relative to the domain.
@@ -113,7 +117,7 @@ module Gluttonberg
         def url_for(name)
             if self.class.sizes.has_key? name
               filename = self.class.sizes[name][:filename]
-              "/assets/#{asset_hash}/#{filename}.jpg"
+              "/assets/#{asset_hash}/#{filename}.#{file_extension}"
             end  
         end
 
@@ -181,9 +185,7 @@ module Gluttonberg
             end  
       			projected_width = actual_width * crossover_ratio
       			      
-            puts "suggested #{(projected_width).to_i}x#{(projected_width/ratio_actual).to_i}"
             "#{(projected_width).to_i}x#{(projected_width/ratio_actual).to_i}"
-            projected_width
          end
         
         ####################################
@@ -203,7 +205,9 @@ module Gluttonberg
                 image = QuickMagick::Image.read(location_on_disk).first
               end
               
-              path = File.join(directory, "#{config[:filename]}.jpg")
+              original_ext = original_file_on_disk.split(".").last
+              
+              path = File.join(directory, "#{config[:filename]}.#{file_extension}")
               if config[:geometry].include?("#")
                 #todo
                 begin
@@ -216,7 +220,6 @@ module Gluttonberg
                 image.resize config[:geometry]
               end
               image.save path     
-              puts "geometry after save #{image.width} #{image.height}"      
             end 
           
             update_attribute( :custom_thumbnail , true)         
