@@ -16,7 +16,7 @@
       
     %div
       = f.label :bio, "Bio"
-      = f.text_area(:bio, :class => "large required")
+      = f.text_area(:bio, :class => "large ")
       
     %div
       = f.label :image_id , "Image"
@@ -27,6 +27,12 @@
       %div
         = f.label :role            
         = f.select(:role , User.user_roles.collect{|u| [u.humanize , u] }  )
+    - elsif current_user.admin? && current_user.id != @user.id     
+      %div
+        = f.label :role  
+        - roles  = User.user_roles
+        - roles.delete("super_admin")        
+        = f.select(:role , roles.collect{|u| [u.humanize , u] }  )    
 
   = block("Password") do
     = f.label :password , "Password"
