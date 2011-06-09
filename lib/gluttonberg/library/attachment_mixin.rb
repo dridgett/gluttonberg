@@ -14,7 +14,7 @@ module Gluttonberg
       DEFAULT_THUMBNAILS = {
         :small_thumb => {:label => "Small Thumb", :filename => "_thumb_small", :geometry => "110x75>" },
         :large_thumb => {:label => "Large Thumb", :filename => "_thumb_large", :geometry => "250x200>"},
-        :jwysiwyg_image => {:label => "Thumb for jwysiwyg", :filename => "_jwysiwyg_image", :geometry => "250x200"}
+        :jwysiwyg_image => {:label => "Thumb for jwysiwyg", :filename => "_jwysiwyg_image", :geometry => "250x200>"}
       }
       
       # The default max image size. This can be overwritten on a per project 

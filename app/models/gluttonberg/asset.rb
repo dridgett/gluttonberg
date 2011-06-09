@@ -19,6 +19,13 @@ module Gluttonberg
       MEGA_SIZE = 1048576.0
       KILO_SIZE = 1024.0
     
+      def alt_or_title
+        unless alt.blank?
+          alt
+        else
+          title
+        end
+      end
  
       # returns category of asset
       def category

@@ -17,18 +17,20 @@
     
   %h3 Metadata
   %dl
+    %dt Alt
+    %dd= @asset.alt
     %dt Category
-    %dd= h(@asset.category.capitalize)
+    %dd= @asset.category.capitalize
     %dt Type
-    %dd= h(@asset.asset_type.name)
+    %dd= @asset.asset_type.name
     %dt Asset ID
     %dd= @asset.id
-    %dt Filesize
-    %dd= h(@asset.formatted_file_size)
-    %dt Filename
-    %dd= h(@asset.file_name)
+    %dt File size
+    %dd= @asset.formatted_file_size
+    %dt File name
+    %dd= @asset.file_name
     %dt Mime type
-    %dd= h(@asset.mime_type)
+    %dd= @asset.mime_type
   
     - unless @asset.audio_asset_attribute.blank?
       - unless @asset.audio_asset_attribute.length.blank?

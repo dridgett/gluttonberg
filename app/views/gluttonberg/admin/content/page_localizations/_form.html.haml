@@ -18,7 +18,7 @@
       = f.label :slug
       = f.text_field(:slug, :id => 'page_slug')
   
-  - if @page_localization.contents.length > 1   
+  - if @page_localization.contents.length >= 1   
     = block("Content") do
       - for content in @page_localization.contents
         - unless @version.blank? || !content.versioned? 
@@ -29,5 +29,5 @@
     %p.no_content
       This page does not have any content area.
   
-  - if( Gluttonberg.localized? && @page.localizations &&  @page.localizations.length > 1 ) || @page_localization.contents.length > 1
+  - if( Gluttonberg.localized? && @page.localizations &&  @page.localizations.length > 1 ) || @page_localization.contents.length >= 1
     = form_controls(admin_page_path(params[:page_id]))
