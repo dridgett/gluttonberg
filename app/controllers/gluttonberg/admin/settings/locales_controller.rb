@@ -23,7 +23,7 @@ module Gluttonberg
             :title      => "Delete “#{@locale.name}” locale?",
             :url        => admin_locale_path(@locale),
             :return_url => admin_locales_path , 
-            :warning    => "Dependent page localizations of this locale will be also deleted."
+            :warning    => "Dependent page localizations of this locale will also be deleted."
           )        
         end
 
