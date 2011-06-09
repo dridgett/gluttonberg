@@ -54,7 +54,7 @@ module Gluttonberg
       
       # Returns the code for google analytics
       def google_analytics_js_tag
-        code = Rails.configuration.gluttonberg[:google_analytics]
+        code = Gluttonberg::Setting.get_setting("google_analytics")
         output = ""
         unless code.blank?
           output += "<script type='text/javascript'>\n"
