@@ -15,7 +15,7 @@ class Notifier < ActionMailer::Base
     @subscriber = subscriber
     @article = article
     @comment = comment
-    @website_title = Rails.configuration.gluttonberg[:title]
+    @website_title = Gluttonberg::Setting.get_setting("title")
     @article_url = blog_article_url(article.blog.slug, article.slug)
     @unsubscribe_url = unsubscribe_article_comments_url(@subscriber.reference_hash)
     

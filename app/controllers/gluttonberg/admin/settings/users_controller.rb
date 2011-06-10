@@ -17,7 +17,7 @@ module Gluttonberg
             @users = User.find(:all , :conditions => ["role != ?" , "super_admin"] )
           end
           
-          @users = @users.paginate(:page => params[:page] , :per_page => Rails.configuration.gluttonberg[:number_of_per_page_items] )
+          @users = @users.paginate(:page => params[:page] , :per_page => Gluttonberg::Setting.get_setting("number_of_per_page_items") )
         end
   
         def new

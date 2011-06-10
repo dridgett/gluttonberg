@@ -34,16 +34,6 @@ module Gluttonberg
     Engine.config.localize
   end
   
-  def self.laod_settings_from_db
-    begin
-      settings = Gluttonberg::Setting.find(:all , :conditions => {:enabled => true})
-      settings.each do |setting|
-        Engine.config.gluttonberg[setting.name.to_sym] = setting.value
-      end
-    rescue => e
-      Rails.logger.info e
-    end
-  end
   require 'jeditable-rails'
 end
 

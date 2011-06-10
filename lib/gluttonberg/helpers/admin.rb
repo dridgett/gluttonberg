@@ -168,7 +168,7 @@ module Gluttonberg
       end
       
       def website_title
-        title = Rails.configuration.gluttonberg[:title]
+        title = Gluttonberg::Setting.get_setting("title")
         (title.blank?)? "Gluttonberg" : title.html_safe
       end  
      
@@ -245,7 +245,7 @@ module Gluttonberg
       end
       
       def wysiwyg_js_css_link_tag
-        if Rails.configuration.gluttonberg[:enable_WYSIWYG] == "Yes"
+        if Gluttonberg::Setting.get_setting("enable_WYSIWYG") == "Yes"
           #stylesheet_link_tag("/javascripts/akzhan-jwysiwyg-2b20f74/jquery.wysiwyg.css") + javascript_include_tag("akzhan-jwysiwyg-2b20f74/jquery.wysiwyg.js" , "akzhan-jwysiwyg-2b20f74/controls/wysiwyg.image.js" , "akzhan-jwysiwyg-2b20f74/controls/wysiwyg.link.js" , "akzhan-jwysiwyg-2b20f74/controls/wysiwyg.table.js",  "akzhan-jwysiwyg-2b20f74/controls/wysiwyg.colorpicker.js")
           stylesheet_link_tag("/gluttonberg/javascripts/akzhan-jwysiwyg-b743d9f/jquery.wysiwyg.css") + stylesheet_link_tag("/stylesheets/user-styles.css") + javascript_include_tag("/gluttonberg/javascripts/akzhan-jwysiwyg-b743d9f/jquery.wysiwyg.js" , "/gluttonberg/javascripts/akzhan-jwysiwyg-b743d9f/controls/wysiwyg.image.js" , "/gluttonberg/javascripts/akzhan-jwysiwyg-b743d9f/controls/wysiwyg.link.js" , "/gluttonberg/javascripts/akzhan-jwysiwyg-b743d9f/controls/wysiwyg.table.js",  "/gluttonberg/javascripts/akzhan-jwysiwyg-b743d9f/controls/wysiwyg.gbStyles.js",  "/gluttonberg/javascripts/akzhan-jwysiwyg-b743d9f/plugins/wysiwyg.rmFormat.js")
         end
@@ -279,7 +279,7 @@ module Gluttonberg
       end
       
       def backend_logo(default_logo_image_path , html_opts={}, thumbnail_type = nil)
-        backend_logo = Rails.configuration.gluttonberg[:backend_logo]
+        backend_logo = Gluttonberg::Setting.get_setting("backend_logo") 
         asset = Asset.find(:first , :conditions => { :id => backend_logo } )
         unless asset.blank?
           path = thumbnail_type.blank? ? asset.url : asset.url_for(thumbnail_type)

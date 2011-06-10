@@ -11,7 +11,7 @@ module Gluttonberg
         
         def index
           find_article([:comments])
-          @comments = @article.comments.paginate(:per_page => Rails.configuration.gluttonberg[:number_of_per_page_items], :page => params[:page])
+          @comments = @article.comments.paginate(:per_page => Gluttonberg::Setting.get_setting("number_of_per_page_items"), :page => params[:page])
         end
         
         def delete

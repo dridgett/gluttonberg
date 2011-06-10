@@ -16,7 +16,7 @@ module Gluttonberg
           conditions =  { :updated_at => ((Time.now - 72.hours).gmtime)..(Time.now.gmtime)  }
           @assets = Asset.find(:all, 
               :conditions => conditions, 
-              :limit => Rails.configuration.gluttonberg[:library_number_of_recent_assets] , 
+              :limit => Gluttonberg::Setting.get_setting("library_number_of_recent_assets") , 
               :order => "updated_at DESC" , 
               :include => :asset_type
           )
@@ -43,7 +43,7 @@ module Gluttonberg
     
         # list assets page by page if user drill down into a category from category tab of home page
         def category
-          conditions = {:order => get_order, :per_page => Rails.configuration.gluttonberg[:number_of_per_page_items] , :page => params[:page]}
+          conditions = {:order => get_order, :per_page => Gluttonberg::Setting.get_setting("number_of_per_page_items") , :page => params[:page]}
           if params[:category] == "all" then
             # ignore asset category if user selects 'all' from category
             @assets = Asset.includes(:asset_type).paginate( conditions ) 

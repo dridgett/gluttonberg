@@ -84,7 +84,7 @@ module Gluttonberg
       
       # generate javascript code to enable tinymce on it. textArea need to have class = jwysiwyg
       def enable_jwysiwyg_on_class(html_class)        
-        if Rails.configuration.gluttonberg[:enable_WYSIWYG] == "Yes"
+        if Gluttonberg::Setting.get_setting("enable_WYSIWYG") == "Yes"
           content = "enable_jwysiwyg_on('.#{html_class}'); \n"        
           content_tag(:script , content , :charset=>'utf-8', :type=>'text/javascript')        
         end  

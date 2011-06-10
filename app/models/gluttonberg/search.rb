@@ -31,7 +31,7 @@ module Gluttonberg
       models = {}
       sources = opts[:sources]
       published_only = opts[:published_only].blank? ? true : opts[:published_only]
-      per_page = opts[:per_page].blank? ? Rails.configuration.gluttonberg[:number_of_per_page_items] : opts[:per_page]
+      per_page = opts[:per_page].blank? ? Gluttonberg::Setting.get_setting("number_of_per_page_items") : opts[:per_page]
       page_num = opts[:page]
       # if sources are provided then only look in sources models. It is only required when user want to search in specified models.
       if sources.blank?

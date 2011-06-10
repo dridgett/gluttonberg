@@ -47,9 +47,20 @@ module Gluttonberg
       end
     end
     
+    
+    
     def self.get_setting(key)
-      setting = Setting.find(:first , :conditions => { :name => key })
-      (!setting.blank? && !setting.value.blank?) ? setting.value : ""
+      data = Rails.cache.read("setting_#{key}")
+      if data.blank?
+        setting = Setting.find(:first , :conditions => { :name => key })
+        data = ( (!setting.blank? && !setting.value.blank?) ? setting.value : "" )
+         Rails.cache.write("setting_#{key}" , (data.blank? ? "~" : data))
+         data
+      elsif data == "~" # empty setting
+        ""   
+      else
+        data
+      end  
     end
     
     def self.update_settings(settings={})
@@ -64,6 +75,7 @@ module Gluttonberg
       begin
         setting = self
         Engine.config.gluttonberg[setting.name.to_sym] = setting.value
+        Rails.cache.write("setting_#{setting.name}" , setting.value)
       rescue => e
         Rails.logger.info e
       end

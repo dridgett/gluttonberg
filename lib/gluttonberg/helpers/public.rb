@@ -76,11 +76,11 @@ module Gluttonberg
       end  
       
       def keywords_meta_tag
-        content_tag(:meta , "" , :content => Rails.configuration.gluttonberg[:keywords] , :name => "keywords")
+        content_tag(:meta , "" , :content => Gluttonberg::Setting.get_setting("keywords") , :name => "keywords")
       end 
       
       def description_meta_tag
-        content_tag(:meta , "" , :content => Rails.configuration.gluttonberg[:description] , :name => "description")
+        content_tag(:meta , "" , :content => Gluttonberg::Setting.get_setting("description") , :name => "description")
       end
       
       def render_match_partial(result)
