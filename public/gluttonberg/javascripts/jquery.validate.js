@@ -1240,6 +1240,7 @@ function hasExceedWordMax(element,word_count){
   if(elementValue != null){
     //If word count has been exceeded, return true
     //?? NOTE: this is a hack that we can't avoid
+    elementValue = strip(elementValue);
     var words = elementValue.replace(/\s/g,' ').split(' ');
     var count = 0;
     for(var i = 0; i < words.length; i++){
@@ -1286,4 +1287,11 @@ intIndexOfMatch = strText.indexOf( strTarget );
 // Return the updated string with ALL the target strings
 // replaced out with the new substring.
 return( strText );
+}
+
+function strip(html)
+{
+   var tmp = document.createElement("DIV");
+   tmp.innerHTML = html;
+   return tmp.textContent||tmp.innerText;
 }

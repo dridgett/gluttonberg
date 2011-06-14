@@ -31,6 +31,15 @@
     %dd= @asset.file_name
     %dt Mime type
     %dd= @asset.mime_type
+    - unless @asset.width.blank?
+      %dt Width
+      %dd= @asset.width
+    - unless @asset.height.blank?
+      %dt Height
+      %dd= @asset.height  
+    
+    
+    
   
     - unless @asset.audio_asset_attribute.blank?
       - unless @asset.audio_asset_attribute.length.blank?

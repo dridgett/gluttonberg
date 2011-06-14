@@ -353,12 +353,12 @@ var dragTreeManager = {
             
             var mouseTop = e.pageY;
             var topOffset = 10;
-            var bottomOffset = 4;
+            var bottomOffset = 10;
 
-            if (dragFlat) {
-              topOffset = height / 2;
-              bottomOffset = height / 2;
-            }
+            // if (dragFlat) {
+            //               topOffset = height / 2;
+            //               bottomOffset = height / 2;
+            //             }
             
             console.log("-----mouseTop " + mouseTop + " top " + top + " topOffset" + topOffset );
             console.log("-----height " + height);

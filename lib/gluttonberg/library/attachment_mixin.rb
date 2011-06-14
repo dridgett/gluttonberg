@@ -238,6 +238,12 @@ module Gluttonberg
               rescue => e
                 image = QuickMagick::Image.read(location_on_disk).first
               end  
+              
+              actual_width = image.width.to_i
+              actual_height = image.height.to_i
+              
+              update_attributes( :width => actual_width ,:height => actual_height) 
+              
               image.resize self.class.max_image_size
               image.save File.join(directory, file_name)    
               # remove mp3 info if any image have. it may happen in the case of updating asset from mp3 to image
@@ -255,6 +261,8 @@ module Gluttonberg
         def generate_thumb_and_proper_resolution(asset)          
               asset.generate_proper_resolution              
               asset.generate_image_thumb
+              
+              
         end
         
         
