@@ -68,7 +68,7 @@ module Gluttonberg
             end
             
             
-            #@localized_model.clean_html([:text])#(@localized_fields.map{|c|c.to_sym})
+            @localized_model.clean_html([:text])#(@localized_fields.map{|c|c.to_sym})
             # Set up filters on the class to make sure the localization gets migrated
             
             # Associate the model and it’s localization

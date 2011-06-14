@@ -29,100 +29,33 @@ $(document).ready(function() {
 
 function enable_jwysiwyg_on(selector) {
     $(document).ready(function() {
-        try {
-            $(selector).wysiwyg({
-								iFrameClass: "wysiwyg-input",
-                controls: {
-                    strikeThrough: {
-                        visible: false
-                    },
-                    justifyCenter: {
-                        visible: false
-                    },
-                    justifyFull: {
-                        visible: false
-                    },
-                    subscript: {
-                        visible: false
-                    },
-                    superscript: {
-                        visible: false
-                    },
-                    redo: {
-                        visible: false
-                    },
-                    undo: {
-                        visible: false
-                    },
-                    html: {
-                        visible: true
-                    },
-                    underline: {
-                        visible: false
-                    },
-                    outdent: {
-                        visible: false
-                    },
-                    insertTable: {
-                        visible: true
-                    },
-										insertImage: {
-										    visible: false
-										},
-										h1: {
-										    visible: false
-										},
-										h2: {
-                        visible: false
-                    },
-										h3: {
-                        visible: false
-                    },
-                    code: {
-                        visible: false
-                    }
-                    
-                }
-            });
-            $(selector).wysiwyg("addControl", "asset_selector", {
-                groupIndex: 6,
-                icon: '/gluttonberg/images/library/browse_images_control.gif',
-                tooltip: 'Select Image From Library',
-                tags: ['library'],
-                exec: function() {
-                    // $(this) is returning array which have only one object. that is why i am taking first object.
-                    Wysiwyg = $(this)[0];
-                    var url = "/admin/browser?filter=image"
-                    var link = $("<img src='/admin/browser?filter=image' />");
-                    var p = $("<p> </p>")
-                    $.get(url, null,
-                    function(markup) {
-                        AssetBrowser.load(p, link, markup, Wysiwyg);
-                    });
-                },
-                callback: function(event, Wysiwyg) {
-                    // if we have multiple jWysiwyg on same page. jWysiwyg is calling callback twice which is causing issues. That is why i moved asset selector code
-                    // from callback to exec.
-                    }
-            });
-            
-            
-            $(selector).wysiwyg("addControl" , "gbStyles", {
-            		visible : true,
-            		groupIndex: 7,
-            		tooltip: "Styles",
-            		exec: function () { 
-            				$.wysiwyg.controls.gbStyles.init(this);
-            			}
-            	})
-            	
-            $.wysiwyg.rmFormat.enabled = true;
-            	
-            
-        } catch(e) {
-            console.log(e)
-        }
+        $(selector).tinymce({
+    			// Location of TinyMCE script
+    			script_url : '/gluttonberg/javascripts/tiny_mce/tiny_mce.js',
 
+    			// General options
+    			theme : "advanced",
+    			plugins : "autolink,lists,style,table,advhr,advimage,advlink,gb_assets,inlinepopups,insertdatetime,preview,paste,fullscreen,advlist",
+
+    			// Theme options
+    			theme_advanced_buttons1 : "gb_assets,newdocument,|,bold,italic,underline,|,justifyleft,justifyright,styleselect,formatselect,|,attribs,removeformat,cleanup,code,|,preview|,fullscreen",
+    			theme_advanced_buttons2 : "pastetext,pasteword,|,bullist,numlist,|,blockquote,|,undo,redo,|,link,unlink,anchor,|,insertdate,inserttime,|,advhr,",
+    			theme_advanced_buttons3 : "tablecontrols",
+    			theme_advanced_toolbar_location : "top",
+    			theme_advanced_toolbar_align : "left",
+    			theme_advanced_statusbar_location : "bottom",
+    			theme_advanced_resizing : true,
+    			plugin_insertdate_dateFormat : "%d/%m/%Y",
+          plugin_insertdate_timeFormat : "%H:%M:%S",
+
+    			// Example content CSS (should be your site CSS)
+    			content_css : "/stylesheets/user-styles.css",
+
+    			
+    		});
+      
+        
+       
     });
 }
 
@@ -405,7 +338,9 @@ function insert_image_in_wysiwyg(image_url){
       description = "";
       style = "";
       image = "<img src='" + image_url + "' title='" + title + "' alt='" + description + "'" + style + "/>";
-      Wysiwyg.insertHtml(image);
+      
+      Wysiwyg.execCommand('mceInsertContent', false, image);
+
   }
 }
 function auto_save_asset(url , new_id ){

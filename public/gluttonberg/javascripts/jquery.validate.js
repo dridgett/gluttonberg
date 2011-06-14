@@ -65,6 +65,12 @@ $.extend($.fn, {
 				if ( validator.settings.debug )
 					// prevent form submit to be able to see console output
 					event.preventDefault();
+				
+				  try{
+  	        tinyMCE.triggerSave();
+  	      }catch(e){
+  	        console.log(e)
+  	      }
 					
 				function handle() {
 					if ( validator.settings.submitHandler ) {
@@ -96,13 +102,14 @@ $.extend($.fn, {
 	},
 	// http://docs.jquery.com/Plugins/Validation/valid
 	valid: function() {
+	      
         if ( $(this[0]).is('form')) {
             return this.validate().form();
         } else {
             var valid = false;
             var validator = $(this[0].form).validate();
             this.each(function() {
-				valid |= validator.element(this);
+            valid |= validator.element(this);
             });
             return valid;
         }
@@ -723,7 +730,7 @@ $.extend($.validator, {
 				if( this.checkable( element) )
 					return this.findByName(element.name).filter(':checked').length;
 			}
-			return value.length;
+			return escapeBasicHtmlTags(value).length;
 		},
 	
 		depend: function(param, element) {
@@ -941,6 +948,7 @@ $.extend($.validator, {
 
 		// http://docs.jquery.com/Plugins/Validation/Methods/required
 		required: function(value, element, param) {
+		  
 			// check if dependency is met
 			if ( !this.depend(param, element) )
 				return "dependency-mismatch";
@@ -952,7 +960,7 @@ $.extend($.validator, {
 				if ( this.checkable(element) )
 					return this.getLength(value, element) > 0;
 			default:
-				return $.trim(value).length > 0;
+				return $.trim(escapeBasicHtmlTags(value)).length > 0;
 			}
 		},
 		
@@ -1235,7 +1243,7 @@ function hasExceedWordMax(element,word_count){
     var words = elementValue.replace(/\s/g,' ').split(' ');
     var count = 0;
     for(var i = 0; i < words.length; i++){
-      if( words[i].length > 0 && words[i] != "<div>"  && words[i] != "</div>"  && words[i] != "<p>"  && words[i] != "</p>"   && words[i] != "<span>"  && words[i] != "</span>" ){
+      if( words[i].length > 0 && words[i] != "<div>"  && words[i] != "</div>"  && words[i] != "<p>"  && words[i] != "</p>"   && words[i] != "<span>"  && words[i] != "</span>" && words[i] != "&nbsp;" ){
         count ++;
       }
     }
@@ -1246,4 +1254,36 @@ function hasExceedWordMax(element,word_count){
       return false
     }
   }
+}
+
+function escapeBasicHtmlTags(str){
+  var escapeList = ["<div>", "</div>" , "<p>" , "</p>" , "<span>", "</span>","&nbsp;" ];
+  
+  $.each(escapeList, function(index, val){
+    str = str.replaceAll(val,"");
+  })
+  return str
+}
+
+// Replaces all instances of the given substring.
+String.prototype.replaceAll = function(
+strTarget, // The substring you want to replace
+strSubString // The string you want to replace in.
+){
+var strText = this;
+var intIndexOfMatch = strText.indexOf( strTarget );
+ 
+// Keep looping while an instance of the target string
+// still exists in the string.
+while (intIndexOfMatch != -1){
+// Relace out the current instance.
+strText = strText.replace( strTarget, strSubString )
+ 
+// Get the index of any next matching substring.
+intIndexOfMatch = strText.indexOf( strTarget );
+}
+ 
+// Return the updated string with ALL the target strings
+// replaced out with the new substring.
+return( strText );
 }
