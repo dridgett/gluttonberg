@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 module Gluttonberg
   class Search
 
@@ -28,6 +30,10 @@ module Gluttonberg
     #   :page => 1
     # }
     def self.find(query, opts = {} )
+      query= query.gsub(/[\\\!\*″′‟‛„‚”“”˝\(\)\;\:\.\@\&\=\+\$\,\/?\%\#\[\]]/, '')
+      query = query.gsub(/'/, "\\\\'")
+      query = query.gsub(/"/, "\\\"")
+            
       models = {}
       sources = opts[:sources]
       published_only = opts[:published_only].blank? ? true : opts[:published_only]
@@ -52,6 +58,7 @@ module Gluttonberg
   
     def self.find_in_mysql(query, page_num , per_page , models , published_only)
       results = []
+      
       prepared_query = "'%#{query}%'"
       models.each do |model , columns|
         conditions = ""
