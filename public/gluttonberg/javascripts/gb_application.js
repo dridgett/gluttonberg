@@ -38,9 +38,9 @@ function enable_jwysiwyg_on(selector) {
           plugins : "autolink,lists,style,table,advhr,advimage,advlink,gb_assets,inlinepopups,insertdatetime,preview,paste,fullscreen,advlist,wordcount",
 
           // Theme options
-          theme_advanced_buttons1 : "gb_assets,newdocument,|,bold,italic,underline,|,justifyleft,justifyright,styleselect,formatselect,|,attribs,removeformat,cleanup,code,|,fullscreen,preview",
+          theme_advanced_buttons1 : "gb_assets,newdocument,|,bold,italic,underline,|,justifyleft,justifyright,styleselect,formatselect,|,attribs,removeformat,cleanup,code",
           theme_advanced_buttons2 : "pastetext,pasteword,|,bullist,numlist,|,blockquote,|,undo,redo,|,link,unlink,anchor,|,insertdate,inserttime|,advhr,",
-          theme_advanced_buttons3 : "tablecontrols",
+          theme_advanced_buttons3 : "tablecontrols,|,fullscreen,preview",
           theme_advanced_toolbar_location : "top",
           theme_advanced_toolbar_align : "left",
           theme_advanced_statusbar_location : "bottom",

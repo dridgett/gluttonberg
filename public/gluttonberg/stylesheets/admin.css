@@ -683,14 +683,17 @@ td.controls a:hover {
   color: #c26b31; }
 
 tr.insert_after td {
+  border: none;
   border-bottom: 2px solid black;
   padding-bottom: 4px; }
 
 tr.insert_before td {
+  border: none;
   border-top: 2px solid black;
   padding-top: 4px; }
 
-.treeTable tr.insert_child {
+.treeTable tr.insert_child td{
+  border: none;
   background-color: #3875d7;
   color: white; }
 
