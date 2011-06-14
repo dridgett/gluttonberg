@@ -1,3 +1,4 @@
-%label= content.section_label
-- id_of_text_field = "gluttonberg_page_localization[contents][#{content.association_name}][#{content.id}][text]"
-= text_field_tag(id_of_text_field , content.text, :class => "large")
+%p
+  %label= content.section_label
+  - id_of_text_field = "gluttonberg_page_localization[contents][#{content.association_name}][#{content.id}][text]"
+  = text_field_tag(id_of_text_field , content.text, :class => "large")

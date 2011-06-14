@@ -1,6 +1,7 @@
-- id_of_text_area = "gluttonberg_page_localization[contents][#{content.association_name}][#{content.id}][text]"
-- unique_class =  "gb_page_contents_content_#{content.id}"
-= enable_jwysiwyg_on_class(unique_class)
+%p
+  - id_of_text_area = "gluttonberg_page_localization[contents][#{content.association_name}][#{content.id}][text]"
+  - unique_class =  "gb_page_contents_content_#{content.id}"
+  = enable_jwysiwyg_on_class(unique_class)
 
-%label= content.section_label
-= text_area_tag(id_of_text_area , content.text, :class => "large tall #{unique_class}")
+  %label= content.section_label
+  = text_area_tag(id_of_text_area , content.text, :class => "large tall #{unique_class}")
