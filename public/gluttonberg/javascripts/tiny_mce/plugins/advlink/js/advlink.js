@@ -31,6 +31,9 @@ function init() {
 	document.getElementById('hrefbrowsercontainer').innerHTML = getBrowserHTML('hrefbrowser','href','file','advlink');
 	document.getElementById('popupurlbrowsercontainer').innerHTML = getBrowserHTML('popupurlbrowser','popupurl','file','advlink');
 	document.getElementById('targetlistcontainer').innerHTML = getTargetListHTML('targetlist','target');
+	
+	setInternalPageList();
+	
 
 	// Link list
 	html = getLinkListHTML('linklisthref','href');
@@ -525,6 +528,35 @@ function getTargetListHTML(elm_id, target_form_element) {
 	html += '</select>';
 
 	return html;
+}
+
+function  setInternalPageList(){
+    var xmlhttp;    
+    if (window.XMLHttpRequest)
+    {// code for IE7+, Firefox, Chrome, Opera, Safari
+      xmlhttp=new XMLHttpRequest();
+    }
+    else
+    {// code for IE6, IE5
+      xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+    }
+
+    xmlhttp.onreadystatechange=function()
+    {
+      if (xmlhttp.status==200)
+        {
+          //L=xmlhttp.responseText;
+          options = "<option> </option> " + xmlhttp.responseText;
+          document.getElementById('internal_pages_options').innerHTML = options;
+          document.getElementById('loading_pages_list').style="display:none";
+        }else if(xmlhttp.readyState!=4 ){
+          document.getElementById('loading_pages_list').style="display:default;";
+          document.getElementById('loading_pages_list').innerHTML = "Faile to load pages list"
+        }
+    }
+    xmlhttp.open("GET","/admin/pages_list_for_tinymce");
+    xmlhttp.send();
+  
 }
 
 // While loading

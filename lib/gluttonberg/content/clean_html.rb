@@ -32,7 +32,7 @@ module Gluttonberg
         end
 
         def removeEmptyTag(str)
-          removeList = [/<blockquote>[\s]*<\/blockquote>/, /<p>[\s]*<\/p>/,/<div>[\s]*<\/div>/,/<span>[\s]*<\/span>/, /<h1>[\s]*<\/h1>/, /<h2>[\s]*<\/h2>/, /<h3>[\s]*<\/h3>/, /<h4>[\s]*<\/h4>/, /<h5>[\s]*<\/h5>/, /<h6>[\s]*<\/h6>/]
+          removeList = [/<blockquote>[\s]*<\/blockquote>/, /<p>[\s]*<\/p>/,/<div>[\s]*<\/div>/,/<span>[\s]*<\/span>/, /<h1>[\s]*<\/h1>/, /<h2>[\s]*<\/h2>/, /<h3>[\s]*<\/h3>/, /<h4>[\s]*<\/h4>/, /<h5>[\s]*<\/h5>/, /<h6>[\s]*<\/h6>/ , /<br[\s]*\/>/ , /<br[\s]*>/]
           removeList.each do |r|
             str = str.gsub(r,"")
           end

@@ -77,7 +77,12 @@ module Gluttonberg
               @old_home = Page.find(:first , :conditions => { :home => true })
               @old_home.update_attributes(:home => false)
           end
-          render :text => "Home Page is changed"
+          render :text => "Home page is changed"
+        end
+        
+        def pages_list_for_tinymce
+          @pages = Page.published.find(:all , :conditions => "not(description_name = 'top_level_page')"  , :order => 'position' )
+          render :layout => false
         end
 
         private

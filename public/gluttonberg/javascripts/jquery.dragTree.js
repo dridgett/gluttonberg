@@ -359,25 +359,33 @@ var dragTreeManager = {
             //               topOffset = height / 2;
             //               bottomOffset = height / 2;
             //             }
+            console.log(dragManager.dropSite.attr('id'))
+            console.log($(this).attr('rel'))
+            
+            $("#"+$(this).attr('rel')).addClass("ui-draggable-dragging")
             
             console.log("-----mouseTop " + mouseTop + " top " + top + " topOffset" + topOffset );
             console.log("-----height " + height);
 
-            if (mouseTop < (top + topOffset)){
-              console.log("-----insert before " );
-              dragManager.dropSite.addClass("insert_before").removeClass("insert_child insert_after");
-              dragManager.dragMode = DM_INSERT_BEFORE;
-            } else if (mouseTop > (top + height - bottomOffset)) {
-              console.log("-----insert after " );
-              dragManager.dropSite.addClass("insert_after").removeClass("insert_before insert_child");
-              dragManager.dragMode = DM_INSERT_AFTER;
-            } else {
-              console.log("-----insert child " );
-              if (!dragFlat){
-                console.log("-----insert child 2" );
-                dragManager.dropSite.addClass("insert_child").removeClass("insert_after insert_before");
-                dragManager.dragMode = DM_INSERT_CHILD;
+            if( dragManager.dropSite.attr('id') != $(this).attr('rel')){
+              if (mouseTop < (top + topOffset)){
+                console.log("-----insert before " );
+                dragManager.dropSite.addClass("insert_before").removeClass("insert_child insert_after");
+                dragManager.dragMode = DM_INSERT_BEFORE;
+              } else if (mouseTop > (top + height - bottomOffset)) {
+                console.log("-----insert after " );
+                dragManager.dropSite.addClass("insert_after").removeClass("insert_before insert_child");
+                dragManager.dragMode = DM_INSERT_AFTER;
+              } else {
+                console.log("-----insert child " );
+                if (!dragFlat){
+                  console.log("-----insert child 2" );
+                  dragManager.dropSite.addClass("insert_child").removeClass("insert_after insert_before");
+                  dragManager.dragMode = DM_INSERT_CHILD;
+                }
               }
+            }else{//self node check  
+              dragManager.dropSite.removeClass("insert_child insert_after insert_before");
             }
           }
         }
@@ -401,6 +409,8 @@ var dragTreeManager = {
             
             var sourceNode = $(ui.draggable).parents("tr")
             var targetNode = this;
+            
+            sourceNode.removeClass("ui-draggable-dragging")
 
             if ((dragManager.dragMode == DM_INSERT_CHILD) && (!dragFlat)) {
               $(sourceNode).appendBranchTo(targetNode,

@@ -696,10 +696,13 @@ tr.insert_before td {
   border: none;
   background-color: #3875d7;
   color: white; }
+  
 
-.treeTable .ui-draggable-dragging {
+.treeTable tr.ui-draggable-dragging td{
   color: black;
-  z-index: 1; }
+  background-color: #EB98A9;
+  z-index: 1; 
+}
 
 /* Asset Library */
 

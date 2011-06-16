@@ -24,14 +24,31 @@
 		<div class="panel_wrapper" role="presentation">
 			<div id="general_panel" class="panel current">
 				<fieldset>
-					<legend>{#advlink_dlg.general_props}</legend>
+					<legend>{#advlink_dlg.general_props} 12</legend>
 
 					<table border="0" cellpadding="4" cellspacing="0" role="presentation">
 						<tr>
 							<td class="nowrap"><label id="hreflabel" for="href">{#advlink_dlg.url}</label></td>
 								<td><table border="0" cellspacing="0" cellpadding="0">
 							<tr>
-								<td><input id="href" name="href" type="text" class="mceFocus" value="" onchange="selectByValue(this.form,'linklisthref',this.value);" aria-required="true" /></td>
+								<td>
+								  
+
+                  
+  								<select id="internal_pages_options" onchange="document.getElementById('href').value = this.value">
+  								  
+  								  
+  								</select> <span id="loading_pages_list"> Loading pages list </span>
+								  
+								  <p> 
+								    Or 
+								  </p>
+								  
+								  <input id="href" name="href" type="text" class="mceFocus" value="" onchange="selectByValue(this.form,'linklisthref',this.value);" aria-required="true" />
+								  
+								  </td>
+
+								
 								<td id="hrefbrowsercontainer">&nbsp;</td>
 							</tr>
 							</table></td>

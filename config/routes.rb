@@ -36,6 +36,8 @@ Rails.application.routes.draw do
           get 'edit_home' => "pages#edit_home", :as =>  :edit_home
           post 'update_home' => "pages#update_home", :as =>  :update_home        
         end
+        
+        get "pages_list_for_tinymce" => "pages#pages_list_for_tinymce" , :as => :pages_list_for_tinymce
         resources :blogs do
           get 'delete', :on => :member
           resources :articles do

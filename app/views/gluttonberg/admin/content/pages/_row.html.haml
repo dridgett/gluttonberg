@@ -1,6 +1,6 @@
 %tr{:id => drag_tree_row_id(page), :class => drag_tree_row_class(page) + "#{row % 2 == 0? " even" : ""}"}
   %td
-    %span{:class => "#{drag_tree_drag_point_class} #{page.home ? "home" : "page"}"}
+    %span{:class => "#{drag_tree_drag_point_class} #{page.home ? "home" : "page"}" , :rel => drag_tree_row_id(page)}
     %span.pagetitle
       = page.home ? "#{page.name} (Home page)" : page.name
     %span.controls
