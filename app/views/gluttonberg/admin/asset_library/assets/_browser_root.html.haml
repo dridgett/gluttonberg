@@ -5,6 +5,8 @@
     %li
       %a{ :href => "#tabs-collection", :class => "tab_link"} Collections
     %li
+      %a{ :href => "#tabs-recent"} Recent  
+    %li
       %a{ :href => "#tabs-upload" , :class => "tab_link"} Upload  
   .clear
 
@@ -27,6 +29,47 @@
         %li
           %a{:href => admin_collection_url(collection), :class => "collection"}
             %h3= collection.name
+
+%div#tabs-recent
+  - if @assets.blank?
+    %ul.assetList
+      %li
+  - else
+    = render :partial => "gluttonberg/admin/shared/asset_panel.html" , :locals => {:assets => @assets}
+    / %table{:id => 'assets_table', :cellpadding => 0, :cellspacing => 0, :rel => "" , :summary => "Assets" }
+    /       %thead
+    /         %tr
+    /           %th
+    /           %th Title
+    /           %th.author Author
+    /           %th.date Uploaded
+    /           %th.date Updated
+    /       %tbody
+    /         - for asset in @assets
+    /           %tr
+    /             %td.thumbnail
+    /               %a{:href => admin_asset_url(asset), :class => "assetLink"}
+    /                 %img{:src => asset.thumb_small_url  }
+    /             %td
+    /               %span.asset_title
+    /                 %a{:href => admin_asset_url(asset), :class => "assetLink"}
+    /                   = asset.name
+    /               %span.controls
+    /                 %a{:href => admin_asset_url(asset), :class => "assetLink"}
+    /                   View
+    /                 %a{:href => edit_admin_asset_url(asset), :class => "assetLink"}
+    /                   Edit  
+    /             %td.author
+    /               = asset.user.full_name
+    /             %td.date
+    /               = date_format(asset.created_at)
+    /             %td.date
+    /               = date_format(asset.updated_at)  
+
+
+.clear
+
+
 
 #tabs-upload
   - @asset  = Gluttonberg::Asset.new

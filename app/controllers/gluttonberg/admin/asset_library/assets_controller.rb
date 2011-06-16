@@ -34,6 +34,15 @@ module Gluttonberg
             @categories = AssetCategory.find(:all , :conditions => { :name => @category_filter })
           end
           
+          # Get the latest assets, ensuring that we always grab at most 15 records  
+          conditions =  { :updated_at => ((Time.now - 72.hours).gmtime)..(Time.now.gmtime)  }
+          @assets = Asset.find(:all, 
+              :conditions => conditions, 
+              :limit => Gluttonberg::Setting.get_setting("library_number_of_recent_assets") , 
+              :order => "updated_at DESC" , 
+              :include => :asset_type
+          )
+          
           if params["no_frame"]
             render :partial => "browser_root" 
           else
