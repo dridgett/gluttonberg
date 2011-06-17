@@ -16,6 +16,7 @@
 				var url = "/admin/browser?filter=image"
         var link = $("<img src='/admin/browser?filter=image' />");
         var p = $("<p> </p>")
+        AssetBrowser.showOverlay()
         $.get(url, null,
         function(markup) {
           AssetBrowser.load(p, link, markup, ed);

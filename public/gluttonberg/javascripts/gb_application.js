@@ -106,6 +106,7 @@ function initClickEventsForAssetLinks(element) {
     element.find(".assetBrowserLink").click(function(e) {
         var p = $(this);
         var link = p.find("a");
+        AssetBrowser.showOverlay()
         $.get(link.attr("href"), null,
         function(markup) {
             AssetBrowser.load(p, link, markup);
@@ -217,9 +218,13 @@ var AssetBrowser = {
         
         $("#assetsDialog").css({position: "absolute",top: (($(window).scrollTop()) )+"px"})
         try{
-          //console.log("----- here before validatin")
           $("#assetsDialog form.validation").validate();
         }catch(e){console.log(e)}
+        
+        $(window).resize(function(e){
+          $("#assetsDialog").css({position: "absolute",top: (($(window).scrollTop()) )+"px"})
+          
+        })
     },
     resizeDisplay: function() {
         var newHeight = AssetBrowser.browser.innerHeight() - AssetBrowser.offsetHeight;
@@ -228,7 +233,7 @@ var AssetBrowser = {
     showOverlay: function() {
         if (!AssetBrowser.overlay) {
             var height = $('#wrapper').height() + 50;
-            AssetBrowser.overlay = $('<div id="assetsDialogOverlay">&nbsp</div>');
+            AssetBrowser.overlay = $('<div id="assetsDialogOverlay">&nbsp <img class="dialogue_spinner" src="/gluttonberg/images/spinner_for_dialouge.gif" /> </div>');
             $("body").append(AssetBrowser.overlay);
         }
         else {
@@ -300,6 +305,12 @@ var AssetBrowser = {
             }
         }
         else if (!target.is(".tab_link")) {
+            $("#progress_ajax_upload").ajaxStart(function(){
+                $(this).show();
+            }).ajaxComplete(function(){
+                $(this).hide();
+            });
+            
             var url = target.attr("href") + ".json";
             // its collection url then add category filter for filtering assets
             if (target.hasClass("collection")) {

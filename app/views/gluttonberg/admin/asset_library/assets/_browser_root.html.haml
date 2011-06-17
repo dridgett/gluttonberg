@@ -1,3 +1,5 @@
+= image_tag("/gluttonberg/images/spinner.gif" , :id => "progress_ajax_upload" , :style => "display:none")
+
 #tabs
   %ul
     %li
@@ -36,35 +38,7 @@
       %li
   - else
     = render :partial => "gluttonberg/admin/shared/asset_panel.html" , :locals => {:assets => @assets}
-    / %table{:id => 'assets_table', :cellpadding => 0, :cellspacing => 0, :rel => "" , :summary => "Assets" }
-    /       %thead
-    /         %tr
-    /           %th
-    /           %th Title
-    /           %th.author Author
-    /           %th.date Uploaded
-    /           %th.date Updated
-    /       %tbody
-    /         - for asset in @assets
-    /           %tr
-    /             %td.thumbnail
-    /               %a{:href => admin_asset_url(asset), :class => "assetLink"}
-    /                 %img{:src => asset.thumb_small_url  }
-    /             %td
-    /               %span.asset_title
-    /                 %a{:href => admin_asset_url(asset), :class => "assetLink"}
-    /                   = asset.name
-    /               %span.controls
-    /                 %a{:href => admin_asset_url(asset), :class => "assetLink"}
-    /                   View
-    /                 %a{:href => edit_admin_asset_url(asset), :class => "assetLink"}
-    /                   Edit  
-    /             %td.author
-    /               = asset.user.full_name
-    /             %td.date
-    /               = date_format(asset.created_at)
-    /             %td.date
-    /               = date_format(asset.updated_at)  
+    
 
 
 .clear
@@ -87,7 +61,7 @@
 
     .controls
       = asset_form.submit("Upload" , :id => "ajax_image_upload", :class => "button button_upload" )
-      = image_tag("/gluttonberg/images/spinner.gif" , :id => "progress_ajax_upload" , :style => "display:none")
+      
 
 .clear              
          
