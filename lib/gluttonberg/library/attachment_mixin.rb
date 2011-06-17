@@ -189,7 +189,19 @@ module Gluttonberg
          end
         
         ####################################
-        
+        def generate_cropped_image(x , y , w , h)
+          begin                
+            image = QuickMagick::Image.read(original_file_on_disk).first
+          rescue
+            image = QuickMagick::Image.read(location_on_disk).first
+          end
+          begin
+            image.arguments << " -crop #{w}x#{h}+#{x}+#{y} +repage"
+          rescue => e
+            puts e
+          end
+          image.save original_file_on_disk
+        end
         
         # Create thumbnailed versions of image attachements.
         # TODO: generate thumbnails with the correct extension

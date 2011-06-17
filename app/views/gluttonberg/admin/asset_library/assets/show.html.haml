@@ -4,6 +4,7 @@
 = sub_nav do
   = nav_link("Delete", delete_admin_asset_url(@asset) )
   = nav_link("Edit", edit_admin_asset_url(@asset))
+  = nav_link("Crop", crop_admin_asset_url(@asset))
 %div.pageBlock
   %h2= @asset.name
   %p{:id => "categoryAndType", :class => @asset.category}

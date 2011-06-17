@@ -71,6 +71,8 @@ Rails.application.routes.draw do
         # asset library related routes
           resources :assets do 
             get 'delete', :on => :member
+            get 'crop', :on => :member
+            post 'save_crop', :on => :member
           end
           match "library" => "assets#index" , :as => :library
           match "add_asset_using_ajax"  => "assets#ajax_new" , :as => :add_asset_using_ajax

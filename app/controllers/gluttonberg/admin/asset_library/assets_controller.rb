@@ -4,7 +4,7 @@ module Gluttonberg
   module Admin
     module AssetLibrary
       class AssetsController < Gluttonberg::Admin::BaseController
-        before_filter :find_asset , :only => [:delete , :edit , :show , :update , :destroy  ]  
+        before_filter :find_asset , :only => [:crop , :save_crop , :delete , :edit , :show , :update , :destroy  ]  
         before_filter :prepare_to_edit  , :except => [:category , :show , :delete , :create , :update  ]
         before_filter :authorize_user 
         before_filter :authorize_user_for_destroy , :except => [:destroy , :delete]  
@@ -106,6 +106,21 @@ module Gluttonberg
         end
             
         def edit          
+        end
+        
+        def crop
+          
+        end
+        
+        def save_crop
+          file = MyFile.init(@asset.original_file_on_disk , @asset) 
+          file.original_filename = @asset.file_name
+          @new_asset = Asset.new( :asset_collection_ids => @asset.asset_collection_ids, :name => @asset.name + " Cropped" ,  :file => file , :user_id => current_user.id )
+          @new_asset.save
+          @new_asset.generate_cropped_image(params[:x] , params[:y] , params[:w] , params[:h])
+          @new_asset.save
+          flash[:notice] = "New cropped image is created successfully!"
+          redirect_to(edit_admin_asset_url(@new_asset))
         end
     
         # delete asset
