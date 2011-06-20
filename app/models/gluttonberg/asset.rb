@@ -2,7 +2,8 @@ module Gluttonberg
   class Asset < ActiveRecord::Base
       set_table_name "gb_assets"
       has_many :set_elements, :as => :element
-  
+      has_many :asset_thumbnails
+      
       after_save  :update_file
       before_validation  :set_category_and_type
             

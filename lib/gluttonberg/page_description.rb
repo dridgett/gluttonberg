@@ -103,6 +103,13 @@ module Gluttonberg
       @sections
     end
     
+    def contains_section?(sec_name , type_name)
+      @sections.each do |name, section|
+        return true if sec_name.to_s == name.to_s && section[:type].to_s == type_name.to_s
+      end
+      false
+    end
+    
     # Set a description as the home page.
     def home(bool)
       @options[:home] = bool

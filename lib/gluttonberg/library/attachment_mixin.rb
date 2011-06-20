@@ -189,18 +189,29 @@ module Gluttonberg
          end
         
         ####################################
-        def generate_cropped_image(x , y , w , h)
+        def generate_cropped_image(x , y , w , h, image_type)
+          
+          asset_thumb = self.asset_thumbnails.find(:first , :conditions => {:thumbnail_type => image_type.to_s })
+          if asset_thumb.blank?
+            asset_thumb = self.asset_thumbnails.create({:thumbnail_type => image_type.to_s , :user_generated => true })
+          else
+            asset_thumb.update_attributes(:user_generated => true)  
+          end
+          
+          path = original_file_on_disk
+          original_ext = original_file_on_disk.split(".").last
+          path = File.join(directory, "#{self.class.sizes[image_type.to_sym][:filename]}.#{file_extension}") unless image_type.blank?
           begin                
             image = QuickMagick::Image.read(original_file_on_disk).first
           rescue
-            image = QuickMagick::Image.read(location_on_disk).first
+            image = QuickMagick::Image.read(original_file_on_disk).first
           end
           begin
             image.arguments << " -crop #{w}x#{h}+#{x}+#{y} +repage"
           rescue => e
             puts e
           end
-          image.save original_file_on_disk
+          image.save path
         end
         
         # Create thumbnailed versions of image attachements.
@@ -210,28 +221,33 @@ module Gluttonberg
           begin            
             
             self.class.sizes.each_pair do |name, config|
-              #image = QuickMagick::Image.read(location_on_disk).first
-              begin                
-                image = QuickMagick::Image.read(original_file_on_disk).first
-              rescue
-                image = QuickMagick::Image.read(location_on_disk).first
-              end
+
+              asset_thumb = self.asset_thumbnails.find(:first , :conditions => {:thumbnail_type => name.to_s, :user_generated => true })
               
-              original_ext = original_file_on_disk.split(".").last
+              if asset_thumb.blank?
+                  #image = QuickMagick::Image.read(location_on_disk).first
+                  begin                
+                    image = QuickMagick::Image.read(original_file_on_disk).first
+                  rescue
+                    image = QuickMagick::Image.read(location_on_disk).first
+                  end
               
-              path = File.join(directory, "#{config[:filename]}.#{file_extension}")
-              if config[:geometry].include?("#")
-                #todo
-                begin
-                  image.resize suggested_measures(image, config[:geometry])
-                  image.arguments << " -gravity Center  -crop #{config[:geometry].delete("#")}+0+0 +repage"
-                rescue => e
-                  puts e
-                end  
-              else  
-                image.resize config[:geometry]
-              end
-              image.save path     
+                  original_ext = original_file_on_disk.split(".").last
+              
+                  path = File.join(directory, "#{config[:filename]}.#{file_extension}")
+                  if config[:geometry].include?("#")
+                    #todo
+                    begin
+                      image.resize suggested_measures(image, config[:geometry])
+                      image.arguments << " -gravity Center  -crop #{config[:geometry].delete("#")}+0+0 +repage"
+                    rescue => e
+                      puts e
+                    end  
+                  else  
+                    image.resize config[:geometry]
+                  end
+                  image.save path     
+              end  
             end 
           
             update_attribute( :custom_thumbnail , true)         
