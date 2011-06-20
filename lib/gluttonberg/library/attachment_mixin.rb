@@ -221,8 +221,9 @@ module Gluttonberg
           begin            
             
             self.class.sizes.each_pair do |name, config|
+
+              asset_thumb = self.asset_thumbnails.find(:first , :conditions => {:thumbnail_type => name.to_s, :user_generated => true })
               
-              asset_thumb = self.asset_thumbnails.find(:first , :conditions => {:thumbnail_type => image_type.to_s, :user_generated => true })
               if asset_thumb.blank?
                   #image = QuickMagick::Image.read(location_on_disk).first
                   begin                
