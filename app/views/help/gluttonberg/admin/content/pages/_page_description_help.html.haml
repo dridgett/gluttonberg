@@ -1,0 +1,14 @@
+- Gluttonberg::PageDescription.all.each do |name, desc|
+  %p
+    %strong= desc[:description]
+  
+    - if desc.sections.blank?
+      - if desc.rewrite_required?
+        = "This will redirect to '#{desc.rewrite_route}' "
+      - else
+        There is no content area for this page description.
+    -else
+      - desc.sections.each do |sec_name , sec|
+        %br  
+        = "#{sec[:label] } - #{sec[:type]} "
+      

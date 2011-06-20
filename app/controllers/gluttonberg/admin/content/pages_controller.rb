@@ -91,7 +91,7 @@ module Gluttonberg
           @pages  = params[:id] ? Page.find(:all , :conditions => [ "id  != ? " , params[:id] ] ) : Page.all
           @descriptions = []
           Gluttonberg::PageDescription.all.each do |name, desc|
-              @descriptions << [desc[:label], name]
+              @descriptions << [desc[:description], name]
           end        
         end
 

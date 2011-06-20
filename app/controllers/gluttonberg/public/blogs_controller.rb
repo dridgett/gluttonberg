@@ -11,6 +11,8 @@ module Gluttonberg
         else
           @blogs = Gluttonberg::Blog.published.all
         end
+        
+        
       end
   
       def show
