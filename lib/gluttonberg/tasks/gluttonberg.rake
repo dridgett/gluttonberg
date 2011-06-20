@@ -10,6 +10,12 @@ namespace :gluttonberg do
     Gluttonberg::Setting.generate_common_settings
   end
   
+  desc "Update page descriptions"
+  task :update_page_descriptions => :environment do
+    Gluttonberg::Page.repair_pages_structure
+  end
+  
+  
   desc "Copies missing assets from Railties (e.g. plugins, engines). You can specify Railties to use with FROM=railtie1,railtie2"
   task :copy_assets => :rails_env do
     begin
