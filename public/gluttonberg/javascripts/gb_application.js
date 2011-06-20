@@ -551,3 +551,29 @@ function ajaxFileUpload(link)
     return false;
 
 }
+
+
+function initJcrop(image_type , w , h){
+  $('#'+image_type+"_image").Jcrop({
+  aspectRatio: 0,
+  onSelect: function(c){
+    $('#'+image_type+'_x').val(c.x);
+    $('#'+image_type+'_y').val(c.y);
+    $('#'+image_type+'_w').val(c.w);
+    $('#'+image_type+'_h').val(c.h);    
+  },
+  setSelect:   [ 0, 0, w, h ],
+  minSize: [w, h],
+  maxSize: [w, h]
+  });
+}
+
+
+function updateCoords(c)
+{
+// $('#x').val(c.x);
+// $('#y').val(c.y);
+// $('#w').val(c.w);
+// $('#h').val(c.h);
+
+};

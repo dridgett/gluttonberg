@@ -1,0 +1,30 @@
+- @window_title = "Asset Library"
+- @page_title = "#{link_to "Asset Library", admin_library_path} > Crop #{@asset.name}"
+- @page_image = "/gluttonberg/images/sidebar/icon_library.png"
+
+
+- Gluttonberg::Asset.sizes.each do |key , val|
+  %h3= key.to_s.humanize
+  
+  - width = val[:geometry].split("x").first
+  - height = val[:geometry].split("x").last
+  - height = height.gsub(/[><\#]/ , "")
+  
+  - if width.to_i < @asset.width.to_i || height.to_i < @asset.height.to_i
+  
+    %h4 Current Image
+    = asset_tag(@asset, key)
+    %h4 Crop it if you like
+    %img.cropbox{ :id => key.to_s + "_image" , :src => "#{@asset.url }"}/
+  
+    = form_for( @asset , :as => :asset , :url => {:action => :save_crop } ,  :html => { :multipart=>true  , :method => "post", :class => "nosubnav validation" } ) do |asset_form|
+      %input{:id => "#{key.to_s}_x" ,  :name => "x", :type => "hidden"}/
+      %input{:id => "#{key.to_s}_y" ,  :name => "y", :type => "hidden"}/
+      %input{:id => "#{key.to_s}_w" ,  :name => "w", :type => "hidden"}/
+      %input{:id => "#{key.to_s}_h" ,  :name => "h", :type => "hidden"}/
+      %input{:name => "image_size", :type => "hidden" , :value => key}/
+      %input{:type => "submit", :value => "Crop Image"}/
+      :javascript
+        $(function(){
+        initJcrop("#{key.to_s}" , "#{width}" , "#{height}");
+        });

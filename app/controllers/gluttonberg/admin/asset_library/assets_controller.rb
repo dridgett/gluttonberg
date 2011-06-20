@@ -113,14 +113,14 @@ module Gluttonberg
         end
         
         def save_crop
-          file = MyFile.init(@asset.original_file_on_disk , @asset) 
-          file.original_filename = @asset.file_name
-          @new_asset = Asset.new( :asset_collection_ids => @asset.asset_collection_ids, :name => @asset.name + " Cropped" ,  :file => file , :user_id => current_user.id )
-          @new_asset.save
-          @new_asset.generate_cropped_image(params[:x] , params[:y] , params[:w] , params[:h])
-          @new_asset.save
+          # file = MyFile.init(@asset.original_file_on_disk , @asset) 
+          #           file.original_filename = @asset.file_name
+          # @new_asset = Asset.new( :asset_collection_ids => @asset.asset_collection_ids, :name => @asset.name + " Cropped" ,  :file => file , :user_id => current_user.id )
+          # @new_asset.save
+          @asset.generate_cropped_image(params[:x] , params[:y] , params[:w] , params[:h] , params[:image_size])
+          #@new_asset.save
           flash[:notice] = "New cropped image is created successfully!"
-          redirect_to(edit_admin_asset_url(@new_asset))
+          redirect_to :back #(edit_admin_asset_url(@asset))
         end
     
         # delete asset
