@@ -3,6 +3,7 @@ module Gluttonberg
    #include Gluttonberg::Authorizable
    set_table_name "gb_settings" 
    after_save  :update_settings_in_config
+   before_destroy :destroy_cache
     
     def self.generate_or_update_settings(settings={})
       settings.each do |key , val |
@@ -30,7 +31,6 @@ module Gluttonberg
         :library_number_of_recent_assets => ["15" , 5 , "Number of recent assets in asset library."],
         :number_of_per_page_items => ["20" , 7 , "Number of per page items for any paginated content."],
         :enable_WYSIWYG => ["Yes" , 8 , "Enable WYSIWYG on textareas" , "Yes;No" ],
-        #:custom_css_for_cms => ["No" , 9 , "Custom CSS for CMS" , "Yes;No" ],
         :backend_logo => ["" , 10 , "Logo for backend" ]        
       }
       self.generate_or_update_settings(settings)
@@ -79,6 +79,10 @@ module Gluttonberg
         Rails.logger.info e
       end
     end 
+    
+    def destroy_cache
+      Rails.cache.write("setting_#{self.name}" , "")
+    end
 
   end
 end
