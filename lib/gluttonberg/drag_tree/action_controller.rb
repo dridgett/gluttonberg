@@ -56,7 +56,8 @@ module Gluttonberg
                 true
               end
 
-              @pages = self.class.drag_class.all
+              @pages = self.class.drag_class.find(:all , :conditions => @source.scope_condition )
+              
               raise ActiveRecord::RecordNotFound if @pages.blank?
               @mode = params[:mode]
               @source = self.class.drag_class.find(params[:source_page_id])
@@ -125,8 +126,7 @@ module Gluttonberg
                   end
                 end
               end
-              self.class.drag_class.repair_list(self.class.drag_class.all)
-              puts "end of move node method"
+              self.class.drag_class.repair_list(self.class.drag_class.find(:all , :conditions => @source.scope_condition ))
             end
           end
         end
