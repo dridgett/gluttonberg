@@ -5,6 +5,7 @@ class Create<%= class_name %> < ActiveRecord::Migration
   <% attributes.each do |attribute| -%>
     t.<%= attribute.type %> :<%= attribute.name %>
   <% end -%>
+    t.integer :position
     t.timestamps
     end
   end

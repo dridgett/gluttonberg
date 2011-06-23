@@ -77,7 +77,8 @@ class GluttonbergMigration < ActiveRecord::Migration
       t.column :updated_at, :timestamp
       t.column :position, :integer
       t.column :user_id, :integer
-      t.column :state , :string
+      t.column :state, :string
+      t.column :hide_in_nav, :boolean
       t.datetime :published_at 
     end
 
@@ -131,6 +132,9 @@ class GluttonbergMigration < ActiveRecord::Migration
       t.column :updated_by, :integer
       t.column :duration, :string
       t.column :user_id, :integer
+      t.column :width, :integer
+      t.column :height, :integer
+      t.column :alt, :string
     end
     
     create_table :gb_audio_asset_attributes do |t|
@@ -160,6 +164,9 @@ class GluttonbergMigration < ActiveRecord::Migration
       t.string :perishable_token, :null => false
       t.integer :login_count, :null => false, :default => 0
       t.string :role, :null => false
+      t.text :bio
+      t.integer :image_id
+      t.integer :position
       t.timestamps
     end
     
@@ -202,14 +209,14 @@ class GluttonbergMigration < ActiveRecord::Migration
     add_index :taggings, [:taggable_id, :taggable_type, :context]
     
     create_table :delayed_jobs, :force => true do |table|
-      table.integer  :priority, :default => 0      # Allows some jobs to jump to the front of the queue
-      table.integer  :attempts, :default => 0      # Provides for retries, but still fail eventually.
-      table.text     :handler                      # YAML-encoded string of the object that will do work
-      table.text     :last_error                   # reason for last failure (See Note below)
-      table.datetime :run_at                       # When to run. Could be Time.zone.now for immediately, or sometime in the future.
-      table.datetime :locked_at                    # Set when a client is working on this object
-      table.datetime :failed_at                    # Set when all retries have failed (actually, by default, the record is deleted instead)
-      table.string   :locked_by                    # Who is working on this object (if locked)
+      table.integer  :priority, :default => 0
+      table.integer  :attempts, :default => 0
+      table.text     :handler
+      table.text     :last_error
+      table.datetime :run_at
+      table.datetime :locked_at
+      table.datetime :failed_at
+      table.string   :locked_by
       table.timestamps
     end
     add_index :delayed_jobs, [:priority, :run_at], :name => 'delayed_jobs_priority'
