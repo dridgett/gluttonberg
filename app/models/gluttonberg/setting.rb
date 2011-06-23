@@ -50,17 +50,19 @@ module Gluttonberg
     
     
     def self.get_setting(key)
-      data = Rails.cache.read("setting_#{key}")
-      if data.blank?
-        setting = Setting.find(:first , :conditions => { :name => key })
-        data = ( (!setting.blank? && !setting.value.blank?) ? setting.value : "" )
-         Rails.cache.write("setting_#{key}" , (data.blank? ? "~" : data))
-         data
-      elsif data == "~" # empty setting
-        ""   
-      else
-        data
-      end  
+      if Gluttonberg::Setting.table_exists?
+        data = Rails.cache.read("setting_#{key}")
+        if data.blank?
+          setting = Setting.find(:first , :conditions => { :name => key })
+          data = ( (!setting.blank? && !setting.value.blank?) ? setting.value : "" )
+           Rails.cache.write("setting_#{key}" , (data.blank? ? "~" : data))
+           data
+        elsif data == "~" # empty setting
+          ""   
+        else
+          data
+        end  
+      end
     end
     
     def self.update_settings(settings={})
