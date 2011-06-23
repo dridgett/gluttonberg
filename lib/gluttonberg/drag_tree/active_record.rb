@@ -21,7 +21,17 @@ module Gluttonberg
           else
             self.make_flat_drag_tree
           end
-        end        
+        end
+        
+        def repair_list(list)
+          unless list.blank?
+            list.each_with_index do |sibling , index|
+              sibling.position = index
+              sibling.save
+            end
+          end  
+        end
+                
       end #module ClassMethods
         
       module ModelHelpersClassMethods

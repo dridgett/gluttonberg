@@ -125,6 +125,8 @@ module Gluttonberg
                   end
                 end
               end
+              self.class.drag_class.repair_list(self.class.drag_class.all)
+              puts "end of move node method"
             end
           end
         end
