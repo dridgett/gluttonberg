@@ -324,16 +324,31 @@ var dragTreeManager = {
       
       
       var remote_move_node = function(source, destination, mode){
+        
+        var ids = get_sorted_element_ids(".drag-tree").toString();
         $.ajax({
-          type: "POST",
-          url: dragTree.attr("rel"),
-          data: "source_page_id=" + source[0].id.match(/\d+$/) + ";dest_page_id=" + destination.id.match(/\d+$/) + ";mode=" + mode,
-          error: function(html){
-            //  alert('Moving page failed.');
-            $("body").replaceWith(html.responseText);
-            // window.location.reload();
-          }
+            type: "POST",
+            url: dragTree.attr("rel"),
+            data: "element_ids=" + ids,
+            beforeSend: function(jqXHR, settings){
+              showOverlay()
+            },
+            success: function(html){
+              hideOverlay()
+            },
+            error: function(html){
+              
+              $("#assetsDialogOverlay").html(html.responseText);
+              // window.location.reload(); 
+              window.setTimeout(function(){
+                hideOverlay()
+              },10000) 
+              
+              
+            }
         });
+        
+        
       }
     
     // Configure draggable rows
@@ -355,31 +370,23 @@ var dragTreeManager = {
             var topOffset = 10;
             var bottomOffset = 10;
 
-            // if (dragFlat) {
-            //               topOffset = height / 2;
-            //               bottomOffset = height / 2;
-            //             }
-            console.log(dragManager.dropSite.attr('id'))
-            console.log($(this).attr('rel'))
+            if (dragFlat) {
+              topOffset = height / 2;
+              bottomOffset = height / 2;
+            }
             
             $("#"+$(this).attr('rel')).addClass("ui-draggable-dragging")
             
-            console.log("-----mouseTop " + mouseTop + " top " + top + " topOffset" + topOffset );
-            console.log("-----height " + height);
 
             if( dragManager.dropSite.attr('id') != $(this).attr('rel')){
               if (mouseTop < (top + topOffset)){
-                console.log("-----insert before " );
                 dragManager.dropSite.addClass("insert_before").removeClass("insert_child insert_after");
                 dragManager.dragMode = DM_INSERT_BEFORE;
               } else if (mouseTop > (top + height - bottomOffset)) {
-                console.log("-----insert after " );
                 dragManager.dropSite.addClass("insert_after").removeClass("insert_before insert_child");
                 dragManager.dragMode = DM_INSERT_AFTER;
               } else {
-                console.log("-----insert child " );
                 if (!dragFlat){
-                  console.log("-----insert child 2" );
                   dragManager.dropSite.addClass("insert_child").removeClass("insert_after insert_before");
                   dragManager.dragMode = DM_INSERT_CHILD;
                 }
@@ -404,8 +411,6 @@ var dragTreeManager = {
           accept: ".drag-node:not(selected)",
           drop: function(e, ui) {
             
-            console.log("drop ----");
-            console.log(ui);
             
             var sourceNode = $(ui.draggable).parents("tr")
             var targetNode = this;
@@ -441,16 +446,8 @@ var dragTreeManager = {
           },
           hoverClass: "accept",
           over: function(e, ui) {
-            console.log("over ----");
-            
-            console.log(ui.draggable.html());
-            //console.log(ui.element.parents("tr"));
             
             element = $(this); //ui.draggable.parent();
-            
-            
-            console.log(dragManager.dropSite)
-            console.log(ui)
             
             if (element.parents("tr") != dragManager.dropSite) {
               dragManager.dropSite = element;
@@ -461,10 +458,7 @@ var dragTreeManager = {
             }
           },
           out: function(e, ui){
-            console.log("out ----");
-            //console.log(ui.element);
-            console.log("out --- stage 2-");
-            element = $(this);//ui.draggable.parent();
+            element = $(this);
             element.removeClass("insert_child insert_before insert_after");
             if (dragManager.dropSite == element) {
               dragManager.dropSite = null;
@@ -492,4 +486,41 @@ var dragTreeManager = {
     });
 
   }
+}
+
+// it take ids of all ".orderable-list-item" inside container (wrapper_id)
+// and returns array of all ids
+function get_sorted_element_ids(wrapper_id)
+{	
+	 try{	
+			var items = $(wrapper_id).find("tbody tr");
+			items = $.map(items, function(value){
+				return value.id.replace("node-","");
+			});
+			return items;
+	 }catch(e){}		
+}
+
+
+function showOverlay() {
+    if ($("#assetsDialogOverlay").length == 0) {
+        var height = $('#wrapper').height() + 50;
+        AssetBrowser.overlay = $('<div id="assetsDialogOverlay">&nbsp <img class="dialogue_spinner" src="/gluttonberg/images/spinner_for_dialouge.gif" /> </div>');
+        $("body").append(AssetBrowser.overlay);
+    }
+    else {
+        $("#assetsDialogOverlay").css({
+            display: "block"
+        });
+    }
+    set_height = wrapper_height = $("body").height();
+    window_height = $(window).height() + $(window).scrollTop()
+    if(set_height < window_height)
+      set_height = window_height;
+    $("#assetsDialogOverlay").height(  set_height )
+    
+}
+
+function hideOverlay(){
+  $("#assetsDialogOverlay").remove();
 }

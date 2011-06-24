@@ -31,6 +31,19 @@ module Gluttonberg
             end
           end  
         end
+        
+        def find_by_sorted_ids(new_sorted_element_ids)
+          # find records in unorder list
+          elements = self.find(new_sorted_element_ids )
+          # sort it using ruby method
+          sorted_elements = []        
+          new_sorted_element_ids.each do |id|
+            id = id.to_i
+            sorted_elements << elements.find{ |x| x.id == id }          
+          end
+          sorted_elements
+        end
+        
                 
       end #module ClassMethods
         
