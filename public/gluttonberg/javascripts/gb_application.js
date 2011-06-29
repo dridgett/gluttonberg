@@ -49,7 +49,7 @@ function enable_jwysiwyg_on(selector) {
           plugin_insertdate_timeFormat : "%H:%M:%S",
 
           // Example content CSS (should be your site CSS)
-          content_css : "/stylesheets/user-styles.css",
+          content_css : "/stylesheets/user-styles.css"
 
           
         });
