@@ -94,7 +94,7 @@
 						border: 'solid 1px',
 						margin: '8px',
 						fontSize: '18px' , 
-						width: '50px',
+						width: '50px'
 					}
 				}
 			},
