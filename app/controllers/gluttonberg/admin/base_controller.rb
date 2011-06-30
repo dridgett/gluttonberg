@@ -6,7 +6,7 @@ class Gluttonberg::Admin::BaseController < ActionController::Base
    rescue_from ActiveRecord::RecordNotFound, :with => :not_found
    rescue_from ActionController::RoutingError, :with => :not_found
    rescue_from CanCan::AccessDenied, :with => :access_denied
-   
+         
    
    layout 'gluttonberg'
 

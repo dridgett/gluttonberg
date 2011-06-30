@@ -3,28 +3,39 @@
 - @page_image = "/gluttonberg/images/sidebar/icon_library.png"
 
 
-- Gluttonberg::Asset.sizes.each do |key , val|
-  %h3= key.to_s.humanize
-  
+%form
+  = block("Thumbnail type") do
+    = select_tag(:image_type , options_for_select(Gluttonberg::Asset.sizes.collect{|key,val| [key.to_s.humanize , key.to_s]} , params[:image_type]) , :include_blank => true )
+    = submit_tag "Select" , :class => "button"
+
+
+
+- if @image_type.blank?
+  Please select an image type from drop down.
+- else
+  - val = Gluttonberg::Asset.sizes[@image_type]
+  %h3= @image_type.to_s.humanize
+
   - width = val[:geometry].split("x").first
   - height = val[:geometry].split("x").last
   - height = height.gsub(/[><\#]/ , "")
-  
-  - if width.to_i < @asset.width.to_i || height.to_i < @asset.height.to_i
-  
+
+  - unless width.to_i < @asset.width.to_i || height.to_i < @asset.height.to_i
+    This image is already smaller than required size.
+  - else
     %h4 Current Image
-    = asset_tag(@asset, key)
+    = asset_tag(@asset, @image_type)
     %h4 Crop it if you like
-    %img.cropbox{ :id => key.to_s + "_image" , :src => "#{@asset.url }"}/
-  
+    %img.cropbox{ :id => @image_type.to_s + "_image" , :src => "#{@asset.url }"}/
+
     = form_for( @asset , :as => :asset , :url => {:action => :save_crop } ,  :html => { :multipart=>true  , :method => "post", :class => "nosubnav validation" } ) do |asset_form|
-      %input{:id => "#{key.to_s}_x" ,  :name => "x", :type => "hidden"}/
-      %input{:id => "#{key.to_s}_y" ,  :name => "y", :type => "hidden"}/
-      %input{:id => "#{key.to_s}_w" ,  :name => "w", :type => "hidden"}/
-      %input{:id => "#{key.to_s}_h" ,  :name => "h", :type => "hidden"}/
-      %input{:name => "image_size", :type => "hidden" , :value => key}/
+      %input{:id => "#{@image_type.to_s}_x" ,  :name => "x", :type => "hidden"}/
+      %input{:id => "#{@image_type.to_s}_y" ,  :name => "y", :type => "hidden"}/
+      %input{:id => "#{@image_type.to_s}_w" ,  :name => "w", :type => "hidden"}/
+      %input{:id => "#{@image_type.to_s}_h" ,  :name => "h", :type => "hidden"}/
+      %input{:name => "image_size", :type => "hidden" , :value => @image_type}/
       %input{:type => "submit", :value => "Crop Image"}/
       :javascript
         $(function(){
-        initJcrop("#{key.to_s}" , "#{width}" , "#{height}");
+        initJcrop("#{@image_type.to_s}" , "#{width}" , "#{height}");
         });

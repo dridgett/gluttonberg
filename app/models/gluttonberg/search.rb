@@ -85,7 +85,7 @@ module Gluttonberg
         if published_only == true && model.respond_to?(:published)
           results << model.published.search(query)
         else  
-          results << model.search(query )
+          results << model.search(query)
         end
       end
       results = results.flatten

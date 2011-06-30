@@ -47,6 +47,7 @@ function enable_jwysiwyg_on(selector) {
           theme_advanced_resizing : true,
           plugin_insertdate_dateFormat : "%d/%m/%Y",
           plugin_insertdate_timeFormat : "%H:%M:%S",
+          theme_advanced_resizing_use_cookie : false,
 
           // Example content CSS (should be your site CSS)
           content_css : "/stylesheets/user-styles.css",

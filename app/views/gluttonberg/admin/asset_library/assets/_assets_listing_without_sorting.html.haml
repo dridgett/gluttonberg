@@ -1,16 +1,17 @@
-- if @assets.blank?
-  %p.empty No assets
+- if assets.blank?
+  %ul.assetList
+    %li
 - else
-  %table{:id => 'assets_table', :class => 'nosubnav', :cellpadding => 0, :cellspacing => 0, :rel => "" , :summary => "Assets" }
+  %table{:id => 'assets_table', :cellpadding => 0, :cellspacing => 0, :rel => "" , :summary => "Assets" }
     %thead
       %tr
         %th
-        %th= sorter_link("Title",   "name",   sorter_url )
+        %th Title
         %th.author Author
-        %th.date= sorter_link("Date added",   "date-added",   sorter_url )
-        %th.date= sorter_link("Date updated",   "date-updated",   sorter_url )
+        %th.date Uploaded
+        %th.date Updated
     %tbody
-      - for asset in @assets
+      - for asset in assets
         %tr
           %td.thumbnail
             %a{:href => admin_asset_url(asset), :class => "assetLink"}
@@ -31,6 +32,4 @@
           %td.date
             = date_format(asset.created_at)
           %td.date
-            = date_format(asset.updated_at)  
-
-= will_paginate(@assets)      
+            = date_format(asset.updated_at)

@@ -1222,7 +1222,7 @@ p.newLink {
 /* HELP DIALOG BOX ================================================== */
 #helpDialog .display {
 	padding: 1.5em 10px 0;
-	width: 570px; }
+	width: 90%; }
 #helpDialog #closeHelp {
   margin: 0 15px 0 0;
   float: right; }
@@ -2573,3 +2573,15 @@ p.no_content {
 #assetsDisplay .ui-tabs-nav li.ui-tabs-selected {
 	margin-top:1px;
 }
+
+
+#tabs{
+  position: relative;
+  
+} 
+
+#asset_search_form {
+  position: absolute;
+  right: 10px;
+}
+    

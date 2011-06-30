@@ -75,6 +75,7 @@ Rails.application.routes.draw do
             post 'save_crop', :on => :member
           end
           match "library" => "assets#index" , :as => :library
+          match "search_assets" => "assets#search" , :as => :library_search
           match "add_asset_using_ajax"  => "assets#ajax_new" , :as => :add_asset_using_ajax
           match "add_assets_in_bulk"  => "assets#add_assets_in_bulk" , :as => :add_assets_in_bulk
           match "create_assets_in_bulk"  => "assets#create_assets_in_bulk" , :as => :create_assets_in_bulk

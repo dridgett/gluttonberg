@@ -1,0 +1,7 @@
+- @window_title = "Asset Library"
+- @page_title = "Asset Library"
+- @page_image = "/gluttonberg/images/sidebar/icon_library.png"
+
+- unless @search_assets.blank?
+  = render :partial => "assets_listing_without_sorting" , :locals => { :assets => @search_assets}
+  = will_paginate(@search_assets)

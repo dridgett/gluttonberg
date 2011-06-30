@@ -26,7 +26,7 @@ module Gluttonberg
         "Gluttonberg::Blog" => [:name , :description], 
         "Gluttonberg::Article" => [:title , :body], 
         "Gluttonberg::PlainTextContentLocalization" => [:text] , 
-        "Gluttonberg::HtmlContentLocalization" => [:text]
+        "Gluttonberg::HtmlContentLocalization" => [:text] 
     }
 
     # Load rake tasks

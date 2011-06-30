@@ -289,8 +289,6 @@ module Gluttonberg
         def generate_thumb_and_proper_resolution(asset)          
               asset.generate_proper_resolution              
               asset.generate_image_thumb
-              
-              
         end
         
         

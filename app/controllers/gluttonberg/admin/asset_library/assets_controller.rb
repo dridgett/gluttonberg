@@ -22,6 +22,15 @@ module Gluttonberg
           )
           # all categories for categories tab
           @categories = AssetCategory.all
+          
+          
+          
+        end
+        
+        def search
+          unless params[:asset_query].blank?
+            @search_assets = Asset.where("name LIKE '%#{params[:asset_query]}%' OR description LIKE '%#{params[:asset_query]}%' " ).paginate( :page => params[:page] , :per_page => 15 )
+          end
         end
     
         # if filter param is provided then it will only show filtered type    
@@ -109,7 +118,8 @@ module Gluttonberg
         end
         
         def crop
-          
+          @image_type = params[:image_type]
+          @image_type = @image_type.to_sym unless @image_type.blank?
         end
         
         def save_crop
