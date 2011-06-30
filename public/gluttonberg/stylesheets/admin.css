@@ -2574,14 +2574,30 @@ p.no_content {
 	margin-top:1px;
 }
 
-
 #tabs{
-  position: relative;
-  
-} 
-
-#asset_search_form {
-  position: absolute;
-  right: 10px;
+	position: relative;
 }
+
+#tabs form#asset_search_form{
+  position: absolute;
+  right: 0;
+  background: none;
+  border: none;
+  padding: 0;
+  width: 221px;
+  float: none;
+	-moz-border-top-left-radius: 0 0;
+	-moz-border-top-right-radius: 0 0;
+	-moz-border-bottom-left-radius: 0 0
+	-moz-border-bottom-right-radius: 0 0;
+	-webkit-border-top-left-radius: 0 0;
+	-webkit-border-top-right-radius: 0 0;
+	-webkit-border-bottom-left-radius: 0 0;
+	-webkit-border-bottom-right-radius: 0 0;
+	border-top-left-radius: 0 0;
+	border-top-right-radius: 0 0;
+	border-bottom-left-radius: 0 0;
+	border-bottom-right-radius: 0 0;
+	top: 15px;
+		}
     
