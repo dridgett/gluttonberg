@@ -97,6 +97,10 @@ module Gluttonberg
           flags.size > 0
         end
         
+        def inappropriate?
+          flags.find_all{|f| f.approved == true }.size > 0
+        end
+          
         # Flag content with a mass-updater; sets the flagging user.
         # article.update_attributes { 'flagged' => current_user.id }
         def flagged=(by_who)

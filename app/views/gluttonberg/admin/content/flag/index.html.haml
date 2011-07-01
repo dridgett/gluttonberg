@@ -38,5 +38,6 @@
             - if flag.moderation_required != false
               %li
                 = link_to "Approve", admin_flagged_contents_moderation_path(flag, :moderation => "approve")
-                = link_to "Disapprove", admin_flagged_contents_moderation_path(flag, :moderation => "disapprove")  
-  /= will_paginate(@blogs)
+                = link_to "Disapprove", admin_flagged_contents_moderation_path(flag, :moderation => "disapprove") 
+            - else
+              = flag.approved == true ? "Approved" : "Disapproved"
