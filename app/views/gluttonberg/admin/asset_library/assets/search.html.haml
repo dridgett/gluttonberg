@@ -5,3 +5,5 @@
 - unless @search_assets.blank?
   = render :partial => "assets_listing_without_sorting" , :locals => { :assets => @search_assets}
   = will_paginate(@search_assets)
+- else
+  %p.empty No assets
