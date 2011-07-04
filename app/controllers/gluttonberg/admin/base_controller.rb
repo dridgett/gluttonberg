@@ -3,10 +3,11 @@ class Gluttonberg::Admin::BaseController < ActionController::Base
    before_filter :require_user
    before_filter :require_backend_access
    
-   rescue_from ActiveRecord::RecordNotFound, :with => :not_found
-   rescue_from ActionController::RoutingError, :with => :not_found
-   rescue_from CanCan::AccessDenied, :with => :access_denied
-         
+   if Rails.env == "production"
+     rescue_from ActiveRecord::RecordNotFound, :with => :not_found
+     rescue_from ActionController::RoutingError, :with => :not_found
+     rescue_from CanCan::AccessDenied, :with => :access_denied
+   end   
    
    layout 'gluttonberg'
 
