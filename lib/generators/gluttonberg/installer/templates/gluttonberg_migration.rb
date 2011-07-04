@@ -220,6 +220,19 @@ class GluttonbergMigration < ActiveRecord::Migration
       table.timestamps
     end
     add_index :delayed_jobs, [:priority, :run_at], :name => 'delayed_jobs_priority'
+    
+    create_table "flags", :force => true do |t|
+      t.integer :user_id
+      t.integer :flaggable_id
+      t.string  :flaggable_type
+      t.integer :flaggable_user_id
+      t.string  :reason
+      t.string  :url
+      t.text    :description
+      t.boolean :approved
+      t.boolean :moderation_required
+      t.timestamps
+    end
          
   end
 
@@ -244,5 +257,6 @@ class GluttonbergMigration < ActiveRecord::Migration
     drop_table :taggings
     drop_table :tags
     drop_table :delayed_jobs  
+    drop_table "flags"
   end
 end

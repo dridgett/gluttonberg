@@ -21,7 +21,7 @@ Gem::Specification.new do |s|
      "spec"
   ]
 
-  s.add_dependency 'haml', '3.0.25'
+  #s.add_dependency 'haml', '3.1.2'
   s.add_dependency "authlogic", '2.1.6'
   s.add_dependency "will_paginate" , '3.0.pre2'
   s.add_dependency "rubyzip", '0.9.4'

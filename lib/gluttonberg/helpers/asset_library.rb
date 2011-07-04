@@ -74,8 +74,8 @@ module Gluttonberg
          # Find the asset so we can get the name
          asset_info = "Nothing selected"
          unless asset_id.blank?
-           asset = Asset.find(asset_id)
-           asset_info = if asset
+           asset = Asset.where(:id => asset_id).first
+           asset_info = unless asset.blank?
              asset_tag(asset , :small_thumb).html_safe + content_tag(:span , asset.name) 
            else
              "Asset missing!"
@@ -114,6 +114,16 @@ module Gluttonberg
             path = thumbnail_type.blank? ? asset.url : asset.url_for(thumbnail_type)
             content_tag(:img , "" , :class => asset.name , :alt => asset.name , :src => path)
           end 
+       end
+       
+       def asset_tag_v2(asset , options = {} , thumbnail_type = nil)
+           unless asset.blank?
+             options[:class] = "" if options[:class].blank?
+             options[:class] << " #{asset.name}"
+             options[:alt] = asset.name
+             options[:src] = thumbnail_type.blank? ? asset.url : asset.url_for(thumbnail_type)
+             content_tag(:img , "" , options)
+           end 
        end
      
      
