@@ -17,10 +17,26 @@ class Gluttonberg::Public::BaseController < ActionController::Base
     
     helper_method :current_user_session, :current_user
         
-    rescue_from ActiveRecord::RecordNotFound, :with => :not_found
-    rescue_from ActionController::RoutingError, :with => :not_found
+    # rescue_from ActiveRecord::RecordNotFound, :with => :not_found
+    #     rescue_from ActionController::RoutingError, :with => :not_found
+    
+    before_filter :verify_site_access    
     
   protected
+    
+    def verify_site_access
+      unless action_name == "restrict_site_access"
+        setting = Gluttonberg::Setting.get_setting("restrict_site_access")
+        if !setting.blank? && cookies[:restrict_site_access] != "allowed"
+          if env['gluttonberg.page'].blank?
+            redirect_to restrict_site_access_path(:return_url => request.url)
+          else
+            default_localization = Gluttonberg::PageLocalization.find(:first , :conditions => { :page_id => env['gluttonberg.page'].id , :locale_id => Gluttonberg::Locale.first_default.id } )
+            redirect_to restrict_site_access_path(:return_url => default_localization.public_path)
+          end  
+        end
+      end  
+    end
     
     def current_user_session
       return @current_user_session if defined?(@current_user_session)

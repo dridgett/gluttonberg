@@ -1282,6 +1282,29 @@ p.newLink {
     margin: 0.3em 0 1em 0;
     line-height: 1.2; }
 
+
+#restrict_site_access {
+  margin-left: 20px; }
+  #restrict_site_access form {
+    /*background: 15px 25px no-repeat url("/gluttonberg/images/form/warning.gif");*/
+    background-color: #white;
+    border: #727272 1px solid;
+    margin: 8em auto 0 auto;
+    padding: 25px 25px 25px 25px;
+    width: 17em;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+		float: none; }
+  #restrict_site_access h1 {
+    font-weight: bold;
+    font-size: 2em;
+    color: #727272; }
+  #restrict_site_access p.message {
+    font-size: 1.2em;
+    margin: 0.3em 0 1em 0;
+    line-height: 1.2; }
+
+
 /* LOGIN PAGE ======================================================= */
 #login {
   margin: 60px 20% 0 20%; }

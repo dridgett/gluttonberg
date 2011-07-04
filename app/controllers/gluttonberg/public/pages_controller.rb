@@ -1,7 +1,7 @@
 module Gluttonberg
   module Public
     class PagesController < Gluttonberg::Public::BaseController
-      before_filter :retrieve_page
+      before_filter :retrieve_page , :only => [ :show ]
       
       # If localized template file exist then render that file otherwise render non-localized template
       def show
@@ -18,6 +18,18 @@ module Gluttonberg
         else
           render :template => template_path
         end
+      end
+      
+      def restrict_site_access
+        setting = Gluttonberg::Setting.get_setting("restrict_site_access")
+        if setting == params[:password]
+          cookies[:restrict_site_access] = "allowed"
+          redirect_to( params[:return_url] || "/")
+          return
+        else
+          cookies[:restrict_site_access] = ""  
+        end
+        render :layout => false
       end
       
       private 

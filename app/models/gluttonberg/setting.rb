@@ -31,11 +31,12 @@ module Gluttonberg
         :library_number_of_recent_assets => ["15" , 5 , "Number of recent assets in asset library."],
         :number_of_per_page_items => ["20" , 7 , "Number of per page items for any paginated content."],
         :enable_WYSIWYG => ["Yes" , 8 , "Enable WYSIWYG on textareas" , "Yes;No" ],
-        :backend_logo => ["" , 10 , "Logo for backend" ]        
+        :backend_logo => ["" , 10 , "Logo for backend" ] , 
+        :restrict_site_access => ["" , 11 , "If this setting is provided then user needs to enter password to access public site."]        
       }
       self.generate_or_update_settings(settings)
     end  
-    
+     
     def dropdown_required?
       !values_list.blank?
     end
