@@ -73,7 +73,8 @@ module Gluttonberg
       # Checks to see if there is a matching help page for this particular 
       # controller/action. If there is it renders a link to the help 
       # controller.
-      def contextual_help             
+      def contextual_help         
+        
         if Help.help_available?(:controller => params[:controller], :page => params[:action])
           content_tag(
             :p, 

@@ -6,7 +6,7 @@ module Gluttonberg
       # If localized template file exist then render that file otherwise render non-localized template
       def show
         template = page.view
-        template_path = "pages/#{template}" 
+        template_path = "pages/#{template}"
         
         if File.exists?(File.join(Rails.root,  "app/views/pages/#{template}.#{locale.slug}.html.haml" ) )
           template_path = "pages/#{template}.#{locale.slug}"

@@ -1,41 +1,48 @@
-- @page_title = "Edit Page Content (Localization)"
-    
-%p
-  The
-  %strong
-    Edit Localization
-  screen allows you to edit the content of your website for a particular language or region.
+- @page_title = "Edit Page Content"
+
+- unless Rails.configuration.localize    
+  %p
+    The
+    %strong
+      Edit Content
+    screen allows you to edit the content of your page.
   
-%p
-  Most people will only have one localization, but if your website has an international audience you may have many.
+- else  
+  - @page_title = "Edit Page Content (Localization)"
+  %p
+    The
+    %strong
+      Edit Content
+    screen allows you to edit the content of your website for a particular localization.
   
+  %p
+    Most people will only have one localization, but if your website has an international audience you may have many.
 
 
-%h2
-  Localization Settings
+  %h2
+    Localization Settings
   
-%h3
-  Name
+  %h3
+    Name
   
-%p
-  If your page will have a different name for a particular language, change it here. For instance, if this is a French Localization, you will want to have the French title.
+  %p
+    If your page will have a different name for a particular language, change it here. For instance, if this is a French Localization, you will want to have the French title.
   
-%h3
-  Navigation Label
+  %h3
+    Navigation Label
   
-%p
-  As with the Name, if you need to change Menu information for a particular language it should be changed here. This will change the Menus across your website. The Navigation Label should be a short version of the page's Name.
+  %p
+    As with the Name, if you need to change Menu information for a particular language it should be changed here. This will change the Menus across your website. The Navigation Label should be a short version of the page's Name.
   
   
-%h3
-  Slug
+  %h3
+    Slug
   
-%p
-  If you would like the website to have a different web address for a particular language it should be changed here.
+  %p
+    If you would like the website to have a different web address for a particular language it should be changed here.
   
-%p
-  Generally it is recommended you avoid this however, as it may make it more difficult for visitors to find the page when jumping from one language to another.
-  
+  %p
+    Generally it is recommended you avoid this however, as it may make it more difficult for visitors to find the page when jumping from one language to another.
   
   
   
@@ -58,7 +65,7 @@
   
   
 %h3
-  Rich Text / HTML Sections
+  HTML Sections
   
 %p
   Body text areas will allow you to format your text. These sections will have their own formatting buttons at the top to allow you to easily edit text: similar to a Word Processor such as
@@ -79,7 +86,4 @@
   %strong
     Asset Library
   to add to your page.
-  
-  
-  
   
