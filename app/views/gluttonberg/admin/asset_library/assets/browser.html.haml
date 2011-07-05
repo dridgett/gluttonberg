@@ -14,7 +14,10 @@
       %button#cancel.button
         %img{ :alt => 'Cancel', :src => '/gluttonberg/images/icons/cross.png' }
         Cancel
+  = render :partial => "search_form"
+        
   %div#assetsDisplay.display
-    = render :partial => "browser_root"# , :locals => { :show_content => @show_bigstories_contents }
+    
+    = render :partial => "browser_root"
     
   

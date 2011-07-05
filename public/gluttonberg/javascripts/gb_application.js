@@ -210,6 +210,7 @@ var AssetBrowser = {
         AssetBrowser.browser.find("#cancel").click(AssetBrowser.close);
         // Capture anchor clicks
         AssetBrowser.display.find("a").click(AssetBrowser.click);
+        $("#assetsDialog form#asset_search_form").submit(AssetBrowser.search_submit);
         AssetBrowser.backControl.click(AssetBrowser.back);
         
         AssetBrowser.browser.find("#ajax_image_upload").click(function(e){
@@ -270,11 +271,22 @@ var AssetBrowser = {
         $('#tabs').tabs();
         try{
           $("form.validation").validate();
-        }catch(e){}  
+        }catch(ex){}  
         AssetBrowser.browser.find("#ajax_image_upload").click(function(e){
           ajaxFileUpload(AssetBrowser.actualLink);
           e.preventDefault();
         })
+    },
+    search_submit: function(e){
+      $("#progress_ajax_upload").ajaxStart(function(){
+          $(this).show();
+      }).ajaxComplete(function(){
+          $(this).hide();
+      });
+      var url = $("#assetsDialog form#asset_search_form").attr("action");
+      url += ".json?" + $("#assetsDialog form#asset_search_form").serialize()
+      $.getJSON(url , null, AssetBrowser.handleJSON);
+      e.preventDefault();
     },
     click: function() {
         var target = $(this);
