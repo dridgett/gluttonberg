@@ -35,6 +35,9 @@ module Gluttonberg
       private 
         def retrieve_page
           @page = env['gluttonberg.page']
+          unless( current_user &&( authorize! :manage, Gluttonberg::Page) )
+            @page = nil unless @page.published?
+          end
           raise ActiveRecord::RecordNotFound  if @page.blank?
         end
       
