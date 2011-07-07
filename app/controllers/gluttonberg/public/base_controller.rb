@@ -17,10 +17,10 @@ class Gluttonberg::Public::BaseController < ActionController::Base
     
     helper_method :current_user_session, :current_user
     
-    if Rails.env == "production"    
-      rescue_from ActiveRecord::RecordNotFound, :with => :not_found
-      rescue_from ActionController::RoutingError, :with => :not_found
-    end
+    # if Rails.env == "production"    
+    #   rescue_from ActiveRecord::RecordNotFound, :with => :not_found
+    #   rescue_from ActionController::RoutingError, :with => :not_found
+    # end
     
     before_filter :verify_site_access    
     
