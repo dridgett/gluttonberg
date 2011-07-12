@@ -29,6 +29,7 @@ module Gluttonberg
         def create
           @article = Article.new(params[:gluttonberg_article])
           if @article.save
+            flash[:notice] = "The article was successfully created."
             redirect_to admin_blog_articles_path(@article.blog)
           else
             render :edit
@@ -46,8 +47,10 @@ module Gluttonberg
         
         def update
           if @article.update_attributes(params[:gluttonberg_article])
+            flash[:notice] = "The article was successfully updated."
             redirect_to admin_blog_articles_path(@blog)
           else
+            flash[:error] = "Sorry, The article could not be updated."
             render :edit
           end
         end
@@ -63,7 +66,7 @@ module Gluttonberg
         
         def destroy
           if @article.delete
-            flash[:notice] = "Article deleted."
+            flash[:notice] = "The article was successfully deleted."
             redirect_to admin_blog_articles_path(@blog)
           else
             flash[:error] = "There was an error deleting the Article."

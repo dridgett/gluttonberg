@@ -40,6 +40,7 @@ module Gluttonberg
           @page.user_id = current_user.id
           if @page.save
             @page.create_default_template_file
+            flash[:notice] = "The page was successfully created."
             redirect_to admin_pages_path
           else
             prepare_to_edit
@@ -49,8 +50,10 @@ module Gluttonberg
 
         def update
           if @page.update_attributes(params["gluttonberg_page"]) || !@page.changed?
+            flash[:notice] = "The page was successfully updated."
             redirect_to edit_admin_page_url(@page)
           else
+            flash[:error] = "Sorry, The page could not be updated."
             prepare_to_edit
             render :edit
           end
@@ -58,9 +61,11 @@ module Gluttonberg
 
         def destroy
           if @page.destroy
+            flash[:notice] = "The page was successfully deleted."
             redirect_to admin_pages_path
           else            
-            raise ActiveResource::ServerError
+            flash[:error] = "There was an error deleting the page."
+            redirect_to admin_pages_path
           end
         end
         

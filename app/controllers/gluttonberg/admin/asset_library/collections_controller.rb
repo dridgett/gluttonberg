@@ -37,7 +37,7 @@ module Gluttonberg
         def create
           @collection = AssetCollection.new(params[:collection].merge(:user_id => current_user.id))
           if @collection.save
-            flash[:notice] = "Collection created successfully!"
+            flash[:notice] = "The collection was successfully created."
             # library home page
             redirect_to admin_assets_url 
           else
@@ -47,10 +47,10 @@ module Gluttonberg
 
         def update
           if @collection.update_attributes(params[:collection])
-            flash[:notice] = "Collection updated successfully!"
+            flash[:notice] = "The collection was successfully updated."
             redirect_to admin_assets_url
           else
-            flash[:error] = "Collection updatation failed!"
+            flash[:error] = "Sorry, The collection could not be updated."
             render :new
           end
         end
@@ -65,10 +65,11 @@ module Gluttonberg
 
         def destroy
           if @collection.destroy
-            flash[:notice] = "Collection destroyed successfully!"
+            flash[:notice] = "The collection was successfully deleted."
             redirect_to admin_assets_url
           else
-            raise ActiveResource::ServerError
+            flash[:error] = "There was an error deleting the collection."
+            redirect_to admin_assets_url
           end  
         end
 

@@ -22,6 +22,7 @@ module Admin
     def create
       @<%= singular_name %> = <%= class_name %>.create(params[:<%= singular_name %>])
       if @<%= singular_name %>.save
+        flash[:notice] = "The <%= singular_name.titleize.downcase %> was successfully created."
         redirect_to admin_<%= plural_name %>_path
       else
         render :edit
@@ -31,10 +32,10 @@ module Admin
     def update
       @<%= singular_name %> = <%= class_name %>.find(params[:id])
       if @<%= singular_name %>.update_attributes(params[:<%= singular_name %>])
-        flash[:notice] = "Record updated."
+        flash[:notice] = "The <%= singular_name.titleize.downcase %> was successfully updated."
         redirect_to admin_<%= plural_name %>_path
       else
-        flash[:error] = "There was an error updating the record."
+        flash[:error] = "Sorry, The <%= singular_name.titleize.downcase %> could not be updated."
         render :edit
       end
     end
@@ -52,10 +53,10 @@ module Admin
     def destroy
       @<%= singular_name %> = <%= class_name %>.find(params[:id])
       if @<%= singular_name %>.delete
-        flash[:notice] = "Record deleted."
+        flash[:notice] = "The <%= singular_name.titleize.downcase %> was successfully deleted."
         redirect_to admin_<%= plural_name %>_path
       else
-        flash[:error] = "There was an error deleting the record."
+        flash[:error] = "There was an error deleting the <%= singular_name.titleize.downcase %>."
         redirect_to admin_<%= plural_name %>_path
       end
     end

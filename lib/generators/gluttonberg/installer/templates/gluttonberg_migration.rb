@@ -221,7 +221,7 @@ class GluttonbergMigration < ActiveRecord::Migration
     end
     add_index :delayed_jobs, [:priority, :run_at], :name => 'delayed_jobs_priority'
     
-    create_table "flags", :force => true do |t|
+    create_table :flags, :force => true do |t|
       t.integer :user_id
       t.integer :flaggable_id
       t.string  :flaggable_type
@@ -233,8 +233,18 @@ class GluttonbergMigration < ActiveRecord::Migration
       t.boolean :moderation_required
       t.timestamps
     end
+    
+    create_table :gb_asset_thumbnails do |t|
+      t.column :asset_id, :integer
+      t.column :thumbnail_type, :string, :limit => 100
+      t.column :user_generated , :boolean 
+      t.column :created_at, :datetime
+      t.column :updated_at, :datetime 
+    end
          
   end
+  
+  
 
   def self.down
     drop_table :gb_plain_text_content_localizations
@@ -257,6 +267,7 @@ class GluttonbergMigration < ActiveRecord::Migration
     drop_table :taggings
     drop_table :tags
     drop_table :delayed_jobs  
-    drop_table "flags"
+    drop_table :flags
+    remove_table :gb_asset_thumbnails
   end
 end

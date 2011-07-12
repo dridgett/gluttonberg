@@ -20,8 +20,10 @@ module Gluttonberg
             content.updated_at = Time.now
           end
           if @page_localization.update_attributes(params["gluttonberg_page_localization"]) || !@page_localization.changed?            
+            flash[:notice] = "The page was successfully updated."
             redirect_to edit_admin_page_page_localization_path( :page_id => params[:page_id], :id =>  @page_localization.id)
           else
+            flash[:error] = "Sorry, The page could not be updated."
             render :edit
           end
         end

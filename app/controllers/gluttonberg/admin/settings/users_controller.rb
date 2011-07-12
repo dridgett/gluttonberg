@@ -64,7 +64,8 @@ module Gluttonberg
             flash[:notice] = "Account deleted!"
             redirect_to :action => :index
           else
-            raise ActiveResource::ServerError
+            flash[:error] = "There was an error deleting the account."
+            redirect_to :action => :index
           end  
         end
   

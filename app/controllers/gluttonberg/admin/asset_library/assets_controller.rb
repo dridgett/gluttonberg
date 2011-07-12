@@ -9,7 +9,6 @@ module Gluttonberg
         before_filter :authorize_user 
         before_filter :authorize_user_for_destroy , :except => [:destroy , :delete]  
         
-        
         # home page of asset library
         def index
           # Get the latest assets, ensuring that we always grab at most 15 records  
@@ -22,14 +21,11 @@ module Gluttonberg
           )
           # all categories for categories tab
           @categories = AssetCategory.all
-          
-          
-          
         end
         
         def search
           unless params[:asset_query].blank?
-            @search_assets = Asset.where("name LIKE '%#{params[:asset_query]}%' OR description LIKE '%#{params[:asset_query]}%' " ).paginate( :page => params[:page] , :per_page => 15 )
+            @search_assets = Asset.where("name LIKE '%#{params[:asset_query]}%' OR description LIKE '%#{params[:asset_query]}%' " ).order("name ASC").paginate( :page => params[:page] , :per_page => 15 )
           end
         end
     
@@ -95,15 +91,15 @@ module Gluttonberg
             if @asset.valid?
               open_zip_file_and_make_assets()             
               if @new_assets.blank?
-                flash[:error] = "Zip folder you have provided does not have any valid file!"
+                flash[:error] = "The zip file you uploaded does not have any valid files."
                 prepare_to_edit
                 render :action => :add_assets_in_bulk                
               else
-                flash[:notice] = "All valid assets are saved successfully!"                
+                flash[:notice] = "All valid assets have been successfully saved."                
               end
             else
               prepare_to_edit
-              flash[:error] = "Asset you have provided is not valid!"
+              flash[:error] = "The zip file you uploaded is not valid."
               render :action => :add_assets_in_bulk      
             end          
           end
@@ -123,14 +119,9 @@ module Gluttonberg
         end
         
         def save_crop
-          # file = MyFile.init(@asset.original_file_on_disk , @asset) 
-          #           file.original_filename = @asset.file_name
-          # @new_asset = Asset.new( :asset_collection_ids => @asset.asset_collection_ids, :name => @asset.name + " Cropped" ,  :file => file , :user_id => current_user.id )
-          # @new_asset.save
           @asset.generate_cropped_image(params[:x] , params[:y] , params[:w] , params[:h] , params[:image_size])
-          #@new_asset.save
-          flash[:notice] = "New cropped image is created successfully!"
-          redirect_to :back #(edit_admin_asset_url(@asset))
+          flash[:notice] = "New cropped image was successfully created"
+          redirect_to :back 
         end
     
         # delete asset
@@ -149,7 +140,7 @@ module Gluttonberg
 
           @asset = Asset.new(params[:asset].merge(:user_id => current_user.id))       
           if @asset.save
-            flash[:notice] = "Asset created successfully!"
+            flash[:notice] = "The asset was successfully created."
             redirect_to(edit_admin_asset_url(@asset))
           else
             prepare_to_edit
@@ -163,11 +154,11 @@ module Gluttonberg
           process_new_collection_and_merge(params)
       
           if @asset.update_attributes(params[:asset])
-            flash[:notice] = "Asset updated successfully!"
+            flash[:notice] = "The asset was successfully updated."
             redirect_to(admin_asset_url(@asset))
           else
             prepare_to_edit
-            flash[:error] = "Asset updatation failed!"
+            flash[:error] = "Sorry, The asset could not be updated."
             render :edit
           end
         end
@@ -175,9 +166,9 @@ module Gluttonberg
         # destroy an indivdual asset
         def destroy
           if @asset.destroy
-            flash[:notice] = "Asset destroyed successfully!"
+            flash[:notice] = "The asset was successfully deleted."
           else
-            raise ActiveResource::ServerError
+            flash[:error] = "There was an error deleting the asset."
           end
           redirect_to :action => :index
         end
@@ -192,7 +183,6 @@ module Gluttonberg
           @asset = Asset.new(params[:asset].merge(:user_id => current_user.id))       
           if @asset.save
             render :text => { "asset_id" => @asset.id , "url" => @asset.thumb_small_url , "jwysiwyg_image" => @asset.url_for(:jwysiwyg_image) }.to_json.to_s
-            #render :text => "#{@asset.id}" ##{@asset.thumb_small_url}
           else
             prepare_to_edit
             render :new
@@ -222,7 +212,7 @@ module Gluttonberg
             # if new collection is provided it will create the object for that
             # then it will add new collection id into other existing collection ids     
             def process_new_collection_and_merge(params)
-              params[:asset][:asset_collection_ids] = "" if params[:asset][:asset_collection_ids].blank? || params[:asset][:asset_collection_ids] == "null"
+              params[:asset][:asset_collection_ids] = "" if params[:asset][:asset_collection_ids].blank? || params[:asset][:asset_collection_ids] == "null"  || params[:asset][:asset_collection_ids] == "undefined"
               params[:asset][:asset_collection_ids] = params[:asset][:asset_collection_ids].split(",") if params[:asset][:asset_collection_ids].kind_of?(String)
                 
               the_collection = find_or_create_asset_collection_from_hash(params["new_collection"])

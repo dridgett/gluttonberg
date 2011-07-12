@@ -6,6 +6,7 @@
       %tr
         %th
         %th= sorter_link("Title",   "name",   sorter_url )
+        %th.author File Type
         %th.author Author
         %th.date= sorter_link("Date added",   "date-added",   sorter_url )
         %th.date= sorter_link("Date updated",   "date-updated",   sorter_url )
@@ -26,6 +27,8 @@
                 Edit  
               %a{:href => crop_admin_asset_url(asset), :class => "assetLink"}
                 Crop  
+          %td.author
+            = asset.asset_type.name
           %td.author
             = asset.user.full_name
           %td.date

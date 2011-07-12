@@ -23,6 +23,8 @@ $(document).ready(function() {
     }
     
     $("form.validation").validate();
+    
+    init_flash_messages()
 
 });
 
@@ -160,6 +162,7 @@ var AssetBrowser = {
         
         AssetBrowser.actualLink = link;
         // it is required for asset selector in jWysiwyg
+        AssetBrowser.Wysiwyg = null;
         if (Wysiwyg != undefined) {
             AssetBrowser.Wysiwyg = Wysiwyg;
         }
@@ -370,7 +373,7 @@ function insert_image_in_wysiwyg(image_url){
 function auto_save_asset(url , new_id ){
   // HACK FOR LOGO SETTINGS
   if (AssetBrowser.logo_setting != undefined && AssetBrowser.logo_setting != null && AssetBrowser.logo_setting == true) {
-      data_id = data_id;
+      //data_id = data_id;
       new_value = new_id;
 
       $.ajax({
@@ -590,3 +593,10 @@ function updateCoords(c)
 // $('#h').val(c.h);
 
 };
+
+function init_flash_messages(){
+  $('#flash:empty').hide()
+  setTimeout(function(){
+    $('#flash_notice').fadeOut('slow');
+  }, 5000);
+}

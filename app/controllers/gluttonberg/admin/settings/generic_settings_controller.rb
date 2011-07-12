@@ -25,10 +25,10 @@ module Gluttonberg
           @setting = Setting.new(params["gluttonberg_setting"])
           count = Setting.all.length
           @setting.row = count + 1
-          if @setting.save!
+          if @setting.save
+            flash[:notice] = "The article was successfully created."
             redirect_to admin_generic_settings_path
           else
-            message[:error] = "Setting failed to be created"
             render :new
           end
         end
@@ -41,9 +41,11 @@ module Gluttonberg
             if request.xhr?
               render :text => @setting.value
             else
+              flash[:notice] = "The setting was successfully updated."
               format.html redirect_to admin_generic_settings_path 
             end            
           else
+            flash[:error] = "Sorry, The setting could not be updated."
             render :edit
           end
         end
@@ -59,9 +61,11 @@ module Gluttonberg
 
         def destroy
           if @setting.destroy
+            flash[:notice] = "The setting was successfully deleted."
             redirect_to admin_generic_settings_path
           else
-            raise ActiveResource::ServerError
+            flash[:error] = "There was an error deleting the setting."
+            redirect_to admin_generic_settings_path
           end
         end
     

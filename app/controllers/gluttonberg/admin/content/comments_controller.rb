@@ -34,10 +34,10 @@ module Gluttonberg
         def destroy
           @comment = Comment.find(params[:id])
           if @comment.delete
-            flash[:notice] = "Comment deleted."
+            flash[:notice] = "The comment was successfully deleted."
             redirect_to admin_blog_article_comments_path(@blog, @article)
           else
-            flash[:error] = "There was an error deleting the Comment."
+            flash[:error] = "There was an error deleting the comment."
             redirect_to admin_blog_article_comments_path(@blog, @article)
           end
         end
