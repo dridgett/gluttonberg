@@ -770,7 +770,7 @@ ul.assetList {
     color: #666666 !important;
     font-size: 0.9em; }
   ul.assetList a {
-    background: left top no-repeat;
+    background: center top no-repeat;
     text-decoration: none;
     min-height: 56px;
  		padding-top: 100px; }
@@ -792,7 +792,7 @@ ul.assetList {
   ul.assetList a.browseBinaries {
     background-image: url("/gluttonberg/images/library/browse_binaries_medium.gif"); }
   ul.assetList a.browseDocuments {
-    background-image: url("/gluttonberg/images/library/browse_documents_medium.gif"); }
+    background-image: url("/gluttonberg/images/library/icon_document.jpg"); }
   ul.assetList a.browseImages {
     background-image: url("/gluttonberg/images/library/image.png"); }
   ul.assetList a.browseVideos {
@@ -1486,10 +1486,8 @@ table .home {
 /* LOCALES PAGE ICONS =============================================== */
 #iconNav #usersNav {
   background-image: url("/gluttonberg/images/settings/users.png"); }
-#iconNav #dialectsNav {
-  background-image: url("/gluttonberg/images/settings/dialects.gif"); }
 #iconNav #localesNav {
-  background-image: url("/gluttonberg/images/settings/locales.gif"); }
+  background-image: url("/gluttonberg/images/settings/locale.jpg"); }
 #iconNav #metadataNav {
   background-image: url("/gluttonberg/images/settings/config.png"); }
 
