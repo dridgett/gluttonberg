@@ -6,7 +6,7 @@ module Gluttonberg
     # Generate a series of content models for this page based on the specified
     # template. These models will be empty, but ready to be displayed in the 
     # admin interface for editing.
-    def after_create(page)    
+    def after_create(page)
       puts("Generating page localizations")
       Locale.all.each do |locale|
           loc = page.localizations.create(

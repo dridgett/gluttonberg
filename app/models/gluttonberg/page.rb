@@ -43,8 +43,16 @@ module Gluttonberg
         page = pages.first unless pages.blank?
         unless page.blank? 
           page.current_localization = page.localizations.where("locale_id = ? AND path LIKE ? ", locale.id, path).first
-        end  
+        end
         page
+      else # default locale
+         path = path[1]
+         locale = Gluttonberg::Locale.first_default
+         page = joins(:localizations).where("locale_id = ? AND gb_page_localizations.path LIKE ? ", locale.id, path).first
+         unless page.blank? 
+           page.current_localization = page.localizations.where("locale_id = ? AND path LIKE ? ", locale.id, path).first
+         end  
+         page 
       end  
     end
 

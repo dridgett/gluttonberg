@@ -44,23 +44,6 @@ namespace :gluttonberg do
       Gluttonberg::Asset.update_assets_synopsis_from_csv
     end
   
-    
-  
-    # desc "regenerate duration of video assets"
-    #   task :regenerate_video_assets => :environment do
-    #       assets = Asset.find(:all, :conditions => {:type => "Video"})
-    #       assets.each do |asset|
-    #         begin
-    #           puts "Starting to encode #{command}"
-    #           transcoder = RVideo::Transcoder.new
-    #           result = transcoder.execute(command, options)
-    #           #asset.duration = transcoder.processed.duration
-    #           asset.save
-    #         rescue => e
-    #           puts "Unable to transcode file: #{e.class} - #{e.message}"
-    #         end
-    #       end  
-    #   end
   
     desc "regenerate all video assets"
     task :regenerate_video_assets => :environment do
@@ -96,24 +79,7 @@ namespace :gluttonberg do
                       puts "Unable to transcode file: #{e.class} - #{e.message}"
                     end
                   end
-                                
-                  # asset.processed = false
-                  #                 asset.error = false
-                  #                 asset.save
-                  #                 processed_file = Pathname.new("#{Rails.root}/#{asset.directory}/processed_#{asset.filename_without_extension}.mp4")
-                  #                 FileUtils.rm(processed_file) if processed_file.exist?
-                  #                 transcoder = RVideo::Transcoder.new
-                  #                 command = "ffmpeg -i $input_file$ -acodec libfaac -ab 96k -vcodec libx264 -vpre slow -b 1600k -threads 0 $output_file$"
-                  #                 options = {:input_file => asset.absolute_file_path, :output_file => "#{Rails.root}/#{asset.directory}/processed_#{asset.filename_without_extension}.mp4"}
-                  #                 result = transcoder.execute(command, options)
-                  #                 if result == true
-                  #                   asset.duration = transcoder.processed.duration
-                  #                   asset.processed = true
-                  #                   asset.save
-                  #                 else
-                  #                   asset.error = true
-                  #                   asset.save
-                  #                 end
+                  
                 rescue => e2
                   asset.error = true
                   asset.save

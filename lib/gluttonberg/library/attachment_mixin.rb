@@ -159,7 +159,6 @@ module Gluttonberg
           Library.root + "/" + self.asset_hash
         end
         
-        ####################################
         def suggested_measures(object , required_geometry)
             required_geometry = required_geometry.delete("#")
             required_geometry_tokens = required_geometry.split("x")
@@ -188,7 +187,6 @@ module Gluttonberg
             "#{(projected_width).to_i}x#{(projected_width/ratio_actual).to_i}"
          end
         
-        ####################################
         def generate_cropped_image(x , y , w , h, image_type)
           
           asset_thumb = self.asset_thumbnails.find(:first , :conditions => {:thumbnail_type => image_type.to_s })
@@ -290,7 +288,6 @@ module Gluttonberg
               asset.generate_proper_resolution              
               asset.generate_image_thumb
         end
-        
         
 
         #TODO Collect mp3 files info using Mp3Info gem        

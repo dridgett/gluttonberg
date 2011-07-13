@@ -45,7 +45,6 @@ module Gluttonberg
         update = params[content.association_name][content.id.to_s]
         content.attributes = update if update
       end
-      #all_valid?
     end
 
     def paths_need_recaching?

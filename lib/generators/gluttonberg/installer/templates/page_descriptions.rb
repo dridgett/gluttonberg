@@ -1,5 +1,6 @@
 Gluttonberg::PageDescription.add do
 
+  # home page page description
   page :home do
     label "Home"
     description "The homepage, with selected features."
@@ -8,6 +9,7 @@ Gluttonberg::PageDescription.add do
     layout "application"    
   end
   
+  # page description with two three sections.
   page :newsletter do
     label "Newsletter"
     description "Newsletter Page"
@@ -31,49 +33,16 @@ Gluttonberg::PageDescription.add do
     
   end
   
-  page :shows do
-    label "Shows"
-    description "Shows Page"
+  # page description which redirects to rails defined route examples
+  page :examples do
+    label "Examples"
+    description "Examples Page"
     
-    rewrite_to 'shows'
+    rewrite_to 'examples'
     layout "application"
   end
   
-  page :companies do
-    label "Companies"
-    description "Company Pages"
-    
-    rewrite_to 'companies'
-  end
-  
-  page :venues do
-    label "Venues"
-    description "Venue Pages"
-    
-    rewrite_to 'venues'
-  end
-  
-  page :reviews do
-    label "Reviews"
-    description "Review Pages"
-    
-    rewrite_to 'reviews'
-  end
-  
-  page :news do
-    label "News"
-    description "News Page"
-    layout "other"
-    rewrite_to 'news'
-  end
-  
-  page :subscribe do
-    label "Subscribe"
-    description "Subscription Page"
-    
-    rewrite_to 'subscribe'
-  end
-  
+  # page description with a single content section
   page :about do
     label "About"
     description "About Page"
@@ -85,17 +54,7 @@ Gluttonberg::PageDescription.add do
     end
   end
   
-  page :contact do
-    label "Contact"
-    description "Contact Page"
-    view "contact"
-    layout "application"
-    section :top_content do
-      label "Content"
-      type :html_content
-    end
-  end
-  
+  # page without any dyanmic section.
   page :sitemap do
     label "Site Map"
     description "Site Map"

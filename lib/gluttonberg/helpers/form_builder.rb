@@ -19,12 +19,6 @@ module Gluttonberg
         super(attribute, value, options) + label(attribute, :label => label, :class => 'inline', :for => label_for)
       end
 
-      #def check_box(attribute, value, label, options = {})
-        #add_class!('checkbox', options)
-        #label_for = "#{object_name}_#{attribute}_#{value}"
-        #super(attribute, value, options) + label(attribute, :label => label, :class => 'inline', :for => label_for)
-      #end
-
       def select(attribute, choices, options={})    
         box_class = add_class!('text', options)
         field(super, attribute, options, box_class)

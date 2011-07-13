@@ -16,6 +16,5 @@ module Gluttonberg
         ActionView::Helpers.send(:include, helper)
       end
     end
-    #self.setup
   end
 end

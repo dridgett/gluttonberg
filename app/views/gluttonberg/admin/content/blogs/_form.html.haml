@@ -20,10 +20,6 @@
     %br
     = f.check_box :moderation_required
     
-    /%p
-    /  = f.label :tag_list , "Tags"
-    /  = f.text_field(:tag_list, :class => "tags" , :rel => tags_string("tag") )
-    
   
   - if can? :publish , Gluttonberg::Blog  
     %fieldset

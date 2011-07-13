@@ -21,7 +21,6 @@ Gem::Specification.new do |s|
      "spec"
   ]
 
-  #s.add_dependency 'haml', '3.1.2'
   s.add_dependency "authlogic", '2.1.6'
   s.add_dependency "will_paginate" , '3.0.pre2'
   s.add_dependency "rubyzip", '0.9.4'
@@ -34,8 +33,6 @@ Gem::Specification.new do |s|
   s.add_dependency 'cancan', '1.6.4'
   s.add_dependency 'active_link_to', '0.0.7'
   s.add_dependency 'texticle' , '1.0.4.20101004123327'
-  
-  #s.add_dependency "akismet" , "~> 0.1.2"
   s.add_development_dependency "rspec-rails", "2.0.1"
 
   if s.respond_to? :specification_version then

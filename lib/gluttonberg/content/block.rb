@@ -20,11 +20,6 @@ module Gluttonberg
           
           attr_reader :current_localization
           
-          # property :orphaned,     ::DataMapper::Types::Boolean, :default => false
-          #           property :section_name, String
-          #           property :created_at,   Time
-          #           property :updated_at,   Time
-          
           belongs_to :page
           
           # Generate the various names to be used in associations
@@ -120,10 +115,7 @@ module Gluttonberg
           self.class.association_name
         end
         
-        # def section_name
-        #           section[:name]
-        #         end
-                
+        
         def section_label
           section[:label]
         end

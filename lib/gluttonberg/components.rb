@@ -36,8 +36,6 @@ module Gluttonberg
         
         url = if v[:admin_url]
           if v[:admin_url].is_a? Symbol
-            # TODO Fixme
-            #Merb::Router.url(v[:admin_url])
             v[:admin_url]
           else
             v[:admin_url]

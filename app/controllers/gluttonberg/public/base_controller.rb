@@ -17,10 +17,10 @@ class Gluttonberg::Public::BaseController < ActionController::Base
     
     helper_method :current_user_session, :current_user
     
-    # if Rails.env == "production"    
-    #   rescue_from ActiveRecord::RecordNotFound, :with => :not_found
-    #   rescue_from ActionController::RoutingError, :with => :not_found
-    # end
+    if Rails.env == "production"    
+      rescue_from ActiveRecord::RecordNotFound, :with => :not_found
+      rescue_from ActionController::RoutingError, :with => :not_found
+    end
     
     before_filter :verify_site_access    
     
@@ -86,16 +86,16 @@ class Gluttonberg::Public::BaseController < ActionController::Base
     
     # Exception handlers
     def not_found
-      render :layout => "bare" , :template => 'gluttonberg/exceptions/not_found'
+      render :layout => "bare" , :template => 'gluttonberg/public/exceptions/not_found'
     end
 
     # handle NotAcceptable exceptions (406)
     def not_acceptable
-      render :layout => "bare" , :template => 'gluttonberg/exceptions/not_acceptable'
+      render :layout => "bare" , :template => 'gluttonberg/public/exceptions/not_acceptable'
     end
     
     def internal_server_error
-      render :layout => "bare" , :template => 'gluttonberg/exceptions/internal_server_error'
+      render :layout => "bare" , :template => 'gluttonberg/public/exceptions/internal_server_error'
     end
 
 end

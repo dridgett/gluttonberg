@@ -40,11 +40,6 @@ module Gluttonberg
       existing_localization_ids = []
       remove_list = []
       new_localizations = []
-      
-      #TODO update slugs for pages and their localizations
-      #page_localizations = PageLocalization.find(:all , :conditions => {:locale_id => locale.id})
-      
-      
     end  
         
   end

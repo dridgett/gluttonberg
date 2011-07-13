@@ -1,6 +1,5 @@
 module Gluttonberg
  class Setting  < ActiveRecord::Base
-   #include Gluttonberg::Authorizable
    set_table_name "gb_settings" 
    after_save  :update_settings_in_config
    before_destroy :destroy_cache
