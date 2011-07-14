@@ -6,87 +6,88 @@
   = nav_link("Edit", edit_admin_asset_url(@asset))
   /= nav_link("Crop", crop_admin_asset_url(@asset))
 %div.pageBlock
-  %h2= @asset.name
-  %p{:id => "categoryAndType", :class => @asset.category}
-    = h(@asset.asset_type.name)
+  .left_column
+    %h2= @asset.name
+    %p{:id => "categoryAndType", :class => @asset.category}
+      = h(@asset.asset_type.name)
   
-  - unless @asset.description.blank?
-    %p#description= @asset.description
-
-  %div#preview
-    %img{:src => @asset.thumb_large_url}
-    
-  %h3 Metadata
-  %dl
-    %dt Alt
-    %dd= @asset.alt
-    %dt Category
-    %dd= @asset.category.capitalize
-    %dt Type
-    %dd= @asset.asset_type.name
-    %dt Asset ID
-    %dd= @asset.id
-    %dt File size
-    %dd= @asset.formatted_file_size
-    %dt File name
-    %dd= @asset.file_name
-    %dt Mime type
-    %dd= @asset.mime_type
-    - unless @asset.width.blank?
-      %dt Width
-      %dd= @asset.width
-    - unless @asset.height.blank?
-      %dt Height
-      %dd= @asset.height  
+    - unless @asset.description.blank?
+      %p#description= @asset.description
+    %h3 Metadata
+    %dl
+      %dt Alt
+      %dd= @asset.alt
+      %dt Category
+      %dd= @asset.category.capitalize
+      %dt Type
+      %dd= @asset.asset_type.name
+      %dt Asset ID
+      %dd= @asset.id
+      %dt File size
+      %dd= @asset.formatted_file_size
+      %dt File name
+      %dd= @asset.file_name
+      %dt Mime type
+      %dd= @asset.mime_type
+      - unless @asset.width.blank?
+        %dt Width
+        %dd= @asset.width
+      - unless @asset.height.blank?
+        %dt Height
+        %dd= @asset.height  
     
     
     
   
-    - unless @asset.audio_asset_attribute.blank?
-      - unless @asset.audio_asset_attribute.length.blank?
-        %dt Length
-        %dd= ( (@asset.audio_asset_attribute.length / 60.0).round(2) ).to_s + " Minutes"
+      - unless @asset.audio_asset_attribute.blank?
+        - unless @asset.audio_asset_attribute.length.blank?
+          %dt Length
+          %dd= ( (@asset.audio_asset_attribute.length / 60.0).round(2) ).to_s + " Minutes"
     
-      - unless @asset.audio_asset_attribute.genre.blank?
-        %dt Genre
-        %dd= h(@asset.audio_asset_attribute.genre)
+        - unless @asset.audio_asset_attribute.genre.blank?
+          %dt Genre
+          %dd= h(@asset.audio_asset_attribute.genre)
     
-      - unless @asset.audio_asset_attribute.title.blank?
-        %dt Title
-        %dd= h(@asset.audio_asset_attribute.title)
+        - unless @asset.audio_asset_attribute.title.blank?
+          %dt Title
+          %dd= h(@asset.audio_asset_attribute.title)
       
-      - unless @asset.audio_asset_attribute.artist.blank?
-        %dt Artist
-        %dd= h(@asset.audio_asset_attribute.artist)
+        - unless @asset.audio_asset_attribute.artist.blank?
+          %dt Artist
+          %dd= h(@asset.audio_asset_attribute.artist)
     
-      - unless @asset.audio_asset_attribute.album.blank?
-        %dt Album
-        %dd= h(@asset.audio_asset_attribute.album)
+        - unless @asset.audio_asset_attribute.album.blank?
+          %dt Album
+          %dd= h(@asset.audio_asset_attribute.album)
   
-      - unless @asset.audio_asset_attribute.tracknum.blank?
-        %dt Tracknum
-        %dd= h(@asset.audio_asset_attribute.tracknum)      
+        - unless @asset.audio_asset_attribute.tracknum.blank?
+          %dt Tracknum
+          %dd= h(@asset.audio_asset_attribute.tracknum)      
 
   
   
-  - unless @asset.asset_collections.blank?
-    %h3 Collections
-    %ul.collections
-      - for collection in @asset.asset_collections
-        %li= h(collection.name)
+    - unless @asset.asset_collections.blank?
+      %h3 Collections
+      %ul.collections
+        - for collection in @asset.asset_collections
+          %li= h(collection.name)
 
-  %h3 Updates
-  %dl
-    %dt Created
-    %dd= date_format @asset.created_at
-    %dt Updated
-    %dd= date_format @asset.updated_at
+  .right_column
+    %div#preview
+      %img{:src => @asset.thumb_large_url}
+
+    %h3 Updates
+    %dl
+      %dt Created
+      %dd= date_format @asset.created_at
+      %dt Updated
+      %dd= date_format @asset.updated_at
   
-  %h3 Public path
-  %p.publicpath
-    %a{:href => "#{asset_url(@asset)}", :target => "_blank"}
-      = asset_url(@asset)
-  %p#public-path-note 
-    This address can be used to link to this asset.
-    %br/
-    For example it could be pasted into an email.
+    %h3 Public path
+    %p.publicpath
+      %a{:href => "#{asset_url(@asset)}", :target => "_blank"}
+        = asset_url(@asset)
+    %p#public-path-note 
+      This address can be used to link to this asset.
+      %br/
+      For example it could be pasted into an email.
