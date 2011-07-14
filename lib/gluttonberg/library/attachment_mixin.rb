@@ -325,11 +325,10 @@ module Gluttonberg
                                         
                 generate_thumb_and_proper_resolution(asset)                
               elsif asset.asset_type.asset_category.name == "audio"
-              # if its mp3 file, collect its sound info
+                # If its mp3 file, collect its sound info
                 collect_mp3_info(asset)
-                #Delayed::Job.enqueue AudioJob.new(asset.id)
               elsif asset.asset_type.asset_category.name == "video"
-                #Delayed::Job.enqueue VideoJob.new(asset.id)
+                # Do nothing at this stage
               end
           end
           
