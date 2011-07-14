@@ -33,6 +33,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'cancan', '1.6.4'
   s.add_dependency 'active_link_to', '0.0.7'
   s.add_dependency 'texticle' , '1.0.4.20101004123327'
+  s.add_dependency 'ruby-mp3info', '0.6.14'
   s.add_development_dependency "rspec-rails", "2.0.1"
 
   if s.respond_to? :specification_version then

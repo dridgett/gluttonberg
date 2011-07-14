@@ -6,7 +6,7 @@ module Gluttonberg
     # Asset class for each major category of assets e.g. ImageAsset, 
     # DocumentAsset.
     
-    #require "mp3info"
+    require "mp3info"
     
     module AttachmentMixin
      
@@ -327,9 +327,9 @@ module Gluttonberg
               elsif asset.asset_type.asset_category.name == "audio"
               # if its mp3 file, collect its sound info
                 collect_mp3_info(asset)
-                Delayed::Job.enqueue AudioJob.new(asset.id)
+                #Delayed::Job.enqueue AudioJob.new(asset.id)
               elsif asset.asset_type.asset_category.name == "video"
-                Delayed::Job.enqueue VideoJob.new(asset.id)
+                #Delayed::Job.enqueue VideoJob.new(asset.id)
               end
           end
           
