@@ -17,9 +17,11 @@ module Gluttonberg
     @@_description_names = {}
     @@_home_page    = nil
     
+    
     attr_accessor :options
     
     def initialize(name)
+      @position = 0
       @options = {
         :name       => name,
         :home       => false,
@@ -124,9 +126,11 @@ module Gluttonberg
     
     # Sugar for defining a section.
     def section(name, &blk)
-      new_section = Section.new(name)
+      new_section = Section.new(name , @position)
+      #new_section.position = @position
       new_section.instance_eval(&blk)
       @sections[name] = new_section
+      @position += 1
     end
     
     def top_level_page?
@@ -222,8 +226,11 @@ module Gluttonberg
     # description. This class should never be instantiated direction, instead
     # sections should be declared in the description DSL.
     class Section
-      def initialize(name)
-        @options = {:name => name, :limit => 1}
+      
+      #attr_accessor :position
+      
+      def initialize(name , pos)
+        @options = {:name => name, :limit => 1 , :position => pos}
         @custom_config = {}
       end
       

@@ -33,7 +33,7 @@ module Gluttonberg
         Gluttonberg::Content.non_localized_associations.inject(contents_data) do |memo, assoc|
           contents_data += page.send(assoc).all
         end
-        contents_data
+        contents_data = contents_data.sort{|a,b| a.section_position <=> b.section_position}
       end   
       @contents 
     end

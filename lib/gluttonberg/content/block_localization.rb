@@ -26,6 +26,10 @@ module Gluttonberg
         parent.section[:name]
       end
       
+      def section_position
+        parent.section[:position]
+      end
+      
       def section_label
         parent.section[:label] unless parent.blank?
       end

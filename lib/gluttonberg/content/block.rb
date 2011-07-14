@@ -120,6 +120,10 @@ module Gluttonberg
           section[:label]
         end
         
+        def section_position
+          section[:position]
+        end
+        
         # Content type is simply the inflected version of the content class 
         # name, e.g. FooContent becomes :foo_content
         def content_type
