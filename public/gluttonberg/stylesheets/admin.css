@@ -334,11 +334,11 @@ body {
 			color: #F58DA2; }
 /* Base styles */
 form, .pageBlock {
-  margin-bottom: 25px;
+  margin: 25px 0;
   background: #FFFFFF;
   border: #e5e4e3 1px solid;
-  padding: 1.5em 0 25px 0;
-  width: 99.9%;
+  padding: 30px 20px;
+  width: 876px;
   float: left;
 	-moz-border-top-left-radius: 0 0;
 	-moz-border-top-right-radius: 3px 3px;
@@ -358,15 +358,18 @@ form, .pageBlock {
 
 .nosubnav {
 	margin-top: 25px; }
-	
-.fieldset {
-  border: 0;
- 	width: 545px;
- 	margin: auto;
- 	padding-top: 15px; }
 
+.left_column {
+	float: left;
+	width: 540px; }
+
+.right_column {
+	float: right;
+	width: 270px; }
+
+#gluttonberg_page_description_name {
+	width: 240px; }
 fieldset {
-	padding: 0 15px;
 	border: none;
 }
 legend {
@@ -378,19 +381,16 @@ legend {
 	margin-bottom: 16px;
 	display: block;
 	border-bottom: 1px solid #dcdbd9; }
-	
-div.fieldset,
-ol.fieldset { }
-div.fieldset input {
-	margin-bottom: 15px;
-}
-div.fieldset p {
-	clear:both; }
+
+fieldset {
+	clear:both;
+	margin-bottom: 18px }
+
 label {
   text-align: right;
-  padding: 0.2em 0.6em 0.2em 0;
+  padding-right: 18px;
   margin: 1px 0 0 0;
-  width: 12em;
+  width: 90px;
   float: left;
   clear: left;
  	font-size: 14px;
@@ -474,8 +474,8 @@ textarea.medium {
 input.large {
   background: #ebebeb right top no-repeat url("/gluttonberg/images/form/input_bkg.jpg");
   border: none;
-  padding: 0.2em 0.5em;
-  width: 335px; }
+  padding: 3px 3px;
+  width: 424px; }
 	select.large {
 	  width: 335px; }
 
@@ -2566,8 +2566,6 @@ p.no_content {
 	margin: auto;
 	width: 132px; }
 
-#publish_meta {
-	text-align: center; }
 #publish_meta select {
 	float: none; }
 
