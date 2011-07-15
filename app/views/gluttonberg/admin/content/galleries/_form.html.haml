@@ -1,0 +1,29 @@
+
+= form_for(@gallery, :url => url , :html => {:class => "validation"}) do  |f|
+  = gb_error_messages_for(@gallery)
+  = f.hidden_field(:user_id, :value => current_user.id) if @gallery.user_id.blank?
+  
+  %fieldset
+    = f.label :title
+    = f.text_field(:title, :id => "page_title" , :class => "required large")
+  %fieldset
+    = f.label :slug
+    = f.text_field(:slug, :id => 'page_slug' , :class => "required large")
+  %fieldset
+    = f.label :description
+    = f.text_area(:description , :class => "jwysiwyg" )    
+  
+  - unless @gallery.collection_imported == true
+    %fieldset  
+      = label_tag "Select image collection......."
+      = select_tag(:collection_id , options_from_collection_for_select(Gluttonberg::AssetCollection.all , "id" , "name") , :include_blank => true)
+    
+  
+  - if can? :publish , Gluttonberg::Gallery  
+    %fieldset
+      #publish_meta
+        = f.publisable_dropdown
+  = form_controls(admin_galleries_path)
+
+
+= enable_jwysiwyg_on_class("jwysiwyg")

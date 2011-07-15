@@ -1,0 +1,30 @@
+- @page_title = "#{link_to "Content", admin_content_path} > #{link_to "Galleries", admin_galleries_path} > Edit #{@gallery.name}"
+
+- @page_image = "/gluttonberg/images/sidebar/icon_content.png"
+= render :partial => "form", :locals => {:url => admin_gallery_path(@gallery)}
+
+
+
+= link_to "Add an image" , add_image_admin_gallery_path
+
+- if @gallery_images.empty?
+  %p.empty No Image
+- else
+  %table{:id => 'pages_table', :cellpadding => 0, :cellspacing => 0, :summary => "Gallery images" , :class => "#{drag_tree_table_class}" , :rel => drag_tree_url }
+    %thead
+      %tr
+        %th Image
+        %th.controls Controls
+    %tbody
+      - @gallery_images.each do |gallery_item|
+        %tr{:id => drag_tree_row_id(gallery_item), :class => drag_tree_row_class(gallery_item) + "#{cycle("even", "odd")}"}
+          %td
+            %span{:class => "#{drag_tree_drag_point_class} page" , :rel => drag_tree_row_id(gallery_item)}
+            = gallery_item.image.title
+          
+          %td.controls
+            %ul
+              - if current_user.super_admin?  
+                - if can? :destroy , Gluttonberg::Gallery  
+                  %li
+                    = link_to "Delete", ""
