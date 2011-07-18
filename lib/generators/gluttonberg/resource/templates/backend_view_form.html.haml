@@ -1,5 +1,5 @@
 <% attributes.each do |attribute| -%>
-%p
+%fieldset
   = f.label :<%= attribute.name %>
   = f.<%= attribute.field_type %> :<%= attribute.name %> , :class => "<%= attribute.field_type.to_s == 'text_area' ? 'jwysiwyg' : ''  %>"
 <% end %>

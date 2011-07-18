@@ -1,40 +1,41 @@
 = form_for(@page, :url => url , :html => {:class => "validation"}) do  |f|
   = gb_error_messages_for(@page)
-  
-  - if( action_name == "new"  || ( !@pages.blank?  || !(Gluttonberg.localized? && @page.localizations &&  @page.localizations.length > 1) ) )
-    = block("General") do
+  .left_column
+    - if( action_name == "new"  || ( !@pages.blank?  || !(Gluttonberg.localized? && @page.localizations &&  @page.localizations.length > 1) ) )
       - if( action_name == "new"  || !(Gluttonberg.localized? && @page.localizations &&  @page.localizations.length > 1) )
-        = f.label :name
-        = f.text_field(:name, :id => "page_title", :class=>"medium required")
-        %br
-        = f.label :navigation_label
-        = f.text_field(:navigation_label, :class=>"medium")
-        %br
-        = f.label :slug
-        = f.text_field(:slug, :id => 'page_slug', :class=>"medium")
-        %br
-      - unless @pages.empty?
+        %fieldset
+          = f.label :name
+          = f.text_field(:name, :id => "page_title", :class=>"large required")
+        %fieldset
+          = f.label :navigation_label
+          = f.text_field(:navigation_label, :class=>"large")
+        %fieldset
+          = f.label :slug
+          = f.text_field(:slug, :id => 'page_slug', :class=>"large")
+        
+  .right_column
+    - unless @pages.empty?
+      %fieldset
         = f.label :parent_id , "Parent page"
         = f.select(:parent_id, @pages.collect{|p| [p.name , p.id] }, :include_blank => true, :class=>"medium")
-      %br
+    %fieldset
       = f.label :hide_in_nav, "Hide in navigation"
       = f.check_box(:hide_in_nav, :class=>"medium")
-        
-    
-  = block("Page Description") do
-    %p.help
-      Page descriptions are used to define how this page behaves. For example,
-      all of it’s contents may be editable, or it may be generated dynamically.
-    = f.label :description_name  , "Page Description"
-    
-    - if( action_name == "new" )
-      = f.select(:description_name, @descriptions , { :include_blank => true } , {:class => "required"} ) 
-    - else
-      = f.select(:description_name, @descriptions , { :include_blank => true } , {:disabled => "disabled"})  
-  
-  - if can? :publish , Gluttonberg::Page  
+    %legend
+      Page Description
+    - if( action_name == "new"  || ( !@pages.blank?  || !(Gluttonberg.localized? && @page.localizations &&  @page.localizations.length > 1) ) )
+      %fieldset
+        Page descriptions are used to define how this page behaves. For example, all of it’s contents may be editable, or it may be generated dynamically.
     %fieldset
-      .fieldset#publish_meta
+      - if( action_name == "new" )
+        = f.select(:description_name, @descriptions , { :include_blank => true } , {:class => "required"} ) 
+      - else
+        = f.select(:description_name, @descriptions , { :include_blank => true } , {:disabled => "disabled"})  
+    %legend
+      Publish
+    - if can? :publish , Gluttonberg::Page  
+      %fieldset#publish_meta
         = f.publisable_dropdown
        
-  = form_controls(admin_pages_path)
+    %p
+      = form_controls(admin_pages_path)
