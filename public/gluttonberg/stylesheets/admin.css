@@ -2651,3 +2651,16 @@ p.no_content {
   /*border: thin solid #008000;*/
   background: #83c761;
 }
+
+.gallery_images .title{
+  padding-left:12px;
+  margin: auto 0 ;
+}
+
+.gallery_images .thumb{
+  height:40px;
+}
+
+#images_container {
+  
+}

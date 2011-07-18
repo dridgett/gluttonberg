@@ -58,38 +58,49 @@ module Gluttonberg
        #   asset_browser_tag( name_of_tag ,  opts = { :button_class => "" , :button_text => "Select" ,  :filter => "" ,  :id => "html_id", :asset_id => content.asset_id } )
        
        def asset_browser_tag( field_id , opts = {} )
-          asset_id = nil
-          asset_id = opts[:asset_id]
-          filter = opts[:filter].blank? ? "all" : opts[:filter]
-
-          
-          if opts[:id].blank?
-            rel = field_id.to_s + "_" + id.to_s
-            opts[:id] = rel
-          end  
-
-          button_text = opts[:button_text].blank? ? "Browse" : opts[:button_text]
-
-
-         # Find the asset so we can get the name
-         asset_info = "Nothing selected"
-         unless asset_id.blank?
-           asset = Asset.where(:id => asset_id).first
-           asset_info = unless asset.blank?
-             asset_tag(asset , :small_thumb).html_safe + content_tag(:span , asset.name) 
-           else
-             "Asset missing!"
-           end    
-         end
-
-          # Output it all
-         link_contents =  content_tag(:span , asset_info , :id => "title_thumb_#{opts[:id]}") 
-         link_contents << hidden_field_tag("filter_" + field_id.to_s , value=filter , :id => "filter_#{opts[:id]}" )
-         link_contents << link_to(button_text, admin_asset_browser_url + "?filter=#{filter}" , { :class => opts[:button_class] , :rel => opts[:id] , :data_url => opts[:data_url] })
-         link_contents << hidden_field_tag(field_id , asset_id , { :id => opts[:id] , :class => "choose_asset_hidden_field" } )  
-
-         content_tag(:span , link_contents , { :class => "assetBrowserLink" } )
+          _asset_browser_tag( field_id , opts  )
        end
+       
+       def _asset_browser_tag( field_id , opts = {} )
+           asset_id = nil
+           asset_id = opts[:asset_id]
+           filter = opts[:filter].blank? ? "all" : opts[:filter]
+
+
+           if opts[:id].blank?
+             rel = field_id.to_s + "_" + id.to_s
+             opts[:id] = rel
+           end  
+
+           button_text = opts[:button_text].blank? ? "Browse" : opts[:button_text]
+
+
+          # Find the asset so we can get the name
+          asset_info = "Nothing selected"
+          unless asset_id.blank?
+            asset = Asset.where(:id => asset_id).first
+            asset_info = unless asset.blank?
+              asset_tag(asset , :small_thumb).html_safe + content_tag(:span , asset.name) 
+            else
+              "Asset missing!"
+            end    
+          end
+
+           # Output it all
+          link_contents =  content_tag(:span , asset_info , :id => "title_thumb_#{opts[:id]}") 
+          link_contents << hidden_field_tag("filter_" + field_id.to_s , value=filter , :id => "filter_#{opts[:id]}" )
+          link_contents << link_to(button_text, admin_asset_browser_url + "?filter=#{filter}" , { :class => opts[:button_class] , :rel => opts[:id] , :data_url => opts[:data_url] })
+          link_contents << hidden_field_tag(field_id , asset_id , { :id => opts[:id] , :class => "choose_asset_hidden_field" } )  
+
+          content_tag(:span , link_contents , { :class => "assetBrowserLink" } )
+      end
+       
+      def add_image_to_gallery_tag( button_text , add_url, gallery_id , opts = {})
+          opts[:class] = "" if opts[:class].blank?
+          opts[:class] << " add_image_to_gallery"
+          link_contents = link_to(button_text, admin_asset_browser_url + "?filter=image" , opts.merge( :data_url => add_url ))
+          content_tag(:span , link_contents , { :class => "assetBrowserLink" } )
+      end
        
        def clear_asset_tag( field_id , opts = {} )
          asset_id = nil
@@ -104,7 +115,7 @@ module Gluttonberg
          link_to("Remove", "Javascript:;" , { :class => opts[:button_class] , :onclick => "$('##{html_id}').val('');$('#title_thumb_#{opts[:id]}').html('')" })
        end
       
-       def asset_panel(assets, name_or_id , type)
+       def asset_panel(assets, name_or_id , type )
           render :partial => "gluttonberg/admin/shared/asset_panel.html" , :locals => {:assets => assets , :name_or_id => name_or_id , :type => type}
        end
 

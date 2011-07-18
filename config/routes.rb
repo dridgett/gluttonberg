@@ -52,7 +52,7 @@ Rails.application.routes.draw do
         match "/pages/move(.:format)" => "pages#move_node" , :as=> :page_move
         resources :galleries do
           get 'delete', :on => :member
-          get 'add_image' , :on => :member
+          get 'add_image', :on => :member
           get 'remove_image' , :on => :member
         end  
         match "/galleries/move(.:format)" => "galleries#move_node" , :as=> :gallery_move

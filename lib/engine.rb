@@ -28,6 +28,8 @@ module Gluttonberg
         "Gluttonberg::PlainTextContentLocalization" => [:text] , 
         "Gluttonberg::HtmlContentLocalization" => [:text] 
     }
+    
+    config.enable_gallery = false
 
     # Load rake tasks
     rake_tasks do

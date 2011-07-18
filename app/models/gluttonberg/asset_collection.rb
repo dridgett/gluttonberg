@@ -9,5 +9,10 @@ module Gluttonberg
         data = assets.find(:all , :include => :asset_type )
         data.find_all{|d| d.category == "image"}
       end
+      
+      # this method is required for gallery form
+      def name_with_number_of_images
+        "#{name} (#{images.length} images)"
+      end
   end
 end  

@@ -25,7 +25,7 @@ module Gluttonberg
           if @gallery.save
             save_collection_images
             flash[:notice] = "The gallery was successfully created."
-            redirect_to admin_galleries_path
+            redirect_to edit_admin_gallery_path(@gallery)
           else
             render :edit
           end
@@ -38,7 +38,7 @@ module Gluttonberg
           if @gallery.update_attributes(params[:gluttonberg_gallery])
             save_collection_images
             flash[:notice] = "The gallery was successfully updated."
-            redirect_to admin_galleries_path
+            redirect_to edit_admin_gallery_path(@gallery)
           else
             flash[:error] = "Sorry, The gallery could not be updated."
             render :edit
@@ -64,12 +64,25 @@ module Gluttonberg
           end
         end
         
+        def remove_image
+          item =GalleryImage.find(params[:id])
+          item.delete
+          render :text => "{success:true}"
+        end
+        
+        def add_image
+          @gallery =Gallery.find(params[:id])
+          max_position = @gallery.gallery_images.length
+          @gallery_item = @gallery.gallery_images.create(:asset_id => params[:asset_id] , :position => (max_position )  )
+          @gallery_images = @gallery.gallery_images.order("position ASC")
+          render :layout => false
+        end
                 
         protected
         
           def find_gallery
             @gallery = Gallery.find(params[:id])
-            @gallery_images = @gallery.gallery_images
+            @gallery_images = @gallery.gallery_images.order("position ASC")
           end
           
           def authorize_user
@@ -81,7 +94,7 @@ module Gluttonberg
           end
           
           def save_collection_images
-            if params[:collection_id]
+            unless params[:collection_id].blank?
               collection_images = AssetCollection.find(params[:collection_id]).images
               max_position = @gallery.gallery_images.length
               collection_images.each_with_index do |image , index|

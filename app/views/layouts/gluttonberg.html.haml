@@ -42,6 +42,9 @@
             - if Gluttonberg::Blog.table_exists?  
               %li
                 = active_link_to("Blogs", admin_blogs_path, :title => "Blogs")
+            - if Rails.configuration.enable_gallery == true
+              %li  
+                = active_link_to("Photo Galleries", admin_galleries_path, :title => "Photo galleries")  
             - for entry in Gluttonberg::Components.nav_entries
               -if entry[3].blank? || entry[3]==false || (entry[3]==true && session.user.is_super_admin)
                 %li
