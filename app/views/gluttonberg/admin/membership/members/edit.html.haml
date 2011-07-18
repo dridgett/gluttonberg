@@ -2,4 +2,4 @@
 - @page_title = "#{link_to "Membership", admin_membership_path} > #{link_to("Members", admin_members_path)} > Edit member"
 - @page_image = "/gluttonberg/images/sidebar/icon_settings.png"
 
-= render :partial => "form" , :locals => { :url => admin_members_path(@member.id) } 
+= render :partial => "form" , :locals => { :url => admin_member_path(@member.id) } 
