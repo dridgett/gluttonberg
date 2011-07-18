@@ -16,8 +16,8 @@
     %fieldset
       = label_tag "Asset Collection"
       = select_tag(:collection_id , options_from_collection_for_select(Gluttonberg::AssetCollection.all , "id" , "name_with_number_of_images") , :include_blank => true)
-      / .help
-      /   Lorem ipsum dolor sit amet, consectetur adipisicing elit
+      .help
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit
   
   - if can? :publish , Gluttonberg::Gallery  
     %fieldset
