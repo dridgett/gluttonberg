@@ -1,0 +1,9 @@
+= form_for(  @group , :url => url_opts ,  :html => { :method => method_name, :class => "nosubnav validation"} ) do |group_form|
+  = gb_error_messages_for(@group)
+  %legend
+    Add new group
+  %fieldset
+    = group_form.label :name
+    = group_form.text_field(:name , :class => "required large")
+  
+  = form_controls(admin_groups_url)

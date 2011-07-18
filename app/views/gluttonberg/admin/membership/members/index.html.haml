@@ -1,0 +1,29 @@
+- @window_title = "Membership"
+- @page_title = "#{link_to "Membership", admin_membership_path} > Members"
+- @page_image = "/gluttonberg/images/sidebar/icon_settings.png"
+= sub_nav do
+  = nav_link("New", new_admin_member_path) 
+  
+- if @members.empty?
+  %p.empty No Members
+- else
+  %table{:cellpadding => 0, :cellspacing => 0, :summary => "List of members"}
+    %thead
+      %tr
+        %th Name
+        %th Group
+        %th.controls Controls
+    %tbody
+      - i = 0
+      - for member in @members
+        - i += 1
+        %tr{ :class => "#{i % 2 == 0? "even" : ""}"}
+          %td= member.email
+          %td
+            
+          %td.controls
+            %ul
+              %li= link_to("Edit", edit_admin_member_path(member))
+              %li= link_to "Delete", delete_admin_member_path(member)
+    
+  = will_paginate(@members)

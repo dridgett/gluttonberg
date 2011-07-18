@@ -1,0 +1,40 @@
+= form_for(@member, :url => url , :html => {:class => "validation"}) do  |f|
+  = gb_error_messages_for(@member)
+
+  .left_column
+    %legend
+      Details
+    %fieldset
+      = f.label :first_name
+      = f.text_field(:first_name, :class => "large required")
+  
+    %fieldset
+      = f.label :last_name
+      = f.text_field(:last_name, :class => "large")  
+
+    %fieldset
+      = f.label :email , "E-mail"
+      = f.text_field(:email, :class => "large required")
+    
+    %fieldset
+      = f.label :bio, "Bio"
+      = f.text_area(:bio, :class => "large ")
+    
+    / %fieldset
+    /       = f.label :image_id , "Image"
+    /       = f.asset_browser( :image_id ,  opts = { :filter => "image"   } )  
+    /       = f.clear_asset( :image_id , opts = {  :button_class => "button clear_button"} )
+    
+    
+
+  .right_column
+    %legend
+      Password
+    %fieldset
+      = f.label :password , "Password"
+      = f.password_field(:password, :class => "medium", :label => "Password")
+    %fieldset
+      = f.label :password_confirmation , "Confirm Password"
+      = f.password_field(:password_confirmation, :class => "medium", :label => "Confirm Password")
+    %fieldset
+      = form_controls(admin_members_path)

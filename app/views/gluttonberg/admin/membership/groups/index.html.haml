@@ -1,0 +1,23 @@
+= sub_nav do
+  = nav_link("New Group", new_admin_group_url )
+  
+- @window_title = "Membership"
+- @page_title = "#{link_to "Membership", admin_membership_path} > Groups"
+- @page_image = "/gluttonberg/images/sidebar/icon_library.png"
+- if @groups.empty?
+  %p.empty No groups available
+- else
+  %table{:id => 'pages_table', :class => (can?(:reorder , Gluttonberg::Page) ? "#{drag_tree_table_class} " : " " ), :cellpadding => 0, :cellspacing => 0, :rel => "" , :summary => "Groups" , :rel => drag_tree_url }
+    %thead
+      %tr
+        %th Name
+        %th.controls Controls
+    %tbody
+      - for group in @groups
+        %tr{:id => drag_tree_row_id(speaker), :class => drag_tree_row_class(speaker) + "#{cycle("even", "odd")}"}
+          %td= group.name
+          %td.controls
+            %ul
+              %li= link_to("Edit", edit_admin_group_url(group)  )
+              %li= link_to("Delete", delete_admin_group_url(group) )
+

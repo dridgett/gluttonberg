@@ -68,6 +68,17 @@ Rails.application.routes.draw do
         end       
       end  
       
+      scope :module => 'membership' do
+        match 'membership' => "main#index",      :as => :membership
+        match "/groups/move(.:format)" => "groups#move_node" , :as=> :group_move
+        resources :members do
+          get 'delete', :on => :member
+        end
+        resources :groups do
+          get 'delete', :on => :member
+        end
+      end  
+      
       scope :module => 'AssetLibrary' do
         # asset library related routes
           resources :assets do 

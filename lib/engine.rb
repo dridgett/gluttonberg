@@ -28,6 +28,8 @@ module Gluttonberg
         "Gluttonberg::PlainTextContentLocalization" => [:text] , 
         "Gluttonberg::HtmlContentLocalization" => [:text] 
     }
+    
+    config.enable_members = false
 
     # Load rake tasks
     rake_tasks do
