@@ -1,9 +1,7 @@
 = form_for( :collection , @collection , :url => url_opts ,  :html => { :method => method_name, :class => "nosubnav validation"} ) do |collection_form|
   = gb_error_messages_for(@collection)
-  %legend
-    Add new collection
-  %fieldset
+  = block("Collection") do
     = collection_form.label :name
-    = collection_form.text_field(:name , :class => "required large")
+    = collection_form.text_field(:name , :class => "required")
   
   = form_controls(admin_assets_url)
