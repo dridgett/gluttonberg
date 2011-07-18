@@ -4,7 +4,7 @@ module Gluttonberg
     include Content::SlugManagement
     include Content::Publishable
   
-    has_many :gallery_images
+    has_many :gallery_images , :order => "position ASC"
     belongs_to :user
   
     def name
@@ -13,6 +13,10 @@ module Gluttonberg
     
     def name=(new_name)
       title = new_name
+    end
+    
+    def images
+      gallery_images.map{|i| i.image }
     end
     
   end
