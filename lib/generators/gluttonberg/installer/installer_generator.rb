@@ -54,6 +54,9 @@ class Gluttonberg::InstallerGenerator < Rails::Generators::Base
        
      # config.localize = false  
      # By Default gluttonberg applications are localized. If you do not want localized application then uncomment following line.
+    
+     # By default photo gallery is not visible in backend. 
+     # config.enable_gallery = true  
        
      # You can customize your thumbnails. For geometry values please read ImageMagick documentation
      # config.thumbnails = { 

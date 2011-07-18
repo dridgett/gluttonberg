@@ -7,6 +7,7 @@ module Gluttonberg
       class GalleriesController < Gluttonberg::Admin::BaseController
         drag_tree GalleryImage , :route_name => :admin_gallery_move
         
+        before_filter :is_gallery_enabled
         before_filter :find_gallery, :only => [:edit, :update, :delete, :destroy]
         before_filter :require_super_admin_user , :except => [:index]
         before_filter :authorize_user , :except => [:destroy , :delete]  
@@ -79,7 +80,13 @@ module Gluttonberg
         end
                 
         protected
-        
+          
+          def is_gallery_enabled 
+            unless Rails.configuration.enable_gallery == true
+              raise ActiveRecord::RecordNotFound
+            end  
+          end  
+          
           def find_gallery
             @gallery = Gallery.find(params[:id])
             @gallery_images = @gallery.gallery_images.order("position ASC")
