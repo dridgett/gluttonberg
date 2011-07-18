@@ -14,8 +14,11 @@
         %th.controls Controls
     %tbody
       - for group in @groups
-        %tr{:id => drag_tree_row_id(speaker), :class => drag_tree_row_class(speaker) + "#{cycle("even", "odd")}"}
-          %td= group.name
+        %tr{:id => drag_tree_row_id(group), :class => drag_tree_row_class(group) + "#{cycle("even", "odd")}"}
+          %td
+            %span{:class => "#{drag_tree_drag_point_class} page" , :rel => drag_tree_row_id(group)}
+            = group.name
+            
           %td.controls
             %ul
               %li= link_to("Edit", edit_admin_group_url(group)  )
