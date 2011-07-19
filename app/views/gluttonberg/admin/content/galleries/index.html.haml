@@ -25,10 +25,8 @@
           %td.controls
             %ul
               %li
-              - if current_user.super_admin?  
+                = link_to "Edit", edit_admin_gallery_path(gallery)
+              - if can? :destroy , Gluttonberg::Gallery  
                 %li
-                  = link_to "Edit", edit_admin_gallery_path(gallery)
-                - if can? :destroy , Gluttonberg::Gallery  
-                  %li
-                    = link_to "Delete", delete_admin_gallery_path(gallery)
+                  = link_to "Delete", delete_admin_gallery_path(gallery)
   = will_paginate(@galleries)
