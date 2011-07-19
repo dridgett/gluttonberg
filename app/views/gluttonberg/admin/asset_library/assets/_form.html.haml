@@ -21,6 +21,10 @@
     = asset_form.label :alt , "Alt"
     = asset_form.text_field(:alt, :class => "large")
     
+    - if Rails.configuration.enable_gallery == true
+      .help
+        "Alt" field is also used for image caption in photo galleries.
+    
     %br        
     
   = render :partial => "collection_select_form" , :locals => {:asset_form => asset_form }

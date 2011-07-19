@@ -4,7 +4,6 @@
 = render :partial => "form", :locals => {:url => admin_gallery_path(@gallery)}
 
 = add_image_to_gallery_tag( "Add an image" , add_image_admin_gallery_path(@gallery) , @gallery.id )
-/= link_to "Add an image" , add_image_admin_gallery_path(@gallery)
 
 #images_container
   = render :partial => "images_list"       
