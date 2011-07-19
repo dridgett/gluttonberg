@@ -14,13 +14,11 @@
             %img{:src => gallery_item.image.thumb_small_url ,  :class => "thumb"}
             %span.title
               = gallery_item.image.title
-              - unless gallery_item.image.alt.blank?
-                = " - #{gallery_item.image.alt}"
               
           %td.controls
             %ul
               %li
-                = link_to "Edit image caption" ,  edit_admin_asset_path(gallery_item.image.id) 
+                = link_to "Edit image" ,  edit_admin_asset_path(gallery_item.image.id)  , :target => "_blank"
               %li
                 = link_to "Delete", "javascript:;" , :class => "delete_gallery_item" , :rel => gallery_item.id , "data-url" => remove_image_admin_gallery_path(gallery_item.id) , :title => "Delete image from this photo gallery"
         = image_tag("/gluttonberg/images/spinner.gif" , :id => "progress_#{gallery_item.id}" , :style => "display:none")
