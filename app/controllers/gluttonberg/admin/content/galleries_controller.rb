@@ -9,7 +9,6 @@ module Gluttonberg
         
         before_filter :is_gallery_enabled
         before_filter :find_gallery, :only => [:edit, :update, :delete, :destroy]
-        before_filter :require_super_admin_user , :except => [:index]
         before_filter :authorize_user , :except => [:destroy , :delete]  
         before_filter :authorize_user_for_destroy , :only => [:destroy , :delete]
         
