@@ -14,12 +14,12 @@
     %br
         
     = asset_form.label :name , "Name"
-    = asset_form.text_field(:name, :class => "large required")
+    = asset_form.text_field(:name, :class => "large required" , :maxlength => 255)
     
     %br
         
     = asset_form.label :alt , "Alt"
-    = asset_form.text_field(:alt, :class => "large")
+    = asset_form.text_field(:alt, :class => "large" , :maxlength => 255 )
     
     - if Rails.configuration.enable_gallery == true
       .help
