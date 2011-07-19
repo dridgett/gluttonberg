@@ -17,7 +17,7 @@
       = label_tag "Asset Collection"
       = select_tag(:collection_id , options_from_collection_for_select(Gluttonberg::AssetCollection.all , "id" , "name_with_number_of_images") , :include_blank => true)
       .help
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit
+        Use care when selecting a collection to add to a gallery. Once a collection is added it cannot be deleted, and you will need to make a new gallery.
   
   - if can? :publish , Gluttonberg::Gallery  
     %fieldset
