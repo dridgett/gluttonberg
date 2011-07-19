@@ -1,0 +1,86 @@
+%h2
+  Register for 
+%a.close{:href=>"javascript:;"}
+#new_user
+  = form_for @member, :url => register_path ,  :html => {:id => "register_form"} do |f|
+    - if @member && @member.errors.any?
+      #error
+        %ul
+          - @member.errors.full_messages.each do |msg|
+            %li
+              = msg
+              
+    .form_element
+      = f.label :first_name
+      = f.text_field :first_name , :class => "required"
+
+    .form_element
+      = f.label :email
+      = f.text_field :email  , :class => "required"
+
+    .form_element
+      = f.label :password
+      = f.password_field :password  , :class => "required" , :id => "password"
+
+    .form_element
+      = f.label :password_confirmation
+      = f.password_field :password_confirmation  , :class => "required"  , :id => "password_confirmation" , :equalto => "#password"
+
+    .form_element
+      = f.label :where_are_you_from
+      = f.select :where_are_you_from , WHERE_ARE_YOU_FROM  , {:include_blank => true },  :id => "rego_state" , :class => "required"  
+      
+
+    
+    .form_element.terms
+      %a{:href=>"/about/guidelines_for_use",:target=>"_blank"}
+        = f.label "I agree to the guidelines for use"
+      <input type="checkbox" class="checkbox" id="term_and_conditions" name="user[term_and_conditions]"  class = "required"/> 
+
+    .form_element.reg_submit
+      = f.submit
+      = image_tag("/gluttonberg/images/spinner.gif" , :id => "user_submit_progress" , :style => "display:none" )
+
+
+#form_hidden_field
+      
+:javascript
+  $(document).ready(function() {
+  
+    
+    $("form#register_form").validate({
+      rules: {
+        "user[term_and_conditions]" : {
+          required: true
+        }
+        
+      },
+      messages: {
+        "user[first_name]": {
+        required: "Enter your first name"
+        },
+        "user[email]": {
+        required: "Enter your email address"
+        },
+        "user[password]": {
+        required: "Enter a password"
+        },
+        "user[password_confirmation]": {
+        required: "Enter the same password as above"
+        },
+        
+        "user[term_and_conditions]" : {
+          required: "Please accept our term and conditions"
+        }  
+        
+      }  ,
+          submitHandler: function(form) {
+            
+            $("#user_submit_progress").show();
+           }
+    });
+    
+    
+    
+  });
+  

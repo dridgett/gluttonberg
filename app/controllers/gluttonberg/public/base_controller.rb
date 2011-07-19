@@ -75,7 +75,7 @@ class Gluttonberg::Public::BaseController < ActionController::Base
       unless current_member
         store_location
         flash[:error] = "You must be logged in to access this page"
-        redirect_to login_url
+        redirect_to member_login_url
         return false
       end
       true

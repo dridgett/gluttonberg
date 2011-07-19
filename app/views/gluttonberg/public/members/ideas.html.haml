@@ -1,0 +1,38 @@
+%h1
+  Welcome, #{current_user.first_name}
+  
+#sub_nav.manual
+  %ul
+    %li#view_ideasNav
+      %a{:href=>"/profile"}
+        Your Details
+    %li.current#post_ideasNav
+      %a{:href=>"/profile/ideas"}
+        Your Ideas
+    %li#post_ideasNav
+      %a{:href=>"/profile/favourite_ideas"}
+        Your Favourite Ideas    
+    / %li#post_ideasNav
+    /       %a{:href=>"/profile/comments"}
+    /         Your Comments
+        
+#idea_list
+  - if @ideas.blank?
+    %p
+      You have not created any ideas.
+  - else
+    - @ideas.each do |idea|
+      = render :partial => "ideas/idea", :locals => {:idea => idea}
+
+    - unless @ideas.size < 10
+      .pagination
+        = will_paginate @ideas
+  
+- content_for(:sidebar) do
+  - unless @interesting_ideas.blank?
+    .sb_block
+      %h3
+        Interesting ideas for you
+      .sb_content
+        - @interesting_ideas.shuffle[1..5].each do |idea|
+          = render :partial => "sidebars/idea", :locals => {:idea => idea}

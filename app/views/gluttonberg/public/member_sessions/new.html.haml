@@ -12,14 +12,14 @@
       %a{:href => "javascript:;",:id=>"password_tab",:class=>"button"}
         Forgot your password?
   #login_tab_section.active
-    = form_for(@user_session, :url => admin_login_url, :method => :post) do |f|
+    = form_for(@member_session, :url => member_login_url, :method => :post) do |f|
       %h2 Log in
       
       =render_flash_messages
-      - if @user_session.errors.any?
+      - if @member_session.errors.any?
         #error
           %ul
-            - @user_session.errors.full_messages.each do |msg|
+            - @member_session.errors.full_messages.each do |msg|
               %li
                 = msg
       %fieldset
@@ -32,11 +32,12 @@
         = f.submit "Log in", :class => "button", :disable_with => "Logging you in..."
 
   #password_reset_tab_section
-    = form_for(User.new, :url => admin_password_resets_path) do |f|
-      %h2 Forgot your password?
-
-      %fieldset
-        = f.label :email
-        = f.text_field :email, :class => "text_field"
-      %fieldset.last
-        = f.submit "Reset my password", :class => "button", :disable_with => "Resetting your password..."
+    / = form_for(User.new, :url => password_resets_path) do |f|
+    /       %h2 Forgot your password?
+    / 
+    /       %fieldset
+    /         = f.label :email
+    /         = f.text_field :email, :class => "text_field"
+    /       %fieldset.last
+    /         = f.submit "Reset my password", :class => "button", :disable_with => "Resetting your password..."
+    

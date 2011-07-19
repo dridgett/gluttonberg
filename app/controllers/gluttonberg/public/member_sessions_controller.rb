@@ -7,7 +7,7 @@ module Gluttonberg
       skip_before_filter :require_member, :only => [:new, :create]
       
       def new
-        @user_session = MemberSession.new
+        @member_session = MemberSession.new
       end
   
       def create

@@ -22,6 +22,7 @@ Rails.application.routes.draw do
       get "/member/login" => "member_sessions#new"
       post "/member/login" => "member_sessions#create"
       match "/member/logout" => "member_sessions#destroy"
+      resources :members 
     end
     
     namespace :admin do
