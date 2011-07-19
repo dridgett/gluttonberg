@@ -1,8 +1,7 @@
 %h2
   Register for 
-%a.close{:href=>"javascript:;"}
 #new_user
-  = form_for @member, :url => register_path ,  :html => {:id => "register_form"} do |f|
+  = form_for @member, :url => members_path ,  :html => {:id => "register_form"} do |f|
     - if @member && @member.errors.any?
       #error
         %ul
@@ -26,10 +25,6 @@
       = f.label :password_confirmation
       = f.password_field :password_confirmation  , :class => "required"  , :id => "password_confirmation" , :equalto => "#password"
 
-    .form_element
-      = f.label :where_are_you_from
-      = f.select :where_are_you_from , WHERE_ARE_YOU_FROM  , {:include_blank => true },  :id => "rego_state" , :class => "required"  
-      
 
     
     .form_element.terms

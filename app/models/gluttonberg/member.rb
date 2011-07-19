@@ -15,6 +15,7 @@ module Gluttonberg
     clean_html [:bio]
   
     acts_as_authentic do |c|
+      c.session_class = MemberSession
       c.login_field = "email"
     end
   

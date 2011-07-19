@@ -10,11 +10,10 @@ module Gluttonberg
       end
   
       def create
-        @member = Member.new(params[:member])
-        @member.role = "member"
-        @member.confirmation_key = Digest::SHA1.hexdigest(Time.now.to_s + rand(12341234).to_s)[1..24]
-        if @member.save
-          PublicNotifier.confirmation_instructions(@member.id).deliver
+        @member = Member.new(params[:gluttonberg_member])
+        #@member.confirmation_key = Digest::SHA1.hexdigest(Time.now.to_s + rand(12341234).to_s)[1..24]
+        if @member && @member.save
+         # PublicNotifier.confirmation_instructions(@member.id).deliver
           flash[:notice] = "Please check your email for a confirmation."
           redirect_to root_path
         else
@@ -47,7 +46,7 @@ module Gluttonberg
   
       def update
         @member = current_member
-        if @member.update_attributes(params[:member])
+        if @member.update_attributes(params[:gluttonberg_member])
           @member.completed_profile = true
           @member.save
           if params[:user][:return_url]
