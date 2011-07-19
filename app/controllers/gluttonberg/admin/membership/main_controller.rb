@@ -2,7 +2,7 @@
 module Gluttonberg
   module Admin
     module Membership  
-          class MainController < Gluttonberg::Admin::BaseController
+          class MainController < Gluttonberg::Admin::Membership::BaseController
             def index
             end
           end

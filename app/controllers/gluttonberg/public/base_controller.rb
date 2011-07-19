@@ -60,6 +60,29 @@ class Gluttonberg::Public::BaseController < ActionController::Base
       true
     end
     
+    #######
+    def current_member_session
+      return @current_member_session if defined?(@current_member_session)
+      @current_member_session = MemberSession.find
+    end
+
+    def current_member
+      return @current_member if defined?(@current_member)
+      @current_member = current_member_session && current_member_session.record
+    end
+
+    def require_member
+      unless current_member
+        store_location
+        flash[:error] = "You must be logged in to access this page"
+        redirect_to login_url
+        return false
+      end
+      true
+    end
+    
+    #####
+    
     def require_super_admin_user
       return false unless require_user
       

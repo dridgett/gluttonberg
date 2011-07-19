@@ -1,4 +1,4 @@
-= form_for(@member, :url => url , :html => {:class => "validation"}) do  |f|
+= form_for(@member, :url => url , :html => {:class => "validation" , :multipart=>true}) do  |f|
   = gb_error_messages_for(@member)
 
   .left_column
@@ -23,8 +23,16 @@
     %fieldset
       = f.label :image
       = f.file_field :image , :class => ""
-    
-    
+      - unless @member.image_file_name.blank?
+        = link_to image_tag(@member.image.url(:thumb)) , @member.image.url , :target => "_blank" , :title => "Click on image to see larger version"
+        %span Delete?
+        = f.check_box :image_delete, :label => 'Delete Image'
+      
+    %fieldset
+      = f.label :groups 
+      = f.select("group_ids" ,  Gluttonberg::Group.all.collect{|cc| [cc.name , cc.id] }   , { :include_blank => true  } , { :multiple => true , :class => "large" } )
+      
+      
 
   .right_column
     %legend

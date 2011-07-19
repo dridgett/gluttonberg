@@ -3,9 +3,10 @@
 module Gluttonberg
   module Admin
     module Membership
-      class MembersController < Gluttonberg::Admin::BaseController
+      class MembersController < Gluttonberg::Admin::Membership::BaseController
         before_filter :find_member, :only => [:delete, :edit, :update, :destroy]
         before_filter :authorize_user , :except => [:edit , :update]
+        
         
         def index
           @members = Member.all.paginate(:page => params[:page] , :per_page => Gluttonberg::Setting.get_setting("number_of_per_page_items") )
@@ -29,6 +30,9 @@ module Gluttonberg
         end
   
         def update
+          if params[:gluttonberg_member] && params[:gluttonberg_member]["image_delete"] == "1"
+            params[:gluttonberg_member][:image] = nil
+          end
           if @member.update_attributes(params[:gluttonberg_member])
             flash[:notice] = "Member account updated!"
             redirect_to  :action => :index

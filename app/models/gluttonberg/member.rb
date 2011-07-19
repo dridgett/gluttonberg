@@ -2,9 +2,15 @@ module Gluttonberg
   class Member < ActiveRecord::Base
   
     set_table_name "gb_members"
-    #belongs_to :images , :foreign_key => "image_id" , :class_name => "Gluttonberg::Asset"
+    
+    has_and_belongs_to_many :groups, :class_name => "Group" , :join_table => "gb_groups_members"
+    has_attached_file :image, :styles => { :profile => ["600x600"], :thumb => ["142x95#"]}
+    
   
     validates_presence_of :first_name , :email 
+    
+    attr_accessor :image_delete
+    
   
     clean_html [:bio]
   

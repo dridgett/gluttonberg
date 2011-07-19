@@ -19,6 +19,9 @@ Rails.application.routes.draw do
       match "/save_mark_as_flag" => "flag#create" , :as => :save_mark_as_flag
       match "/articles/tag/:tag" => "articles#tag" , :as => :articles_by_tag
       match "/articles/unsubscribe/:reference" => "articles#unsubscribe" , :as => :unsubscribe_article_comments      
+      get "/member/login" => "member_sessions#new"
+      post "/member/login" => "member_sessions#create"
+      match "/member/logout" => "member_sessions#destroy"
     end
     
     namespace :admin do
