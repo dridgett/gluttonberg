@@ -22,7 +22,12 @@ Rails.application.routes.draw do
       get "/member/login" => "member_sessions#new"
       post "/member/login" => "member_sessions#create"
       match "/member/logout" => "member_sessions#destroy"
-      resources :members 
+      get "/member/confirm/:key" => "members#confirm", :as => :member_confirmation
+      match "/member/resend_confirmation" => "members#resend_confirmation", :as => :member_resend_confirmation
+      put "/member/profile" => "members#update"
+      get "/member/profile" => "members#show", :as => :member_profile
+      match "/member/profile/edit" => "members#edit", :as => :member_profile_edit
+      resources :members
     end
     
     namespace :admin do

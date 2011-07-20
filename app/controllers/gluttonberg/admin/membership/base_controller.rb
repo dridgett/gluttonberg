@@ -3,7 +3,7 @@ class Gluttonberg::Admin::Membership::BaseController < Gluttonberg::Admin::BaseC
   
   protected
     def is_members_enabled 
-      unless Rails.configuration.enable_members == true
+      unless Gluttonberg::Member.enable_members == true
         raise ActiveRecord::RecordNotFound
       end  
     end  

@@ -1,0 +1,18 @@
+%p
+  Hi
+%p
+  Thanks for registering on #{Gluttonberg::Setting.get_setting("title")}.
+%p
+  Activate your account by clicking on the link below.
+
+%p
+  = @member_confirmation_url
+
+%p
+  If the above URL does not work try copying and pasting it into your browser. If you continue to have problem please feel free to contact us.
+  
+
+%p
+  Regards,
+  %br
+  The #{Gluttonberg::Setting.get_setting("title")} team.

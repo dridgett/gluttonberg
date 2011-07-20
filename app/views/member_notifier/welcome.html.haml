@@ -1,0 +1,25 @@
+%p
+  Hi #{@member.full_name}
+%p
+  Your account is registered on #{Gluttonberg::Setting.get_setting("title")}.
+
+%p
+  Welcome to #{Gluttonberg::Setting.get_setting("title")}.  You are now officially registered.
+  
+%p  
+  Your username is:
+  = @member.email
+  %br
+  Your password is :
+  = @password
+
+%p
+  To sign in to #{Gluttonberg::Setting.get_setting("title")} click on the link below or copy and paste the address into your browser's address bar:
+  = @login_url
+
+  
+
+%p
+  Regards,
+  %br
+  The #{Gluttonberg::Setting.get_setting("title")} team.

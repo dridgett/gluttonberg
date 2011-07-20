@@ -1,6 +1,6 @@
 class Notifier < ActionMailer::Base
   
-  default :from => "noreply@freerangefuture.com"
+  default :from => "#{Gluttonberg::Setting.get_setting("title")} <#{Gluttonberg::Setting.get_setting("from_email")}>"
   default_url_options[:host] = Rails.configuration.host_name 
   
   def password_reset_instructions(user_id)
@@ -25,8 +25,8 @@ class Notifier < ActionMailer::Base
   protected
   
     def setup_email
-      @from        = "noreply@freerangefuture.com"
-      @subject     = "[Gluttonberg] "
+      @from        = "#{Gluttonberg::Setting.get_setting("title")} <#{Gluttonberg::Setting.get_setting("from_email")}>"
+      @subject     = "[#{Gluttonberg::Setting.get_setting("title")}] "
       @sent_on     = Time.now
       @content_type = "text/html"
     end

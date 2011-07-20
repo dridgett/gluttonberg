@@ -1,9 +1,11 @@
 module Gluttonberg
   module Public
     class MembersController < Gluttonberg::Public::BaseController
-  
+      before_filter :is_members_enabled
+      
       before_filter :require_user , :only => [ :edit, :update, :show ]
-  
+      layout 'public'
+      
       def new
         @page_title = "Register"
         @member = Member.new
@@ -11,10 +13,18 @@ module Gluttonberg
   
       def create
         @member = Member.new(params[:gluttonberg_member])
-        #@member.confirmation_key = Digest::SHA1.hexdigest(Time.now.to_s + rand(12341234).to_s)[1..24]
+        if Member.does_email_verification_required
+          @member.confirmation_key = Digest::SHA1.hexdigest(Time.now.to_s + rand(12341234).to_s)[1..24]
+        else  
+          @member.profile_confirmed = true
+        end
         if @member && @member.save
-         # PublicNotifier.confirmation_instructions(@member.id).deliver
-          flash[:notice] = "Please check your email for a confirmation."
+          if Member.does_email_verification_required
+            MemberNotifier.confirmation_instructions(@member.id).deliver
+            flash[:notice] = "Please check your email for a confirmation."
+          else
+            flash[:notice] = "Your registration is now complete."
+          end
           redirect_to root_path
         else
           @page_title = "Register"
@@ -39,7 +49,7 @@ module Gluttonberg
       end
   
       def resend_confirmation
-        PublicNotifier.confirmation_instructions(current_member.id).deliver if current_member && !current_member.profile_confirmed
+        MemberNotifier.confirmation_instructions(current_member.id).deliver if current_member && !current_member.profile_confirmed
         flash[:notice] = "Please check your email for a confirmation."
         redirect_to profile_url
       end
@@ -47,10 +57,9 @@ module Gluttonberg
       def update
         @member = current_member
         if @member.update_attributes(params[:gluttonberg_member])
-          @member.completed_profile = true
           @member.save
-          if params[:user][:return_url]
-            redirect_to params[:member][:return_url]
+          if params[:gluttonberg_member][:return_url]
+            redirect_to params[:gluttonberg_member][:return_url]
           else
             redirect_to root_path
           end
@@ -63,7 +72,6 @@ module Gluttonberg
   
       def edit
         @member = current_member
-        interesting_ideas_for_you(current_member)
       end
   
   

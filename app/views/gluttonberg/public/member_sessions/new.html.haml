@@ -1,43 +1,24 @@
-- @page_id = "login"
-- @page_title = "Log In"
+= form_for(@member_session, :url => member_login_path, :method => :post) do |f|
+  - if @member_session.errors.any?
+    #error
+      %ul
+        - @member_session.errors.full_messages.each do |msg|
+          %li
+            = msg
 
-%div#form
-  %h1#login_title= website_title
-  = backend_logo("/gluttonberg/images/logo.png" , {:height => "46px"})
-  %ul#login_navigation
-    %li
-      %a{:href => "javascript:;",:id=>"login_tab",:class=>"button active"}
-        Log in
-    %li
-      %a{:href => "javascript:;",:id=>"password_tab",:class=>"button"}
-        Forgot your password?
-  #login_tab_section.active
-    = form_for(@member_session, :url => member_login_url, :method => :post) do |f|
-      %h2 Log in
-      
-      =render_flash_messages
-      - if @member_session.errors.any?
-        #error
-          %ul
-            - @member_session.errors.full_messages.each do |msg|
-              %li
-                = msg
-      %fieldset
-        = f.label :email
-        = f.text_field :email, :class => "text_field"
-      %fieldset
-        = f.label :password
-        = f.password_field :password, :class => "text_field"
-      %fieldset.last
-        = f.submit "Log in", :class => "button", :disable_with => "Logging you in..."
+  %fieldset.form_element
+    = f.label :email
+    = f.text_field :email, :class => "text_field"
 
-  #password_reset_tab_section
-    / = form_for(User.new, :url => password_resets_path) do |f|
-    /       %h2 Forgot your password?
-    / 
-    /       %fieldset
-    /         = f.label :email
-    /         = f.text_field :email, :class => "text_field"
-    /       %fieldset.last
-    /         = f.submit "Reset my password", :class => "button", :disable_with => "Resetting your password..."
-    
+  %fieldset.form_element
+    = f.label :password
+    = f.password_field :password, :class => "text_field"
+
+  %fieldset.form_element
+    = f.submit "Login"
+
+  %fieldset.form_element.indent
+    /= link_to "Forgot my password", :new_password_reset
+  %fieldset.form_element.register_link.indent
+    %a{:href=> new_member_path}
+      Not registered yet? Click here to register.  

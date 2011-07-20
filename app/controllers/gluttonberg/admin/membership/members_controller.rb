@@ -17,9 +17,17 @@ module Gluttonberg
         end
   
         def create
-          @member = Member.new(params[:gluttonberg_member])
+          @password = Gluttonberg::Member.generateRandomString
+          password_hash = {  
+              :password => @password ,
+              :password_confirmation => @password
+          }
+          @member = Member.new(params[:gluttonberg_member].merge(password_hash))
+          @member.profile_confirmed = true
+          
           if @member.save
-            flash[:notice] = "Member account registered!"
+            flash[:notice] = "Member account registered and welcome email is also sent to the member"
+            MemberNotifier.welcome(@member.id).deliver            
             redirect_to :action => :index
           else
             render :action => :new

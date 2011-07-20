@@ -1,30 +1,21 @@
 %h1
-  Welcome, #{current_user.first_name}
+  Welcome, #{current_member.first_name}
   
 #sub_nav.manual
   %ul
     %li.current#view_ideasNav
-      %a{:href=>"/profile"}
+      %a{:href=>"/member/profile"}
         Your Details
-    %li#post_ideasNav
-      %a{:href=>"/profile/ideas"}
-        Your Ideas
-    %li#post_ideasNav
-      %a{:href=>"/profile/favourite_ideas"}
-        Your Favourite Ideas
-    / %li#post_ideasNav
-    /   %a{:href=>"/profile/comments"}
-    /     Your Comments
-
+    
 #complete_profile
-  = form_for @user, :url => profile_path, :method => :put ,  :html => {:multipart => true, :id => "register_form"} do |f|
-    - if @user.errors.any?
+  = form_for @member, :url => member_profile_path, :method => :put ,  :html => {:multipart => true, :id => "register_form"} do |f|
+    - if @member.errors.any?
       #error
         %ul
-          - @user.errors.full_messages.each do |msg|
+          - @member.errors.full_messages.each do |msg|
             %li
               = msg
-    = f.hidden_field(:return_url, :value => "/profile")
+    = f.hidden_field(:return_url, :value => "/member/profile")
     
     .form_element
       = f.label :email
@@ -37,29 +28,6 @@
     .form_element
       = f.label :password_confirmation
       = f.password_field :password_confirmation
-    
-    
-    .form_element
-      = f.label :where_are_you_from
-      = f.select :where_are_you_from , WHERE_ARE_YOU_FROM  , {:include_blank => true },  :id => "rego_state" , :class => "required" 
-    
-    #location_fields.have_fields
-      .form_element
-        = f.label "Where do you live?"
-        = text_field_tag(:live, @live , {:class => "required postcode" })
-        = label_tag "live_invalid_location" , "Please enter valid location." , :style => "display:none", :id => "live_invalid_location", :class => "error"
-        = f.hidden_field(:live, {:class => " " })
-
-      .form_element
-        = f.label "Where do you work most?"
-        = text_field_tag(:work, @work , {:class => "required postcode"})
-        = label_tag "work_invalid_location" , "Please enter valid location." , :style => "display:none", :id => "work_invalid_location", :class => "error"
-        = f.hidden_field(:work, {:class => " " })
-
-      .form_element
-        = f.label "Where do you play most?"
-        = f.text_field(:play_location_list,  {:class => "required play_postcode"})
-        = label_tag "play_invalid_location" , "Please enter valid location." , :style => "display:none", :id => "play_invalid_location" , :class => "error"
     
     .form_element
       = f.label "Profile Image"
@@ -77,15 +45,12 @@
 :javascript
   $(document).ready(function() {
     
-    init_rego_location();
-    
-    
     $("form#register_form").validate({
       rules: {
         "user[term_and_conditions]" : {
           required: true
         }
-
+        
       },
       messages: {
         "user[first_name]": {
@@ -100,21 +65,18 @@
         "user[password_confirmation]": {
         required: "Enter the same password as above"
         },
-
+        
         "user[term_and_conditions]" : {
           required: "Please accept our term and conditions"
-        } 
-
-      },
-      submitHandler: function(form) {
-        $("#user_submit_progress").show();
-         validateAllLocation("live" , form);
-         //$(form).submit();
-       }
+        }  
+        
+      }  ,
+          submitHandler: function(form) {
+            
+            $("#user_submit_progress").show();
+           }
     });
-
     
-
-
+    
+    
   });
-

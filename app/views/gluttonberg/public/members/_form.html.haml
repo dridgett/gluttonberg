@@ -12,6 +12,9 @@
     .form_element
       = f.label :first_name
       = f.text_field :first_name , :class => "required"
+    .form_element
+      = f.label :last_name
+      = f.text_field :last_name , :class => "required"  
 
     .form_element
       = f.label :email
@@ -41,7 +44,6 @@
       
 :javascript
   $(document).ready(function() {
-  
     
     $("form#register_form").validate({
       rules: {

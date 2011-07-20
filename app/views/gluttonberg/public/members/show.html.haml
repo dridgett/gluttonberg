@@ -1,189 +1,35 @@
-= javascript_include_tag "jquery.jqplot.min.js" , "jqplot.pieRenderer.js" , "jqplot.barRenderer.js" , "jqplot.categoryAxisRenderer.js" , "jqplot.highlighter.js" , "jqplot.pointLabels.js" , "jqplot.cursor.js"
-
 #sub_nav.manual
   %ul
     %li.current#view_ideasNav
-      %a{:href=>"/profile"}
+      %a{:href=>"/member/profile"}
         Your Details
-    %li#post_ideasNav
-      %a{:href=>"/profile/ideas"}
-        Your Ideas
-    %li#post_ideasNav
-      %a{:href=>"/profile/favourite_ideas"}
-        Your Favourite Ideas
-    / %li#post_ideasNav
-    /   %a{:href=>"/profile/comments"}
-    /     Your Comments
+    
+    
         
 %h1
-  Welcome, #{current_user.first_name}
+  Welcome, #{current_member.first_name}
 
 #profile
   .change
-    = link_to "Update your details", profile_edit_path
+    = link_to "Update your details", member_profile_edit_path
   .avatar
     - if current_user.blank?
-      - if current_user.twitter_image_url.blank?
-        = image_tag("/images/comment/missing.png", :class => "comment_image")
-      - else
-        = image_tag(comment.twitter_image_url, :class => "comment_image")
+      = image_tag("/images/comment/missing.png", :class => "comment_image")
     - else
-      = image_tag(current_user.image.url(:comment))
+      = image_tag(current_member.image.url(:thumb))
   
   %dl
     %dt
       Name:
     %dd
-      = current_user.full_name
+      = current_member.full_name
     %dt
       Email:
     %dd
-      = current_user.email
+      = current_member.email
     
-    - if current_user.where_are_you_from == "SA"
-      - unless current_user.live_location.blank?
-        %dt
-          You live:
-        %dd
-          = current_user.live_location.location.titleize
-        
-      - unless current_user.work_location.blank?
-        %dt
-          You work:
-        %dd
-          = current_user.work_location.location.titleize
-    
-      - unless current_user.play_location_list.blank?
-        %dt
-          You Play:
-        %dd
-          - current_user.play_locations.each_with_index do |play, index|
-            - if index > 0
-              = ","
-            = human_readable_location(play.name)
-    - else
-      %dt
-        You Live:
-      %dd
-        = current_user.where_are_you_from
-  
-  
-    
-  - if @chart1_your > 0 || @chart2_your > 0 ||  !@favourited_bar_chart.blank? || !@votes_bar_chart.blank? 
-    %h2
-      Your stats
-        
-    - if !@votes_bar_chart.blank? 
-      .bar_chart.chart
-        %h3 Your most popular ideas
-        #votes_bar_chart{:style => "width:300px; height:190px;"}
-        
-          
-    - if @chart1_your > 0
-      .chart
-        %h3 Conversation starters  
-        #chart_conversation_starters{:style => "width:190px; height:190px;"}
-        .text
-          -if(@chart1_your.to_int == 1)
-            #{@chart1_your} of your ideas has been a conversation starter, creating #{sprintf("%5.2f",(@chart1_your.to_f/(@chart1_others.to_f+@chart1_your.to_f))*100)}% of the overall buzz
-          -else
-            #{@chart1_your} of your ideas have been conversation starters, creating #{sprintf("%5.2f",(@chart1_your.to_f/(@chart1_others.to_f+@chart1_your.to_f))*100)}% of the overall buzz
-  
-    - if @chart2_your > 0  
-      .chart
-        %h3 Chatter
-        #chart_chatter{:style => "width:190px; height:190px;"}  
-        .text
-          You’ve commented on #{pluralize(@chart2_your,"idea")}, that’s #{sprintf("%5.2f",(@chart2_your.to_f/(@chart2_others.to_f+@chart2_your.to_f))*100)}% of the chatter on 5000+
-
-        
-    - if !@favourited_bar_chart.blank?
-      .bar_chart.chart
-        %h3 Your most favoured ideas
-        .text
-          Your ideas have been marked as favourite by other users #{pluralize(@total_fav,"time")}.
-        #favourited_bar_chart{:style => "width:300px; height:170px;"}
       
-  - unless current_user.profile_confirmed
+  - unless current_member.profile_confirmed
     .confirm
-      = link_to "resend confirmation email", profile_resend_confirmation_path
+      = link_to "resend confirmation email", member_resend_confirmation_path
   
-- content_for(:sidebar) do
-  - unless @interesting_ideas.blank?
-    .sb_block
-      %h3
-        Interesting ideas for you
-      .sb_content
-        - @interesting_ideas.shuffle[1..5].each do |idea|
-          = render :partial => "sidebars/idea", :locals => {:idea => idea}
-
-
-#bar_graph_tooltips{:style => "display:none"}
-  - @bar_chart_ideas.each_with_index do |idea,index|
-    
-    - image = link_to(image_tag(idea.image.url(:home), :width => 75, :height => 75, :alt => idea.image_title), idea_path(idea))
-    - themes = "<div class='themes'> <span>Themes: </span> <div class='theme_dots'> "
-    - idea.themes.each do |theme|
-      - themes += "<span class=#{theme.name.downcase} > #{theme.name} </span> "
-    - themes += "</div> </div>"
-    
-   
-    %div{:id => "bar_graph_tooltip_#{index}" }
-      .info_window.bar_graph_tooltip
-        .info_first_row
-          #{image.html_safe} #{themes.html_safe}
-          %span.clear
-          .votes 
-            #{idea.positive_voters.size} agree #{idea.negative_voters.size} disagree
-        .clear
-        .popup_body 
-          = "#{truncate(idea.brief, :length => 60)} has #{pluralize(idea.positive_voters.length , "vote" )}  in favour and #{idea.negative_voters.length } against. Feedback on this idea is #{@votes_bar_chart[index]}% positive."
-          
-          = link_to(truncate(idea.brief, :length => 60) , idea_path(idea) , :style => "display:none;" , :class => "idea_link" ).gsub("\"","'")
-          
-
-#favourited_bar_graph_tooltips{:style => "display:none"}
-  - @favourited_bar_chart_ideas.each_with_index do |idea,index|
-
-    - image = link_to(image_tag(idea.image.url(:home), :width => 75, :height => 75, :alt => idea.image_title), idea_path(idea))
-    - themes = "<div class='themes'> <span>Themes: </span> <div class='theme_dots'> "
-    - idea.themes.each do |theme|
-      - themes += "<span class=#{theme.name.downcase} > #{theme.name} </span> "
-    - themes += "</div> </div>"
-
-
-    %div{:id => "favourited_bar_graph_tooltip_#{index}" }
-      .info_window.bar_graph_tooltip
-        .info_first_row
-          #{image.html_safe} #{themes.html_safe}
-          %span.clear
-          .votes 
-            #{idea.positive_voters.size} agree #{idea.negative_voters.size} disagree
-        .clear
-        .popup_body 
-          = truncate(idea.brief, :length => 100)
-          = link_to(truncate(idea.brief, :length => 100) , idea_path(idea) , :style => "display:none;" , :class => "idea_link" ).gsub("\"","'")
-          
-          
-:javascript
-  $(document).ready(function(){
-    if(#{@chart1_your} > 0){
-      data = [['your_value', #{@chart1_your}],['others', #{@chart1_others}]]
-      init_pie_chart("chart_conversation_starters" , data);
-    }
-    if(#{@chart2_your} > 0){
-      data = [['your_value', #{@chart2_your}],['others', #{@chart2_others}]]
-      init_pie_chart("chart_chatter" , data);
-    }
-    
-    if(#{!@votes_bar_chart.blank?}){
-      data = [#{@votes_bar_chart.join(",")}]
-      init_bar_chart("votes_bar_chart" , data);
-    }
-    
-    if(#{!@favourited_bar_chart.blank?}){
-      data = [#{@favourited_bar_chart.join(",")}]
-      init_favourited_bar_chart("favourited_bar_chart" , data , #{@favourited_bar_chart.blank? ? 0 : @favourited_bar_chart.first });
-    }
-    
-  })

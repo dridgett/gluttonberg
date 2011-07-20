@@ -2,8 +2,8 @@ module Gluttonberg
   module Public
     class MemberSessionsController < Gluttonberg::Public::BaseController
       
-      layout 'bare'
-      
+      layout 'public'
+      before_filter :is_members_enabled
       skip_before_filter :require_member, :only => [:new, :create]
       
       def new

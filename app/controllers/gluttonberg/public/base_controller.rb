@@ -15,7 +15,7 @@ class Gluttonberg::Public::BaseController < ActionController::Base
     before_filter :retrieve_locale    
     layout "public"
     
-    helper_method :current_user_session, :current_user
+    helper_method :current_user_session, :current_user , :current_member_session , :current_member
     
     if Rails.env == "production"    
       rescue_from ActiveRecord::RecordNotFound, :with => :not_found
@@ -60,7 +60,6 @@ class Gluttonberg::Public::BaseController < ActionController::Base
       true
     end
     
-    #######
     def current_member_session
       return @current_member_session if defined?(@current_member_session)
       @current_member_session = MemberSession.find
@@ -81,7 +80,11 @@ class Gluttonberg::Public::BaseController < ActionController::Base
       true
     end
     
-    #####
+    def is_members_enabled 
+      unless Gluttonberg::Member.enable_members == true
+        raise ActiveRecord::RecordNotFound
+      end  
+    end
     
     def require_super_admin_user
       return false unless require_user

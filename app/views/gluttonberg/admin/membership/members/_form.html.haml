@@ -31,17 +31,6 @@
     %fieldset
       = f.label :groups 
       = f.select("group_ids" ,  Gluttonberg::Group.all.collect{|cc| [cc.name , cc.id] }   , { :include_blank => true  } , { :multiple => true , :class => "large" } )
-      
-      
-
-  .right_column
-    %legend
-      Password
-    %fieldset
-      = f.label :password , "Password"
-      = f.password_field(:password, :class => "medium", :label => "Password")
-    %fieldset
-      = f.label :password_confirmation , "Confirm Password"
-      = f.password_field(:password_confirmation, :class => "medium", :label => "Confirm Password")
+  
     %fieldset
       = form_controls(admin_members_path)

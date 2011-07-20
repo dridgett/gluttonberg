@@ -31,7 +31,9 @@ module Gluttonberg
         :number_of_per_page_items => ["20" , 7 , "Number of per page items for any paginated content."],
         :enable_WYSIWYG => ["Yes" , 8 , "Enable WYSIWYG on textareas" , "Yes;No" ],
         :backend_logo => ["" , 10 , "Logo for backend" ] , 
-        :restrict_site_access => ["" , 11 , "If this setting is provided then user needs to enter password to access public site."]        
+        :restrict_site_access => ["" , 11 , "If this setting is provided then user needs to enter password to access public site."]  , 
+        :from_email => ["" , 12 , "This email address is used for 'from' email address for all emails sent through system."]        
+               
       }
       self.generate_or_update_settings(settings)
     end  
@@ -85,6 +87,7 @@ module Gluttonberg
     def destroy_cache
       Rails.cache.write("setting_#{self.name}" , "")
     end
+    
 
   end
 end

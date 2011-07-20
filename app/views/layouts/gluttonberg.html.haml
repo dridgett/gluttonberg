@@ -62,7 +62,7 @@
               = active_link_to("Add asset", new_admin_asset_path, :title => "Add asset")
             %li
               = active_link_to("Add assets in bulk", admin_add_assets_in_bulk_path, :title => "Add assets in bulk")
-        - if Rails.configuration.enable_members == true
+        - if Gluttonberg::Member.enable_members == true
           %li
             = active_link_to("Members", admin_membership_path, :id => "membership_nav" , :title => "Members")
             %a.nav_trigger{ :href => "javascript:;" }
