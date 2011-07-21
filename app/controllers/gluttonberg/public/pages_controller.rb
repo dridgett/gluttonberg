@@ -5,6 +5,13 @@ module Gluttonberg
       
       # If localized template file exist then render that file otherwise render non-localized template
       def show
+        if Gluttonberg::Member.enable_members == true
+          return unless require_member
+          unless current_member.does_member_have_access_to_the_page?( page)
+            raise CanCan::AccessDenied
+          end  
+        end
+        
         template = page.view
         template_path = "pages/#{template}"
         

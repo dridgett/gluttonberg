@@ -30,7 +30,7 @@
       
     %fieldset
       = f.label :groups 
-      = f.select("group_ids" ,  Gluttonberg::Group.all.collect{|cc| [cc.name , cc.id] }   , { :include_blank => true  } , { :multiple => true , :class => "large" } )
+      = f.select("group_ids" ,  Gluttonberg::Group.order("position ASC").collect{|cc| [cc.name , cc.id] }   , { :include_blank => true  } , { :multiple => true , :class => "large" } )
   
     %fieldset
       = form_controls(admin_members_path)

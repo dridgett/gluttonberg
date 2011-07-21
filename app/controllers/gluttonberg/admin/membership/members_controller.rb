@@ -14,6 +14,7 @@ module Gluttonberg
   
         def new
           @member = Member.new
+          @member.group_ids = [Group.default_group.id] unless Group.default_group.blank?
         end
   
         def create

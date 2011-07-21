@@ -11,6 +11,7 @@
     %thead
       %tr
         %th Name
+        %th Default
         %th.controls Controls
     %tbody
       - for group in @groups
@@ -18,7 +19,7 @@
           %td
             %span{:class => "#{drag_tree_drag_point_class} page" , :rel => drag_tree_row_id(group)}
             = group.name
-            
+          %td= group.default == true ? "Yes" : ""  
           %td.controls
             %ul
               %li= link_to("Edit", edit_admin_group_url(group)  )

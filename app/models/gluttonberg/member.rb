@@ -4,7 +4,7 @@ module Gluttonberg
     set_table_name "gb_members"
     
     has_and_belongs_to_many :groups, :class_name => "Group" , :join_table => "gb_groups_members"
-    has_attached_file :image, :styles => { :profile => ["600x600"], :thumb => ["142x95#"]}
+    has_attached_file :image, :styles => { :profile => ["600x600"], :thumb => ["142x95#"] , :thumb_for_backend => ["100x75#"]}
     
   
     validates_presence_of :first_name , :email 
@@ -28,7 +28,7 @@ module Gluttonberg
   
     def deliver_password_reset_instructions!  
       reset_perishable_token!
-      Notifier.deliver_password_reset_instructions(self.id)  
+      MemberNotifier.deliver_password_reset_instructions(self.id)  
     end
     
     def groups_name
@@ -68,6 +68,18 @@ module Gluttonberg
       newpass = ""
       1.upto(length) { |i| newpass << chars[rand(chars.size-1)] }
       newpass
+    end
+    
+    def does_member_have_access_to_the_page?( page)
+      self.have_group?(page.groups)
+    end
+    
+    def have_group?(groups)
+      if groups.find_all{|g| self.group_ids.include?(g.id)  }.blank?
+        false
+      else
+        true
+      end
     end
     
   end

@@ -7,7 +7,8 @@ module Gluttonberg
     include Content::SlugManagement
     belongs_to :user
     has_many :localizations, :class_name => "Gluttonberg::PageLocalization"   , :dependent => :destroy 
-
+    has_and_belongs_to_many :groups, :class_name => "Group" , :join_table => "gb_groups_pages"
+    
     # Generate the associations for the block/content classes
     Content::Block.classes.each do |klass| 
       has_many klass.association_name, :class_name => klass.name, :dependent => :destroy

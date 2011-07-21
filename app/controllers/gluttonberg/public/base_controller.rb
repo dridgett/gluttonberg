@@ -17,10 +17,11 @@ class Gluttonberg::Public::BaseController < ActionController::Base
     
     helper_method :current_user_session, :current_user , :current_member_session , :current_member
     
-    if Rails.env == "production"    
+    #if Rails.env == "production"    
       rescue_from ActiveRecord::RecordNotFound, :with => :not_found
       rescue_from ActionController::RoutingError, :with => :not_found
-    end
+      rescue_from CanCan::AccessDenied, :with => :access_denied
+    #end
     
     before_filter :verify_site_access    
     
@@ -71,10 +72,14 @@ class Gluttonberg::Public::BaseController < ActionController::Base
     end
 
     def require_member
-      unless current_member
+      if current_member.blank?
         store_location
         flash[:error] = "You must be logged in to access this page"
         redirect_to member_login_url
+        return false
+      elsif current_member.profile_confirmed != true && controller_name != "members"
+        flash[:error] = "Your account has not been verified. Please check your email for your verification link. If you did not receive your verification email, Please click <a href='#{member_resend_confirmation_path}' >here</a> to resend it."
+        redirect_to member_profile_url
         return false
       end
       true
@@ -113,6 +118,10 @@ class Gluttonberg::Public::BaseController < ActionController::Base
     # Exception handlers
     def not_found
       render :layout => "bare" , :template => 'gluttonberg/public/exceptions/not_found'
+    end
+    
+    def access_denied
+      render :layout => "bare" , :template => 'gluttonberg/public/exceptions/access_denied'
     end
 
     # handle NotAcceptable exceptions (406)

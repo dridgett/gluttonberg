@@ -9,7 +9,7 @@ module Gluttonberg
         drag_tree Group , :route_name => :admin_group_move
         
         def index
-          @groups = Group.all.paginate(:page => params[:page] , :per_page => Gluttonberg::Setting.get_setting("number_of_per_page_items") )
+          @groups = Group.all
         end
   
         def new

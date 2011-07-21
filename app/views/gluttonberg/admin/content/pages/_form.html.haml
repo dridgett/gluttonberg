@@ -13,6 +13,10 @@
           = f.label :slug
           = f.text_field(:slug, :id => 'page_slug', :class=>"large")
         
+        %fieldset
+          = f.label :groups 
+          = f.select("group_ids" ,  Gluttonberg::Group.order("position ASC").collect{|cc| [cc.name , cc.id] }   , { :include_blank => true  } , { :multiple => true , :class => "large" } )
+        
   .right_column
     - unless @pages.empty?
       %fieldset

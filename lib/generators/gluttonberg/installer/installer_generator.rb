@@ -54,6 +54,10 @@ class Gluttonberg::InstallerGenerator < Rails::Generators::Base
        
      # config.localize = false  
      # By Default gluttonberg applications are localized. If you do not want localized application then uncomment following line.
+     
+     # By default membership system is disabled. uncommenting following line make it enabled. 
+     # if email_verification is true then newly registered members have to verify their email address
+     # config.enable_members = {:email_verification => true}
        
      # You can customize your thumbnails. For geometry values please read ImageMagick documentation
      # config.thumbnails = { 
@@ -61,6 +65,7 @@ class Gluttonberg::InstallerGenerator < Rails::Generators::Base
      #   :show_page_image => {:label => "Image for show page", :filename => "show_page_image", :geometry => "500x350"} ,
      #   .....
      # }
+     
       
     }
     

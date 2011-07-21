@@ -10,6 +10,7 @@
   %table{:cellpadding => 0, :cellspacing => 0, :summary => "List of members"}
     %thead
       %tr
+        %th
         %th Name
         %th Group
         %th.controls Controls
@@ -18,6 +19,9 @@
       - for member in @members
         - i += 1
         %tr{ :class => "#{i % 2 == 0? "even" : ""}"}
+          %td
+            - unless member.image.blank? || member.image.url(:thumb_for_backend).blank?
+              = image_tag(member.image.url(:thumb_for_backend) )
           %td= member.email
           %td= member.groups_name
             

@@ -1,0 +1,11 @@
+%h1
+  Forgot Password
+
+#complete_profile
+  = form_for(Gluttonberg::Member.new, :url => member_password_resets_path) do |f|
+
+    %fieldset.form_element
+      = f.label :email
+      = f.text_field :email, :class => "text_field"
+    %fieldset.form_element
+      = f.submit "Reset my password"

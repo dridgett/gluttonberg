@@ -6,4 +6,9 @@
     = group_form.label :name
     = group_form.text_field(:name , :class => "required large")
   
+  - if Gluttonberg::Group.default_group.blank? || @group.default == true
+    %fieldset
+      = group_form.label :default
+      = group_form.check_box(:default, :boolean => true , :class => "checkbox")
+  
   = form_controls(admin_groups_url)
