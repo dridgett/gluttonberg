@@ -1,0 +1,25 @@
+- unless list.blank?
+  %h2{ :class => "expandable" , :rel => ".#{list_type}"}= "#{list.count} #{list_type.capitalize} import(s)"
+  %table{:cellpadding => 0, :cellspacing => 0, :summary => "List of members" , :class => "#{list_type} expandable_content"}
+    %thead
+      %tr
+        %th
+        %th Name
+        %th Email
+        %th Group
+        %th Signup Date
+    %tbody
+      - i = 0
+      - for member in list
+        - i += 1
+        %tr{ :class => "#{i % 2 == 0? "even" : ""}"}
+          %td
+            - if !member.image.blank? && !member.image.url(:thumb_for_backend).blank?
+              = image_tag(member.image.url(:thumb_for_backend) )
+          %td= member.full_name
+          %td= mail_to member.email , member.email
+          %td= member.groups_name
+          %td
+            - unless member.created_at.blank?
+              = date_format member.created_at  
+        

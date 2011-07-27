@@ -30,6 +30,8 @@ module Gluttonberg
     }
     
     config.enable_members = false
+    config.member_csv_metadata = { :first_name => "FIRST NAME" , :last_name => "LAST NAME" ,  :email => "EMAIL" , :groups => "GROUPS" , :bio => "BIO" }
+    
 
     # Load rake tasks
     rake_tasks do

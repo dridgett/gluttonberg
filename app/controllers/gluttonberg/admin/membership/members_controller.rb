@@ -9,7 +9,12 @@ module Gluttonberg
         
         
         def index
-          @members = Member.all.paginate(:page => params[:page] , :per_page => Gluttonberg::Setting.get_setting("number_of_per_page_items") )
+          unless params[:query].blank?
+            @members = Member.order(get_order).where("first_name LIKE '%#{params[:query]}%' OR last_name LIKE '%#{params[:query]}%' OR email LIKE '%#{params[:query]}%' OR bio LIKE '%#{params[:query]}%' " )
+          else  
+            @members = Member.order(get_order)
+          end
+          @members = @members.paginate(:page => params[:page] , :per_page => Gluttonberg::Setting.get_setting("number_of_per_page_items") )
         end
   
         def new
@@ -66,6 +71,30 @@ module Gluttonberg
           else
             flash[:error] = "There was an error deleting the member."
             redirect_to :action => :index
+          end  
+        end
+        
+        def export
+          csv_data = Member.exportCSV
+          send_data csv_data, :type => 'text/csv' , :disposition => 'attachment' , :filename => "All members at #{Time.now.strftime('%Y-%m-%d')}.csv"
+        end
+        
+        # form for uploading csv for members
+        def new_bulk    
+        end
+        
+        # import csv and show report for successfully, failed, updated members
+        def create_bulk
+          if params[:csv].blank?
+            flash[:error] = "Please provide a valid csv file."
+            redirect_to :action => new_bulk
+          else
+            @successfull , @failed , @updated  = Member.importCSV(params[:csv][:file].tempfile.path )
+            if @successfull.kind_of? String
+              flash[:error] = @successfull
+              redirect_to :action => new_bulk
+              return
+            end
           end  
         end
   

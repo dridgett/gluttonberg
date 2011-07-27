@@ -1,0 +1,41 @@
+- @window_title = "Membership"
+- @page_title = "#{link_to "Membership", admin_membership_path} > #{link_to("Members", admin_members_path)} > Import members"
+- @page_image = "/gluttonberg/images/sidebar/icon_settings.png"
+
+= form_for "csv"  , :url => admin_members_bulk_create_path , :html => { :class => :form , :id => "uploadCSVForm" , :multipart => true } do |f| 
+  .left_column
+    %legend
+      Details
+    %fieldset
+      = label :zip, "Browse to zip" , :class => :label   
+      = f.file_field :file , :class => 'text_field required' 
+      %div.description
+        Processing of the CSV file will be done via delayed job. It will check each member in the CSV and check to see if the member exists in the system. If the member does exists it will update the details, if the member does not exist it will create a new record. 
+            
+        %br
+                        
+        %p 
+          First row of CSV should contain column titles. We need following columns for creating member record in our system
+            
+        %ul.csv_meta_info
+          - Rails.configuration.member_csv_metadata.each do |key , val|
+            %li= val
+        
+    %fieldset
+      = form_controls(admin_members_path)    
+      #double_click_warning{  :style => "color:red;display:none;"}
+        File upload in progress, please don’t navigate away from this screen. 
+        %p{:style => "padding-left:170px;"}= image_tag("facebox/loading.gif")
+
+
+/ :javascript
+/   $("#uploadCSVForm").validate({
+/   submitHandler: function(form) {
+/   $( "#double_click_warning" ).dialog({
+/   width: 400,
+/   modal: true               
+/   });
+/   //Submit form
+/   form.submit();
+/   }
+/   });      

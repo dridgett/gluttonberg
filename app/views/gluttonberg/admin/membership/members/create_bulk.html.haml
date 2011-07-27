@@ -1,0 +1,10 @@
+- @window_title = "Membership"
+- @page_title = "#{link_to "Membership", admin_membership_path} > #{link_to("Members", admin_members_path)} > CSV processing report"
+- @page_image = "/gluttonberg/images/sidebar/icon_settings.png"
+
+= render :partial => "list" , :locals => { :list => @failed , :list_type => "failed"}
+      
+= render :partial => "list" , :locals => { :list => @successfull , :list_type => "successful"}
+      
+= render :partial => "list" , :locals => { :list => @updated , :list_type => "updated"}
+

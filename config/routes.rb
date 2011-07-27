@@ -81,6 +81,9 @@ Rails.application.routes.draw do
       scope :module => 'membership' do
         match 'membership' => "main#index",      :as => :membership
         match "/groups/move(.:format)" => "groups#move_node" , :as=> :group_move
+        match "members/export" => "members#export" , :as => :members_export
+        match 'members/new_bulk'  => "members#new_bulk" , :as => :members_import
+        match 'members/create_bulk'  => "members#create_bulk" , :as => :members_bulk_create
         resources :members do
           get 'delete', :on => :member
         end

@@ -2651,3 +2651,26 @@ p.no_content {
   /*border: thin solid #008000;*/
   background: #83c761;
 }
+
+form#list_search_form{
+  float:right !important;
+  width:225px !important;
+  padding:0px;
+  background: none;
+  border: none;
+  margin:0px;
+}
+
+.expandable {
+  cursor: pointer; 
+  padding-left:30px;
+}
+
+.expandable.collapsed {
+  background: url("/gluttonberg/images/icons/collapsed.png") no-repeat left; }
+.expandable.expanded {
+  background: url("/gluttonberg/images/icons/expanded.png") no-repeat left; }
+
+.expandable_content{
+  padding-top: 20px;
+}

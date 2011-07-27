@@ -3,16 +3,24 @@
 - @page_image = "/gluttonberg/images/sidebar/icon_settings.png"
 = sub_nav do
   = nav_link("New", new_admin_member_path) 
-  
+  = nav_link("Export" , admin_members_export_path)
+  = nav_link("Import" , admin_members_import_path)
+
+- sorter_url = admin_members_path  
 - if @members.empty?
   %p.empty No Members
 - else
+  %form{:action => admin_members_path , :id => "list_search_form"}
+    = text_field_tag :query , params[:query]
+    = submit_tag "Search" , :class => "button"
   %table{:cellpadding => 0, :cellspacing => 0, :summary => "List of members"}
     %thead
       %tr
         %th
-        %th Name
+        %th=sorter_link("Name",   "first_name",   sorter_url )  
+        %th=sorter_link("Email",   "email",   sorter_url )  
         %th Group
+        %th=sorter_link("Signup Date",   "date-added",   sorter_url ) 
         %th.controls Controls
     %tbody
       - i = 0
@@ -20,11 +28,13 @@
         - i += 1
         %tr{ :class => "#{i % 2 == 0? "even" : ""}"}
           %td
-            - unless member.image.blank? || member.image.url(:thumb_for_backend).blank?
-              = image_tag(member.image.url(:thumb_for_backend) )
-          %td= member.email
+            - if !member.image.blank? && !member.image.url(:thumb_for_backend).blank?
+              = image_tag(member.image.url(:thumb_for_backend) , :width => "142")
+          %td= member.full_name
+          %td= mail_to member.email , member.email
           %td= member.groups_name
-            
+          %td
+            = date_format member.created_at  
           %td.controls
             %ul
               %li= link_to("Edit", edit_admin_member_path(member))
