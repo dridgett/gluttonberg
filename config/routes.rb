@@ -86,6 +86,7 @@ Rails.application.routes.draw do
         match 'members/create_bulk'  => "members#create_bulk" , :as => :members_bulk_create
         resources :members do
           get 'delete', :on => :member
+          get 'welcome' , :on => :member
         end
         resources :groups do
           get 'delete', :on => :member

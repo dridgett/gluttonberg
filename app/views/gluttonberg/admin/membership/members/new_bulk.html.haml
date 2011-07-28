@@ -20,6 +20,9 @@
         %ul.csv_meta_info
           - Rails.configuration.member_csv_metadata.each do |key , val|
             %li= val
+    %fieldset
+      = check_box_tag :invite 
+      = label_tag :invite, "Send welcome email (login details) to new member?"        
         
     %fieldset
       = form_controls(admin_members_path)    

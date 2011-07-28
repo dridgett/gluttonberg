@@ -89,13 +89,20 @@ module Gluttonberg
             flash[:error] = "Please provide a valid csv file."
             redirect_to :action => new_bulk
           else
-            @successfull , @failed , @updated  = Member.importCSV(params[:csv][:file].tempfile.path )
+            @successfull , @failed , @updated  = Member.importCSV(params[:csv][:file].tempfile.path , params[:invite])
             if @successfull.kind_of? String
               flash[:error] = @successfull
               redirect_to :action => new_bulk
               return
             end
           end  
+        end
+        
+        def welcome
+           @member = Member.find(params[:id])
+           MemberNotifier.welcome( @member ).deliver
+           flash[:notice] = "Welcome email is successfully sent to the member."
+           redirect_to :action => :index 
         end
   
        private

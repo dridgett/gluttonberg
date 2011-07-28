@@ -86,13 +86,12 @@ module Gluttonberg
     
     ###############################
     # takes complete path to csv file. 
-    # and returns successfull_users , failed_users and missing_users , updated_users arrays that contains user objects
-    # if user exist with given email then update its first & last name , state 
+    # and returns successfull_users , failed_users and updated_users arrays that contains user objects
+    # if user exist with given email then update its information
     # otherwise create a new user for it
-    # lastly review the database and check is there any record that exist in db but not in csv. if yes then send a list to user
-    # returns [successfull_users , failed_users , updated_users , missing , re_activated ]
+    # returns [successfull_users , failed_users , updated_users , ]
     # if csv format is incorrect then it will return a string "CSV file format is invalid"
-    def self.importCSV(file_path )
+    def self.importCSV(file_path , invite )
       if RUBY_VERSION >= "1.9"
         require 'csv'
         csv_table = CSV.read(file_path)
@@ -157,8 +156,10 @@ module Gluttonberg
                 #if its valid then save it send an email and also add it to successfull_users array            
                 if user.valid?
                   user.save
-                  # we will regenerate password and send it user when actually badge will invite subcontractor
-                  #SubcontractorMailer.delay.user_created(user , temp_password )#.deliver # delay.
+                  if invite == "1"   
+                    # we will regenerate password and send it member
+                    MemberNotifier.delay.welcome(user)
+                  end
                   successfull_users << user
                 else # if failed then add it to failed list
                   failed_users << user                      
@@ -176,7 +177,7 @@ module Gluttonberg
 
         end #loop   
       else
-        return "Please provide a valid CSV file with correct column names (TRADE CODE, E-MAIL 1 ADDRESS, FULL NAME, COMPANY)"   
+        return "Please provide a valid CSV file with correct column names"   
       end #if  
       [successfull_users , failed_users , updated_users ]
     end

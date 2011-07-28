@@ -37,6 +37,10 @@
             = date_format member.created_at  
           %td.controls
             %ul
+              - if member.welcome_email_sent == true
+                %li= link_to("Resend welcome email" , welcome_admin_member_path(member))
+              - else
+                %li= link_to("Send welcome email" , welcome_admin_member_path(member))
               %li= link_to("Edit", edit_admin_member_path(member))
               %li= link_to "Delete", delete_admin_member_path(member)
     
