@@ -107,16 +107,17 @@ function init_tag_area() {
 
 // if container element has class "add_to_photoseries" , it returns html of new image
 function initClickEventsForAssetLinks(element) {
-    element.find(".assetBrowserLink").click(function(e) {
-        var p = $(this);
-        var link = p.find("a");
-        AssetBrowser.showOverlay()
-        $.get(link.attr("href"), null,
-        function(markup) {
-            AssetBrowser.load(p, link, markup);
-        });
-        e.preventDefault();
-    });
+  element.find(".assetBrowserLink a.choose_button").click(function(e) {
+      var p = $(this).parent();
+      var link = $(this);
+      AssetBrowser.showOverlay()
+      $.get(link.attr("href"), null,
+      function(markup) {
+          AssetBrowser.load(p, link, markup);
+      });
+      e.preventDefault();
+  });
+
 }
 
 
@@ -159,8 +160,9 @@ var AssetBrowser = {
     logo_setting: false,
     filter: null,
     actualLink: null,
+    link_parent: null,
     load: function(p, link, markup, Wysiwyg) {
-        
+        AssetBrowser.link_parent = p;
         AssetBrowser.actualLink = link;
         // it is required for asset selector in jWysiwyg
         AssetBrowser.Wysiwyg = null;
@@ -302,14 +304,23 @@ var AssetBrowser = {
             // assets only
             if (AssetBrowser.target !== null) {
                 AssetBrowser.target.attr("value", id);
-                var image = target.find("div").html();
+                var image = target.find("img");
 
-                
+                console.log(image)
                 image_url = target.find(".jwysiwyg_image").val();
                 insert_image_in_wysiwyg(image_url);
 
-                AssetBrowser.imageDisplay.html(image);
                 AssetBrowser.nameDisplay.html(name);
+                if(AssetBrowser.link_parent.find("img").length > 0)
+                {
+                  console.log("--- step1")
+                  AssetBrowser.link_parent.find("img").attr('src' , image.attr('src'))
+                  
+                }else{
+                  AssetBrowser.link_parent.prepend("<img src='"+image.attr('src')+"' />")
+                }
+                //AssetBrowser.imageDisplay.html(image);
+
                 
                 auto_save_asset(AssetBrowser.logo_setting_url , id ); //auto save if it is required
             }else{
