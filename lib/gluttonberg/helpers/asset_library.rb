@@ -68,8 +68,6 @@ module Gluttonberg
             opts[:id] = rel
           end  
 
-          button_text = opts[:button_text].blank? ? "Browse" : opts[:button_text]
-
 
          # Find the asset so we can get the name
          asset_info = "Nothing selected"
@@ -85,9 +83,9 @@ module Gluttonberg
           # Output it all
          link_contents =  content_tag(:span , asset_info , :id => "title_thumb_#{opts[:id]}") 
          link_contents << hidden_field_tag("filter_" + field_id.to_s , value=filter , :id => "filter_#{opts[:id]}" )
-         link_contents << link_to(button_text, admin_asset_browser_url + "?filter=#{filter}" , { :class => opts[:button_class] , :rel => opts[:id] , :data_url => opts[:data_url] })
+         link_contents << link_to("Select", admin_asset_browser_url + "?filter=#{filter}" , { :class => "button choose_button #{opts[:button_class]}" , :rel => opts[:id] , :data_url => opts[:data_url] })
          link_contents << hidden_field_tag(field_id , asset_id , { :id => opts[:id] , :class => "choose_asset_hidden_field" } )  
-
+         link_contents << clear_asset_tag( field_id , opts )
          content_tag(:span , link_contents , { :class => "assetBrowserLink" } )
        end
        
@@ -99,9 +97,7 @@ module Gluttonberg
            opts[:id] = rel
          end
          html_id = opts[:id]
-         button_text = opts[:button_text].blank? ? "Browse" : opts[:button_text]
-         opts[:button_class] = "" if opts[:button_class].blank?  
-         link_to("Remove", "Javascript:;" , { :class => opts[:button_class] , :onclick => "$('##{html_id}').val('');$('#title_thumb_#{opts[:id]}').html('')" })
+         link_to("Remove", "Javascript:;" , { :class => "button remove" , :onclick => "$('##{html_id}').val('');$('#title_thumb_#{opts[:id]}').html('')" })
        end
       
        def asset_panel(assets, name_or_id , type)
@@ -145,10 +141,6 @@ module ActionView
 
           opts[:id] = "#{field_id}_#{asset_id}" if opts[:id].blank?
           html_id = opts[:id]
-          button_text = opts[:button_text].blank? ? "Browse" : opts[:button_text]
-            
-          opts[:button_class] = "" if opts[:button_class].blank?  
-          opts[:button_class] << "button choose"  
 
           # Find the asset so we can get the name
           asset_info = "Nothing selected"
@@ -167,9 +159,9 @@ module ActionView
           # Output it all
           link_contents =  content_tag(:span , asset_info , :id => "title_thumb_#{opts[:id]}") 
           link_contents << hidden_field_tag("filter_#{html_id}"  , value=filter  )
-          link_contents << link_to(button_text, admin_asset_browser_url + "?filter=#{filter}" , { :class => opts[:button_class] , :rel => html_id })
+          link_contents << link_to("Select", admin_asset_browser_url + "?filter=#{filter}" , { :class =>"button choose_button #{opts[:button_class]}" , :rel => html_id })
           link_contents << self.hidden_field(field_id , { :id => html_id , :class => "choose_asset_hidden_field" } )  
-
+          link_contents << self.clear_asset( field_id , opts )
           content_tag(:span , link_contents , { :class => "assetBrowserLink" } )
         end
         
