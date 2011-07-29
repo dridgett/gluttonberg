@@ -22,9 +22,9 @@ module Gluttonberg
           prepare_to_edit
         end
        
-        def edit
-          prepare_to_edit
-        end
+        # def edit
+        #           prepare_to_edit
+        #         end
        
         def delete
           display_delete_confirmation(
@@ -48,17 +48,17 @@ module Gluttonberg
           end
         end
 
-        def update
-          if @page.update_attributes(params["gluttonberg_page"]) || !@page.changed?
-            flash[:notice] = "The page was successfully updated."
-            redirect_to edit_admin_page_url(@page)
-          else
-            flash[:error] = "Sorry, The page could not be updated."
-            prepare_to_edit
-            render :edit
-          end
-        end
-
+        # def update
+        #           if @page.update_attributes(params["gluttonberg_page"]) || !@page.changed?
+        #             flash[:notice] = "The page was successfully updated."
+        #             redirect_to edit_admin_page_url(@page)
+        #           else
+        #             flash[:error] = "Sorry, The page could not be updated."
+        #             prepare_to_edit
+        #             render :edit
+        #           end
+        #         end
+        
         def destroy
           if @page.destroy
             flash[:notice] = "The page was successfully deleted."

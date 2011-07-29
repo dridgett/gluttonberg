@@ -7,8 +7,8 @@
   
   = gb_error_messages_for(@page_localization)
   
-  - if Gluttonberg.localized? && @page.localizations &&  @page.localizations.length > 1
-    = block("Localization") do
+  .left_column
+    = block("Metadata") do
       = f.label :name
       = f.text_field(:name, :id => "page_title")    
       %br
@@ -18,16 +18,42 @@
       = f.label :slug
       = f.text_field(:slug, :id => 'page_slug')
   
-  - if @page_localization.contents.length >= 1   
-    = block("Content") do
-      - for content in @page_localization.contents
-        - unless @version.blank? || !content.versioned? 
-          - content.revert_to(@version)         
-        = content_editor(content)
-        %br
-  - else
-    %p.no_content
-      This page does not have any content area.
+    - if @page_localization.contents.length >= 1   
+      = block("Content") do
+        - for content in @page_localization.contents
+          - unless @version.blank? || !content.versioned? 
+            - content.revert_to(@version)         
+          = content_editor(content)
+          %br
+    - else
+      %p.no_content
+        This page does not have any content area.
+  
+  .right_column 
+    = f.fields_for :page , @page do |page_form|  
+      - unless @pages.blank?
+        %fieldset
+          = page_form.label :parent_id , "Parent page"
+          = page_form.select(:parent_id, @pages.collect{|p| [p.name , p.id] }, :include_blank => true, :class=>"medium")
+    
+      %fieldset
+        = page_form.label :hide_in_nav, "Hide in navigation"
+        = page_form.check_box(:hide_in_nav, :class=>"medium")
+      %legend
+        Page Description
+      - if( action_name == "new"  || ( !@pages.blank?  || !(Gluttonberg.localized? && @page.localizations &&  @page.localizations.length > 1) ) )
+        %fieldset
+          Page descriptions are used to define how this page behaves. For example, all of it’s contents may be editable, or it may be generated dynamically.
+      %fieldset
+        - if( action_name == "new" )
+          = page_form.select(:description_name, @descriptions , { :include_blank => true } , {:class => "required"} ) 
+        - else
+          = page_form.select(:description_name, @descriptions , { :include_blank => true } , {:disabled => "disabled"})  
+      %legend
+        Publish
+      - if can? :publish , Gluttonberg::Page  
+        %fieldset#publish_meta
+          = page_form.publisable_dropdown
   
   - if( Gluttonberg.localized? && @page.localizations &&  @page.localizations.length > 1 ) || @page_localization.contents.length >= 1
     = form_controls(admin_page_path(params[:page_id]))
