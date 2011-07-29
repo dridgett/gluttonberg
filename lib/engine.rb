@@ -29,9 +29,11 @@ module Gluttonberg
         "Gluttonberg::HtmlContentLocalization" => [:text] 
     }
     
+
     config.enable_members = false
     config.member_csv_metadata = { :first_name => "FIRST NAME" , :last_name => "LAST NAME" ,  :email => "EMAIL" , :groups => "GROUPS" , :bio => "BIO" }
-    
+
+    config.enable_gallery = false
 
     # Load rake tasks
     rake_tasks do

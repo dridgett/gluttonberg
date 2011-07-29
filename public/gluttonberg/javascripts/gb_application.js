@@ -237,7 +237,8 @@ var AssetBrowser = {
         AssetBrowser.display.height(newHeight);
     },
     showOverlay: function() {
-        if (!AssetBrowser.overlay) {
+        AssetBrowser.overlay = $("#assetsDialogOverlay");
+        if (!AssetBrowser.overlay || AssetBrowser.overlay.length == 0) {
             var height = $('#wrapper').height() + 50;
             AssetBrowser.overlay = $('<div id="assetsDialogOverlay">&nbsp <img class="dialogue_spinner" src="/gluttonberg/images/spinner_for_dialouge.gif" /> </div>');
             $("body").append(AssetBrowser.overlay);
@@ -311,11 +312,28 @@ var AssetBrowser = {
                 AssetBrowser.nameDisplay.html(name);
                 
                 auto_save_asset(AssetBrowser.logo_setting_url , id ); //auto save if it is required
+            }else{
+              if(AssetBrowser.actualLink.hasClass("add_image_to_gallery")){
+                
+                $.ajax({
+                    url: AssetBrowser.actualLink.attr("data_url"),
+                    data: 'asset_id=' + id,
+                    type: "GET",
+                    success: function(data) {
+                      $("#images_container").html(data);
+                      initEditGalleryList();
+                      dragTreeManager.init();
+                      AssetBrowser.close();
+                    },error: function(data){
+                      AssetBrowser.close();
+                    }
+                });
+                //auto_save_asset_for_gallery(AssetBrowser.actualLink.attr("data_url") , id )
+              }
             }
 
             AssetBrowser.close();
         }
-        //else if (target.is(".next_page") || target.is(".previous_page") || target.is('a[rel="next"]') || target.is('a[rel="prev"]') || target.is('a[rel="prev start"]')  || target.is('a[rel="next end"]')  ) {
         else if(target.parent().is(".pagination")){
             if (target.attr("href") != '') {
                 $.getJSON(target.attr("href"), null, AssetBrowser.handleJSON);
@@ -386,6 +404,7 @@ function auto_save_asset(url , new_id ){
       });
   }
 }
+
 
 // Help Browser
 // Displays the help in an overlayed box. Intended to be used for contextual
@@ -598,6 +617,7 @@ function init_flash_messages(){
   }, 5000);
 }
 
+
 function initPublishedDateTime(){
   
   
@@ -610,3 +630,23 @@ function initPublishedDateTime(){
     
   });
 }
+
+
+function initEditGalleryList(){
+  $(".delete_gallery_item").click(delete_event_handler_for_gallery_list)
+  
+  
+}
+
+function delete_event_handler_for_gallery_list(){
+  id = $(this).attr("rel")
+  $("#progress_" + id).show("fast")
+  $.ajax({
+      url: $(this).attr("data-url"),
+      type: "GET",
+      success: function(data) {
+        $("#node-" + id).remove();
+      }
+  });
+}
+

@@ -1,0 +1,32 @@
+- @page_title = "#{link_to "Content", admin_content_path} > Galleries"
+- @page_image = "/gluttonberg/images/sidebar/icon_content.png"
+= sub_nav do
+  - if can? :manage, Gluttonberg::Gallery
+    = nav_link('New', new_admin_gallery_path)
+    
+- if @galleries.empty?
+  %p.empty No Galleries
+- else
+  %table{:cellpadding => 0, :cellspacing => 0, :summary => "Galleries"}
+    %thead
+      %tr
+        %th Gallery
+        %th 
+          Created By          
+        %th.controls Controls
+    %tbody
+      - @galleries.each do |gallery|
+        %tr
+          %td
+            = gallery.title
+          %td
+            - unless gallery.user.blank?
+              = gallery.user.full_name  
+          %td.controls
+            %ul
+              %li
+                = link_to "Edit", edit_admin_gallery_path(gallery)
+              - if can? :destroy , Gluttonberg::Gallery  
+                %li
+                  = link_to "Delete", delete_admin_gallery_path(gallery)
+  = will_paginate(@galleries)

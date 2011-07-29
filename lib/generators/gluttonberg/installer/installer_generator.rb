@@ -58,6 +58,9 @@ class Gluttonberg::InstallerGenerator < Rails::Generators::Base
      # By default membership system is disabled. uncommenting following line make it enabled. 
      # if email_verification is true then newly registered members have to verify their email address
      # config.enable_members = {:email_verification => true}
+    
+     # By default photo gallery is not visible in backend. 
+     # config.enable_gallery = true  
        
      # You can customize your thumbnails. For geometry values please read ImageMagick documentation
      # config.thumbnails = { 
