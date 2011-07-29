@@ -77,9 +77,9 @@ module Gluttonberg
             :locale_id  => locale_id 
           }
         )
-        new_path = "#{localization.path}/#{slug || page.slug}"
+        new_path = "#{localization.path}/#{self.slug || page.slug}"
       else
-        new_path = "#{slug || page.slug}"
+        new_path = "#{self.slug || page.slug}"
       end
       write_attribute(:path, new_path)
     end

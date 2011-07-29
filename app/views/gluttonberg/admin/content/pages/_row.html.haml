@@ -1,13 +1,13 @@
+- default_localization = Gluttonberg::PageLocalization.find(:first , :conditions => { :page_id => page.id , :locale_id => Gluttonberg::Locale.first_default.id } )
+
 %tr{:id => drag_tree_row_id(page), :class => drag_tree_row_class(page) + "#{row % 2 == 0? " even" : ""}"}
   %td
     %span.pagetitle
-      = page.home ? "#{page.name} (Home page)" : page.name
+      = page.home ? "#{default_localization.name} (Home page)" : default_localization.name
     %span.controls
       - if Gluttonberg.localized? &&  page.localizations.length > 1
-        - default_localization = Gluttonberg::PageLocalization.find(:first , :conditions => { :page_id => page.id , :locale_id => Gluttonberg::Locale.first_default.id } )
         = link_to("Edit", edit_admin_page_page_localization_path( :page_id => page.id, :id => default_localization.id))
       - else        
-        - default_localization = Gluttonberg::PageLocalization.find(:first , :conditions => { :page_id => page.id , :locale_id => Gluttonberg::Locale.first_default.id } )
         = link_to("Edit", edit_admin_page_page_localization_path( :page_id => page.id, :id => default_localization.id))
         = link_to("Preview", default_localization.public_path  , { :target => "_blank" }) 
 
