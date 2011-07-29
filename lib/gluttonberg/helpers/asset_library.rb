@@ -94,7 +94,7 @@ module Gluttonberg
        
       def add_image_to_gallery_tag( button_text , add_url, gallery_id , opts = {})
           opts[:class] = "" if opts[:class].blank?
-          opts[:class] << " add_image_to_gallery"
+          opts[:class] << " add_image_to_gallery choose_button"
           link_contents = link_to(button_text, admin_asset_browser_url + "?filter=image" , opts.merge( :data_url => add_url ))
           content_tag(:span , link_contents , { :class => "assetBrowserLink" } )
       end
