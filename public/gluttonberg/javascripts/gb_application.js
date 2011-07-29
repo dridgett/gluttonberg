@@ -24,7 +24,8 @@ $(document).ready(function() {
     
     $("form.validation").validate();
     
-    init_flash_messages()
+    init_flash_messages();
+    initPublishedDateTime();
 
 });
 
@@ -595,4 +596,17 @@ function init_flash_messages(){
   setTimeout(function(){
     $('#flash_notice').fadeOut('slow');
   }, 5000);
+}
+
+function initPublishedDateTime(){
+  
+  
+  $('.publish_datetime').datetimepicker({
+    dateFormat: 'dd/mm/yy',
+    timeFormat: 'hh:mm TT',
+    separator: ' ',
+    ampm: true,
+    firstDay: 1
+    
+  });
 }

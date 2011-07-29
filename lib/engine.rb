@@ -71,7 +71,7 @@ module Gluttonberg
       Gluttonberg::Content.setup      
       
       Gluttonberg::CanFlag.setup
-      
+      Time::DATE_FORMATS[:default] = "%d/%m/%Y %I:%M %p" 
     end
     
     initializer "setup gluttonberg asset library" do |app| 

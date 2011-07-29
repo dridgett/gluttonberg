@@ -364,7 +364,9 @@ module ActionView
           val = object.state
           val = "ready" if val.blank? || val == "not_ready"
           @@workflow_states = [  [ 'Draft' , 'ready' ] , ['Published' , "published" ] , [ "Archived" , 'archived' ]  ]
-          self.datetime_select("published_at") + select( :state, options_for_select(@@workflow_states , val)   )
+          object.published_at = object.published_at.to_s
+          #self.datetime_select("published_at") + select( :state, options_for_select(@@workflow_states , val)   )
+          self.text_field("published_at" , :class => "publish_datetime") + select( :state, options_for_select(@@workflow_states , val)   )
         end
         
     end
