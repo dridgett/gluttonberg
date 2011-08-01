@@ -7,7 +7,7 @@ Rails.application.routes.draw do
       match "/asset/:hash/:id(/:thumb_name)" => "public_assets#show" , :as => :public_asset
       match "/_public/page" => "pages#show"
       match "/restrict_site_access" => "pages#restrict_site_access" , :as => :restrict_site_access
-      
+      match "sitemap" => "pages#sitemap" , :as => :sitemap
       # Blog Stuff
       resources :blogs do      
         resources :articles do

@@ -27,8 +27,9 @@ module Gluttonberg
         #         end
        
         def delete
+          default_localization = Gluttonberg::PageLocalization.find(:first , :conditions => { :page_id => @page.id , :locale_id => Gluttonberg::Locale.first_default.id } )
           display_delete_confirmation(
-            :title      => "Delete “#{@page.name}” page?",
+            :title      => "Delete “#{default_localization.name}” page?",
             :url        => admin_page_url(@page),
             :return_url => admin_pages_path , 
             :warning    => "Children of this page will also be deleted."

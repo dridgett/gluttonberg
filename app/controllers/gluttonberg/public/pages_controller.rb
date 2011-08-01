@@ -39,6 +39,10 @@ module Gluttonberg
         render :layout => false
       end
       
+      def sitemap
+        
+      end
+      
       private 
         def retrieve_page
           @page = env['gluttonberg.page']

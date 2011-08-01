@@ -1,5 +1,7 @@
 - @window_title = "Content"
 
+= sub_nav do
+  %li.button= link_to("Preview", @page_localization.public_path  , { :target => "_blank" })
 
 - select_page_title = @page.name.blank? ? "Edit Content" : "Edit Content > #{@page.name}"
 - if(Gluttonberg.localized? && @page.localizations &&  @page.localizations.length > 1)
