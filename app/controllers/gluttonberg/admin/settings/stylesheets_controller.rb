@@ -2,7 +2,7 @@
 
 module Gluttonberg
   module Admin
-    module Content    
+    module Settings    
       class StylesheetsController < Gluttonberg::Admin::BaseController
         
         before_filter :find_stylesheet, :only => [:edit, :update, :delete, :destroy]

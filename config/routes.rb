@@ -59,10 +59,7 @@ Rails.application.routes.draw do
           get 'remove_image' , :on => :member
         end  
         match "/galleries/move(.:format)" => "galleries#move_node" , :as=> :gallery_move
-        resources :stylesheets do
-          get 'delete', :on => :member
-        end
-        match "/stylesheets/move(.:format)" => "stylesheets#move_node" , :as=> :stylesheet_move
+        
       end
       
       # Settings
@@ -78,7 +75,12 @@ Rails.application.routes.draw do
         
         resources :generic_settings do 
           get 'delete', :on => :member
-        end       
+        end  
+        
+        resources :stylesheets do
+          get 'delete', :on => :member
+        end
+        match "/stylesheets/move(.:format)" => "stylesheets#move_node" , :as=> :stylesheet_move     
       end  
       
       scope :module => 'AssetLibrary' do
