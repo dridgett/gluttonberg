@@ -334,30 +334,43 @@ body {
 			color: #F58DA2; }
 /* Base styles */
 form, .pageBlock {
-  margin-bottom: 25px;
-  background: #FFFFFF;
-  border: #e5e4e3 1px solid;
-  padding: 1.5em 0 25px 0;
-  width: 99.9%;
-  float: left;
-	-moz-border-top-left-radius: 0 0;
-	-moz-border-top-right-radius: 3px 3px;
-	-moz-border-bottom-left-radius: 3px 3px;
-	-moz-border-bottom-right-radius: 3px 3px;
-	-webkit-border-top-left-radius: 0 0;
-	-webkit-border-top-right-radius: 3px 3px;
-	-webkit-border-bottom-left-radius: 3px 3px;
-	-webkit-border-bottom-right-radius: 3px 3px;
-	border-top-left-radius: 0px 0px;
-	border-top-right-radius: 3px 3px;
-	border-bottom-left-radius: 3px 3px;
-	border-bottom-right-radius: 3px 3px; }
+  margin: 25px 0;
+    background: #FFFFFF;
+    border: #e5e4e3 1px solid;
+    padding: 30px 20px;
+    width: 876px;
+    float: left;
+  	position: relative;
+  	-moz-border-top-left-radius: 0 0;
+  	-moz-border-top-right-radius: 3px 3px;
+  	-moz-border-bottom-left-radius: 3px 3px;
+  	-moz-border-bottom-right-radius: 3px 3px;
+  	-webkit-border-top-left-radius: 0 0;
+  	-webkit-border-top-right-radius: 3px 3px;
+  	-webkit-border-bottom-left-radius: 3px 3px;
+  	-webkit-border-bottom-right-radius: 3px 3px;
+  	border-top-left-radius: 0px 0px;
+  	border-top-right-radius: 3px 3px;
+  	border-bottom-left-radius: 3px 3px;
+  	border-bottom-right-radius: 3px 3px; }
+
+.article_form form{
+  width: 576px;
+}
 
 #assetsDialog .nosubnav {
 	margin-top: 0; }
 
 .nosubnav {
 	margin-top: 25px; }
+
+  .left_column {
+  	float: left;
+  	width: 540px; }
+
+  .right_column {
+  	float: right;
+  	width: 270px; }
 	
 .fieldset {
   border: 0;
@@ -365,19 +378,26 @@ form, .pageBlock {
  	margin: auto;
  	padding-top: 15px; }
 
-fieldset {
-	padding: 0 15px;
-	border: none;
+  #gluttonberg_page_description_name {
+  	width: 240px; }
+  fieldset {
+  	border: none;
+  }
+  legend {
+  	font-size: 14px;
+  	font-family: Georgia, Serif;
+  	color: #727272;
+  	width: 100%;
+  	padding: 0 0 16px 0;
+  	margin-bottom: 16px;
+  	display: block;
+  	border-bottom: 1px solid #dcdbd9; }
+
+  fieldset {
+  	clear:both;
+  	margin-bottom: 18px }
 }
-legend {
-	font-size: 14px;
-	font-family: Georgia, Serif;
-	color: #727272;
-	width: 100%;
-	padding: 0 0 16px 0;
-	margin-bottom: 16px;
-	display: block;
-	border-bottom: 1px solid #dcdbd9; }
+
 	
 div.fieldset,
 ol.fieldset { }
