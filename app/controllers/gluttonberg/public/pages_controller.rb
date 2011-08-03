@@ -32,6 +32,19 @@ module Gluttonberg
         render :layout => false
       end
       
+      def stylesheets
+        @stylesheet = Stylesheet.find(:first , :conditions => { :slug => params[:id] })
+        unless params[:version].blank?
+          @version = params[:version]  
+          @stylesheet.revert_to(@version)
+        end
+        if @stylesheet.blank?
+          render :text => ""
+        else  
+          render :text => @stylesheet.value
+        end  
+      end
+      
       private 
         def retrieve_page
           @page = env['gluttonberg.page']

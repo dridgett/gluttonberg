@@ -2674,3 +2674,8 @@ p.no_content {
 #images_container {
   
 }
+
+.fullscreen{
+  width: 100%;
+  height: 500px;
+}

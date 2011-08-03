@@ -19,6 +19,8 @@ Rails.application.routes.draw do
       match "/save_mark_as_flag" => "flag#create" , :as => :save_mark_as_flag
       match "/articles/tag/:tag" => "articles#tag" , :as => :articles_by_tag
       match "/articles/unsubscribe/:reference" => "articles#unsubscribe" , :as => :unsubscribe_article_comments      
+      get 'stylesheets/:id' => "pages#stylesheets", :as =>  :stylesheets
+      
     end
     
     namespace :admin do
@@ -49,6 +51,7 @@ Rails.application.routes.draw do
             end
           end
         end
+        
         match "/pages/move(.:format)" => "pages#move_node" , :as=> :page_move
         resources :galleries do
           get 'delete', :on => :member
@@ -56,7 +59,10 @@ Rails.application.routes.draw do
           get 'remove_image' , :on => :member
         end  
         match "/galleries/move(.:format)" => "galleries#move_node" , :as=> :gallery_move
-        
+        resources :stylesheets do
+          get 'delete', :on => :member
+        end
+        match "/stylesheets/move(.:format)" => "stylesheets#move_node" , :as=> :stylesheet_move
       end
       
       # Settings
