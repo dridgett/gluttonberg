@@ -682,9 +682,9 @@ td {
   padding: 15px 15px 20px; }
 
 table tr {
-	background: #ffffff url("/gluttonberg/images/row_divider.jpg") repeat-x bottom !important; }
+	background: #ffffff url("/gluttonberg/images/row_divider.jpg") repeat-x bottom  }
 
-/*tr.even td {
+/*tr.even td { !important;
   background-color: #f3f2f2; }
 */
 table .controls {
