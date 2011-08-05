@@ -4,7 +4,7 @@ module Gluttonberg
   module Admin
     module Settings    
       class StylesheetsController < Gluttonberg::Admin::BaseController
-        
+        drag_tree Stylesheet , :route_name => :admin_stylesheet_move
         before_filter :find_stylesheet, :only => [:edit, :update, :delete, :destroy]
         before_filter :authorize_user , :except => [:destroy , :delete]  
         before_filter :authorize_user_for_destroy , :only => [:destroy , :delete]

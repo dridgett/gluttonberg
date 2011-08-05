@@ -7,7 +7,7 @@
 - if @stylesheets.empty?
   %p.empty No Stylesheets
 - else
-  %table{:cellpadding => 0, :cellspacing => 0, :summary => "Stylesheets"}
+  %table{:id => 'pages_table', :class => (can?(:reorder , Gluttonberg::Page) ? "#{drag_tree_table_class} " : " " ), :cellpadding => 0, :cellspacing => 0, :rel => "" , :summary => "Stylesheets" , :rel => drag_tree_url }
     %thead
       %tr
         %th CSS
@@ -17,8 +17,9 @@
         %th.controls Controls
     %tbody
       - @stylesheets.each do |stylesheet|
-        %tr
+        %tr{:id => drag_tree_row_id(stylesheet), :class => drag_tree_row_class(stylesheet) + "#{cycle("even", "odd")}"}
           %td
+            %span{:class => "#{drag_tree_drag_point_class} page" , :rel => drag_tree_row_id(stylesheet)}
             = stylesheet.name
           %td= link_to stylesheets_path(stylesheet.slug) + ".css?#{stylesheet.version}" , stylesheets_path(stylesheet.slug) + ".css?#{stylesheet.version}"  
           %td
