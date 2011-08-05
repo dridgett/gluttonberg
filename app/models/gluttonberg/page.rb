@@ -222,6 +222,9 @@ module Gluttonberg
       puts "completed"
     end
     
+    def is_public?
+      groups.blank?
+    end  
         
     private
 
